@@ -1,30 +1,59 @@
 """Run with python -m lingbot_map.reconstruction."""
+
 import argparse
 import contextlib
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Reconstruct observed property surfaces on this Mac")
-    parser.add_argument("stage", choices=["prepare", "infer", "run", "sfm", "refine", "fuse", "validate", "view"], nargs="?")
+    parser = argparse.ArgumentParser(
+        description="Reconstruct observed property surfaces on this Mac"
+    )
+    parser.add_argument(
+        "stage",
+        choices=[
+            "prepare",
+            "infer",
+            "run",
+            "sfm",
+            "densify",
+            "normalize",
+            "refine",
+            "fuse",
+            "validate",
+            "view",
+        ],
+        nargs="?",
+    )
     parser.add_argument("--video", type=Path)
     parser.add_argument("--source", type=Path)
     parser.add_argument("--colmap-model", type=Path)
+    parser.add_argument(
+        "--pose-convention",
+        choices=["auto", "camera-to-world", "world-to-camera"],
+        default="auto",
+    )
     parser.add_argument("--output", type=Path, default=Path("reconstructions/property"))
-    parser.add_argument("--checkpoint", type=Path, default=Path("checkpoints/lingbot-map-long.pt"))
+    parser.add_argument(
+        "--checkpoint", type=Path, default=Path("checkpoints/lingbot-map-long.pt")
+    )
     parser.add_argument("--fps", type=float, default=2)
     parser.add_argument("--limit", type=int)
     parser.add_argument("--window", type=int, default=96)
     parser.add_argument("--overlap", type=int, default=24)
     parser.add_argument("--device", choices=["mps", "cpu", "cuda"], default="mps")
-    parser.add_argument("--precision", choices=["float32", "bfloat16", "float16"], default="bfloat16")
+    parser.add_argument(
+        "--precision", choices=["float32", "bfloat16", "float16"], default="bfloat16"
+    )
     args = parser.parse_args()
     if not args.stage:
-        print('description: Reconstruct observed property surfaces on this Mac')
+        print("description: Reconstruct observed property surfaces on this Mac")
         print('status: "Choose an input video to begin"')
-        print('help: "python -m lingbot_map.reconstruction run --video <video> --output <directory>"')
+        print(
+            'help: "python -m lingbot_map.reconstruction run --video <video> --output <directory>"'
+        )
         return
     try:
         if args.fps <= 0 or (args.limit is not None and args.limit < 1):
@@ -33,34 +62,65 @@ def main():
             if args.video is None:
                 raise ValueError("--video is required for prepare/run")
             from .io import prepare
+
             prepare(args.video, args.output, args.fps, args.limit)
         if args.stage in ("infer", "run"):
             with contextlib.redirect_stdout(sys.stderr):
                 from .inference import infer
-                infer(args.output, args.checkpoint, args.window, args.overlap, args.device, args.precision)
+
+                infer(
+                    args.output,
+                    args.checkpoint,
+                    args.window,
+                    args.overlap,
+                    args.device,
+                    args.precision,
+                    args.pose_convention,
+                )
         if args.stage in ("fuse", "run"):
             with contextlib.redirect_stdout(sys.stderr):
                 from .fusion import fuse
+
                 fuse(args.output)
         if args.stage in ("validate", "run"):
             from .validation import validate
+
             validate(args.output)
         if args.stage == "sfm":
             from .sfm import reconstruct_cameras
+
             reconstruct_cameras(args.output)
+        if args.stage == "densify":
+            if args.source is None:
+                raise ValueError("densify requires --source and a new --output")
+            from .densification import densify
+
+            densify(args.source, args.output)
+        if args.stage == "normalize":
+            if args.source is None:
+                raise ValueError("normalize requires --source and a new --output")
+            from .normalization import normalize_archives
+
+            normalize_archives(args.source, args.output)
         if args.stage == "refine":
             if args.source is None or args.colmap_model is None:
-                raise ValueError("refine requires --source, --colmap-model and a new --output")
+                raise ValueError(
+                    "refine requires --source, --colmap-model and a new --output"
+                )
             from .refinement import refine
-            refine(args.source,args.output,args.colmap_model)
+
+            refine(args.source, args.output, args.colmap_model)
         if args.stage == "view":
             from .viewer import view
+
             view(args.output)
-        print('status: complete')
-        print('output: ' + json.dumps(str(args.output.resolve())))
+        print("status: complete")
+        print("output: " + json.dumps(str(args.output.resolve())))
     except (ValueError, FileNotFoundError, RuntimeError) as error:
-        print('error: ' + json.dumps(str(error)))
-        print('help: "Check the input and configuration; saved windows can be resumed with infer"')
+        print("error: " + json.dumps(str(error)))
+        print(
+            'help: "Check the input and configuration; saved windows can be resumed with infer"'
+        )
         sys.exit(1)
 
 
