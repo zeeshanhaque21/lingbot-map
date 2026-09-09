@@ -29,6 +29,31 @@ def main():
     baseline_cameras = args.baseline / "model/cameras.json"
     baseline = audit_closure(tour["source"], json.loads(baseline_cameras.read_text()))
     candidate = json.loads((args.tour / "closure-audit.json").read_text())
+    refinements = []
+    for root in sorted(args.tour.glob("fixanything-*")):
+        if not (root / "started.json").exists():
+            continue
+        started = json.loads((root / "started.json").read_text())
+        completion = (
+            json.loads((root / "completion.json").read_text())
+            if (root / "completion.json").exists()
+            else None
+        )
+        entry = {"name": root.name, "started": started, "completion": completion}
+        for name, filename in (
+            ("stitch", "stitch/stitch.json"),
+            ("comparison", "evaluation/comparison.json"),
+            ("source_comparison", "source-comparison/comparison.json"),
+        ):
+            if (root / filename).exists():
+                entry[name] = json.loads((root / filename).read_text())
+        refinements.append(entry)
+    full_completed = any(
+        r["completion"]
+        and r["completion"].get("success")
+        and r["completion"].get("full_spherical_sweep")
+        for r in refinements
+    )
     write_json(
         args.output,
         {
@@ -42,7 +67,11 @@ def main():
                         "observed_sphere_fraction",
                         "generated",
                         "panorama_sha256",
+                        "refined_panorama",
+                        "refined_panorama_sha256",
+                        "refinement_review",
                     )
+                    if k in s
                 }
                 for s in stations
             ],
@@ -52,10 +81,20 @@ def main():
             "raw_stitch": json.loads(
                 (args.tour / "sweep-000-v1/raw-stitch/stitch.json").read_text()
             ),
+            "refinements": refinements,
+            "source_view_baseline": (
+                json.loads(
+                    (args.tour / "source-comparison-baseline-v1/comparison.json").read_text()
+                )
+                if (args.tour / "source-comparison-baseline-v1/comparison.json").exists()
+                else None
+            ),
+            "full_spherical_inference_completed": full_completed,
             "limitations": [
                 "Training-match residuals are not independent accuracy.",
                 "Spherical directional coverage is not observed surface coverage.",
-                "FixAnything inference has not yet completed.",
+                "Generated details require structural review against the capture.",
+                "An absent completion record does not establish process liveness.",
             ],
         },
     )

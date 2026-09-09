@@ -48,6 +48,16 @@ It produces plausible gap filling with visible artifacts and is not a final pano
 The full 61-frame, 10-step run at 832 by 480 is in progress.
 Next acceptance work is spherical stitching, overlap and seam comparison against the raw baseline, and visual inspection of preserved structural details.
 
+The five actual smoke-test input/output pairs are visible at `http://127.0.0.1:8083/fixanything-smoke-v1/review.html`.
+The gallery uses FixAnything's exact input crop and the unchanged generated PNGs.
+The live 3D tour still displays raw panoramas until a full candidate has been reviewed.
+
+A separate source-photo comparison is ready for all 24 images excluded from mesh fusion.
+It projects shared surfaces through the fixed station using the saved mesh and cameras, rejects occluded surfaces, and compares both candidate and unchanged panorama against the same photo pixels.
+The unchanged baseline has 1,197,452 shared pixels across those 24 views.
+These photos still contributed to camera estimation and learned reconstruction context; color error is a diagnostic and does not certify building structure.
+Synthetic translated-camera, occlusion, wraparound and pole tests pass; the full suite has 55 passing tests.
+
 ## Reproduce
 
 ```bash
