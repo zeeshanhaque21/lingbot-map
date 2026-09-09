@@ -167,3 +167,42 @@ def stitch_sweep(sweep, images, output, width=2048, generated=False):
     }
     write_json(output / "stitch.json", report)
     return report
+
+
+def attach_refinement(tour, station_id, refinement):
+    """Attach a generated candidate while preserving the original raw panorama."""
+    tour, refinement = Path(tour).resolve(), Path(refinement).resolve()
+    try:
+        relative = refinement.relative_to(tour)
+    except ValueError as error:
+        raise ValueError(
+            "Keep the refinement inside the portable tour directory"
+        ) from error
+    report = json.loads((refinement / "stitch.json").read_text())
+    if not report.get("generated") or report["camera_coverage_fraction"] < 0.999:
+        raise ValueError(
+            "Attach only generated candidates with complete spherical coverage"
+        )
+    if digest(refinement / "panorama.png") != report["panorama_sha256"]:
+        raise ValueError("Refined panorama changed after stitching")
+    sweep = json.loads((Path(report["source_sweep"]) / "sweep.json").read_text())
+    if sweep["station"] != station_id or Path(sweep["tour"]).resolve() != tour:
+        raise ValueError("Refinement belongs to a different tour or station")
+    stations = json.loads((tour / "stations.json").read_text())
+    station = next((s for s in stations if s["id"] == station_id), None)
+    if station is None:
+        raise ValueError(f"Unknown station: {station_id}")
+    if station.get("refined_panorama"):
+        raise ValueError(
+            "A candidate is already attached; preserve it in a separate tour"
+        )
+    station.update(
+        {
+            "refined_panorama": str(relative / "panorama.png"),
+            "refinement_report": str(relative / "stitch.json"),
+            "refined_panorama_sha256": report["panorama_sha256"],
+            "refinement_review": "unverified_generated_candidate",
+        }
+    )
+    write_json(tour / "stations.json", stations)
+    return station

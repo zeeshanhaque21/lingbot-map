@@ -63,13 +63,19 @@ Generated fill must remain distinguishable from observed building evidence.
 The published setup uses CUDA PyTorch and optionally FlashAttention-2.
 The repository estimates approximately 60 GB for the base Wan download, plus the FixAnything adapter.
 The actual selected Hugging Face files total 82,856,630,348 bytes, including the base shards, encoders, tokenizer, VAE and adapter.
-Downloads are in progress through Motrix with published SHA-256 checksums where available.
-The loader exposes a device parameter and CPU offloading, but a completed Mac execution result has not yet been established.
+All 18 selected files are downloaded and verified through Motrix, including 13 files with published SHA-256 checksums.
+A real five-frame, two-step inference run at 448 by 256 completed in 104.17 seconds, including model loading.
+The denoising stage used approximately 34.37 GB of MPS driver allocation.
+The generated smoke-test frames contain plausible gap filling but visible artifacts; this verifies execution rather than final tour quality.
+A full 61-frame, 10-step run at the published 832-by-480 resolution is in progress.
 A device parameter alone does not verify DiffSynth, attention, offloading hooks or runtime memory behavior on MPS.
 
 The repository identifies its code and FixAnything weights as Apache 2.0.
-Code and documentation were inspected, and isolated local model setup is in progress.
-No generated FixAnything frames were inserted into the reconstruction or validation evidence.
+The isolated runtime uses PyTorch 2.14.0 and Transformers 4.57.6 with DiffSynth commit `afd101f3452c9ecae0c87b79adfa2e22d65ffdc3`.
+Its MPS adapter retains the original CPU float64 timestep calculation, stores frequencies as complex64, and evaluates rotary multiplication in float32.
+The rotary fixture differs from the original calculation by at most 0.00000024.
+An explicit persistent-parameter budget bypasses upstream CUDA memory queries.
+The reconstruction geometry and raw panoramas remain unchanged.
 
 ## Decision
 

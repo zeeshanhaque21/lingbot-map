@@ -42,9 +42,11 @@ Mean overlap RGB standard deviation is 0.00075; wrap-edge RGB difference is 0.00
 Only 36% to 41% of raw panorama pixels intersect captured surfaces.
 Coverage of rendering directions must not be confused with coverage of the actual building.
 
-FixAnything model setup and downloads are in progress.
-No panorama is currently labeled as refined or generated.
-Next acceptance work is a completed Mac inference run, overlap and seam comparison against the raw baseline, and visual inspection of preserved structural details.
+All model downloads completed through Motrix with checksum verification.
+A real five-frame, two-step FixAnything smoke run completed on MPS in 104.17 seconds, including loading.
+It produces plausible gap filling with visible artifacts and is not a final panorama.
+The full 61-frame, 10-step run at 832 by 480 is in progress.
+Next acceptance work is spherical stitching, overlap and seam comparison against the raw baseline, and visual inspection of preserved structural details.
 
 ## Reproduce
 

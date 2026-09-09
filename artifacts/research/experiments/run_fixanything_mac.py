@@ -39,6 +39,8 @@ def main():
         )
     if not torch.backends.mps.is_available():
         parser.error("MPS is unavailable")
+    if min(args.width, args.height) < 64 or args.width % 16 or args.height % 16:
+        parser.error("Image dimensions must be multiples of 16 and at least 64")
     manifest = json.loads((args.models / "download-manifest.json").read_text())
     incomplete = [
         item["path"]
@@ -49,6 +51,8 @@ def main():
     ]
     if incomplete:
         parser.error(f"Model downloads are incomplete: {incomplete}")
+    if not (args.models / "download-completion.json").exists():
+        parser.error("Run fetch_fixanything_models.py --status to verify Motrix completion")
     args.output.mkdir(parents=True)
     started = time.time()
     source = args.repository / "scripts/run_inference.py"
@@ -70,6 +74,8 @@ def main():
             ["git", "-C", str(args.repository), "rev-parse", "HEAD"], text=True
         ).strip(),
         "script_sha256": digest(source),
+        "model_manifest_sha256": digest(args.models / "download-manifest.json"),
+        "download_receipt_sha256": digest(args.models / "download-completion.json"),
         "generated": True,
     }
     write_json(args.output / "started.json", config)

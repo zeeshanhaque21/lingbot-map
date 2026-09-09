@@ -31,6 +31,7 @@ def main():
             "tour-view",
             "tour-sweep",
             "tour-stitch",
+            "tour-attach",
         ],
         nargs="?",
     )
@@ -222,6 +223,12 @@ def main():
             from .panorama import stitch_sweep
 
             stitch_sweep(args.source, args.images, args.output, args.panorama_width, args.generated)
+        if args.stage == "tour-attach":
+            if args.source is None:
+                raise ValueError("tour-attach requires --source refinement and --output tour")
+            from .panorama import attach_refinement
+
+            attach_refinement(args.output, args.station, args.source)
         passed = quality is None or quality["view_consistency_gate"]
         print("status: complete" if passed else "status: needs_review")
         print("output: " + json.dumps(str(artifact_output.resolve())))

@@ -6,7 +6,12 @@ import pytest
 from PIL import Image
 from scipy.spatial.transform import Rotation
 
-from lingbot_map.reconstruction.panorama import stitch_sweep, sweep_rotations
+from lingbot_map.reconstruction.io import digest
+from lingbot_map.reconstruction.panorama import (
+    attach_refinement,
+    stitch_sweep,
+    sweep_rotations,
+)
 from lingbot_map.reconstruction.rendering import SurfaceRenderer
 from lingbot_map.reconstruction.tour import panorama_rays
 
@@ -92,3 +97,38 @@ def test_sweep_stitch_covers_sphere_and_preserves_direction(tmp_path):
     expected = (panorama_rays(np.eye(4), 256, 128)[..., 3:] + 1) / 2
     assert np.abs(actual - expected).mean() < 0.002
     assert result["wrap_seam_rgb_difference"] < 0.01
+
+
+def test_attach_keeps_raw_and_rejects_wrong_station(tmp_path):
+    refinement, sweep = tmp_path / "refinement", tmp_path / "sweep"
+    refinement.mkdir()
+    sweep.mkdir()
+    original = [{"id": "000", "panorama": "raw.png", "generated": False}]
+    (tmp_path / "stations.json").write_text(json.dumps(original))
+    # Explicit synthetic fixture, never a model output or production tour.
+    Image.new("RGB", (64, 32), "red").save(refinement / "panorama.png")
+    (refinement / "stitch.json").write_text(
+        json.dumps(
+            {
+                "generated": True,
+                "camera_coverage_fraction": 1.0,
+                "panorama_sha256": digest(refinement / "panorama.png"),
+                "source_sweep": str(sweep),
+            }
+        )
+    )
+    (sweep / "sweep.json").write_text(
+        json.dumps({"tour": str(tmp_path), "station": "001"})
+    )
+    with pytest.raises(ValueError, match="different tour or station"):
+        attach_refinement(tmp_path, "000", refinement)
+    assert json.loads((tmp_path / "stations.json").read_text()) == original
+    (sweep / "sweep.json").write_text(
+        json.dumps({"tour": str(tmp_path), "station": "000"})
+    )
+    station = attach_refinement(tmp_path, "000", refinement)
+    assert station["panorama"] == "raw.png"
+    assert station["generated"] is False
+    assert station["refinement_review"] == "unverified_generated_candidate"
+    with pytest.raises(ValueError, match="already attached"):
+        attach_refinement(tmp_path, "000", refinement)
