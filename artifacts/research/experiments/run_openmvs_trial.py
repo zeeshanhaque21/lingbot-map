@@ -27,7 +27,12 @@ def main():
     parser.add_argument("--dataset", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--threads", type=int, default=8)
-    parser.add_argument("--seam-leveling", choices=["on", "off"], default="on")
+    parser.add_argument("--seam-leveling", choices=["on", "off"], default="off")
+    parser.add_argument(
+        "--refine",
+        action="store_true",
+        help="Apply native photometric mesh refinement before texturing",
+    )
     parser.add_argument(
         "--reuse-dense",
         type=Path,
@@ -115,7 +120,7 @@ def main():
             "TextureMesh",
             [
                 "--input-file",
-                "mesh.mvs",
+                "refined.mvs" if args.refine else "mesh.mvs",
                 "--output-file",
                 "property.mvs",
                 "--export-type",
@@ -132,6 +137,37 @@ def main():
             ["property.mvs", "property.glb"],
         ),
     ]
+    if args.refine:
+        stages.insert(
+            3,
+            (
+                "refine",
+                "RefineMesh",
+                [
+                    "--input-file",
+                    "mesh.mvs",
+                    "--output-file",
+                    "refined.mvs",
+                    "--resolution-level",
+                    "0",
+                    "--min-resolution",
+                    "640",
+                    "--max-views",
+                    "8",
+                    "--decimate",
+                    "1",
+                    "--close-holes",
+                    "0",
+                    "--scales",
+                    "2",
+                    "--max-face-area",
+                    "32",
+                    "--regularity-weight",
+                    "0.2",
+                ],
+                ["refined.mvs", "refined.ply"],
+            ),
+        )
     binaries = {name: digest(args.binaries / name) for _, name, _, _ in stages}
     reuse = {}
     if args.reuse_dense:
@@ -180,9 +216,10 @@ def main():
                 "implementation_sha256": digest(Path(__file__)),
                 "threads": args.threads,
                 "seam_leveling": args.seam_leveling,
+                "photometric_refinement": args.refine,
                 "reuse_dense": str(args.reuse_dense) if args.reuse_dense else None,
                 "metric_accuracy_verified": False,
-                "interpretation": "Classical CPU multiview stereo on captured training RGB. Artificial tower points, automatic region cropping, hole filling, mesh smoothing and texture sharpening are disabled. The surface still requires reserved-view and independent property checks.",
+                "interpretation": "Classical CPU multiview stereo on captured training RGB. Artificial tower points, automatic region cropping, hole filling, initial mesh smoothing and texture sharpening are disabled. Optional photometric refinement changes vertex positions and topology using training images and native regularization. The surface still requires reserved-view and independent property checks.",
             },
             indent=2,
         )
