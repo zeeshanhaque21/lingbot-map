@@ -132,6 +132,19 @@ The native local comparison below removes the registered-camera occluder, illust
 
 The failed registered-camera arm is preserved as a [separate comparison](evidence/kitchen-registered-window.jpg).
 
+### Uninterrupted native checkpoint comparison
+
+The Mac also completed all 1,000 frames in one native LingBot inference window, retaining eight scale frames and a 64-frame attention cache.
+This avoids both external photogrammetry and joins between separately initialized prediction windows.
+Inference and archive writing took 1,506.74 seconds, excluding model loading and input preprocessing.
+Peak reported live Metal allocation was 14.77 GB, and peak reported driver allocation was 23.76 GB.
+These are overlapping allocator measurements rather than quantities to add together.
+
+Depth, confidence, extrinsics, intrinsics and RGB for the first 96 frames are bitwise identical to the earlier normalized 96-frame baseline.
+The larger run therefore preserves that initial baseline while extending its uninterrupted history.
+The archive is retained at `reconstructions/indoor-travel-native-stream1000/windows/000000.npz` with SHA-256 `2125db6b5f554352ae3c61fc601e9b9d94d285bc0a3d7ea36eb16e59ce2ac430`.
+Its full mesh and actual exported asset are evaluated on all 100 reserved views.
+
 ### Exact adaptive sampling
 
 An initial burst-extraction command omitted variable-frame-rate output mode and produced duplicate output frames.

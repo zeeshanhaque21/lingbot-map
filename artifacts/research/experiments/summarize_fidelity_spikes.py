@@ -18,6 +18,7 @@ def main():
         "matched_ownership_comparison": "motion-weight-falsifier-v2/results.jsonl",
         "overlap_quality": "overlap-quality-falsifier.json",
         "apple_photogrammetry": "apple-capture-80/result.json",
+        "native_stream_memory_and_prefix": "indoor-travel-native-stream1000/native-stream-comparison.json",
     }.items():
         path = captures / relative
         if not path.exists():
@@ -28,7 +29,7 @@ def main():
             if path.suffix == ".jsonl"
             else json.loads(path.read_text()),
         }
-    for run in ["indoor-travel-learned-cameras-v1", "indoor-travel-learned-motion10-bootstrap"]:
+    for run in ["indoor-travel-learned-cameras-v1", "indoor-travel-learned-motion10-bootstrap", "indoor-travel-native-stream1000"]:
         model = captures / run / "model"
         records[run] = {}
         for name in ["validation.json", "render-validation.json", "web-render-validation.json"]:
