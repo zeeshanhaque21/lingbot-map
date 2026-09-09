@@ -1,0 +1,133 @@
+{
+  "input_sha256": {
+    "reconstructions/examples/loop/windows/000000.npz": "d39da407739131229196d75dacd888c74f869209d014a51930f2ab8d7441ac54",
+    "reconstructions/examples/loop-closure-v1/final/windows/000000.npz": "ae63e60080b5c9eec47dcee9f458be86324554be1db2da92c88df557a146a3b2"
+  },
+  "inference_window_frames": 96,
+  "sample_frames": 72,
+  "fused_frames": 65,
+  "evaluation_frames": [
+    5,
+    35,
+    65
+  ],
+  "point_pixel_stride": 2,
+  "point_splat_radius_pixels": 1,
+  "raw_confidence_threshold": 2.5,
+  "voxel_model_units": 0.003678919281810522,
+  "tsdf_triangles": 1019421,
+  "simplified_triangles": 150000,
+  "accepted_depth_fraction": 0.7194003826656887,
+  "metrics": [
+    {
+      "frame": 5,
+      "stage": "raw_points",
+      "coverage": 0.9815092059990019,
+      "whole_rgb_l1": 0.04958117094971837,
+      "visible_rgb_l1": 0.04445807812809086
+    },
+    {
+      "frame": 5,
+      "stage": "registered_points",
+      "coverage": 0.9816733643264256,
+      "whole_rgb_l1": 0.04466722768043296,
+      "visible_rgb_l1": 0.039607403329935974
+    },
+    {
+      "frame": 5,
+      "stage": "filtered_points",
+      "coverage": 0.9500564704646337,
+      "whole_rgb_l1": 0.05974693609747631,
+      "visible_rgb_l1": 0.04155208678626937
+    },
+    {
+      "frame": 5,
+      "stage": "tsdf",
+      "coverage": 0.9231936017650303,
+      "whole_rgb_l1": 0.0656072124259399,
+      "visible_rgb_l1": 0.035199700990677575
+    },
+    {
+      "frame": 5,
+      "stage": "simplified",
+      "coverage": 0.9215126204922123,
+      "whole_rgb_l1": 0.06738423383081245,
+      "visible_rgb_l1": 0.03631925439925648
+    },
+    {
+      "frame": 35,
+      "stage": "raw_points",
+      "coverage": 0.9932760749087279,
+      "whole_rgb_l1": 0.05979823933005205,
+      "visible_rgb_l1": 0.05780055171093126
+    },
+    {
+      "frame": 35,
+      "stage": "registered_points",
+      "coverage": 0.9931184829144013,
+      "whole_rgb_l1": 0.05353962262725768,
+      "visible_rgb_l1": 0.051388035400702116
+    },
+    {
+      "frame": 35,
+      "stage": "filtered_points",
+      "coverage": 0.9389987655293778,
+      "whole_rgb_l1": 0.06738985598529416,
+      "visible_rgb_l1": 0.044498687481220836
+    },
+    {
+      "frame": 35,
+      "stage": "tsdf",
+      "coverage": 0.9092664092664092,
+      "whole_rgb_l1": 0.07097428417956629,
+      "visible_rgb_l1": 0.036027923790417325
+    },
+    {
+      "frame": 35,
+      "stage": "simplified",
+      "coverage": 0.9065151156987892,
+      "whole_rgb_l1": 0.0727966862420644,
+      "visible_rgb_l1": 0.03690524970747899
+    },
+    {
+      "frame": 65,
+      "stage": "raw_points",
+      "coverage": 0.9876881254432275,
+      "whole_rgb_l1": 0.07282417900665199,
+      "visible_rgb_l1": 0.06699512175324711
+    },
+    {
+      "frame": 65,
+      "stage": "registered_points",
+      "coverage": 0.9850418932051586,
+      "whole_rgb_l1": 0.06847136967184986,
+      "visible_rgb_l1": 0.06124202263997844
+    },
+    {
+      "frame": 65,
+      "stage": "filtered_points",
+      "coverage": 0.9178945709557954,
+      "whole_rgb_l1": 0.0896558365946121,
+      "visible_rgb_l1": 0.05284331586336807
+    },
+    {
+      "frame": 65,
+      "stage": "tsdf",
+      "coverage": 0.8766054684422031,
+      "whole_rgb_l1": 0.09415311384098898,
+      "visible_rgb_l1": 0.03782168367971408
+    },
+    {
+      "frame": 65,
+      "stage": "simplified",
+      "coverage": 0.8733945315577969,
+      "whole_rgb_l1": 0.09625529319406871,
+      "visible_rgb_l1": 0.03858488680699316
+    }
+  ],
+  "limitations": [
+    "Same input, different representations; point rasterizer approximates the official display, not an exact reproduction.",
+    "Evaluation RGB participated in learned inference but is excluded from fused geometry.",
+    "Only first 72 frames of one 96-frame window; global drift and window joins are not exercised."
+  ]
+}
