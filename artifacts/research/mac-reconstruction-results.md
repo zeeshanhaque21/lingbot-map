@@ -116,6 +116,22 @@ Much larger weights increase track error and do not improve that local view.
 This motivates a bounded alternative rather than a general claim that more motion weight is always better.
 The complete bootstrap-and-motion candidate is recorded separately and must pass full-scene rendering checks.
 
+That candidate completed reconstruction and validation on all 100 reserved views.
+Its full mesh contains 38,423,421 triangles; its app GLB contains 2,999,999 triangles and occupies 59,950,028 bytes.
+The kitchen view at frame 945 reaches 73.65% supported depth in the full mesh and 70.38% in the app asset, resolving the previous large occluder.
+However, the expanded audit still rejects four full-mesh views and seven app views.
+The app failures occur at frames 355, 515, 535, 665, 755, 785 and 795.
+Across all 100 app views, median coverage is 84.41%, median supported depth is 69.38%, minimum supported depth is 27.44%, and median RGB error is 0.1053.
+These 100-view aggregates are not directly comparable with the earlier 24-view aggregates.
+The candidate remains a research artifact and does not pass the listing gate.
+
+The individual measurements and paired local comparisons are preserved in [fidelity-spikes.json](evidence/fidelity-spikes.json).
+The native local comparison below removes the registered-camera occluder, illustrating the local-versus-global diagnostic without implying that the complete scene is correct.
+
+![Native local reconstruction beside the captured kitchen view](evidence/kitchen-native-window.jpg)
+
+The failed registered-camera arm is preserved as a [separate comparison](evidence/kitchen-registered-window.jpg).
+
 ### Exact adaptive sampling
 
 An initial burst-extraction command omitted variable-frame-rate output mode and produced duplicate output frames.

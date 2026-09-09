@@ -391,3 +391,4 @@ The implementation combines Metal inference, aligned photogrammetry rotation gro
 A checkpoint-specific camera convention mismatch was identified experimentally and corrected at the adapter boundary.
 The [implementation report](mac-reconstruction-results.md) records completed runs, failed alternatives, numerical checks and unresolved acceptance requirements.
 Measured building dimensions remain unverified without external references.
+The later [FixAnything assessment](fixanything-assessment.md) distinguishes rendered-video refinement from verified mesh reconstruction.
