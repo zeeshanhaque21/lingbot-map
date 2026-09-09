@@ -103,17 +103,22 @@ def validate(output, maximum_views=None, asset_name=None):
                 coordinates = np.sum(
                     texture_uv[triangles[primitive]] * weights[..., None], axis=1
                 )
-                rendered[visible] = cv2.remap(
-                    texture,
-                    (coordinates[:, 0] * texture.shape[1] - 0.5).astype(np.float32)[
-                        :, None
-                    ],
-                    ((1 - coordinates[:, 1]) * texture.shape[0] - 0.5).astype(
-                        np.float32
-                    )[:, None],
-                    cv2.INTER_LINEAR,
-                    borderMode=cv2.BORDER_REPLICATE,
-                )[:, 0]
+                sampled = np.empty((len(coordinates), 3), dtype=np.uint8)
+                # OpenCV remap requires each destination dimension below SHRT_MAX.
+                for start in range(0, len(coordinates), 32766):
+                    batch = coordinates[start : start + 32766]
+                    sampled[start : start + len(batch)] = cv2.remap(
+                        texture,
+                        (batch[:, 0] * texture.shape[1] - 0.5).astype(np.float32)[
+                            :, None
+                        ],
+                        ((1 - batch[:, 1]) * texture.shape[0] - 0.5).astype(np.float32)[
+                            :, None
+                        ],
+                        cv2.INTER_LINEAR,
+                        borderMode=cv2.BORDER_REPLICATE,
+                    )[:, 0]
+                rendered[visible] = sampled
             else:
                 rendered[visible] = (
                     (

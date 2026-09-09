@@ -17,6 +17,7 @@ def main():
     parser.add_argument("--dataset", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--threads", type=int, default=8)
+    parser.add_argument("--seam-leveling", choices=["on", "off"], default="on")
     parser.add_argument(
         "--reuse-dense",
         type=Path,
@@ -113,6 +114,10 @@ def main():
                 "0",
                 "--sharpness-weight",
                 "0",
+                "--global-seam-leveling",
+                "1" if args.seam_leveling == "on" else "0",
+                "--local-seam-leveling",
+                "1" if args.seam_leveling == "on" else "0",
             ],
             ["property.mvs", "property.glb"],
         ),
@@ -160,6 +165,7 @@ def main():
                 "binary_sha256": binaries,
                 "implementation_sha256": digest(Path(__file__)),
                 "threads": args.threads,
+                "seam_leveling": args.seam_leveling,
                 "reuse_dense": str(args.reuse_dense) if args.reuse_dense else None,
                 "metric_accuracy_verified": False,
                 "interpretation": "Classical CPU multiview stereo on captured training RGB. Artificial tower points, automatic region cropping, hole filling, mesh smoothing and texture sharpening are disabled. The surface still requires reserved-view and independent property checks.",
