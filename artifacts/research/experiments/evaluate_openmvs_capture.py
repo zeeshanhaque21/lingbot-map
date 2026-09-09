@@ -4,15 +4,13 @@ import argparse
 import json
 import shutil
 from pathlib import Path
-from urllib.parse import unquote
 
 import numpy as np
 import open3d as o3d
-import trimesh
 from PIL import Image, ImageDraw, ImageFont
 
-from artifacts.research.experiments.evaluate_openmvs_trial import glb_document
 from lingbot_map.reconstruction.colmap_io import read_model
+from lingbot_map.reconstruction.glb import native_resources, package_scene
 from lingbot_map.reconstruction.io import digest
 from lingbot_map.reconstruction.rendering import SurfaceRenderer
 
@@ -27,70 +25,6 @@ def frame_number(frame):
     if frame.get("original_frame", number) != number:
         raise ValueError("Frame identifier differs from its captured filename")
     return number
-
-
-def native_resources(trial):
-    completion = json.loads((trial / "completion.json").read_text())
-    source = trial / "property.glb"
-    if not completion["complete"] or digest(source) != completion["property_sha256"]:
-        raise ValueError("Native output is incomplete or changed")
-    resources = {"property.glb": digest(source)}
-    document = glb_document(source)
-    for item in document.get("images", []) + document.get("buffers", []):
-        uri = item.get("uri")
-        if not uri or uri.startswith("data:"):
-            continue
-        path = (trial / unquote(uri)).resolve()
-        if not path.is_relative_to(trial.resolve()):
-            raise ValueError("Native resource escapes the trial directory")
-        resources[uri] = digest(path)
-    return resources
-
-
-def package_scene(source, destination):
-    """Keep each geometry, material and node; prove the exported scene round trip."""
-    scene = trimesh.load_scene(source, process=False)
-    if not scene.graph.nodes_geometry:
-        raise ValueError("Native scene has no triangle geometry")
-    packed = scene.copy()
-    packed.apply_transform(AXIS)
-    packed.export(destination)
-    document = glb_document(destination)
-    if any(
-        "uri" in item
-        for item in document.get("images", []) + document.get("buffers", [])
-    ):
-        raise ValueError("Export still needs external resources")
-    recovered = trimesh.load_scene(destination, process=False)
-    if set(scene.graph.nodes_geometry) != set(recovered.graph.nodes_geometry):
-        raise ValueError("Packaging changed scene nodes")
-    rows = []
-    for node in scene.graph.nodes_geometry:
-        transform, name = scene.graph[node]
-        after_transform, after_name = recovered.graph[node]
-        before, after = scene.geometry[name], recovered.geometry[after_name]
-        if not np.allclose(after_transform, AXIS @ transform, atol=1e-7, rtol=0):
-            raise ValueError("Packaging changed node placement")
-        if not np.array_equal(before.faces, after.faces) or not np.allclose(
-            before.vertices, after.vertices, atol=1e-7, rtol=0
-        ):
-            raise ValueError("Packaging changed geometry")
-        texture = getattr(before.visual.material, "baseColorTexture", None)
-        after_texture = getattr(after.visual.material, "baseColorTexture", None)
-        if texture is None or after_texture is None:
-            raise ValueError("Expected native textured geometry")
-        if not np.array_equal(np.asarray(texture), np.asarray(after_texture)):
-            raise ValueError("Packaging changed texture pixels")
-        if not np.allclose(before.visual.uv, after.visual.uv, atol=1e-7, rtol=0):
-            raise ValueError("Packaging changed texture coordinates")
-        rows.append(
-            {
-                "node": node,
-                "triangles": len(before.faces),
-                "texture_size": list(texture.size),
-            }
-        )
-    return rows
 
 
 def sparse_consistency(renderer, image, points):
@@ -294,7 +228,7 @@ def main():
         name: digest(repository / name)
         for name in (
             "artifacts/research/experiments/evaluate_openmvs_capture.py",
-            "artifacts/research/experiments/evaluate_openmvs_trial.py",
+            "lingbot_map/reconstruction/glb.py",
             "lingbot_map/reconstruction/rendering.py",
             "lingbot_map/reconstruction/colmap_io.py",
             "lingbot_map/reconstruction/io.py",

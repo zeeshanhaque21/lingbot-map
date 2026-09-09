@@ -3,7 +3,6 @@
 import argparse
 import json
 import shutil
-import struct
 from pathlib import Path
 from urllib.parse import unquote
 
@@ -13,16 +12,8 @@ import trimesh
 
 from artifacts.research.experiments.gaussian_depth_renderer import digest
 from lingbot_map.reconstruction.colmap_io import read_model
+from lingbot_map.reconstruction.glb import glb_document, package_scene
 from lingbot_map.reconstruction.validation import validate
-
-
-def glb_document(path):
-    data = path.read_bytes()
-    magic, version, length = struct.unpack_from("<4sII", data)
-    size, kind = struct.unpack_from("<II", data, 12)
-    if magic != b"glTF" or version != 2 or length != len(data) or kind != 0x4E4F534A:
-        raise ValueError("Invalid GLB container")
-    return json.loads(data[20 : 20 + size])
 
 
 def sparse_audit(mesh, colmap_text, cameras):
@@ -128,9 +119,7 @@ def main():
     ] != [5, 15, 25, 35, 45]:
         raise ValueError("Expected the calibrated 760-807 chair-section reference")
     axis = np.diag([1.0, -1.0, -1.0, 1.0])
-    packed = native.copy()
-    packed.apply_transform(axis)
-    packed.export(root / "property.glb")
+    package_scene(source, root / "property.glb")
     document = glb_document(root / "property.glb")
     if any(
         "uri" in item

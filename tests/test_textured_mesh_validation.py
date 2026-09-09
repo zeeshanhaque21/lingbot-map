@@ -82,11 +82,21 @@ def test_multiple_textures_transformed_nodes_and_colored_occluder(tmp_path):
         scene.add_geometry(mesh, node_name=name, geom_name=name, transform=transform)
     # Native exporters can assign separate atlases to transformed scene nodes.
     from artifacts.research.experiments.evaluate_openmvs_capture import package_scene
+    from artifacts.research.experiments.evaluate_openmvs_trial import glb_document
     from lingbot_map.reconstruction.rendering import SurfaceRenderer
 
-    scene.export(tmp_path / "native.glb")
+    def native_unlit(document):
+        document["extensionsUsed"] = ["KHR_materials_unlit"]
+        for material in document["materials"]:
+            material["extensions"] = {"KHR_materials_unlit": {}}
+
+    scene.export(tmp_path / "native.glb", tree_postprocessor=native_unlit)
     parts = package_scene(tmp_path / "native.glb", tmp_path / "packaged.glb")
     assert len(parts) == 2
+    assert (
+        glb_document(tmp_path / "packaged.glb")["materials"]
+        == glb_document(tmp_path / "native.glb")["materials"]
+    )
     rendered, _, visible = SurfaceRenderer.from_file(
         tmp_path / "packaged.glb", glb=True
     ).render(np.array([[64.0, 0, 128], [0, 64, 128], [0, 0, 1]]), np.eye(4), 256, 256)
