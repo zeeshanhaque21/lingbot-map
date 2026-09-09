@@ -12,7 +12,9 @@ from PIL import Image, ImageDraw
 from .io import write_json
 
 
-def validate(output, maximum_views=24, asset_name=None):
+def validate(output, maximum_views=None, asset_name=None):
+    if maximum_views is not None and maximum_views < 1:
+        raise ValueError("maximum_views must be positive")
     output = Path(output)
     root = output / "model"
     cameras = json.loads((root / "cameras.json").read_text())
@@ -53,6 +55,8 @@ def validate(output, maximum_views=24, asset_name=None):
     selected = [c for c in cameras if c.get("held_out_from_fusion")]
     if not selected:
         selected = cameras
+    if maximum_views is None:
+        maximum_views = len(selected)
     selected = [
         selected[i]
         for i in np.linspace(

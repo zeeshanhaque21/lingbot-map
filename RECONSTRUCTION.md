@@ -84,6 +84,11 @@ It also selects newer overlapping predictions after the checkpoint's eight-frame
 Use a new output directory to compare it with the default `sfm` camera source.
 The local camera falsifier in the implementation report motivates this option; its complete-scene validation remains separate from the default baseline.
 
+For an uninterrupted native-checkpoint comparison, `run --camera-source native --window 1000` skips external photogrammetry and registration.
+Choose a window that covers the extracted sequence when testing an uninterrupted stream.
+Long windows retain more input images and CPU predictions and only save when the window completes.
+This comparison is experimental and must pass the same exported-mesh checks.
+
 ## Artifacts and evidence
 
 | Artifact | Meaning |
@@ -122,6 +127,7 @@ Every tenth frame, with index ending in 5, is withheld from fusion for render co
 Those frames still participate in pose/depth inference, so the check is not independent ground truth.
 Validation checks rendered depth agreement and color error as well as coverage; a large incorrect plane cannot pass just by covering the image.
 It checks the least-supported sampled view as well as median results.
+Validation now inspects every reserved frame by default, since the earlier 24-view sample missed additional local failures.
 The CLI returns exit status 2 with `status: needs_review` when these checks fail.
 Its numeric screening thresholds are engineering defaults, not calibrated guarantees of building accuracy.
 

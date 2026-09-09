@@ -34,7 +34,7 @@ def main():
     parser.add_argument("--source", type=Path)
     parser.add_argument("--colmap-model", type=Path)
     parser.add_argument("--bridges", type=Path)
-    parser.add_argument("--camera-source", choices=["sfm", "learned"], default="sfm")
+    parser.add_argument("--camera-source", choices=["sfm", "learned", "native"], default="sfm")
     parser.add_argument("--motion-weight", type=float, default=1.0)
     parser.add_argument("--mapper", choices=["global", "incremental"], default="global")
     parser.add_argument(
@@ -65,6 +65,8 @@ def main():
         )
         return
     try:
+        if args.camera_source == "native" and args.stage in ("register", "repair"):
+            raise ValueError("Native cameras use infer/fuse; run skips external registration with --camera-source native")
         if args.fps <= 0 or (args.limit is not None and args.limit < 1):
             raise ValueError("fps and limit must be positive")
         if args.stage in ("prepare", "run"):
@@ -86,7 +88,7 @@ def main():
                     args.precision,
                     args.pose_convention,
                 )
-        if args.stage == "run":
+        if args.stage == "run" and args.camera_source != "native":
             from .repair import register_with_repairs
             from .sfm import reconstruct_cameras
 
