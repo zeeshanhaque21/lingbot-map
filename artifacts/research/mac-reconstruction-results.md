@@ -10,6 +10,11 @@ The long checkpoint SHA-256 is `832bc82cbae0bc9bbe946ef5ee1f7226abd8c0e183ccf8be
 
 ## Current review artifact
 
+The latest complete-scene experiment is `reconstructions/direct-bundle-cauchy-v1/candidate/model/property.glb`.
+It improves reserved feature alignment and has five failing app viewpoints out of 100, while its full mesh fails six.
+The complete camera-optimization and MapAnything comparisons appear below.
+Neither the latest candidate nor the earlier review baseline is verified for property listings.
+
 The hybrid candidate at `reconstructions/indoor-travel-learned-motion10-bootstrap/model/property.glb` is retained for review.
 It contains 2,999,999 triangles, occupies 59,950,028 bytes and has SHA-256 `8dc31c39a12669fdd491c968e9208d39659658de6a88bae968735de41eb85d4c`.
 The complete 100-view audit gives 69.38% median depth support, with seven views below the 40% screening threshold.
@@ -315,13 +320,58 @@ The model files were obtained through Motrix with a pinned revision and checksum
 It rejects backbone-weight downloads, records source-frame hashes, checks the predicted C2W convention against native world points, and exports the existing pipeline's depth/K/W2C archive format.
 The first two-frame GPU inference completed, but publication exposed an adapter assumption: raw inference returns `non_ambiguous_mask`, while the combined `mask` field exists only when output masking is requested.
 The adapter now uses the raw non-ambiguous mask and leaves edge/support filtering to the reconstruction pipeline.
-Three focused tests cover camera-coordinate conversion, rejection of incorrect pose conventions and prevention of redundant backbone downloads.
+Four focused tests cover camera-coordinate conversion, rejection of incorrect pose conventions, prevention of redundant backbone downloads and matched image/calibration/pose conditioning.
 
 The repeated two-frame check on original frames 785 and 786 completes in float32 on MPS, with 1.04 seconds measured for inference and 5.50 GB reported driver allocation after inference.
 This is a warm two-frame compatibility check, not a throughput benchmark or full-scene accuracy result.
 The 99th-percentile relative difference between the fitted pinhole representation and native camera points is 1.63%; native C2W reconstruction agrees with native world points to about 2.4e-7 relative error at the 99th percentile.
 The pinhole approximation must therefore remain visible in subsequent comparisons.
 The 48-frame chair-section experiment uses the same original frames 760 through 807 as the Lingbot precision comparison.
+It completes in 29.95 seconds of inference, with 10.69 GB driver allocation reported afterward; this is not a measured peak.
+Its camera-to-world normalization agrees with the native world points, while fitted-pinhole error reaches 3.31% of depth at the 99th percentile.
+The initial full-fusion attempt rejects the adapter's zero-overlap metadata before producing a mesh.
+The adapter now writes a valid overlap, and all subsequent 48-frame variants complete fusion, GLB export and five-view validation.
+
+Three controlled variants reuse the exact registered owning-window RGB: images alone, images plus calibration, and images plus calibration and nonmetric camera poses.
+Source-window hashes identify which RGB, K and pose produced every conditioned input.
+Supplying camera geometry conditions MapAnything's predictions; the inspected implementation still predicts its output ray fields and camera poses rather than copying the supplied values.
+A fourth experiment, `experiments/mapanything_fixed_camera_falsifier.py`, explicitly retains registered K and poses and estimates one depth scale from 43 training camera centers, reserving five cameras from the scale fit.
+That scale fit is poor: its median reserved center residual is 38.86% of median scaled depth.
+The resulting failed reconstruction is retained as a counterexample to replacing camera poses through a single trajectory scale.
+
+| Same 48-frame section | Frame 775 depth support | Frame 785 depth support | Frame 795 depth support |
+|---|---:|---:|---:|
+| Unchanged fresh-context Lingbot, float32 | 69.46% | 42.82% | 52.69% |
+| MapAnything, same RGB only | 61.80% | 23.42% | 58.10% |
+| MapAnything with calibration | 62.92% | 30.66% | 69.36% |
+| MapAnything with calibration and poses | 54.80% | 10.31% | 47.29% |
+| MapAnything calibration depth, fixed registered cameras | 14.86% | 7.49% | 30.02% |
+
+These local rows fuse all 43 nonreserved frames and compare each model against its own predicted depth, so cross-model depth-support differences are not ground-truth accuracy scores.
+The captured-image comparisons also remain necessary.
+MapAnything improves frame 795 in the calibration arm but retains substantial chair distortion at frame 785.
+All four MapAnything full and exported meshes fail the same screening requirements; this is not a successful replacement model.
+The images-only and calibration app meshes each fail frames 785 and 805; the pose-conditioned app mesh fails frames 765 and 785.
+The original five reserved viewpoints are 765, 775, 785, 795 and 805.
+
+![MapAnything calibration-conditioned chair reconstruction compared with the captured frame](evidence/mapanything-chair-comparison.jpg)
+
+Reproduce the calibration-conditioned inference with:
+
+```sh
+.venv-mapanything/bin/python -m artifacts.research.experiments.mapanything_mac \
+  --source reconstructions/indoor-travel-learned-motion10-bootstrap \
+  --processed-source reconstructions/direct-bundle-cauchy-v1/candidate \
+  --conditioning calibration --start 760 --count 48 \
+  --weights checkpoints/map-anything-apache/00f9c245bbcb60522d1ed7f9e9d88462c6e3f38a \
+  --dino-repository /Users/zeeshanhaque/Projects/dinov2 \
+  --output reconstructions/mapanything-calibration-760
+```
+
+The completed-run check validates the saved archive hash and reuses it.
+Fusion and source/app validation use the existing `lingbot_map.reconstruction.fusion.fuse` and `lingbot_map.reconstruction.validation.validate` functions in `.venv-reconstruction`.
+The complete experiment snapshots, including failures and checkpoint hashes, are in [fidelity-spikes.json](evidence/fidelity-spikes.json).
+The next depth experiment should test direct multiview image evidence with fixed cameras and explicit occlusion handling; additional generative polishing does not address the measured geometry failures.
 
 The current validation images are withheld from fusion, but still participate in learned inference or photogrammetry.
 The feature-track split is also a development check, not independently surveyed ground truth.

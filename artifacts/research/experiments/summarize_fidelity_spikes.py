@@ -49,10 +49,40 @@ def main():
                 if isinstance(value, dict):
                     value.pop("per_frame", None)
             records[f"{run}_camera_comparison"] = comparison
-    for run in ["indoor-travel-learned-cameras-v1", "indoor-travel-learned-motion10-bootstrap", "indoor-travel-native-stream1000"]:
+    for run in [
+        "mapanything-window-images-760",
+        "mapanything-calibration-760",
+        "mapanything-posed-760",
+        "mapanything-fixed-cameras-760",
+    ]:
+        records[run] = {}
+        for relative in [
+            "completed.json",
+            "anchoring.json",
+            "local-comparison.jsonl",
+            "model/validation.json",
+            "model/render-validation.json",
+            "model/web-render-validation.json",
+        ]:
+            path = captures / run / relative
+            if path.exists():
+                records[run][relative] = (
+                    [json.loads(line) for line in path.read_text().splitlines()]
+                    if path.suffix == ".jsonl"
+                    else json.loads(path.read_text())
+                )
+    for run in [
+        "indoor-travel-learned-cameras-v1",
+        "indoor-travel-learned-motion10-bootstrap",
+        "indoor-travel-native-stream1000",
+    ]:
         model = captures / run / "model"
         records[run] = {}
-        for name in ["validation.json", "render-validation.json", "web-render-validation.json"]:
+        for name in [
+            "validation.json",
+            "render-validation.json",
+            "web-render-validation.json",
+        ]:
             path = model / name
             if path.exists():
                 records[run][name] = json.loads(path.read_text())
@@ -60,10 +90,17 @@ def main():
     for arm in ["native-window", "registered-window"]:
         source = captures / "local-pose-falsifier-v1" / f"945-{arm}.jpg"
         shutil.copy2(source, evidence / f"kitchen-{arm}.jpg")
+    source = captures / "mapanything-calibration-760" / "785-mapanything-window.jpg"
+    if source.exists():
+        shutil.copy2(source, evidence / "mapanything-chair-comparison.jpg")
     for run, page, name in [
         ("indoor-travel-learned-motion10-bootstrap", "05", "hybrid-app-comparison.jpg"),
         ("indoor-travel-native-stream1000", "08", "native-stream-app-comparison.jpg"),
-        ("direct-bundle-cauchy-v1/candidate", "13", "robust-bundle-chair-comparison.jpg"),
+        (
+            "direct-bundle-cauchy-v1/candidate",
+            "13",
+            "robust-bundle-chair-comparison.jpg",
+        ),
     ]:
         source = captures / run / "model" / f"web-source-comparison-{page}.jpg"
         if source.exists():

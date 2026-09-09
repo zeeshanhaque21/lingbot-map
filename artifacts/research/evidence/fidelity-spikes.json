@@ -2151,6 +2151,1106 @@
     ],
     "metric_accuracy_verified": false
   },
+  "mapanything-window-images-760": {
+    "completed.json": {
+      "pinhole_relative_error_p50_p95_p99": [
+        0.00584662921886598,
+        0.021441496419320097,
+        0.03357981084305654
+      ],
+      "native_c2w_world_error_max": 3.888489573000697e-06,
+      "native_c2w_world_error_relative_p99": 6.599061066481227e-07,
+      "mask_fraction": 0.9999830369728329,
+      "depth_p5_p50_p95": [
+        0.576676094532013,
+        1.8762634992599487,
+        6.636886572837826
+      ],
+      "inference_seconds": 28.940142541992827,
+      "frames": 48,
+      "metric_accuracy_verified": false,
+      "mps_current_bytes": 6051904512,
+      "mps_driver_bytes": 10693181440,
+      "archive_sha256": "8ef631fb48c9e572ae869c80f21e2f2c87cd1055a68225c6f3908e0dc6441f38"
+    },
+    "local-comparison.jsonl": [
+      {
+        "target": 775,
+        "arm": "mapanything-window",
+        "frames_fused": 43,
+        "window_start": 760,
+        "coverage": 0.7091836734693877,
+        "supported_depth_fraction": 0.6180178602696551,
+        "rgb_mae_visible": 0.1203448415467036,
+        "median_depth_error": 0.020770295628239704,
+        "triangles": 3451165,
+        "seconds": 5.23617191700032
+      },
+      {
+        "target": 775,
+        "arm": "mapanything-neighbors",
+        "frames_fused": 16,
+        "window_start": 760,
+        "coverage": 0.7082972185013001,
+        "supported_depth_fraction": 0.6207756960252145,
+        "rgb_mae_visible": 0.12049408730253947,
+        "median_depth_error": 0.020330061226144162,
+        "triangles": 1335618,
+        "seconds": 2.101208541993401
+      },
+      {
+        "target": 785,
+        "arm": "mapanything-window",
+        "frames_fused": 43,
+        "window_start": 760,
+        "coverage": 0.8646613085388596,
+        "supported_depth_fraction": 0.23417294845866274,
+        "rgb_mae_visible": 0.17325197609413875,
+        "median_depth_error": 0.11353623238857344,
+        "triangles": 3451165,
+        "seconds": 5.349604083006852
+      },
+      {
+        "target": 785,
+        "arm": "mapanything-neighbors",
+        "frames_fused": 16,
+        "window_start": 760,
+        "coverage": 0.7180022588185854,
+        "supported_depth_fraction": 0.14522102277204318,
+        "rgb_mae_visible": 0.17571213951898684,
+        "median_depth_error": 0.12691937196224035,
+        "triangles": 1130916,
+        "seconds": 1.8234795830067014
+      },
+      {
+        "target": 795,
+        "arm": "mapanything-window",
+        "frames_fused": 43,
+        "window_start": 760,
+        "coverage": 0.7810915872140362,
+        "supported_depth_fraction": 0.5809704726305008,
+        "rgb_mae_visible": 0.14113299796999576,
+        "median_depth_error": 0.03292615847978105,
+        "triangles": 3451165,
+        "seconds": 5.543440374996862
+      },
+      {
+        "target": 795,
+        "arm": "mapanything-neighbors",
+        "frames_fused": 16,
+        "window_start": 760,
+        "coverage": 0.6708428545163239,
+        "supported_depth_fraction": 0.6442621659240325,
+        "rgb_mae_visible": 0.13395625846230064,
+        "median_depth_error": 0.022098740401616284,
+        "triangles": 1032142,
+        "seconds": 1.4560453750018496
+      }
+    ],
+    "model/validation.json": {
+      "status": "reconstructed_unverified_metric_accuracy",
+      "source_sha256": "ca590d8af33c465953d6ed6c305557e4b4d7cc6ba3710b4c65872bbf06b684e0",
+      "input_signature": {
+        "inference": "9a54c2b90b50aa607b163054d5cdd2df770db96efe8eedda863c0117e12e7310",
+        "windows": {
+          "000000.npz": "8ef631fb48c9e572ae869c80f21e2f2c87cd1055a68225c6f3908e0dc6441f38"
+        }
+      },
+      "frames_expected": 48,
+      "frames_processed": 48,
+      "frames_fused": 43,
+      "frames_held_out": 5,
+      "temporal_coverage": 1.0,
+      "vertices": 2002930,
+      "triangles": 3451141,
+      "web_triangles": 299999,
+      "voxel_size_model_units": 0.010423603467643261,
+      "units": "uncalibrated model units",
+      "accepted_pixel_fraction": 0.38962814855672,
+      "observed_points": 1943280,
+      "fusion_seconds": 31.208840249993955,
+      "loop_closure": false,
+      "pose_source": "MapAnything Apache images predictions",
+      "absolute_dimensions_verified": false,
+      "unseen_surfaces_completed": false,
+      "limitations": [
+        "Monocular scale lacks measured anchors",
+        "Sequential window alignment can drift",
+        "Glass, mirrors, motion and unobserved surfaces remain uncertain",
+        "Depth consistency is an internal check, not independent ground truth"
+      ],
+      "files": {
+        "property.glb": "3ef6fa3900346576a983e8ed97a8199e59089a25f171bec1cff4fbe61dda431b",
+        "observed-surfaces.ply": "818cbecfae32019fb8d353590a5543f3b6a4ab4285966f7b83561cf405622f3c",
+        "observed-points.ply": "8d537e03203dac2d84d25eb80d2f4ad515f11a0bc474d1ea690874312ff5a905"
+      }
+    },
+    "model/render-validation.json": {
+      "views": [
+        {
+          "frame": 5,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6565939116959525,
+          "mean_absolute_rgb_error_visible": 0.13713064613942194,
+          "supported_depth_fraction": 0.47030704173561316,
+          "median_relative_depth_error_visible": 0.02769832040814619
+        },
+        {
+          "frame": 15,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7091836734693877,
+          "mean_absolute_rgb_error_visible": 0.12033622401798448,
+          "supported_depth_fraction": 0.6180353703379443,
+          "median_relative_depth_error_visible": 0.02076945885400829
+        },
+        {
+          "frame": 25,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8646613085388596,
+          "mean_absolute_rgb_error_visible": 0.1732271984489353,
+          "supported_depth_fraction": 0.23414668312627496,
+          "median_relative_depth_error_visible": 0.11353390856756614
+        },
+        {
+          "frame": 35,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7810981535471332,
+          "mean_absolute_rgb_error_visible": 0.14117485521382694,
+          "supported_depth_fraction": 0.5809704726305008,
+          "median_relative_depth_error_visible": 0.03292634622715311
+        },
+        {
+          "frame": 45,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.44804717253696846,
+          "mean_absolute_rgb_error_visible": 0.07626096740148904,
+          "supported_depth_fraction": 0.396803509048407,
+          "median_relative_depth_error_visible": 0.009016637930044823
+        }
+      ],
+      "median_rendered_coverage": 0.7091836734693877,
+      "median_supported_depth_fraction": 0.47030704173561316,
+      "minimum_supported_depth_fraction": 0.23414668312627496,
+      "mesh": "observed-surfaces.ply",
+      "median_absolute_rgb_error_visible": 0.13713064613942194,
+      "metric_accuracy_verified": false,
+      "visual_completeness_gate": true,
+      "view_consistency_gate": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+      "thresholds": {
+        "median_coverage_minimum": 0.7,
+        "median_depth_support_minimum": 0.6,
+        "relative_depth_tolerance": 0.05,
+        "per_view_depth_support_minimum": 0.4,
+        "median_rgb_error_maximum": 0.12,
+        "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+      },
+      "required_external_checks": [
+        "Measured scale and independent held-out lengths",
+        "Room connectivity and loop drift",
+        "Missing wall, doorway, glass and ceiling review"
+      ]
+    },
+    "model/web-render-validation.json": {
+      "views": [
+        {
+          "frame": 5,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6057770598586925,
+          "mean_absolute_rgb_error_visible": 0.13115672919936675,
+          "supported_depth_fraction": 0.4451514196412156,
+          "median_relative_depth_error_visible": 0.0262701457101263
+        },
+        {
+          "frame": 15,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6702584508706958,
+          "mean_absolute_rgb_error_visible": 0.1160981016457526,
+          "supported_depth_fraction": 0.6054281211696726,
+          "median_relative_depth_error_visible": 0.01957616587898961
+        },
+        {
+          "frame": 25,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8255128306148715,
+          "mean_absolute_rgb_error_visible": 0.17097732275324878,
+          "supported_depth_fraction": 0.2613225470368328,
+          "median_relative_depth_error_visible": 0.10203400328168595
+        },
+        {
+          "frame": 35,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7454692301631077,
+          "mean_absolute_rgb_error_visible": 0.13714802765260461,
+          "supported_depth_fraction": 0.5691087514115886,
+          "median_relative_depth_error_visible": 0.03205847014185685
+        },
+        {
+          "frame": 45,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.4100281039056549,
+          "mean_absolute_rgb_error_visible": 0.07191137638408981,
+          "supported_depth_fraction": 0.3700588343445486,
+          "median_relative_depth_error_visible": 0.008130198272727483
+        }
+      ],
+      "median_rendered_coverage": 0.6702584508706958,
+      "median_supported_depth_fraction": 0.4451514196412156,
+      "minimum_supported_depth_fraction": 0.2613225470368328,
+      "mesh": "property.glb",
+      "median_absolute_rgb_error_visible": 0.13115672919936675,
+      "metric_accuracy_verified": false,
+      "visual_completeness_gate": false,
+      "view_consistency_gate": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+      "thresholds": {
+        "median_coverage_minimum": 0.7,
+        "median_depth_support_minimum": 0.6,
+        "relative_depth_tolerance": 0.05,
+        "per_view_depth_support_minimum": 0.4,
+        "median_rgb_error_maximum": 0.12,
+        "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+      },
+      "required_external_checks": [
+        "Measured scale and independent held-out lengths",
+        "Room connectivity and loop drift",
+        "Missing wall, doorway, glass and ceiling review"
+      ]
+    }
+  },
+  "mapanything-calibration-760": {
+    "completed.json": {
+      "pinhole_relative_error_p50_p95_p99": [
+        0.007441984020148614,
+        0.02613143634197482,
+        0.03903893020560332
+      ],
+      "native_c2w_world_error_max": 3.845423634629697e-06,
+      "native_c2w_world_error_relative_p99": 6.035982096364023e-07,
+      "mask_fraction": 0.9999834473686514,
+      "depth_p5_p50_p95": [
+        0.6112098813056945,
+        1.9734349250793457,
+        6.806993436813352
+      ],
+      "inference_seconds": 33.051391333006904,
+      "frames": 48,
+      "metric_accuracy_verified": false,
+      "mps_current_bytes": 6047880192,
+      "mps_driver_bytes": 10718347264,
+      "archive_sha256": "81b4abb278c431e54380e29421bd78e9c9f38019647c3a56255dfa966ac8c95a"
+    },
+    "local-comparison.jsonl": [
+      {
+        "target": 775,
+        "arm": "mapanything-window",
+        "frames_fused": 43,
+        "window_start": 760,
+        "coverage": 0.7230189373046516,
+        "supported_depth_fraction": 0.6292035475708945,
+        "rgb_mae_visible": 0.1200412421802796,
+        "median_depth_error": 0.01820698030944618,
+        "triangles": 2804189,
+        "seconds": 4.677048500001547
+      },
+      {
+        "target": 775,
+        "arm": "mapanything-neighbors",
+        "frames_fused": 16,
+        "window_start": 760,
+        "coverage": 0.7173784571743755,
+        "supported_depth_fraction": 0.6309983452840596,
+        "rgb_mae_visible": 0.11822103242141395,
+        "median_depth_error": 0.017915922873281857,
+        "triangles": 968120,
+        "seconds": 1.6897402909962693
+      },
+      {
+        "target": 785,
+        "arm": "mapanything-window",
+        "frames_fused": 43,
+        "window_start": 760,
+        "coverage": 0.811986184435164,
+        "supported_depth_fraction": 0.3066302454057556,
+        "rgb_mae_visible": 0.19429137486299425,
+        "median_depth_error": 0.08395576951357367,
+        "triangles": 2804189,
+        "seconds": 4.748782624999876
+      },
+      {
+        "target": 785,
+        "arm": "mapanything-neighbors",
+        "frames_fused": 16,
+        "window_start": 760,
+        "coverage": 0.6142935938854306,
+        "supported_depth_fraction": 0.26771377791785955,
+        "rgb_mae_visible": 0.19363453522335905,
+        "median_depth_error": 0.06799847327577083,
+        "triangles": 858689,
+        "seconds": 1.5515582500083838
+      },
+      {
+        "target": 795,
+        "arm": "mapanything-window",
+        "frames_fused": 43,
+        "window_start": 760,
+        "coverage": 0.8018477661334804,
+        "supported_depth_fraction": 0.6936148976965304,
+        "rgb_mae_visible": 0.13054451244527618,
+        "median_depth_error": 0.02461307260997011,
+        "triangles": 2804189,
+        "seconds": 4.8093806660035625
+      },
+      {
+        "target": 795,
+        "arm": "mapanything-neighbors",
+        "frames_fused": 16,
+        "window_start": 760,
+        "coverage": 0.6991962808289339,
+        "supported_depth_fraction": 0.7282413608944222,
+        "rgb_mae_visible": 0.1291742947625135,
+        "median_depth_error": 0.02089813612645192,
+        "triangles": 882822,
+        "seconds": 1.625661415993818
+      }
+    ],
+    "model/validation.json": {
+      "status": "reconstructed_unverified_metric_accuracy",
+      "source_sha256": "ca590d8af33c465953d6ed6c305557e4b4d7cc6ba3710b4c65872bbf06b684e0",
+      "input_signature": {
+        "inference": "c464de86eb52e5c032eeaae8c2641dbd1770589d33183b5fa4d89d6be49df34e",
+        "windows": {
+          "000000.npz": "81b4abb278c431e54380e29421bd78e9c9f38019647c3a56255dfa966ac8c95a"
+        }
+      },
+      "frames_expected": 48,
+      "frames_processed": 48,
+      "frames_fused": 43,
+      "frames_held_out": 5,
+      "temporal_coverage": 1.0,
+      "vertices": 1650131,
+      "triangles": 2804116,
+      "web_triangles": 300000,
+      "voxel_size_model_units": 0.010963423177599907,
+      "units": "uncalibrated model units",
+      "accepted_pixel_fraction": 0.4072216804997417,
+      "observed_points": 1602843,
+      "fusion_seconds": 24.77104774999316,
+      "loop_closure": false,
+      "pose_source": "MapAnything Apache calibration predictions",
+      "absolute_dimensions_verified": false,
+      "unseen_surfaces_completed": false,
+      "limitations": [
+        "Monocular scale lacks measured anchors",
+        "Sequential window alignment can drift",
+        "Glass, mirrors, motion and unobserved surfaces remain uncertain",
+        "Depth consistency is an internal check, not independent ground truth"
+      ],
+      "files": {
+        "property.glb": "30b000de9cd585f194e0fd73c8fed5fbffb81b66a9b13da52cc1d42b7b5be59f",
+        "observed-surfaces.ply": "6ff239f81e7dbc30696b169c2b3eb7a122261d32f28c4064565ceec78fe75577",
+        "observed-points.ply": "10e7b9c12c00cb9d93c5df36895638162cd67329490bee3b158c617bc6dc2648"
+      }
+    },
+    "model/render-validation.json": {
+      "views": [
+        {
+          "frame": 5,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6627334331415964,
+          "mean_absolute_rgb_error_visible": 0.12945071009278056,
+          "supported_depth_fraction": 0.4770047014944974,
+          "median_relative_depth_error_visible": 0.025212437772558945
+        },
+        {
+          "frame": 15,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7230123709715547,
+          "mean_absolute_rgb_error_visible": 0.12004811393962143,
+          "supported_depth_fraction": 0.6292123026816905,
+          "median_relative_depth_error_visible": 0.018205983100163012
+        },
+        {
+          "frame": 25,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.811986184435164,
+          "mean_absolute_rgb_error_visible": 0.19424722012521572,
+          "supported_depth_fraction": 0.3066390005165515,
+          "median_relative_depth_error_visible": 0.0839491364408505
+        },
+        {
+          "frame": 35,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8018477661334804,
+          "mean_absolute_rgb_error_visible": 0.13056875831444645,
+          "supported_depth_fraction": 0.6936411630289181,
+          "median_relative_depth_error_visible": 0.02461268894293201
+        },
+        {
+          "frame": 45,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.46819268247839674,
+          "mean_absolute_rgb_error_visible": 0.0747466497561784,
+          "supported_depth_fraction": 0.4141714600898274,
+          "median_relative_depth_error_visible": 0.01494810072482709
+        }
+      ],
+      "median_rendered_coverage": 0.7230123709715547,
+      "median_supported_depth_fraction": 0.4770047014944974,
+      "minimum_supported_depth_fraction": 0.3066390005165515,
+      "mesh": "observed-surfaces.ply",
+      "median_absolute_rgb_error_visible": 0.12945071009278056,
+      "metric_accuracy_verified": false,
+      "visual_completeness_gate": true,
+      "view_consistency_gate": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+      "thresholds": {
+        "median_coverage_minimum": 0.7,
+        "median_depth_support_minimum": 0.6,
+        "relative_depth_tolerance": 0.05,
+        "per_view_depth_support_minimum": 0.4,
+        "median_rgb_error_maximum": 0.12,
+        "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+      },
+      "required_external_checks": [
+        "Measured scale and independent held-out lengths",
+        "Room connectivity and loop drift",
+        "Missing wall, doorway, glass and ceiling review"
+      ]
+    },
+    "model/web-render-validation.json": {
+      "views": [
+        {
+          "frame": 5,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6238935728731647,
+          "mean_absolute_rgb_error_visible": 0.12477693345775946,
+          "supported_depth_fraction": 0.46147532372022165,
+          "median_relative_depth_error_visible": 0.024538366516810853
+        },
+        {
+          "frame": 15,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6894124445144854,
+          "mean_absolute_rgb_error_visible": 0.11651324072248019,
+          "supported_depth_fraction": 0.6133567970302665,
+          "median_relative_depth_error_visible": 0.017801723446807676
+        },
+        {
+          "frame": 25,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7756809287421532,
+          "mean_absolute_rgb_error_visible": 0.18812814507557585,
+          "supported_depth_fraction": 0.3118307812185363,
+          "median_relative_depth_error_visible": 0.07762520342988558
+        },
+        {
+          "frame": 35,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7764163580490111,
+          "mean_absolute_rgb_error_visible": 0.1276446233618812,
+          "supported_depth_fraction": 0.6866195641705846,
+          "median_relative_depth_error_visible": 0.024294674942143504
+        },
+        {
+          "frame": 45,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.4326162897591469,
+          "mean_absolute_rgb_error_visible": 0.07020885985786864,
+          "supported_depth_fraction": 0.3874924487169385,
+          "median_relative_depth_error_visible": 0.014864720513366562
+        }
+      ],
+      "median_rendered_coverage": 0.6894124445144854,
+      "median_supported_depth_fraction": 0.46147532372022165,
+      "minimum_supported_depth_fraction": 0.3118307812185363,
+      "mesh": "property.glb",
+      "median_absolute_rgb_error_visible": 0.12477693345775946,
+      "metric_accuracy_verified": false,
+      "visual_completeness_gate": false,
+      "view_consistency_gate": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+      "thresholds": {
+        "median_coverage_minimum": 0.7,
+        "median_depth_support_minimum": 0.6,
+        "relative_depth_tolerance": 0.05,
+        "per_view_depth_support_minimum": 0.4,
+        "median_rgb_error_maximum": 0.12,
+        "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+      },
+      "required_external_checks": [
+        "Measured scale and independent held-out lengths",
+        "Room connectivity and loop drift",
+        "Missing wall, doorway, glass and ceiling review"
+      ]
+    }
+  },
+  "mapanything-posed-760": {
+    "completed.json": {
+      "pinhole_relative_error_p50_p95_p99": [
+        0.0075937062344176316,
+        0.023786831380540652,
+        0.03559403213797796
+      ],
+      "native_c2w_world_error_max": 5.364418029785156e-06,
+      "native_c2w_world_error_relative_p99": 6.22941740857641e-07,
+      "mask_fraction": 0.9999871409310185,
+      "depth_p5_p50_p95": [
+        0.6738931030035019,
+        2.1517688035964966,
+        7.4353960752487165
+      ],
+      "inference_seconds": 35.412361459006206,
+      "frames": 48,
+      "metric_accuracy_verified": false,
+      "mps_current_bytes": 6021713152,
+      "mps_driver_bytes": 10718330880,
+      "archive_sha256": "36c1da320815b350f3914d47e87270efe5f40ff51a23be98904953a29d3cac47"
+    },
+    "local-comparison.jsonl": [
+      {
+        "target": 775,
+        "arm": "mapanything-window",
+        "frames_fused": 43,
+        "window_start": 760,
+        "coverage": 0.7194599847661072,
+        "supported_depth_fraction": 0.5480459770114943,
+        "rgb_mae_visible": 0.11134419524234927,
+        "median_depth_error": 0.026370991346028633,
+        "triangles": 1929383,
+        "seconds": 3.6028070419997675
+      },
+      {
+        "target": 775,
+        "arm": "mapanything-neighbors",
+        "frames_fused": 16,
+        "window_start": 760,
+        "coverage": 0.7050337509521183,
+        "supported_depth_fraction": 0.5551680763391889,
+        "rgb_mae_visible": 0.10666286091417317,
+        "median_depth_error": 0.025520484375330194,
+        "triangles": 809300,
+        "seconds": 1.6272455410071416
+      },
+      {
+        "target": 785,
+        "arm": "mapanything-window",
+        "frames_fused": 43,
+        "window_start": 760,
+        "coverage": 0.9558939405878182,
+        "supported_depth_fraction": 0.1030564400433885,
+        "rgb_mae_visible": 0.24682144167988337,
+        "median_depth_error": 0.5533686359505825,
+        "triangles": 1929383,
+        "seconds": 3.7457402080035536
+      },
+      {
+        "target": 785,
+        "arm": "mapanything-neighbors",
+        "frames_fused": 16,
+        "window_start": 760,
+        "coverage": 0.7073451002022431,
+        "supported_depth_fraction": 0.09506105881941286,
+        "rgb_mae_visible": 0.21952054588811934,
+        "median_depth_error": 0.5774136667921757,
+        "triangles": 803438,
+        "seconds": 1.4520299580035498
+      },
+      {
+        "target": 795,
+        "arm": "mapanything-window",
+        "frames_fused": 43,
+        "window_start": 760,
+        "coverage": 0.6077469597877762,
+        "supported_depth_fraction": 0.4728938596639651,
+        "rgb_mae_visible": 0.1592104041299591,
+        "median_depth_error": 0.03676464076182951,
+        "triangles": 1929383,
+        "seconds": 3.726241291005863
+      },
+      {
+        "target": 795,
+        "arm": "mapanything-neighbors",
+        "frames_fused": 16,
+        "window_start": 760,
+        "coverage": 0.5951199012423503,
+        "supported_depth_fraction": 0.4721324512275596,
+        "rgb_mae_visible": 0.15864381825346138,
+        "median_depth_error": 0.03652350100932448,
+        "triangles": 684298,
+        "seconds": 1.3529368750023423
+      }
+    ],
+    "model/validation.json": {
+      "status": "reconstructed_unverified_metric_accuracy",
+      "source_sha256": "ca590d8af33c465953d6ed6c305557e4b4d7cc6ba3710b4c65872bbf06b684e0",
+      "input_signature": {
+        "inference": "abd21f931a6d1fcfaf9f47b791c76b4ade102b4a84bd5d498982ea641d98b315",
+        "windows": {
+          "000000.npz": "36c1da320815b350f3914d47e87270efe5f40ff51a23be98904953a29d3cac47"
+        }
+      },
+      "frames_expected": 48,
+      "frames_processed": 48,
+      "frames_fused": 43,
+      "frames_held_out": 5,
+      "temporal_coverage": 1.0,
+      "vertices": 1143952,
+      "triangles": 1929433,
+      "web_triangles": 300000,
+      "voxel_size_model_units": 0.011954209767282009,
+      "units": "uncalibrated model units",
+      "accepted_pixel_fraction": 0.3211893106663515,
+      "observed_points": 1118589,
+      "fusion_seconds": 16.090206624998245,
+      "loop_closure": false,
+      "pose_source": "MapAnything Apache posed predictions",
+      "absolute_dimensions_verified": false,
+      "unseen_surfaces_completed": false,
+      "limitations": [
+        "Monocular scale lacks measured anchors",
+        "Sequential window alignment can drift",
+        "Glass, mirrors, motion and unobserved surfaces remain uncertain",
+        "Depth consistency is an internal check, not independent ground truth"
+      ],
+      "files": {
+        "property.glb": "cb79497b0a2600670519dda52edf9677ead403b4d74218c55004061b1fd077d6",
+        "observed-surfaces.ply": "00a73a16b2c9c183bbfdbfacfabab171850c00d6f9fd70d95753b82aab0e535d",
+        "observed-points.ply": "d6184b39be0e5fbbc11b971052c274698df1de5a28ea5cad307cf77363c5fc70"
+      }
+    },
+    "model/render-validation.json": {
+      "views": [
+        {
+          "frame": 5,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.45203293672681427,
+          "mean_absolute_rgb_error_visible": 0.18353322086425733,
+          "supported_depth_fraction": 0.2471764026055894,
+          "median_relative_depth_error_visible": 0.04016023954281324
+        },
+        {
+          "frame": 15,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7194665510992042,
+          "mean_absolute_rgb_error_visible": 0.11133791778445994,
+          "supported_depth_fraction": 0.5480633268271524,
+          "median_relative_depth_error_visible": 0.026371004290588286
+        },
+        {
+          "frame": 25,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9558808079216242,
+          "mean_absolute_rgb_error_visible": 0.24678749547259018,
+          "supported_depth_fraction": 0.1030564400433885,
+          "median_relative_depth_error_visible": 0.5533691313679383
+        },
+        {
+          "frame": 35,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6077469597877762,
+          "mean_absolute_rgb_error_visible": 0.15929021535684665,
+          "supported_depth_fraction": 0.47288539957022724,
+          "median_relative_depth_error_visible": 0.03676553551853193
+        },
+        {
+          "frame": 45,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5802996874425446,
+          "mean_absolute_rgb_error_visible": 0.03670077932162964,
+          "supported_depth_fraction": 0.556457331967536,
+          "median_relative_depth_error_visible": 0.014655683096415156
+        }
+      ],
+      "median_rendered_coverage": 0.6077469597877762,
+      "median_supported_depth_fraction": 0.47288539957022724,
+      "minimum_supported_depth_fraction": 0.1030564400433885,
+      "mesh": "observed-surfaces.ply",
+      "median_absolute_rgb_error_visible": 0.15929021535684665,
+      "metric_accuracy_verified": false,
+      "visual_completeness_gate": false,
+      "view_consistency_gate": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+      "thresholds": {
+        "median_coverage_minimum": 0.7,
+        "median_depth_support_minimum": 0.6,
+        "relative_depth_tolerance": 0.05,
+        "per_view_depth_support_minimum": 0.4,
+        "median_rgb_error_maximum": 0.12,
+        "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+      },
+      "required_external_checks": [
+        "Measured scale and independent held-out lengths",
+        "Room connectivity and loop drift",
+        "Missing wall, doorway, glass and ceiling review"
+      ]
+    },
+    "model/web-render-validation.json": {
+      "views": [
+        {
+          "frame": 5,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.42972710319649093,
+          "mean_absolute_rgb_error_visible": 0.181061571176155,
+          "supported_depth_fraction": 0.23783226518176087,
+          "median_relative_depth_error_visible": 0.03829458818382869
+        },
+        {
+          "frame": 15,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.688611351876658,
+          "mean_absolute_rgb_error_visible": 0.10710786027643314,
+          "supported_depth_fraction": 0.5333333333333333,
+          "median_relative_depth_error_visible": 0.02570774852064599
+        },
+        {
+          "frame": 25,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9349736033409503,
+          "mean_absolute_rgb_error_visible": 0.24555223545991586,
+          "supported_depth_fraction": 0.10662549424402533,
+          "median_relative_depth_error_visible": 0.525224525670593
+        },
+        {
+          "frame": 35,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5891051401255483,
+          "mean_absolute_rgb_error_visible": 0.1571483230889514,
+          "supported_depth_fraction": 0.45615133415678244,
+          "median_relative_depth_error_visible": 0.03751749453049138
+        },
+        {
+          "frame": 45,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5654269429779634,
+          "mean_absolute_rgb_error_visible": 0.03537030838348578,
+          "supported_depth_fraction": 0.5453667953667953,
+          "median_relative_depth_error_visible": 0.014374794672631563
+        }
+      ],
+      "median_rendered_coverage": 0.5891051401255483,
+      "median_supported_depth_fraction": 0.45615133415678244,
+      "minimum_supported_depth_fraction": 0.10662549424402533,
+      "mesh": "property.glb",
+      "median_absolute_rgb_error_visible": 0.1571483230889514,
+      "metric_accuracy_verified": false,
+      "visual_completeness_gate": false,
+      "view_consistency_gate": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+      "thresholds": {
+        "median_coverage_minimum": 0.7,
+        "median_depth_support_minimum": 0.6,
+        "relative_depth_tolerance": 0.05,
+        "per_view_depth_support_minimum": 0.4,
+        "median_rgb_error_maximum": 0.12,
+        "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+      },
+      "required_external_checks": [
+        "Measured scale and independent held-out lengths",
+        "Room connectivity and loop drift",
+        "Missing wall, doorway, glass and ceiling review"
+      ]
+    }
+  },
+  "mapanything-fixed-cameras-760": {
+    "anchoring.json": {
+      "source_prediction_sha256": "81b4abb278c431e54380e29421bd78e9c9f38019647c3a56255dfa966ac8c95a",
+      "camera_window_sha256": {
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/direct-bundle-cauchy-v1/candidate/windows/000792.npz": "1c1b088d2e0efb4b1eb441c3b3d027bd1283446505402e995bbb0c4ca096d4c4",
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/direct-bundle-cauchy-v1/candidate/windows/000720.npz": "c0e6b716f4680826a3ec9b433f32935ba72ea4a3d9b3dcfec33e7f7ea6d1ca5d"
+      },
+      "training_cameras": 43,
+      "reserved_cameras": 5,
+      "depth_scale": 0.2246774453780237,
+      "camera_scale_fit": [
+        [
+          0.05262991455429288,
+          0.025071582883811012,
+          -0.2169826313032978,
+          -7.108662228050274
+        ],
+        [
+          -0.0942505238750784,
+          0.20395170026675377,
+          0.0007051022396144459,
+          -3.2259033528994583
+        ],
+        [
+          0.1970453889459886,
+          0.09085743861454178,
+          0.05829232372382887,
+          5.079206699193357
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "training_center_residual_p50_p95_relative_to_depth": [
+        0.3532950479976487,
+        0.46540260503481956
+      ],
+      "reserved_center_residual_p50_p95_relative_to_depth": [
+        0.3885760199643339,
+        0.43345241534066775
+      ],
+      "interpretation": "Single depth scale estimated from training camera centers; all output K and poses fixed to the registered source. No surveyed accuracy claim."
+    },
+    "local-comparison.jsonl": [
+      {
+        "target": 775,
+        "arm": "fixed-window",
+        "frames_fused": 43,
+        "window_start": 760,
+        "coverage": 0.5527210884353742,
+        "supported_depth_fraction": 0.14860049553927104,
+        "rgb_mae_visible": 0.14556278838631778,
+        "median_depth_error": 0.10158624280313377,
+        "triangles": 1606201,
+        "seconds": 3.43078345801041
+      },
+      {
+        "target": 775,
+        "arm": "fixed-neighbors",
+        "frames_fused": 16,
+        "window_start": 760,
+        "coverage": 0.5401071625561421,
+        "supported_depth_fraction": 0.15220760118719304,
+        "rgb_mae_visible": 0.13765261788329503,
+        "median_depth_error": 0.1017133996573869,
+        "triangles": 486391,
+        "seconds": 1.1954578750010114
+      },
+      {
+        "target": 785,
+        "arm": "fixed-window",
+        "frames_fused": 43,
+        "window_start": 760,
+        "coverage": 0.7189937751162241,
+        "supported_depth_fraction": 0.0748912177483606,
+        "rgb_mae_visible": 0.2433953334203623,
+        "median_depth_error": 0.3976838305855828,
+        "triangles": 1606201,
+        "seconds": 3.4406100000051083
+      },
+      {
+        "target": 785,
+        "arm": "fixed-neighbors",
+        "frames_fused": 16,
+        "window_start": 760,
+        "coverage": 0.4264439366480183,
+        "supported_depth_fraction": 0.07848081317469073,
+        "rgb_mae_visible": 0.20441689733296622,
+        "median_depth_error": 0.2532923305364761,
+        "triangles": 473798,
+        "seconds": 1.2004360830032965
+      },
+      {
+        "target": 795,
+        "arm": "fixed-window",
+        "frames_fused": 43,
+        "window_start": 760,
+        "coverage": 0.7691277283114017,
+        "supported_depth_fraction": 0.3002039940815451,
+        "rgb_mae_visible": 0.18070405568914039,
+        "median_depth_error": 0.1468260351599658,
+        "triangles": 1606201,
+        "seconds": 3.514488082990283
+      },
+      {
+        "target": 795,
+        "arm": "fixed-neighbors",
+        "frames_fused": 16,
+        "window_start": 760,
+        "coverage": 0.623617786883093,
+        "supported_depth_fraction": 0.4612367469510327,
+        "rgb_mae_visible": 0.13509532496540433,
+        "median_depth_error": 0.026755099808935916,
+        "triangles": 571406,
+        "seconds": 1.3129452080029296
+      }
+    ],
+    "model/validation.json": {
+      "status": "reconstructed_unverified_metric_accuracy",
+      "source_sha256": "ca590d8af33c465953d6ed6c305557e4b4d7cc6ba3710b4c65872bbf06b684e0",
+      "input_signature": {
+        "inference": "04e89eda33e37ad196c5d0f7de336c8fd890c65f9d72a130b9ffc1e3c234eb2e",
+        "windows": {
+          "000000.npz": "a42817fb9174236f2ca33e1890770a2ca9c8e59630c54214c84206fee6537d60"
+        }
+      },
+      "frames_expected": 48,
+      "frames_processed": 48,
+      "frames_fused": 43,
+      "frames_held_out": 5,
+      "temporal_coverage": 1.0,
+      "vertices": 1047692,
+      "triangles": 1605148,
+      "web_triangles": 299999,
+      "voxel_size_model_units": 0.0024632338900119066,
+      "units": "uncalibrated model units",
+      "accepted_pixel_fraction": 0.30309413823444437,
+      "observed_points": 1002551,
+      "fusion_seconds": 12.579738750006072,
+      "loop_closure": false,
+      "pose_source": "MapAnything depth with fixed registered cameras",
+      "absolute_dimensions_verified": false,
+      "unseen_surfaces_completed": false,
+      "limitations": [
+        "Monocular scale lacks measured anchors",
+        "Sequential window alignment can drift",
+        "Glass, mirrors, motion and unobserved surfaces remain uncertain",
+        "Depth consistency is an internal check, not independent ground truth"
+      ],
+      "files": {
+        "property.glb": "d80d58508e82f4f84514a697394d9f3f422242639a1ba9dd9dcc5dac9072f6db",
+        "observed-surfaces.ply": "c42ac5ba3877111bc306baf270ccedd1a982d45519a873dbc529ab1d38274a2f",
+        "observed-points.ply": "385704144f381cf27a7fb9f0224beddc63ad1504198f7c06b1c6994b9bbac57b"
+      }
+    },
+    "model/render-validation.json": {
+      "views": [
+        {
+          "frame": 5,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6364484017545242,
+          "mean_absolute_rgb_error_visible": 0.07576466596240322,
+          "supported_depth_fraction": 0.0619533527696793,
+          "median_relative_depth_error_visible": 0.12290814490655333
+        },
+        {
+          "frame": 15,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5500288918656265,
+          "mean_absolute_rgb_error_visible": 0.1455989581809365,
+          "supported_depth_fraction": 0.14066836515816108,
+          "median_relative_depth_error_visible": 0.1035435096093065
+        },
+        {
+          "frame": 25,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7183043101410448,
+          "mean_absolute_rgb_error_visible": 0.24351495754071703,
+          "supported_depth_fraction": 0.07428711510344163,
+          "median_relative_depth_error_visible": 0.430596727354043
+        },
+        {
+          "frame": 35,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7786226459695847,
+          "mean_absolute_rgb_error_visible": 0.1779102958291043,
+          "supported_depth_fraction": 0.31031614705084093,
+          "median_relative_depth_error_visible": 0.13374108208530927
+        },
+        {
+          "frame": 45,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.3451133349092533,
+          "mean_absolute_rgb_error_visible": 0.08405451605658437,
+          "supported_depth_fraction": 0.2739211514721719,
+          "median_relative_depth_error_visible": 0.01981344669845725
+        }
+      ],
+      "median_rendered_coverage": 0.6364484017545242,
+      "median_supported_depth_fraction": 0.14066836515816108,
+      "minimum_supported_depth_fraction": 0.0619533527696793,
+      "mesh": "observed-surfaces.ply",
+      "median_absolute_rgb_error_visible": 0.1455989581809365,
+      "metric_accuracy_verified": false,
+      "visual_completeness_gate": false,
+      "view_consistency_gate": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+      "thresholds": {
+        "median_coverage_minimum": 0.7,
+        "median_depth_support_minimum": 0.6,
+        "relative_depth_tolerance": 0.05,
+        "per_view_depth_support_minimum": 0.4,
+        "median_rgb_error_maximum": 0.12,
+        "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+      },
+      "required_external_checks": [
+        "Measured scale and independent held-out lengths",
+        "Room connectivity and loop drift",
+        "Missing wall, doorway, glass and ceiling review"
+      ]
+    },
+    "model/web-render-validation.json": {
+      "views": [
+        {
+          "frame": 5,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6093360123972369,
+          "mean_absolute_rgb_error_visible": 0.07329372618184567,
+          "supported_depth_fraction": 0.05238620544742994,
+          "median_relative_depth_error_visible": 0.1245685875024389
+        },
+        {
+          "frame": 15,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5180508496835028,
+          "mean_absolute_rgb_error_visible": 0.14189387980301443,
+          "supported_depth_fraction": 0.12151218273667254,
+          "median_relative_depth_error_visible": 0.10776732862758712
+        },
+        {
+          "frame": 25,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6820581514459065,
+          "mean_absolute_rgb_error_visible": 0.24133462149493193,
+          "supported_depth_fraction": 0.06916537528782427,
+          "median_relative_depth_error_visible": 0.4346968613119469
+        },
+        {
+          "frame": 35,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7525017729099361,
+          "mean_absolute_rgb_error_visible": 0.17448288448596425,
+          "supported_depth_fraction": 0.3153153153153153,
+          "median_relative_depth_error_visible": 0.12631909153566823
+        },
+        {
+          "frame": 45,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.32372022167940534,
+          "mean_absolute_rgb_error_visible": 0.08021376393694732,
+          "supported_depth_fraction": 0.26102487326977125,
+          "median_relative_depth_error_visible": 0.020644712925658375
+        }
+      ],
+      "median_rendered_coverage": 0.6093360123972369,
+      "median_supported_depth_fraction": 0.12151218273667254,
+      "minimum_supported_depth_fraction": 0.05238620544742994,
+      "mesh": "property.glb",
+      "median_absolute_rgb_error_visible": 0.14189387980301443,
+      "metric_accuracy_verified": false,
+      "visual_completeness_gate": false,
+      "view_consistency_gate": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+      "thresholds": {
+        "median_coverage_minimum": 0.7,
+        "median_depth_support_minimum": 0.6,
+        "relative_depth_tolerance": 0.05,
+        "per_view_depth_support_minimum": 0.4,
+        "median_rgb_error_maximum": 0.12,
+        "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+      },
+      "required_external_checks": [
+        "Measured scale and independent held-out lengths",
+        "Room connectivity and loop drift",
+        "Missing wall, doorway, glass and ceiling review"
+      ]
+    }
+  },
   "indoor-travel-learned-cameras-v1": {
     "validation.json": {
       "status": "reconstructed_unverified_metric_accuracy",
