@@ -25,6 +25,7 @@ from .io import digest, write_json, write_npz
 def learned_rotations(files, ranges, match_depth_ownership=False, warmup=None):
     """Align overlapping camera orientations without translation or scale fitting."""
     from .geometry import ownership_bounds
+
     rotations, checks = {}, []
     for chunk, file in enumerate(files):
         with np.load(file) as data:
@@ -225,6 +226,7 @@ def motion_constraint(data, i, j, images, scale):
 
 def collect_tracks(source, images, files, ranges, warmup=None):
     from .geometry import ownership_bounds
+
     tracks, scales, frame_depths, overlaps = defaultdict(list), [], {}, []
     motion_edges, motion_checks = [], []
     previous, scale = None, 1.0
@@ -352,6 +354,7 @@ def evaluate_tracks(tracks, images, centers):
 def select_learned_cameras(images, learned, files, ranges, warmup=None):
     """Use the camera model that produced each owned depth map."""
     from .geometry import ownership_bounds
+
     for chunk, file in enumerate(files):
         with np.load(file) as data:
             ids, intrinsics = data["frame_ids"], data["intrinsics"]
@@ -370,7 +373,14 @@ def select_learned_cameras(images, learned, files, ranges, warmup=None):
             images[frame] = {**image, "extrinsics": extrinsics, "camera": camera}
 
 
-def register(source, destination, colmap_model, bridges=None, camera_source="sfm", motion_weight=1.0):
+def register(
+    source,
+    destination,
+    colmap_model,
+    bridges=None,
+    camera_source="sfm",
+    motion_weight=1.0,
+):
     source, destination, colmap_model = (
         Path(source),
         Path(destination),
@@ -393,12 +403,15 @@ def register(source, destination, colmap_model, bridges=None, camera_source="sfm
     if not np.isfinite(motion_weight) or motion_weight <= 0:
         raise ValueError("motion_weight must be finite and positive")
     warmup = 8 if camera_source == "learned" else None
+    from .bridges import bridge_input_signature
+
     signature = {
-        "method_version": 7,
+        "method_version": 8,
         "camera_source": camera_source,
         "motion_weight": motion_weight,
         "depth_ownership_warmup": warmup,
         "bridges_sha256": digest(Path(bridges)) if bridges else None,
+        "bridge_inputs": bridge_input_signature(bridges) if bridges else None,
         "source_inference_sha256": digest(source / "inference.json"),
         "source_windows": {p.name: digest(p) for p in files},
         "colmap_files": {
@@ -439,7 +452,9 @@ def register(source, destination, colmap_model, bridges=None, camera_source="sfm
     if bridges:
         from .bridges import load_bridges
 
-        bridge_data = load_bridges(bridges, source, files, ranges, learned, warmup=warmup)
+        bridge_data = load_bridges(
+            bridges, source, files, ranges, learned, warmup=warmup
+        )
     orientation_groups = stabilize_rotations(images, learned)
     if camera_source == "learned":
         select_learned_cameras(images, learned, files, ranges, warmup=warmup)

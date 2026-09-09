@@ -6,6 +6,29 @@ from pathlib import Path
 import numpy as np
 
 
+def bridge_input_signature(path):
+    """Fingerprint the actual burst evidence, including referenced archives."""
+    from .io import digest
+
+    path = Path(path)
+    artifacts = []
+    for specification in json.loads(path.read_text()):
+        root = (path.parent / specification["output"]).resolve()
+        windows = sorted((root / "windows").glob("*.npz"))
+        if len(windows) != 1:
+            raise ValueError(
+                "A motion bridge must contain one completed inference window"
+            )
+        files = [root / "input.json", root / "inference.json", *windows]
+        artifacts.append(
+            {
+                "output": str(root),
+                "files": {str(p.relative_to(root)): digest(p) for p in files},
+            }
+        )
+    return {"manifest_sha256": digest(path), "artifacts": artifacts}
+
+
 def load_bridges(path, source, files, ranges, learned, warmup=None):
     from .geometry import ownership_bounds
     from .registration import motion_constraint
@@ -59,7 +82,8 @@ def load_bridges(path, source, files, ranges, learned, warmup=None):
             i
             for i, (start, end) in enumerate(ranges)
             if ownership_bounds(ranges, i, warmup)[0]
-            <= a < ownership_bounds(ranges, i, warmup)[1]
+            <= a
+            < ownership_bounds(ranges, i, warmup)[1]
         )
         with np.load(files[owner]) as raw:
             index = int(np.flatnonzero(raw["frame_ids"] == a)[0])
