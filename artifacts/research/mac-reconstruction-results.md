@@ -24,7 +24,11 @@ This is a limited integration result and does not establish full-building accura
 All 1,000 base frames of the full video completed learned inference in 14 overlapping windows.
 The corrected implementation also reconstructs dense bursts across fast turns and occlusions.
 The refined full camera graph registers all 1,000 base frames after adaptive repair.
-The final full-mesh and exported-asset checks are recorded in the generated artifact reports.
+The 1,000-camera mesh still fails the stricter fidelity gate.
+Its median full-mesh coverage is 86.53%, median supported-depth fraction is 72.87%, and median RGB error is 0.0901.
+Frames 515 and 945 have only 37.3% and 20.6% supported depth respectively.
+The model is a reviewable research artifact and is not ready for a verified property listing.
+Final full-mesh and exported-asset checks are recorded separately in the generated artifact reports.
 
 ## Failures that changed the implementation
 
@@ -69,7 +73,10 @@ Every bridge retains its per-step depth-support checks and its scale agreement w
 A manually bridged 997-camera model achieved 85.97% median rendered coverage and 72.04% median supported-depth fraction across 24 reserved views.
 One late view still had only 25.95% supported depth and a visibly incorrect occluder.
 The stricter per-view gate rejects that model despite its acceptable median scores.
-The recalibrated run reduces orientation disagreement in that late rotation group from 13.76 degrees to 1.46 degrees at the 95th percentile; its mesh must still pass rendering checks independently.
+The recalibrated run reduces orientation disagreement in that late rotation group from 13.76 degrees to 1.46 degrees at the 95th percentile, but still fails rendering checks at frame 945.
+A local-only fusion of frames 936 through 999 also produces the occluder at that viewpoint, with 23.10% supported depth and 0.1826 RGB error.
+That falsifies the simple explanation that only distant earlier rooms caused the artifact.
+Local camera/depth inconsistency or an incorrect reflective-surface reconstruction remains unresolved.
 
 ### Exact adaptive sampling
 
@@ -85,6 +92,9 @@ Applying another set of viewer lights amplified surface noise into visible facet
 The GLB now explicitly uses the unlit material extension.
 The viewer serves original GLB bytes because a Trimesh parse/export cycle can discard vertex colors when an untextured material is present.
 Validation separately loads vertex colors and checks the actual GLB geometry against reserved source views.
+The initial fixed 300,000-triangle target also removed substantial visible coverage from the full scene.
+The export now performs resolution-bounded vertex clustering and uses a scene-length-dependent triangle budget.
+A three-million-triangle detailed asset is retained beside the coarse comparison asset for the full walkthrough.
 
 ## Optional UV baking experiment
 

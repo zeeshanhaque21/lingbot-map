@@ -23,6 +23,7 @@ def main():
             "refine",
             "register",
             "repair",
+            "export",
             "fuse",
             "validate",
             "view",
@@ -108,7 +109,7 @@ def main():
             asset = next(
                 name
                 for name in (
-                    "property-textured.glb",
+                    "property-detail.glb",
                     "property-unlit.glb",
                     "property.glb",
                 )
@@ -162,6 +163,10 @@ def main():
                 args.checkpoint,
                 args.bridges,
             )
+        if args.stage == "export":
+            from .export import export_detail
+
+            export_detail(args.output)
         if args.stage == "view":
             from .viewer import view
 

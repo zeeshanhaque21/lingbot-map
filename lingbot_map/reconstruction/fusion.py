@@ -165,11 +165,9 @@ def fuse(output):
     cloud = volume.extract_point_cloud()
     cloud.colors = o3d.utility.Vector3dVector(np.clip(np.asarray(cloud.colors), 0, 1))
     o3d.io.write_point_cloud(str(artifact / "observed-points.ply"), cloud)
-    web_mesh = (
-        mesh.simplify_quadric_decimation(300000)
-        if len(mesh.triangles) > 300000
-        else mesh
-    )
+    from .export import simplify_for_app
+
+    web_mesh = simplify_for_app(mesh, voxel, expected)
     vertices = np.asarray(web_mesh.vertices).copy()
     # glTF is Y-up; rotate OpenCV world Y/Z to match. The source PLY stays OpenCV.
     vertices[:, 1:] *= -1

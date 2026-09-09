@@ -73,10 +73,10 @@ A paired bfloat16 run showed 0.246% median and 0.677% 95th-percentile raw relati
 These are single-run numerical comparisons with a float32 baseline, not accuracy against measured building geometry.
 
 The first float32 full-video attempt was terminated by signal 9 at frame 44 during rising memory pressure.
-Bfloat16 processing is being evaluated for the complete sequence.
+Bfloat16 processing completed all 1,000 base frames in 14 windows after a verified Metal cache-management fix.
 The early mesh had substantial holes, and its pose convention was subsequently found to be incorrect for the tested checkpoint.
 Those early coverage figures must not be treated as a fair learned-pose baseline.
-Current run status and eventual final quality findings belong in the implementation report and generated validation artifacts.
+Final quality findings and failed baselines are recorded in [the implementation report](mac-reconstruction-results.md) and generated validation artifacts.
 
 ## Checkpoint convention discovered during implementation
 

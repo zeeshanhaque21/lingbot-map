@@ -24,9 +24,14 @@ def view(output, port=8081):
     server.scene.set_up_direction((0, -1, 0))
     asset_path = next(
         root / name
-        for name in ("property-textured.glb", "property-unlit.glb", "property.glb")
+        for name in ("property-detail.glb", "property-unlit.glb", "property.glb")
         if (root / name).exists()
     )
+    display_triangles = report["web_triangles"]
+    if asset_path.name == "property-detail.glb":
+        display_triangles = json.loads((root / "app-export.json").read_text())[
+            "triangles"
+        ]
     # Serve the exact GLB bytes; a parse/export roundtrip can discard vertex colors.
     server.scene.add_glb("/property", asset_path.read_bytes(), wxyz=(0, 1, 0, 0))
     positions = np.array([c["camera_to_world"] for c in cameras])[:, :3, 3]
@@ -39,8 +44,16 @@ def view(output, port=8081):
         "## Property reconstruction\nObserved surfaces from the walkthrough.\n\n**Dimensions unverified.** Hidden surfaces remain open."
     )
     server.gui.add_markdown(
-        f"{report['web_triangles']:,} display triangles · {len(cameras):,} views"
+        f"{display_triangles:,} display triangles · {len(cameras):,} views"
     )
+    quality_path = root / "web-render-validation.json"
+    if not quality_path.exists():
+        quality_path = root / "render-validation.json"
+    quality = json.loads(quality_path.read_text()) if quality_path.exists() else None
+    if quality is None or not quality["view_consistency_gate"]:
+        server.gui.add_markdown(
+            "**Geometry needs review.** Some surfaces may disagree with the captured views."
+        )
     show_path = server.gui.add_checkbox("Capture path", initial_value=False)
     trajectory.visible = False
 
@@ -97,6 +110,26 @@ def view(output, port=8081):
         event.client.camera.fov = 2 * np.arctan(
             preview.image.shape[0] / (2 * camera["intrinsics"][1][1])
         )
+
+    if quality is not None:
+        problems = sorted(
+            quality["views"], key=lambda item: item["supported_depth_fraction"]
+        )
+        for problem in [p for p in problems if p["supported_depth_fraction"] < 0.4][:3]:
+            index = next(
+                i
+                for i, camera in enumerate(cameras)
+                if camera["frame"] == problem["frame"]
+            )
+            button = server.gui.add_button(
+                f"Review {cameras[index]['timestamp_seconds']:.1f}s"
+            )
+
+            @button.on_click
+            def review_problem(event, index=index):
+                selected.value = index
+                update()
+                compare(event)
 
     @server.on_client_connect
     def connected(client):

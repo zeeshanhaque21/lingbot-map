@@ -31,6 +31,7 @@ The model source is [Robbyant's model repository](https://huggingface.co/robbyan
 The viewer opens at `http://127.0.0.1:8081`.
 Select a captured frame and use **Compare from this camera** to inspect the reconstructed surface from its source viewpoint.
 The GLB download uses the actual mesh, not a point-cloud placeholder.
+The viewer displays failed geometry checks and provides buttons for the weakest inspected viewpoints.
 
 The default sampling rate is 2 fps with 96-frame inference windows and 24 shared frames.
 The model retains its 8 scale frames, 64-frame cache and 518-pixel inference width.
@@ -85,6 +86,7 @@ Registration diagnostics retain the tested graph edges, rejected motions, bridge
 | `registration.json` | Depth overlap checks, connected cameras and withheld feature-track errors |
 | `pipeline-result.json` | Actual completed registration directory after any adaptive repairs |
 | `model/property.glb` | Simplified colored triangle mesh for app ingestion |
+| `model/property-detail.glb` | Optional detailed re-export of an existing reconstruction |
 | `model/observed-surfaces.ply` | Full-resolution fused surface mesh |
 | `model/observed-points.ply` | Fused observed points |
 | `model/cameras.json` | Camera poses, processed-image intrinsics and source timestamps |
@@ -99,6 +101,8 @@ Input extraction and completed inference windows are resumable.
 A changed input or inference configuration requires a separate output directory.
 Inference currently saves at each completed window; an interrupted current window is recomputed.
 Completed windows are written through temporary files followed by atomic replacement.
+`export --output <run>` produces a detailed app mesh from saved surfaces without repeating inference or camera reconstruction.
+The triangle budget grows with capture length, and `app-export.json` records the actual size and provenance.
 
 ## Fidelity policy
 
