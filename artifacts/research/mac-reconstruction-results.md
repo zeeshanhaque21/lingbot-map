@@ -226,6 +226,44 @@ This comparison is separate from the working mesh pipeline.
 
 ## Remaining acceptance requirements
 
+### Additional failure isolation
+
+The independent local reconstruction comparison now covers all seven failing exported views and the corrected kitchen view as a control.
+The 32 saved comparisons are in `reconstructions/remaining-views-falsifier-v1/results.jsonl` and the generated [experiment snapshot](evidence/fidelity-spikes.json).
+The registered full-window arms include unowned overlap predictions, so they isolate local behavior and do not replace the complete production-fusion audit.
+
+Frame 355 reaches 84.03% supported depth with 16 nearby native frames, but only 41.17% when fusing its full native window.
+Frame 795 similarly reaches 80.73% with nearby registered frames versus 33.85% across its full registered window.
+Frame 755 reaches 73.74% in the registered local-window comparison, while the complete exported scene reaches 36.45%.
+These comparisons show that adding views can introduce incompatible foreground surfaces.
+They do not establish that the locally consistent camera motion is correct.
+
+A fresh 48-frame context covering original frames 760 through 807 raises frame 785's full-window depth support from 25.24% to 41.12%.
+Repeating the same fresh context in float32 reaches 42.82%, with visible chair distortion still present.
+The float32 run completes with the corrected Metal cache handling; peak reported driver allocation is 21.61 GB.
+Inference and archive writing take 35.84 seconds for bfloat16 and 42.96 seconds for float32, excluding model loading and preprocessing.
+These are one run per precision, not a controlled throughput benchmark.
+The bfloat16 archive SHA-256 is `2293136210c2b77eabd4e093517d17f8475b2deddfd34bced376131058207d53`.
+The float32 archive SHA-256 is `c09121bb5a92ee0b0af95961a2e2eefd40302d05cf0fc9183c0e6a5b7d4f6a7f`.
+
+The new `experiments/visibility_carving_falsifier.py` tests whether repeated free-space evidence can remove the incorrect occluders.
+It excludes reserved frames from both direct votes and neighboring-depth support, uses the top confidence quartile, requires three temporal bins of contradictory evidence, and preserves three fixed removal policies separately.
+All 900 training views contribute before the exported arms are evaluated on the same 100 reserved views as the unchanged baseline.
+The policies remove 724, 815 and 831 triangles out of 2,999,999, and none resolves any of the seven failing views.
+The conservative policy leaves median depth support unchanged at 69.38%.
+This experiment is retained under `reconstructions/visibility-carving-v1/` and is not promoted into the main pipeline.
+
+The new `experiments/pair_pose_falsifier.py` compares unchanged registered poses, unchanged native poses, robust rigid fitting and similarity fitting on actual COLMAP feature correspondences.
+One fifth of feature tracks are reserved from each fit.
+The rigid and similarity solvers recover known synthetic transforms with 20% outliers in a separate numerical check.
+At frame 755's neighboring camera pair, rigid fitting lowers median reserved feature error from 5.81 to 1.34 pixels over ten reserved matches at the processed image resolution.
+At frame 515's pair, it lowers error from 1.54 to 0.83 pixels over 19 reserved matches.
+At frame 355's pair, the native poses have 20.30 pixels median error over nine reserved matches despite their high local depth support; the registered poses have 1.21 pixels error.
+This is a concrete counterexample to treating agreement with predicted depth as proof of correct camera motion.
+Frame 785 has insufficient reserved feature tracks for this paired comparison.
+The next geometry experiment must jointly optimize rotations and translations while retaining both feature alignment and complete-scene render checks.
+The camera-pair results do not yet prove a corrected full-scene model.
+
 The current validation images are withheld from fusion, but still participate in learned inference or photogrammetry.
 The feature-track split is also a development check, not independently surveyed ground truth.
 Thresholds were chosen as engineering screening defaults and are not calibrated guarantees of centimeter accuracy.

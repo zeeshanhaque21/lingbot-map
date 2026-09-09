@@ -19,6 +19,11 @@ def main():
         "overlap_quality": "overlap-quality-falsifier.json",
         "apple_photogrammetry": "apple-capture-80/result.json",
         "native_stream_memory_and_prefix": "indoor-travel-native-stream1000/native-stream-comparison.json",
+        "remaining_local_views": "remaining-views-falsifier-v1/results.jsonl",
+        "fresh_context_bfloat16": "local-depth-reset-760/local-comparison.jsonl",
+        "fresh_context_float32": "local-depth-reset-760-float32/local-comparison.jsonl",
+        "visibility_carving": "visibility-carving-v1/results.json",
+        "camera_pair_fits": "pair-pose-falsifier-v1/results.jsonl",
     }.items():
         path = captures / relative
         if not path.exists():
