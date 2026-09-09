@@ -77,6 +77,11 @@ Use `repair` in place of `register` to enable adaptive sampling for an existing 
 It also accepts `--bridges /path/to/bridges.json` for previously validated dense bursts.
 Registration diagnostics retain the tested graph edges, rejected motions, bridge checks and withheld feature-track errors.
 
+`--camera-source learned` is an experimental registration alternative for `run`, `register` and `repair`.
+It retains the learned intrinsics associated with each depth map and uses aligned learned orientations with photogrammetry feature tracks.
+Use a new output directory to compare it with the default `sfm` camera source.
+The local camera falsifier in the implementation report motivates this option; its complete-scene validation remains separate from the default baseline.
+
 ## Artifacts and evidence
 
 | Artifact | Meaning |

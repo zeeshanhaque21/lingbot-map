@@ -345,7 +345,29 @@ def evaluate_tracks(tracks, images, centers):
     }
 
 
-def register(source, destination, colmap_model, bridges=None):
+def select_learned_cameras(images, learned, files, ranges):
+    """Use the camera model that produced each owned depth map."""
+    for chunk, file in enumerate(files):
+        with np.load(file) as data:
+            ids, intrinsics = data["frame_ids"], data["intrinsics"]
+            h, w = data["depth"].shape[1:]
+        start, end = ranges[chunk]
+        low = start if chunk == 0 else (start + ranges[chunk - 1][1]) // 2
+        high = end if chunk == len(files) - 1 else (end + ranges[chunk + 1][0]) // 2
+        for i, frame in enumerate(ids):
+            frame = int(frame)
+            if frame not in images or not low <= frame < high:
+                continue
+            image = images[frame]
+            camera = dict(image["camera"])
+            affine = preprocessing_transform(camera["width"], camera["height"], w, h)
+            camera["intrinsics"] = np.linalg.inv(affine) @ intrinsics[i]
+            extrinsics = image["extrinsics"].copy()
+            extrinsics[:, :3] = learned[frame]
+            images[frame] = {**image, "extrinsics": extrinsics, "camera": camera}
+
+
+def register(source, destination, colmap_model, bridges=None, camera_source="sfm"):
     source, destination, colmap_model = (
         Path(source),
         Path(destination),
@@ -363,8 +385,11 @@ def register(source, destination, colmap_model, bridges=None):
     files = sorted((source / "windows").glob("*.npz"))
     if [int(f.stem) for f in files] != [r[0] for r in ranges]:
         raise ValueError("Finish source inference before registration")
+    if camera_source not in ("sfm", "learned"):
+        raise ValueError("camera_source must be sfm or learned")
     signature = {
-        "method_version": 4,
+        "method_version": 5,
+        "camera_source": camera_source,
         "bridges_sha256": digest(Path(bridges)) if bridges else None,
         "source_inference_sha256": digest(source / "inference.json"),
         "source_windows": {p.name: digest(p) for p in files},
@@ -406,6 +431,8 @@ def register(source, destination, colmap_model, bridges=None):
 
         bridge_data = load_bridges(bridges, source, files, ranges, learned)
     orientation_groups = stabilize_rotations(images, learned)
+    if camera_source == "learned":
+        select_learned_cameras(images, learned, files, ranges)
     tracks, scales, frame_depths, overlaps, motion_edges, motion_checks = (
         collect_tracks(source, images, files, ranges)
     )
@@ -439,9 +466,14 @@ def register(source, destination, colmap_model, bridges=None):
         raise ValueError(
             "Depth-constrained camera registration exceeds the reprojection screening threshold"
         )
+    pose_source = (
+        "Depth and motion constrained pose graph with learned cameras and SfM tracks"
+        if camera_source == "learned"
+        else "Depth and motion constrained pose graph with aligned SfM rotations"
+    )
     config.update(
         poses_global=True,
-        pose_source="Depth and motion constrained pose graph with aligned SfM rotations",
+        pose_source=pose_source,
         registration_signature=signature,
     )
     frames_link = destination / "frames"

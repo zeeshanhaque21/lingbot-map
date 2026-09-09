@@ -76,7 +76,30 @@ The stricter per-view gate rejects that model despite its acceptable median scor
 The recalibrated run reduces orientation disagreement in that late rotation group from 13.76 degrees to 1.46 degrees at the 95th percentile, but still fails rendering checks at frame 945.
 A local-only fusion of frames 936 through 999 also produces the occluder at that viewpoint, with 23.10% supported depth and 0.1826 RGB error.
 That falsifies the simple explanation that only distant earlier rooms caused the artifact.
-Local camera/depth inconsistency or an incorrect reflective-surface reconstruction remains unresolved.
+At that stage, local camera/depth inconsistency and reflective-surface error remained competing explanations.
+
+### Paired local camera falsifier
+
+An independent TSDF spike reconstructed the same depth/RGB archives with native local cameras and the registered cameras.
+It also compared each full inference window with a 17-frame neighborhood, preserving the every-tenth-frame fusion holdout.
+This isolates camera registration from image content and downstream app simplification.
+
+| Reserved frame | Camera source | Window depth support | Neighborhood depth support |
+|---|---|---:|---:|
+| 945 | Registered | 27.78% | 86.83% |
+| 945 | Native local | 88.18% | 88.04% |
+| 515 | Registered | 61.96% | 68.11% |
+| 515 | Native local | 87.24% | 86.67% |
+
+The native local cameras remove the large incorrect kitchen occluder at frame 945.
+The registered full-window arm has 0.1826 visible RGB error, compared with 0.0706 for the native full-window arm.
+This is direct evidence that registration introduces the observed local failure; it does not establish which individual intrinsic, rotation or translation error contributes most.
+The spike uses windows starting at 936 and 504, so its percentages are not directly interchangeable with the earlier complete-scene metrics.
+
+An experimental `--camera-source learned` path now preserves learned camera intrinsics and aligned learned orientations while retaining photogrammetry tracks and the robust translation graph.
+It registers all 1,000 base cameras with 3.56 px median withheld-track reprojection error.
+Full-mesh validation is required before adopting this path as the default.
+The reproducible paired experiment is `experiments/local_pose_falsifier.py`.
 
 ### Exact adaptive sampling
 

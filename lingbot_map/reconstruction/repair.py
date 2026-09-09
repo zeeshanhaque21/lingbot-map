@@ -143,7 +143,8 @@ def prepare_motion_bridge(source, output, a, b):
 
 
 def register_with_repairs(
-    source, destination, model, checkpoint, bridges=None, maximum_rounds=2
+    source, destination, model, checkpoint, bridges=None, maximum_rounds=2,
+    camera_source="sfm",
 ):
     from .inference import infer
     from .registration import register
@@ -165,7 +166,7 @@ def register_with_repairs(
             else destination.with_name(f"{destination.name}-repair-{attempt}")
         )
         try:
-            register(source, target, model, bridges)
+            register(source, target, model, bridges, camera_source=camera_source)
             write_json(
                 source / "pipeline-result.json",
                 {

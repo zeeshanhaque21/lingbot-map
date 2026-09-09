@@ -34,6 +34,7 @@ def main():
     parser.add_argument("--source", type=Path)
     parser.add_argument("--colmap-model", type=Path)
     parser.add_argument("--bridges", type=Path)
+    parser.add_argument("--camera-source", choices=["sfm", "learned"], default="sfm")
     parser.add_argument("--mapper", choices=["global", "incremental"], default="global")
     parser.add_argument(
         "--pose-convention",
@@ -95,7 +96,8 @@ def main():
                 )
             artifact_output = args.output / "final"
             artifact_output = register_with_repairs(
-                args.output, artifact_output, models[0], args.checkpoint, args.bridges
+                args.output, artifact_output, models[0], args.checkpoint, args.bridges,
+                camera_source=args.camera_source,
             )
         if args.stage in ("fuse", "run"):
             with contextlib.redirect_stdout(sys.stderr):
@@ -148,7 +150,10 @@ def main():
                 )
             from .registration import register
 
-            register(args.source, args.output, args.colmap_model, args.bridges)
+            register(
+                args.source, args.output, args.colmap_model, args.bridges,
+                camera_source=args.camera_source,
+            )
         if args.stage == "repair":
             if args.source is None or args.colmap_model is None:
                 raise ValueError(
@@ -162,6 +167,7 @@ def main():
                 args.colmap_model,
                 args.checkpoint,
                 args.bridges,
+                camera_source=args.camera_source,
             )
         if args.stage == "export":
             from .export import export_detail
