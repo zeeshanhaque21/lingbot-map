@@ -26,7 +26,13 @@ def fuse(output):
         raise ValueError("Incomplete inference; resume infer before final fusion")
     artifact = output/"model"
     if (artifact/"validation.json").exists():
-        raise ValueError("Model already exists; use its artifacts or a new output directory")
+        saved=json.loads((artifact/"validation.json").read_text())
+        if saved["source_sha256"]!=manifest["configuration"]["source_sha256"] or saved["frames_expected"]!=expected:
+            raise ValueError("Existing model belongs to different input; use a new output directory")
+        if not all((artifact/name).exists() and digest(artifact/name)==checksum
+                   for name,checksum in saved["files"].items()):
+            raise ValueError("Existing model files are missing or changed; preserve them and use a new output directory")
+        return
     artifact.mkdir(exist_ok=True)
     transforms, registrations = [np.eye(4)], []
     previous = dict(np.load(files[0]))

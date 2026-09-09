@@ -59,6 +59,24 @@ def infer(output, checkpoint, window=96, overlap=24, device="mps", precision="fl
             model.load_state_dict(state, strict=True)
             del state
             model.to(device)
+            if device == "mps":
+                # Dynamic attention shapes can leave a large pool of unused Metal
+                # allocations. Release only unused buffers, preserving the live KV cache.
+                original_forward = model.forward
+                trace = output / "memory.jsonl"
+                def forward_with_memory_release(*args, **kwargs):
+                    result = original_forward(*args, **kwargs)
+                    torch.mps.synchronize()
+                    allocated = torch.mps.current_allocated_memory()
+                    driver_before = torch.mps.driver_allocated_memory()
+                    torch.mps.empty_cache()
+                    with trace.open("a") as stream:
+                        stream.write(json.dumps({"allocated_bytes": allocated,
+                            "driver_before_release": driver_before,
+                            "driver_after_release": torch.mps.driver_allocated_memory()}) + "\n")
+                        stream.flush()
+                    return result
+                model.forward = forward_with_memory_release
         images = load_and_preprocess_images(
             [str(output / frame["file"]) for frame in frames[start:end]],
             image_size=518, patch_size=14)

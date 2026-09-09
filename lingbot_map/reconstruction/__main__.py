@@ -1,5 +1,6 @@
 """Run with python -m lingbot_map.reconstruction."""
 import argparse
+import contextlib
 import json
 from pathlib import Path
 import sys
@@ -7,7 +8,7 @@ import sys
 
 def main():
     parser = argparse.ArgumentParser(description="Reconstruct observed property surfaces on this Mac")
-    parser.add_argument("stage", choices=["prepare", "infer", "run", "fuse", "validate", "view"], nargs="?")
+    parser.add_argument("stage", choices=["prepare", "infer", "run", "sfm", "fuse", "validate", "view"], nargs="?")
     parser.add_argument("--video", type=Path)
     parser.add_argument("--output", type=Path, default=Path("reconstructions/property"))
     parser.add_argument("--checkpoint", type=Path, default=Path("checkpoints/lingbot-map-long.pt"))
@@ -16,7 +17,7 @@ def main():
     parser.add_argument("--window", type=int, default=96)
     parser.add_argument("--overlap", type=int, default=24)
     parser.add_argument("--device", choices=["mps", "cpu", "cuda"], default="mps")
-    parser.add_argument("--precision", choices=["float32", "bfloat16", "float16"], default="float32")
+    parser.add_argument("--precision", choices=["float32", "bfloat16", "float16"], default="bfloat16")
     args = parser.parse_args()
     if not args.stage:
         print('description: Reconstruct observed property surfaces on this Mac')
@@ -32,14 +33,19 @@ def main():
             from .io import prepare
             prepare(args.video, args.output, args.fps, args.limit)
         if args.stage in ("infer", "run"):
-            from .inference import infer
-            infer(args.output, args.checkpoint, args.window, args.overlap, args.device, args.precision)
+            with contextlib.redirect_stdout(sys.stderr):
+                from .inference import infer
+                infer(args.output, args.checkpoint, args.window, args.overlap, args.device, args.precision)
         if args.stage in ("fuse", "run"):
-            from .fusion import fuse
-            fuse(args.output)
+            with contextlib.redirect_stdout(sys.stderr):
+                from .fusion import fuse
+                fuse(args.output)
         if args.stage in ("validate", "run"):
             from .validation import validate
             validate(args.output)
+        if args.stage == "sfm":
+            from .sfm import reconstruct_cameras
+            reconstruct_cameras(args.output)
         if args.stage == "view":
             from .viewer import view
             view(args.output)
