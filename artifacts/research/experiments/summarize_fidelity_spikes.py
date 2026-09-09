@@ -48,6 +48,7 @@ def main():
         "openmvs_refined_comparison": "openmvs-chair-760/evaluation-refined-1280/results.json",
         "openmvs_refined_captured_comparison": "openmvs-chair-760/evaluation-generic-refined-final/results.json",
         "openmvs_full_capture_comparison": "openmvs-full/evaluation-final/results.json",
+        "camera_turn_correspondence_audit": "camera-turn-correspondence-audit-v1/results.json",
     }.items():
         path = captures / relative
         if not path.exists():

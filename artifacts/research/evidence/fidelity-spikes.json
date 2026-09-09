@@ -7813,6 +7813,280 @@
       "interpretation": "All reserved captured RGB views, with unchanged COLMAP cameras and no per-view alignment. Reserved images were excluded from dense stereo and texturing but participated in camera estimation. Sparse tracks measure consistency with that same calibration, not independent geometry accuracy. No generated or model-derived depth is treated as truth. The unchanged local mesh baseline is compared only on its common reserved frames. All native materials are embedded and geometry, texture pixels, UVs and node transforms pass a complete export round trip. Scale and building connectivity remain unverified."
     }
   },
+  "camera_turn_correspondence_audit": {
+    "source": "camera-turn-correspondence-audit-v1/results.json",
+    "result": {
+      "pairs": [
+        {
+          "first_frame": 388,
+          "second_frame": 389,
+          "verified_matches": 0,
+          "database_config": 0,
+          "status": "insufficient_verified_correspondences"
+        },
+        {
+          "first_frame": 389,
+          "second_frame": 390,
+          "verified_matches": 130,
+          "database_config": 2,
+          "status": "evaluated",
+          "fit_correspondences": 104,
+          "reserved_correspondences": 26,
+          "fit_essential_inliers": 87,
+          "fit_positive_depth_inliers": 87,
+          "homography_fit_inlier_fraction": 0.5865384615384616,
+          "median_positive_depth_parallax_degrees": 1.2648094607596099,
+          "fresh_pair_turn_degrees": 27.42967319420165,
+          "global_colmap_turn_degrees": 27.420139385889378,
+          "learned_baseline_turn_degrees": 62.74714729845852,
+          "pair_to_global_rotation_difference_degrees": 0.48657417702565425,
+          "pair_to_learned_rotation_difference_degrees": 90.10834932461425,
+          "reserved_sampson_error_pixels_p50_p95": {
+            "fresh_pair_essential": [
+              0.44494209016228703,
+              1.5326791618739357
+            ],
+            "unchanged_global_colmap": [
+              0.328494307234666,
+              0.6528777256426735
+            ]
+          },
+          "fresh_pair_rotation": [
+            [
+              0.8880172691626567,
+              0.10104849147491171,
+              -0.4485694283380693
+            ],
+            [
+              -0.11470068360919843,
+              0.993394653910916,
+              -0.003288580361473982
+            ],
+            [
+              0.44527416593429303,
+              0.05437153622858199,
+              0.8937419388166047
+            ]
+          ],
+          "fresh_pair_translation_direction": [
+            -0.7001904237200994,
+            0.0928160854560343,
+            -0.7078972699560904
+          ]
+        },
+        {
+          "first_frame": 493,
+          "second_frame": 494,
+          "verified_matches": 252,
+          "database_config": 2,
+          "status": "evaluated",
+          "fit_correspondences": 201,
+          "reserved_correspondences": 51,
+          "fit_essential_inliers": 182,
+          "fit_positive_depth_inliers": 182,
+          "homography_fit_inlier_fraction": 0.5024875621890548,
+          "median_positive_depth_parallax_degrees": 3.1093770223026853,
+          "fresh_pair_turn_degrees": 19.480877872373767,
+          "global_colmap_turn_degrees": 72.74133986583854,
+          "learned_baseline_turn_degrees": 19.029431314350315,
+          "pair_to_global_rotation_difference_degrees": 92.12940277183421,
+          "pair_to_learned_rotation_difference_degrees": 0.5261898948184064,
+          "reserved_sampson_error_pixels_p50_p95": {
+            "fresh_pair_essential": [
+              0.42191556815792425,
+              0.946257288570854
+            ],
+            "unchanged_global_colmap": [
+              89.91258101493817,
+              243.80715218809064
+            ]
+          },
+          "fresh_pair_rotation": [
+            [
+              0.943148306821181,
+              -0.09832242562256405,
+              0.3174964125152191
+            ],
+            [
+              0.08922457625196699,
+              0.9950782443851265,
+              0.04310756945215334
+            ],
+            [
+              -0.32017221355544906,
+              -0.012328348271784136,
+              0.947279138108664
+            ]
+          ],
+          "fresh_pair_translation_direction": [
+            0.3992749796760723,
+            0.18866727247138007,
+            -0.8972090898463312
+          ]
+        },
+        {
+          "first_frame": 954,
+          "second_frame": 955,
+          "verified_matches": 95,
+          "database_config": 2,
+          "status": "evaluated",
+          "fit_correspondences": 76,
+          "reserved_correspondences": 19,
+          "fit_essential_inliers": 68,
+          "fit_positive_depth_inliers": 68,
+          "homography_fit_inlier_fraction": 0.42105263157894735,
+          "median_positive_depth_parallax_degrees": 7.517698419020931,
+          "fresh_pair_turn_degrees": 12.807071172923662,
+          "global_colmap_turn_degrees": 69.51212529682795,
+          "learned_baseline_turn_degrees": 11.876239024654472,
+          "pair_to_global_rotation_difference_degrees": 82.30708232268596,
+          "pair_to_learned_rotation_difference_degrees": 0.9418485011376252,
+          "reserved_sampson_error_pixels_p50_p95": {
+            "fresh_pair_essential": [
+              0.5760747782454612,
+              1.5814530073728064
+            ],
+            "unchanged_global_colmap": [
+              171.12435595287482,
+              317.25871325944735
+            ]
+          },
+          "fresh_pair_rotation": [
+            [
+              0.9751738696064947,
+              -0.05983904650418756,
+              0.21320228082777423
+            ],
+            [
+              0.05765090382507119,
+              0.9982009150938884,
+              0.016471381055515166
+            ],
+            [
+              -0.21380434355935757,
+              -0.0037711562143820077,
+              0.9768692241318482
+            ]
+          ],
+          "fresh_pair_translation_direction": [
+            0.9127664054387993,
+            0.13285670601646657,
+            -0.3862726818826146
+          ]
+        },
+        {
+          "first_frame": 300,
+          "second_frame": 301,
+          "verified_matches": 1149,
+          "database_config": 2,
+          "status": "evaluated",
+          "fit_correspondences": 919,
+          "reserved_correspondences": 230,
+          "fit_essential_inliers": 818,
+          "fit_positive_depth_inliers": 817,
+          "homography_fit_inlier_fraction": 0.49510337323177367,
+          "median_positive_depth_parallax_degrees": 0.7686616842068706,
+          "fresh_pair_turn_degrees": 7.997858404399569,
+          "global_colmap_turn_degrees": 8.03906692736614,
+          "learned_baseline_turn_degrees": 8.062771302522721,
+          "pair_to_global_rotation_difference_degrees": 0.11862029418888544,
+          "pair_to_learned_rotation_difference_degrees": 0.12476068275331534,
+          "reserved_sampson_error_pixels_p50_p95": {
+            "fresh_pair_essential": [
+              0.30589401753660994,
+              1.476638423103516
+            ],
+            "unchanged_global_colmap": [
+              0.24518863933185991,
+              0.8025795927624975
+            ]
+          },
+          "fresh_pair_rotation": [
+            [
+              0.9920931532467546,
+              0.03669681854382108,
+              -0.12001882681343301
+            ],
+            [
+              -0.04388160336185736,
+              0.9973645400937479,
+              -0.05777870758315565
+            ],
+            [
+              0.11758222725949556,
+              0.06258847875087614,
+              0.9910888467540876
+            ]
+          ],
+          "fresh_pair_translation_direction": [
+            0.24541429766878675,
+            0.18796870671475696,
+            -0.951020287793966
+          ]
+        },
+        {
+          "first_frame": 764,
+          "second_frame": 765,
+          "verified_matches": 827,
+          "database_config": 6,
+          "status": "evaluated",
+          "fit_correspondences": 661,
+          "reserved_correspondences": 166,
+          "fit_essential_inliers": 626,
+          "fit_positive_depth_inliers": 42,
+          "homography_fit_inlier_fraction": 0.5809379727685325,
+          "median_positive_depth_parallax_degrees": 1.1286716270097559,
+          "fresh_pair_turn_degrees": 11.388131258937701,
+          "global_colmap_turn_degrees": 11.311702745678302,
+          "learned_baseline_turn_degrees": 11.25633778408329,
+          "pair_to_global_rotation_difference_degrees": 0.1344511817655761,
+          "pair_to_learned_rotation_difference_degrees": 0.5512388513456085,
+          "reserved_sampson_error_pixels_p50_p95": {
+            "fresh_pair_essential": [
+              0.38320957473649053,
+              1.1371817327316596
+            ],
+            "unchanged_global_colmap": [
+              0.1415810645151398,
+              0.8104408868212923
+            ]
+          },
+          "fresh_pair_rotation": [
+            [
+              0.9811150096047776,
+              0.01489069683442857,
+              -0.19285125116524895
+            ],
+            [
+              -0.007115379184418866,
+              0.9991359531929281,
+              0.04094775227433804
+            ],
+            [
+              0.19329435922260804,
+              -0.03880224458770281,
+              0.9803732332676558
+            ]
+          ],
+          "fresh_pair_translation_direction": [
+            -0.9861030433766849,
+            0.13088392994343997,
+            -0.10232392059435796
+          ]
+        }
+      ],
+      "source_sha256": {
+        "database": "cb348b60bc798e6471da58f7b5d07cd79e70f75fea69a6b81e1c004af898c3b5",
+        "baseline_cameras": "e1f0cdc540f3ca3cb5a9d5b77616da8d1ed90a6ca27b0a67f6d026c254c08b6c",
+        "producer": "379d7cfe398aad5d2310833c85179570664e39c87743a35f4fa3718acc7a6985",
+        "cameras.txt": "a1ce3ddb991b7f5d5858a1c5e8e5f773b6eec11cb3b4874c57d1ec90f19c5155",
+        "images.txt": "9ef8415b35e06fcbe5109dbb50569d9916c4f9921af38b905537758e9c7b3747",
+        "points3D.txt": "df47bc9371f58dc434ce5ed60fe53c010607c7e326aec3a5dbbcabd6f0c5100e"
+      },
+      "metric_accuracy_verified": false,
+      "interpretation": "Read-only reprojection audit using retained verified COLMAP correspondences, with fresh essential matrices fitted using final camera calibration and 20% of pair correspondences reserved from this new fit. Camera estimation previously used the same images and database, so this is a development consistency test, not independent truth. Rotation magnitudes and differences also compare the unchanged learned baseline. High planar support or low triangulation angle may make two-view pose ambiguous. No camera path or mesh is modified."
+    }
+  },
   "joint-pose-graph-v1_camera_comparison": {
     "baseline": {
       "reserved_observations": 122264,

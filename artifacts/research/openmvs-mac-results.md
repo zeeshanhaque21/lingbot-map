@@ -167,6 +167,34 @@ They prevent treating successful full native meshing or low sparse reprojection 
 
 ![Complete camera paths and cross-method disagreement](evidence/global-camera-path-comparison.png)
 
+## Direct correspondence checks at disputed turns
+
+The camera-path disagreement leads to a read-only test of six image pairs: four selected near large rotation discrepancies and two controls.
+Five pairs have enough retained verified correspondences; frame 388-389 has none and is reported as unsupported.
+The eleven source images in this test are byte-identical between the captured-frame directory and the COLMAP image directory.
+Fresh essential matrices use the final COLMAP intrinsics and reserve every fifth correspondence from the new fit.
+The existing camera estimates have already seen these images and database features, so the reserved subset is still a development check.
+
+| Pair | Reserved correspondences | Global COLMAP median Sampson error | Fresh pair median Sampson error | Fresh rotation difference from global COLMAP | Fresh rotation difference from learned baseline |
+|---|---:|---:|---:|---:|---:|
+| 300-301, control | 230 | 0.25 px | 0.31 px | 0.12 degrees | 0.12 degrees |
+| 389-390 | 26 | 0.33 px | 0.44 px | 0.49 degrees | 90.11 degrees |
+| 493-494 | 51 | 89.91 px | 0.42 px | 92.13 degrees | 0.53 degrees |
+| 764-765, control | 166 | 0.14 px | 0.38 px | 0.13 degrees | 0.55 degrees |
+| 954-955 | 19 | 171.12 px | 0.58 px | 82.31 degrees | 0.94 degrees |
+
+Sampson distances are expressed in approximate pixel units using the mean calibrated focal length.
+The fresh fits use one fixed RANSAC seed; these are measured outcomes for the listed pairs, not a population accuracy estimate.
+At frames 493-494 and 954-955, the global camera solution is inconsistent with the retained pixel correspondences.
+At 389-390, the learned baseline has the large rotation discrepancy instead.
+This localizes errors upstream of mesh generation without establishing complete building geometry or metric scale.
+The 764-765 control has only 42 positive-depth correspondences after pose recovery, so its translation direction remains weakly constrained despite small image residuals.
+
+The native global-mapper log shows that its default configuration decomposes 1,604 additional relative poses and loads 6,197 graph edges.
+A separate database copy now tests `GlobalMapper.decompose_relative_pose=false` with every other native project option retained.
+It loads 4,593 edges and initially reports two connected components, compared with one in the original run.
+That experiment is still running and has not established an improved camera solution.
+
 ## Reproduction
 
 Use the existing reconstruction environment and verified native binaries.
