@@ -29,3 +29,20 @@ def test_scaled_camera_pose_is_rejected():
             518,
             294,
         )
+
+
+def test_small_registration_drift_is_projected_without_moving_camera():
+    pose = np.eye(4)
+    pose[0, 1] = 0.00018  # Observed registration drift exceeds the old 1e-4 gate.
+    pose[:3, 3] = [3, -2, 1]
+    original = pose.copy()
+    frame = nerf_frame(
+        {"camera_to_world": pose, "intrinsics": np.eye(3)}, "a.png", 518, 294
+    )
+    restored = np.asarray(frame["transform_matrix"]) @ np.diag([1, -1, -1, 1])
+    np.testing.assert_allclose(
+        restored[:3, :3].T @ restored[:3, :3], np.eye(3), atol=1e-12
+    )
+    np.testing.assert_array_equal(restored[:3, 3], original[:3, 3])
+    np.testing.assert_array_equal(pose, original)
+    assert np.max(np.abs(restored - original)) < 1e-4

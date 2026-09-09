@@ -13,14 +13,18 @@ from artifacts.research.experiments.mapanything_mac import digest
 
 def nerf_frame(camera, filename, width, height):
     """Convert OpenCV C2W to NeRF camera axes; retain the same world frame."""
-    pose = np.asarray(camera["camera_to_world"], dtype=np.float64)
+    pose = np.array(camera["camera_to_world"], dtype=np.float64, copy=True)
     rotation = pose[:3, :3]
-    if not np.allclose(rotation.T @ rotation, np.eye(3), atol=1e-4):
+    if not np.allclose(rotation.T @ rotation, np.eye(3), atol=1e-3, rtol=0):
         raise ValueError("Camera rotation is not orthonormal")
-    if not np.isclose(np.linalg.det(rotation), 1, atol=1e-4):
+    if not np.isclose(np.linalg.det(rotation), 1, atol=1e-3, rtol=0):
         raise ValueError("Camera pose includes reflection or scale")
     if not np.allclose(pose[3], [0, 0, 0, 1]):
         raise ValueError("Invalid homogeneous camera pose")
+    # Accumulated float32 registration transforms can slightly leave SO(3).
+    # Project only near-rigid inputs; never absorb material scale or reflection.
+    left, _, right = np.linalg.svd(rotation)
+    pose[:3, :3] = left @ right
     intrinsics = np.asarray(camera["intrinsics"])
     return {
         "file_path": filename,
@@ -86,8 +90,18 @@ def main():
         output_images[filename] = digest(path)
         height, width = data["rgb"][index].shape[:2]
         split = "val" if camera["held_out_from_fusion"] else "train"
-        splits[split].append(nerf_frame(camera, filename, width, height))
-        assignments.append({"frame": frame, "original_frame": original, "split": split})
+        exported = nerf_frame(camera, filename, width, height)
+        splits[split].append(exported)
+        restored = np.asarray(exported["transform_matrix"]) @ np.diag([1, -1, -1, 1])
+        correction = float(np.max(np.abs(restored - camera["camera_to_world"])))
+        assignments.append(
+            {
+                "frame": frame,
+                "original_frame": original,
+                "split": split,
+                "rotation_projection_max_abs": correction,
+            }
+        )
     for split, frames in splits.items():
         payload = {
             "camera_model": "OPENCV",
