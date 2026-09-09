@@ -36,6 +36,15 @@ def main():
         "gaussian_sparse_depth_audit": "brush-depth-audit-760-v2/results.json",
         "gaussian_reserved_depth_trace": "brush-depth-760-v2/trace.jsonl",
         "gaussian_training_depth_trace": "brush-depth-train-760-v2/trace.jsonl",
+        "gaussian_resolution_comparison": "brush-resolution-comparison-760/results.json",
+        "gaussian_common1280_low_audit": "brush-depth-audit-760-common1280-low/results.json",
+        "gaussian_common1280_high_audit": "brush-depth-audit-760-common1280-high/results.json",
+        "gaussian_high1280_training_trace": "brush-depth-train-760-high1280/trace.jsonl",
+        "brush_high1280_training_completion": "brush-chair-760/colmap-1280-10000/completion.json",
+        "openmvs_mesh_handoff": "openmvs-chair-760/mesh-handoff-spike/results.json",
+        "openmvs_complete_mesh_comparison": "openmvs-chair-760/evaluation-v4-batched/results.json",
+        "openmvs_no_leveling_comparison": "openmvs-chair-760/evaluation-no-leveling-final/results.json",
+        "openmvs_clean_comparison": "openmvs-chair-760/evaluation-clean-v2/results.json",
     }.items():
         path = captures / relative
         if not path.exists():
@@ -119,6 +128,7 @@ def main():
         "brush-mesh-760-mean",
         "brush-mesh-760-median",
         "brush-mesh-760-conditional",
+        "brush-mesh-760-high1280-median",
     ]:
         records[run] = {}
         for name in [
@@ -130,6 +140,27 @@ def main():
             path = captures / run / name
             if path.exists():
                 records[run][name] = json.loads(path.read_text())
+    for run in [
+        "trial-1280-v2",
+        "trial-1280-v4",
+        "trial-1280-no-leveling",
+        "trial-clean-no-leveling",
+        "trial-clean-v2-no-leveling",
+    ]:
+        records[f"openmvs_{run}"] = {}
+        for name in [
+            "run.json",
+            "import-completion.json",
+            "dense-completion.json",
+            "import-reused.json",
+            "dense-reused.json",
+            "mesh-completion.json",
+            "texture-completion.json",
+            "completion.json",
+        ]:
+            path = captures / "openmvs-chair-760" / run / name
+            if path.exists():
+                records[f"openmvs_{run}"][name] = json.loads(path.read_text())
     (evidence / "fidelity-spikes.json").write_text(json.dumps(records, indent=2) + "\n")
     for arm in ["native-window", "registered-window"]:
         source = captures / "local-pose-falsifier-v1" / f"945-{arm}.jpg"
@@ -151,6 +182,21 @@ def main():
             "photometric-spatial-chair-comparison.jpg",
         ),
         ("brush-mesh-760-median", "00", "gaussian-median-mesh-comparison.jpg"),
+        (
+            "brush-mesh-760-high1280-median",
+            "00",
+            "gaussian-high1280-mesh-comparison.jpg",
+        ),
+        (
+            "openmvs-chair-760/evaluation-v4-batched",
+            "00",
+            "openmvs-leveling-comparison.jpg",
+        ),
+        (
+            "openmvs-chair-760/evaluation-no-leveling-final",
+            "00",
+            "openmvs-chair-comparison.jpg",
+        ),
     ]:
         source = captures / run / "model" / f"web-source-comparison-{page}.jpg"
         if source.exists():
@@ -162,6 +208,9 @@ def main():
     source = captures / "brush-depth-audit-760-v2/depth-audit.jpg"
     if source.exists():
         shutil.copy2(source, evidence / "gaussian-depth-audit.jpg")
+    source = captures / "brush-resolution-comparison-760/comparison.jpg"
+    if source.exists():
+        shutil.copy2(source, evidence / "brush-resolution-comparison.jpg")
     print(f"Saved {len(records)} experiment groups to {evidence}")
 
 

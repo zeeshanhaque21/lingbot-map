@@ -5765,6 +5765,1648 @@
       }
     ]
   },
+  "gaussian_resolution_comparison": {
+    "source": "brush-resolution-comparison-760/results.json",
+    "result": {
+      "signatures": {
+        "low": {
+          "algorithm_sha256": "4bc8d6750a8caa098c26687075da4d2be9471b789291bc881a46edccf2c513d7",
+          "ply_sha256": "90673b5d998218fd4dd0d4f78af0ce52f5f69490222adbbada6449b42cbf4273",
+          "transforms_sha256": "877dc17fda1d557910c2bb3c76277ef9836ee3c08b004c2f7192bf8040018670",
+          "split": "val",
+          "device": "mps",
+          "frames": null
+        },
+        "high": {
+          "algorithm_sha256": "4bc8d6750a8caa098c26687075da4d2be9471b789291bc881a46edccf2c513d7",
+          "ply_sha256": "72a7d64c2d5daf0bec08a271d92b7676192b3762754ddc3fbf827b1c258dd498",
+          "transforms_sha256": "877dc17fda1d557910c2bb3c76277ef9836ee3c08b004c2f7192bf8040018670",
+          "split": "val",
+          "device": "mps",
+          "frames": null
+        }
+      },
+      "rows": [
+        {
+          "frame": 765,
+          "reference_sha256": "bba3fdae66e24069c8caac3423548a4a888b286a915af68992e8f5b2bd73b314",
+          "low": {
+            "full_image_mae": 0.05148446010348584,
+            "full_image_psnr": 20.544407190526396,
+            "render_sha256": "87017d2e8688e706bb55e6a59d6798acb22e37d87155e22f4affd21117cec16a",
+            "alpha_over_09": 0.6860145399305555
+          },
+          "high": {
+            "full_image_mae": 0.03779561688680101,
+            "full_image_psnr": 22.045432037781488,
+            "render_sha256": "6599548ec4e1166efa1faf897192782383b8a1f562b87e1d088c1eb45672ff59",
+            "alpha_over_09": 0.7252029079861111
+          }
+        },
+        {
+          "frame": 775,
+          "reference_sha256": "fb01f9e7ee2d459ae9ad856c5141fbaaa8bcc30f69ea9cad2232410235f1928a",
+          "low": {
+            "full_image_mae": 0.032264240649963694,
+            "full_image_psnr": 23.829727503867492,
+            "render_sha256": "92043de9979095d27566a91630a21525ef28d7c1f1ad8a7260244782f648cff8",
+            "alpha_over_09": 0.9066861979166667
+          },
+          "high": {
+            "full_image_mae": 0.024346088927469135,
+            "full_image_psnr": 25.251994901262997,
+            "render_sha256": "285abce2e4f8c4a2ade4e823a7c38fa6ca439a59959f534965371990b37546eb",
+            "alpha_over_09": 0.9299294704861111
+          }
+        },
+        {
+          "frame": 785,
+          "reference_sha256": "e509153fc7b37a2171cad6fe04c319f31099a596d232adb784f70d2e2f7a3015",
+          "low": {
+            "full_image_mae": 0.0782530963484931,
+            "full_image_psnr": 17.802277758252366,
+            "render_sha256": "33fe5329548833cdab2042b58c0a7397ad3ca2483b078a431bcbc24efbd050cb",
+            "alpha_over_09": 0.9324338107638889
+          },
+          "high": {
+            "full_image_mae": 0.06984971291757444,
+            "full_image_psnr": 18.52108321277087,
+            "render_sha256": "d86356d8bc2b999652ffbc7c1e9546a1a7787c9603372528472016ad2b2afe71",
+            "alpha_over_09": 0.9373882378472222
+          }
+        },
+        {
+          "frame": 795,
+          "reference_sha256": "78d893398561817a76e3434217b270c7c2af84b710095392fb52861540b8ca5d",
+          "low": {
+            "full_image_mae": 0.04267999529094045,
+            "full_image_psnr": 23.437083264076264,
+            "render_sha256": "6ab56f7b236e199033529f4e59c9cf02c8b58fd614f0a1fbbb0c56dfbc6853c2",
+            "alpha_over_09": 0.6354307725694445
+          },
+          "high": {
+            "full_image_mae": 0.03827045745960421,
+            "full_image_psnr": 24.378721356390454,
+            "render_sha256": "bf411451a18f7169c4a2b513c67c78732ed2b7b44c67896ffe8f872f0c80b09b",
+            "alpha_over_09": 0.6467339409722223
+          }
+        },
+        {
+          "frame": 805,
+          "reference_sha256": "070eee377b665d6b6cd3bf0bc0fa87f0a802225aff8355000141f58516a2b3c8",
+          "low": {
+            "full_image_mae": 0.03738920093500363,
+            "full_image_psnr": 22.83960498788472,
+            "render_sha256": "73c782bc7c5368a50dc64b17c8d286111847c97c33fee81d1bd0c937a0424612",
+            "alpha_over_09": 0.600068359375
+          },
+          "high": {
+            "full_image_mae": 0.026520158179012345,
+            "full_image_psnr": 25.41082900248655,
+            "render_sha256": "0c32f26b554216e4b614f778080d2220f756130b76910a32cdfaec9d468b1792",
+            "alpha_over_09": 0.631474609375
+          }
+        }
+      ],
+      "summary": {
+        "low": {
+          "full_image_psnr": 21.690620140921446,
+          "full_image_mae": 0.04841419866557735,
+          "alpha_over_09": 0.752126736111111
+        },
+        "high": {
+          "full_image_psnr": 23.121612102138474,
+          "full_image_mae": 0.039356406874092226,
+          "alpha_over_09": 0.7741458333333333
+        }
+      },
+      "metric_accuracy_verified": false,
+      "interpretation": "Both saved Gaussian models use identical calibrated 1280x720 cameras, reserved RGB and the same float32 renderer. Metrics use all pixels after identical eight-bit conversion. Images in the contact sheet are resized only for display. Appearance and opacity do not prove surface geometry or independent dimensional accuracy."
+    }
+  },
+  "gaussian_common1280_low_audit": {
+    "source": "brush-depth-audit-760-common1280-low/results.json",
+    "result": {
+      "rows": [
+        {
+          "frame": 765,
+          "depth_sha256": "87017d2e8688e706bb55e6a59d6798acb22e37d87155e22f4affd21117cec16a",
+          "native_png_sha256": null,
+          "renderer_rgb_mae": null,
+          "renderer_rgb_p99": null,
+          "renderer_rgb_max": null,
+          "sparse_reference_points": 870,
+          "alpha_over_09": 0.6860145399305555,
+          "narrow_depth_fraction": 0.2565570746527778,
+          "median_relative_center_iqr": 0.07805880904197693,
+          "estimates": {
+            "center_depth": {
+              "coverage_fraction": 0.8459770114942529,
+              "within_5percent_all_tracks": 0.4724137931034483,
+              "median_relative_error_covered": 0.0403536313229848,
+              "p95_relative_error_covered": 0.21475116443168105
+            },
+            "depth": {
+              "coverage_fraction": 0.8459770114942529,
+              "within_5percent_all_tracks": 0.4885057471264368,
+              "median_relative_error_covered": 0.039165269195657465,
+              "p95_relative_error_covered": 0.27370698167013957
+            },
+            "median_center_depth": {
+              "coverage_fraction": 0.8459770114942529,
+              "within_5percent_all_tracks": 0.7172413793103448,
+              "median_relative_error_covered": 0.010828203983283626,
+              "p95_relative_error_covered": 0.11732901353824275
+            },
+            "median_depth": {
+              "coverage_fraction": 0.8459770114942529,
+              "within_5percent_all_tracks": 0.7,
+              "median_relative_error_covered": 0.01152267748067273,
+              "p95_relative_error_covered": 0.13008190221168797
+            },
+            "median_depth_narrow": {
+              "coverage_fraction": 0.39655172413793105,
+              "within_5percent_all_tracks": 0.37701149425287356,
+              "median_relative_error_covered": 0.007709906364209906
+            }
+          }
+        },
+        {
+          "frame": 775,
+          "depth_sha256": "92043de9979095d27566a91630a21525ef28d7c1f1ad8a7260244782f648cff8",
+          "native_png_sha256": null,
+          "renderer_rgb_mae": null,
+          "renderer_rgb_p99": null,
+          "renderer_rgb_max": null,
+          "sparse_reference_points": 973,
+          "alpha_over_09": 0.9066753472222222,
+          "narrow_depth_fraction": 0.2631890190972222,
+          "median_relative_center_iqr": 0.09865668416023254,
+          "estimates": {
+            "center_depth": {
+              "coverage_fraction": 0.9609455292908531,
+              "within_5percent_all_tracks": 0.47173689619732784,
+              "median_relative_error_covered": 0.05179467308367412,
+              "p95_relative_error_covered": 0.3833750861514266
+            },
+            "depth": {
+              "coverage_fraction": 0.9609455292908531,
+              "within_5percent_all_tracks": 0.4696813977389517,
+              "median_relative_error_covered": 0.05274475090145682,
+              "p95_relative_error_covered": 0.4103991280953259
+            },
+            "median_center_depth": {
+              "coverage_fraction": 0.9609455292908531,
+              "within_5percent_all_tracks": 0.8016443987667009,
+              "median_relative_error_covered": 0.0077248910886980075,
+              "p95_relative_error_covered": 0.323351967572991
+            },
+            "median_depth": {
+              "coverage_fraction": 0.9609455292908531,
+              "within_5percent_all_tracks": 0.7821171634121274,
+              "median_relative_error_covered": 0.008706178212988778,
+              "p95_relative_error_covered": 0.3966391653575184
+            },
+            "median_depth_narrow": {
+              "coverage_fraction": 0.38848920863309355,
+              "within_5percent_all_tracks": 0.38335046248715315,
+              "median_relative_error_covered": 0.0040205664165996885
+            }
+          }
+        },
+        {
+          "frame": 785,
+          "depth_sha256": "33fe5329548833cdab2042b58c0a7397ad3ca2483b078a431bcbc24efbd050cb",
+          "native_png_sha256": null,
+          "renderer_rgb_mae": null,
+          "renderer_rgb_p99": null,
+          "renderer_rgb_max": null,
+          "sparse_reference_points": 529,
+          "alpha_over_09": 0.9324338107638889,
+          "narrow_depth_fraction": 0.194755859375,
+          "median_relative_center_iqr": 0.16247296333312988,
+          "estimates": {
+            "center_depth": {
+              "coverage_fraction": 0.9905482041587902,
+              "within_5percent_all_tracks": 0.4120982986767486,
+              "median_relative_error_covered": 0.06522223145048102,
+              "p95_relative_error_covered": 0.45029969743100745
+            },
+            "depth": {
+              "coverage_fraction": 0.9905482041587902,
+              "within_5percent_all_tracks": 0.21928166351606806,
+              "median_relative_error_covered": 0.0997629123634712,
+              "p95_relative_error_covered": 0.5162387438242363
+            },
+            "median_center_depth": {
+              "coverage_fraction": 0.9905482041587902,
+              "within_5percent_all_tracks": 0.8298676748582231,
+              "median_relative_error_covered": 0.011563037104864875,
+              "p95_relative_error_covered": 0.13190769677681688
+            },
+            "median_depth": {
+              "coverage_fraction": 0.9905482041587902,
+              "within_5percent_all_tracks": 0.8223062381852552,
+              "median_relative_error_covered": 0.013933171766386858,
+              "p95_relative_error_covered": 0.15240713665387276
+            },
+            "median_depth_narrow": {
+              "coverage_fraction": 0.43667296786389415,
+              "within_5percent_all_tracks": 0.43100189035916825,
+              "median_relative_error_covered": 0.007803615499716472
+            }
+          }
+        },
+        {
+          "frame": 795,
+          "depth_sha256": "6ab56f7b236e199033529f4e59c9cf02c8b58fd614f0a1fbbb0c56dfbc6853c2",
+          "native_png_sha256": null,
+          "renderer_rgb_mae": null,
+          "renderer_rgb_p99": null,
+          "renderer_rgb_max": null,
+          "sparse_reference_points": 1622,
+          "alpha_over_09": 0.6354210069444445,
+          "narrow_depth_fraction": 0.18799370659722223,
+          "median_relative_center_iqr": 0.0948355495929718,
+          "estimates": {
+            "center_depth": {
+              "coverage_fraction": 0.8279901356350184,
+              "within_5percent_all_tracks": 0.4815043156596794,
+              "median_relative_error_covered": 0.04334724444594435,
+              "p95_relative_error_covered": 0.16294869957561467
+            },
+            "depth": {
+              "coverage_fraction": 0.8279901356350184,
+              "within_5percent_all_tracks": 0.45499383477188654,
+              "median_relative_error_covered": 0.04454256661484947,
+              "p95_relative_error_covered": 0.20022526840430968
+            },
+            "median_center_depth": {
+              "coverage_fraction": 0.8279901356350184,
+              "within_5percent_all_tracks": 0.7472256473489519,
+              "median_relative_error_covered": 0.010341829619373986,
+              "p95_relative_error_covered": 0.09179266162448381
+            },
+            "median_depth": {
+              "coverage_fraction": 0.8279901356350184,
+              "within_5percent_all_tracks": 0.7231812577065352,
+              "median_relative_error_covered": 0.012516709872908482,
+              "p95_relative_error_covered": 0.11187833668557848
+            },
+            "median_depth_narrow": {
+              "coverage_fraction": 0.3631319358816276,
+              "within_5percent_all_tracks": 0.35141800246609123,
+              "median_relative_error_covered": 0.008305051229174307
+            }
+          }
+        },
+        {
+          "frame": 805,
+          "depth_sha256": "73c782bc7c5368a50dc64b17c8d286111847c97c33fee81d1bd0c937a0424612",
+          "native_png_sha256": null,
+          "renderer_rgb_mae": null,
+          "renderer_rgb_p99": null,
+          "renderer_rgb_max": null,
+          "sparse_reference_points": 971,
+          "alpha_over_09": 0.600068359375,
+          "narrow_depth_fraction": 0.10087456597222222,
+          "median_relative_center_iqr": 0.20425894856452942,
+          "estimates": {
+            "center_depth": {
+              "coverage_fraction": 0.4788877445932029,
+              "within_5percent_all_tracks": 0.24922760041194644,
+              "median_relative_error_covered": 0.04596167871024361,
+              "p95_relative_error_covered": 0.22036033927966595
+            },
+            "depth": {
+              "coverage_fraction": 0.4788877445932029,
+              "within_5percent_all_tracks": 0.23789907312049433,
+              "median_relative_error_covered": 0.0504699234633221,
+              "p95_relative_error_covered": 0.25134965842855594
+            },
+            "median_center_depth": {
+              "coverage_fraction": 0.4788877445932029,
+              "within_5percent_all_tracks": 0.41709577754891863,
+              "median_relative_error_covered": 0.009831575552584812,
+              "p95_relative_error_covered": 0.12993601906228075
+            },
+            "median_depth": {
+              "coverage_fraction": 0.4788877445932029,
+              "within_5percent_all_tracks": 0.40885684860968075,
+              "median_relative_error_covered": 0.01034909821122457,
+              "p95_relative_error_covered": 0.14565637866806838
+            },
+            "median_depth_narrow": {
+              "coverage_fraction": 0.21627188465499486,
+              "within_5percent_all_tracks": 0.21009268795056643,
+              "median_relative_error_covered": 0.005695050138137884
+            }
+          }
+        }
+      ],
+      "depth_signature": {
+        "algorithm_sha256": "4bc8d6750a8caa098c26687075da4d2be9471b789291bc881a46edccf2c513d7",
+        "ply_sha256": "90673b5d998218fd4dd0d4f78af0ce52f5f69490222adbbada6449b42cbf4273",
+        "transforms_sha256": "877dc17fda1d557910c2bb3c76277ef9836ee3c08b004c2f7192bf8040018670",
+        "split": "val",
+        "device": "mps",
+        "frames": null
+      },
+      "colmap_sha256": {
+        "images.txt": "9ef8415b35e06fcbe5109dbb50569d9916c4f9921af38b905537758e9c7b3747",
+        "cameras.txt": "a1ce3ddb991b7f5d5858a1c5e8e5f773b6eec11cb3b4874c57d1ec90f19c5155",
+        "points3D.txt": "df47bc9371f58dc434ce5ed60fe53c010607c7e326aec3a5dbbcabd6f0c5100e"
+      },
+      "metric_accuracy_verified": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "Renderer RGB agreement checks implementation compatibility only when native reference images were supplied; otherwise it is unmeasured. Sparse COLMAP points participated in camera estimation and seed geometry; they are not independent surveyed truth. Median depth uses center-depth ordering and each selected Gaussian's conditional projected Z. IQR and component width are diagnostics, not calibrated confidence probabilities. Center-depth expectation is the unchanged Gaussian extraction baseline."
+    }
+  },
+  "gaussian_common1280_high_audit": {
+    "source": "brush-depth-audit-760-common1280-high/results.json",
+    "result": {
+      "rows": [
+        {
+          "frame": 765,
+          "depth_sha256": "6599548ec4e1166efa1faf897192782383b8a1f562b87e1d088c1eb45672ff59",
+          "native_png_sha256": "bf3f422e59b514c2c23e6ec4510f40bb717118f6fdd03488f2add19b7b5f7b62",
+          "renderer_rgb_mae": 0.000978783329053441,
+          "renderer_rgb_p99": 0.0019414665769128317,
+          "renderer_rgb_max": 0.008505306407517066,
+          "sparse_reference_points": 870,
+          "alpha_over_09": 0.7251703559027778,
+          "narrow_depth_fraction": 0.26590711805555556,
+          "median_relative_center_iqr": 0.09004922956228256,
+          "estimates": {
+            "center_depth": {
+              "coverage_fraction": 0.9160919540229885,
+              "within_5percent_all_tracks": 0.4747126436781609,
+              "median_relative_error_covered": 0.04893783747176483,
+              "p95_relative_error_covered": 0.27780854869584115
+            },
+            "depth": {
+              "coverage_fraction": 0.9160919540229885,
+              "within_5percent_all_tracks": 0.432183908045977,
+              "median_relative_error_covered": 0.05429964936214813,
+              "p95_relative_error_covered": 0.3981738283363155
+            },
+            "median_center_depth": {
+              "coverage_fraction": 0.9160919540229885,
+              "within_5percent_all_tracks": 0.7758620689655172,
+              "median_relative_error_covered": 0.01203918735245581,
+              "p95_relative_error_covered": 0.1089111573416985
+            },
+            "median_depth": {
+              "coverage_fraction": 0.9160919540229885,
+              "within_5percent_all_tracks": 0.7597701149425288,
+              "median_relative_error_covered": 0.012916719642666939,
+              "p95_relative_error_covered": 0.11320931454661788
+            },
+            "median_depth_narrow": {
+              "coverage_fraction": 0.4793103448275862,
+              "within_5percent_all_tracks": 0.4528735632183908,
+              "median_relative_error_covered": 0.008917222539980176
+            }
+          }
+        },
+        {
+          "frame": 775,
+          "depth_sha256": "285abce2e4f8c4a2ade4e823a7c38fa6ca439a59959f534965371990b37546eb",
+          "native_png_sha256": "8a3558636c89ea231747dfd233721cd4443c9667b28fd51414f25a6eeb218206",
+          "renderer_rgb_mae": 0.0009779804248265373,
+          "renderer_rgb_p99": 0.0019418045632979438,
+          "renderer_rgb_max": 0.0070696307163612415,
+          "sparse_reference_points": 973,
+          "alpha_over_09": 0.9299197048611111,
+          "narrow_depth_fraction": 0.2855718315972222,
+          "median_relative_center_iqr": 0.08587221056222916,
+          "estimates": {
+            "center_depth": {
+              "coverage_fraction": 0.9897225077081192,
+              "within_5percent_all_tracks": 0.38848920863309355,
+              "median_relative_error_covered": 0.06794207974526541,
+              "p95_relative_error_covered": 0.41266897098747896
+            },
+            "depth": {
+              "coverage_fraction": 0.9897225077081192,
+              "within_5percent_all_tracks": 0.381294964028777,
+              "median_relative_error_covered": 0.07105051561841041,
+              "p95_relative_error_covered": 0.45663140258832724
+            },
+            "median_center_depth": {
+              "coverage_fraction": 0.9897225077081192,
+              "within_5percent_all_tracks": 0.8787255909558068,
+              "median_relative_error_covered": 0.007702890797727326,
+              "p95_relative_error_covered": 0.12291042597869829
+            },
+            "median_depth": {
+              "coverage_fraction": 0.9897225077081192,
+              "within_5percent_all_tracks": 0.8746145940390545,
+              "median_relative_error_covered": 0.007947142810846759,
+              "p95_relative_error_covered": 0.13530790258380382
+            },
+            "median_depth_narrow": {
+              "coverage_fraction": 0.5560123329907503,
+              "within_5percent_all_tracks": 0.5436793422404933,
+              "median_relative_error_covered": 0.004580473292187913
+            }
+          }
+        },
+        {
+          "frame": 785,
+          "depth_sha256": "d86356d8bc2b999652ffbc7c1e9546a1a7787c9603372528472016ad2b2afe71",
+          "native_png_sha256": "8feabd84959f59953ca379f6da6cf70f39fa2502d332ab189698200242389cf4",
+          "renderer_rgb_mae": 0.0009753589157040674,
+          "renderer_rgb_p99": 0.0019428475475778957,
+          "renderer_rgb_max": 0.006166126681309114,
+          "sparse_reference_points": 529,
+          "alpha_over_09": 0.9373882378472222,
+          "narrow_depth_fraction": 0.21716796875,
+          "median_relative_center_iqr": 0.13428226113319397,
+          "estimates": {
+            "center_depth": {
+              "coverage_fraction": 0.9905482041587902,
+              "within_5percent_all_tracks": 0.48015122873345933,
+              "median_relative_error_covered": 0.05460790716609293,
+              "p95_relative_error_covered": 0.49401616815961147
+            },
+            "depth": {
+              "coverage_fraction": 0.9905482041587902,
+              "within_5percent_all_tracks": 0.389413988657845,
+              "median_relative_error_covered": 0.0681076493817852,
+              "p95_relative_error_covered": 0.5182985302868428
+            },
+            "median_center_depth": {
+              "coverage_fraction": 0.9905482041587902,
+              "within_5percent_all_tracks": 0.8714555765595463,
+              "median_relative_error_covered": 0.010095183820082353,
+              "p95_relative_error_covered": 0.12724009788550045
+            },
+            "median_depth": {
+              "coverage_fraction": 0.9905482041587902,
+              "within_5percent_all_tracks": 0.8279773156899811,
+              "median_relative_error_covered": 0.011207381299963765,
+              "p95_relative_error_covered": 0.12671780896986654
+            },
+            "median_depth_narrow": {
+              "coverage_fraction": 0.504725897920605,
+              "within_5percent_all_tracks": 0.48015122873345933,
+              "median_relative_error_covered": 0.006433249927500788
+            }
+          }
+        },
+        {
+          "frame": 795,
+          "depth_sha256": "bf411451a18f7169c4a2b513c67c78732ed2b7b44c67896ffe8f872f0c80b09b",
+          "native_png_sha256": "183342e6a4ae4faaedd4acde921e63cfcedac53d236356196e6f137940b62a2b",
+          "renderer_rgb_mae": 0.0009786259810695857,
+          "renderer_rgb_p99": 0.0019415112102733056,
+          "renderer_rgb_max": 0.0059618808475195295,
+          "sparse_reference_points": 1622,
+          "alpha_over_09": 0.6467339409722223,
+          "narrow_depth_fraction": 0.2554611545138889,
+          "median_relative_center_iqr": 0.06562007963657379,
+          "estimates": {
+            "center_depth": {
+              "coverage_fraction": 0.9001233045622689,
+              "within_5percent_all_tracks": 0.594327990135635,
+              "median_relative_error_covered": 0.03552387916286724,
+              "p95_relative_error_covered": 0.14841370690938588
+            },
+            "depth": {
+              "coverage_fraction": 0.9001233045622689,
+              "within_5percent_all_tracks": 0.6337854500616523,
+              "median_relative_error_covered": 0.030964616756945257,
+              "p95_relative_error_covered": 0.16002948645093737
+            },
+            "median_center_depth": {
+              "coverage_fraction": 0.9001233045622689,
+              "within_5percent_all_tracks": 0.8205918618988902,
+              "median_relative_error_covered": 0.008877714354637505,
+              "p95_relative_error_covered": 0.07417042993547411
+            },
+            "median_depth": {
+              "coverage_fraction": 0.9001233045622689,
+              "within_5percent_all_tracks": 0.8014796547472256,
+              "median_relative_error_covered": 0.009650459078595457,
+              "p95_relative_error_covered": 0.09181929936812142
+            },
+            "median_depth_narrow": {
+              "coverage_fraction": 0.5351418002466092,
+              "within_5percent_all_tracks": 0.5203452527743526,
+              "median_relative_error_covered": 0.0072124369437415094
+            }
+          }
+        },
+        {
+          "frame": 805,
+          "depth_sha256": "0c32f26b554216e4b614f778080d2220f756130b76910a32cdfaec9d468b1792",
+          "native_png_sha256": "d57a4c8c82cd58ef896afeb1936d7af1b1b1c0a9b166499530f1f2010fcb78f6",
+          "renderer_rgb_mae": 0.0009776916080062252,
+          "renderer_rgb_p99": 0.001941721121470179,
+          "renderer_rgb_max": 0.0063084609368267985,
+          "sparse_reference_points": 971,
+          "alpha_over_09": 0.631396484375,
+          "narrow_depth_fraction": 0.13777126736111112,
+          "median_relative_center_iqr": 0.18410825729370117,
+          "estimates": {
+            "center_depth": {
+              "coverage_fraction": 0.627188465499485,
+              "within_5percent_all_tracks": 0.3964984552008239,
+              "median_relative_error_covered": 0.03422330699475035,
+              "p95_relative_error_covered": 0.2444718442317922
+            },
+            "depth": {
+              "coverage_fraction": 0.627188465499485,
+              "within_5percent_all_tracks": 0.38722966014418125,
+              "median_relative_error_covered": 0.0363736545044113,
+              "p95_relative_error_covered": 0.2562793293443231
+            },
+            "median_center_depth": {
+              "coverage_fraction": 0.627188465499485,
+              "within_5percent_all_tracks": 0.5612770339855818,
+              "median_relative_error_covered": 0.007319698485416196,
+              "p95_relative_error_covered": 0.09360449378633913
+            },
+            "median_depth": {
+              "coverage_fraction": 0.627188465499485,
+              "within_5percent_all_tracks": 0.5592173017507724,
+              "median_relative_error_covered": 0.007450135253989937,
+              "p95_relative_error_covered": 0.10462971909411092
+            },
+            "median_depth_narrow": {
+              "coverage_fraction": 0.3604531410916581,
+              "within_5percent_all_tracks": 0.349124613800206,
+              "median_relative_error_covered": 0.0052161343666734
+            }
+          }
+        }
+      ],
+      "depth_signature": {
+        "algorithm_sha256": "4bc8d6750a8caa098c26687075da4d2be9471b789291bc881a46edccf2c513d7",
+        "ply_sha256": "72a7d64c2d5daf0bec08a271d92b7676192b3762754ddc3fbf827b1c258dd498",
+        "transforms_sha256": "877dc17fda1d557910c2bb3c76277ef9836ee3c08b004c2f7192bf8040018670",
+        "split": "val",
+        "device": "mps",
+        "frames": null
+      },
+      "colmap_sha256": {
+        "images.txt": "9ef8415b35e06fcbe5109dbb50569d9916c4f9921af38b905537758e9c7b3747",
+        "cameras.txt": "a1ce3ddb991b7f5d5858a1c5e8e5f773b6eec11cb3b4874c57d1ec90f19c5155",
+        "points3D.txt": "df47bc9371f58dc434ce5ed60fe53c010607c7e326aec3a5dbbcabd6f0c5100e"
+      },
+      "metric_accuracy_verified": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "Renderer RGB agreement checks implementation compatibility only when native reference images were supplied; otherwise it is unmeasured. Sparse COLMAP points participated in camera estimation and seed geometry; they are not independent surveyed truth. Median depth uses center-depth ordering and each selected Gaussian's conditional projected Z. IQR and component width are diagnostics, not calibrated confidence probabilities. Center-depth expectation is the unchanged Gaussian extraction baseline."
+    }
+  },
+  "gaussian_high1280_training_trace": {
+    "source": "brush-depth-train-760-high1280/trace.jsonl",
+    "result": [
+      {
+        "frame": 760,
+        "seconds": 7.416810541995801,
+        "projected_gaussians": 103541,
+        "alpha_over_09": 0.3817827690972222,
+        "sha256": "2e1f9da4d0aa0540fa82c3aaa68d14dcb3af5737a591955b857995cb1c2f07eb",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 761,
+        "seconds": 7.15411795800901,
+        "projected_gaussians": 121325,
+        "alpha_over_09": 0.4995627170138889,
+        "sha256": "59778e30b57fc95299de960625478014f9af4d0dea3f5a1b71cac3fc7680e512",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 762,
+        "seconds": 8.592564708000282,
+        "projected_gaussians": 193004,
+        "alpha_over_09": 0.6730913628472223,
+        "sha256": "9ac8a04a20d0b5ec6c668fc1a557442232da13560b42fbcfd95facb372ee5e8a",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 763,
+        "seconds": 7.943307084002299,
+        "projected_gaussians": 207847,
+        "alpha_over_09": 0.6934190538194445,
+        "sha256": "28786e1416c38be560a141a3a07b34c06088a87269f3782397985c4424dbf6d9",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 764,
+        "seconds": 8.270887125006993,
+        "projected_gaussians": 216050,
+        "alpha_over_09": 0.7289832899305555,
+        "sha256": "2c976f9b372bc9284197df5dae144b08d0e46a1b8473e4fadcb42ddd741fb954",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 766,
+        "seconds": 8.902520167001057,
+        "projected_gaussians": 305379,
+        "alpha_over_09": 0.7741558159722223,
+        "sha256": "f69e0044e620187492a82ef3fd4b575e150ac5d2f538985f15ecdc37c6cf766e",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 767,
+        "seconds": 10.488452125006006,
+        "projected_gaussians": 330663,
+        "alpha_over_09": 0.8280750868055555,
+        "sha256": "e42c0f58f706d31e373a95ce02f036d7f891aa508e33a927ac793f51fa661421",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 768,
+        "seconds": 10.292200333991786,
+        "projected_gaussians": 343476,
+        "alpha_over_09": 0.9090972222222222,
+        "sha256": "8c00fba069d91591e6642f53a81bda177475902286489ecc7c7c88adbd04aecb",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 769,
+        "seconds": 8.592808125002193,
+        "projected_gaussians": 274273,
+        "alpha_over_09": 0.9011046006944444,
+        "sha256": "26d22e3c8ede772b3869d1947791a85e1b8af6bf36efc7e8645a1fcc12e6328b",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 770,
+        "seconds": 8.532263792003505,
+        "projected_gaussians": 252036,
+        "alpha_over_09": 0.8963172743055555,
+        "sha256": "4f02bc70a61e399f01d706243191178774e4b005dbd606963475f873e12b6588",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 771,
+        "seconds": 8.279649500007508,
+        "projected_gaussians": 253273,
+        "alpha_over_09": 0.9312380642361111,
+        "sha256": "68eb894879600bf5a4a8658a20d0c43ea620eec5daf4197efaa069141f762fd4",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 772,
+        "seconds": 8.084628833006718,
+        "projected_gaussians": 224693,
+        "alpha_over_09": 0.9404155815972223,
+        "sha256": "949ffed67bffc87800b9d86e57fda1710931108fb48b15019290bcf61874756d",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 773,
+        "seconds": 7.737599250001949,
+        "projected_gaussians": 185966,
+        "alpha_over_09": 0.9487966579861111,
+        "sha256": "d85063f85d900dd84a760673dab5b51eb8eaab50a547c29af45e29821727e95f",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 774,
+        "seconds": 7.74207504100923,
+        "projected_gaussians": 198720,
+        "alpha_over_09": 0.943154296875,
+        "sha256": "599ddc01d4c28ffae43c6da7c61175a53bec015723a031bdc93e3cad3d50b186",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 776,
+        "seconds": 7.188098707993049,
+        "projected_gaussians": 152266,
+        "alpha_over_09": 0.92990234375,
+        "sha256": "72b868c77140c16673a0c1dc469c4a3eb2481f0060a1c7b6cae8b4f2e4f954f1",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 777,
+        "seconds": 7.695999250005116,
+        "projected_gaussians": 152732,
+        "alpha_over_09": 0.9275824652777778,
+        "sha256": "6dfa75bf6ad2c04bf6155fd47a22c7e3cf0acff384b6f2769f68a5da24f816ef",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 778,
+        "seconds": 6.621978915994987,
+        "projected_gaussians": 129687,
+        "alpha_over_09": 0.8662250434027777,
+        "sha256": "d25e2144bdf97b20b93998a6b95f81532aeff33735328003f2d06ee60a826815",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 779,
+        "seconds": 6.5896717499999795,
+        "projected_gaussians": 104532,
+        "alpha_over_09": 0.8202180989583333,
+        "sha256": "9c3c54322ab9361f8049f2c77d547fc759110f9e54ad3164e5255b7c7a254b9a",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 780,
+        "seconds": 6.628984374998254,
+        "projected_gaussians": 115620,
+        "alpha_over_09": 0.8744997829861111,
+        "sha256": "d937c4a8def6e0b10f8b4deeabf350b2621c1d1a2b04b71d86ba2d337a30f7c2",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 781,
+        "seconds": 6.931683749993681,
+        "projected_gaussians": 110855,
+        "alpha_over_09": 0.894296875,
+        "sha256": "88f23ad14e7a5e48e4a2756724c129b40c6ffb2f210ab56dc89b5eae47f0e10a",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 782,
+        "seconds": 6.691010249996907,
+        "projected_gaussians": 106365,
+        "alpha_over_09": 0.9059787326388888,
+        "sha256": "a8eb68ab65a7145003baa35bb63688e508225d869cca3c7e6d8c465723eb5c5e",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 783,
+        "seconds": 7.38620541599812,
+        "projected_gaussians": 117761,
+        "alpha_over_09": 0.9160753038194445,
+        "sha256": "e017b8d9e60735a03bfcd34cad8aa37bb019ffa23fe7fe4ad255c5f66928e7a4",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 784,
+        "seconds": 7.5924493330094265,
+        "projected_gaussians": 132227,
+        "alpha_over_09": 0.9387684461805555,
+        "sha256": "28cf6a4a239d96d1b635f5a4da1a980427711b8ce1b35077d57ca91d65d8fb99",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 786,
+        "seconds": 8.57373854200705,
+        "projected_gaussians": 158072,
+        "alpha_over_09": 0.9453927951388889,
+        "sha256": "bd8f44b586c551c607c800ed861b265c8551dc1c4d1f1410e77b95a3576a5e7c",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 787,
+        "seconds": 7.1052740419982,
+        "projected_gaussians": 102596,
+        "alpha_over_09": 0.8725249565972222,
+        "sha256": "2289895ae94233f65f38f80282a4fd467a1e1a2ef2ae9d7ddcf57618a1ec0bfc",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 788,
+        "seconds": 6.999055542008136,
+        "projected_gaussians": 146518,
+        "alpha_over_09": 0.8722135416666666,
+        "sha256": "5cd0567d98fc79cabb266bb344a83415530ef65afc975ad7a5160a9311e9a2fa",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 789,
+        "seconds": 6.947834749997128,
+        "projected_gaussians": 136608,
+        "alpha_over_09": 0.8262543402777778,
+        "sha256": "4582775fb72fe0fee5db965ae7feae9fdce183340a1cf5d9dae4913f26746d02",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 790,
+        "seconds": 6.529857625006116,
+        "projected_gaussians": 116767,
+        "alpha_over_09": 0.8162348090277778,
+        "sha256": "252da382089345dca84d8bee5a478de9be3b6802d3d5bb417655c70460ab8d85",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 791,
+        "seconds": 6.332145958993351,
+        "projected_gaussians": 91789,
+        "alpha_over_09": 0.779794921875,
+        "sha256": "d18a8f4a6ab0238fa099e97cbc505a6f8f03df7412f1514da50645223423a599",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 792,
+        "seconds": 5.661030415998539,
+        "projected_gaussians": 79705,
+        "alpha_over_09": 0.6076095920138889,
+        "sha256": "99e6125d963795da9e66f4e517151165b383a1f5118b9e3b692964387c34e925",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 793,
+        "seconds": 5.344747499999357,
+        "projected_gaussians": 71043,
+        "alpha_over_09": 0.5500824652777778,
+        "sha256": "6c51681bd8e1529025fe8359cd65c1fa1411088ae44f5b2568b6f14891de3e23",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 794,
+        "seconds": 5.459038542001508,
+        "projected_gaussians": 65141,
+        "alpha_over_09": 0.5591265190972222,
+        "sha256": "e96019ab6fdb73fa5ad02ee6152ddc0bf95d931129cb0868ae9c19221e4cfbf0",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 796,
+        "seconds": 5.604016790995956,
+        "projected_gaussians": 58987,
+        "alpha_over_09": 0.6469976128472222,
+        "sha256": "2d70e151be51c22ebfd4e7036c2b10fd524d36680f63b420afcc51dc4fc997f5",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 797,
+        "seconds": 4.988428458003909,
+        "projected_gaussians": 47732,
+        "alpha_over_09": 0.5168348524305556,
+        "sha256": "96105b6b518f896ff867b957b63ff0ec017cf81926076f84c26630edc4b6ac9a",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 798,
+        "seconds": 5.509505125010037,
+        "projected_gaussians": 57519,
+        "alpha_over_09": 0.5639268663194444,
+        "sha256": "1a7a9af0798379b2b94a2a1e06924ff6d7f45a138d9b2a33329c83f1dd7e153d",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 799,
+        "seconds": 5.0881528750032885,
+        "projected_gaussians": 78109,
+        "alpha_over_09": 0.6381694878472223,
+        "sha256": "cf3a54282eb5c6b7252690e59dcc0999295a0d9ffca3f021c70448eb2f22fbc2",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 800,
+        "seconds": 5.305957707998459,
+        "projected_gaussians": 83027,
+        "alpha_over_09": 0.6184537760416666,
+        "sha256": "9e71361201d37ee0e3c6578158b04ddfc39f8531b9f94a44847c2242b5667050",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 801,
+        "seconds": 5.536226458003512,
+        "projected_gaussians": 73319,
+        "alpha_over_09": 0.7532052951388889,
+        "sha256": "64c6b5051da2dfa6cdb850741646af6b1c8e7d0b7ff23d7b9879e2f94d05ba5d",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 802,
+        "seconds": 5.3809110000001965,
+        "projected_gaussians": 81437,
+        "alpha_over_09": 0.6326714409722223,
+        "sha256": "31fc7156b3aabd269b3db962934b9200b9ddd76116f65fcf07d1468d15da8de4",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 803,
+        "seconds": 5.313974834003602,
+        "projected_gaussians": 63078,
+        "alpha_over_09": 0.7207280815972222,
+        "sha256": "c0d565a69b1945c356c2ed8bc6a469ae4d72a42164234871b3ff38233f842e1e",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 804,
+        "seconds": 4.999715334008215,
+        "projected_gaussians": 58592,
+        "alpha_over_09": 0.6456369357638889,
+        "sha256": "ec19b5e89de68bebc555e5ecb74cdcf1424ef90282fcfdbf874141a855f33a7f",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 806,
+        "seconds": 5.389768291992368,
+        "projected_gaussians": 53434,
+        "alpha_over_09": 0.5748101128472223,
+        "sha256": "b771f54835e0d879c054282ba7f20d83b9aa037e6e97c6088946e64d766e8ff6",
+        "metric_accuracy_verified": false
+      },
+      {
+        "frame": 807,
+        "seconds": 5.067278458009241,
+        "projected_gaussians": 47999,
+        "alpha_over_09": 0.5241330295138888,
+        "sha256": "72c3e308064acc4e308d134b2f7d3aeb1110357abc9793b5765c07fdd7cc86c2",
+        "metric_accuracy_verified": false
+      }
+    ]
+  },
+  "brush_high1280_training_completion": {
+    "source": "brush-chair-760/colmap-1280-10000/completion.json",
+    "result": {
+      "returncode": 0,
+      "seconds": 339.4950652499974,
+      "end_utc": "2026-09-09T14:26:04.611846+00:00"
+    }
+  },
+  "openmvs_mesh_handoff": {
+    "source": "openmvs-chair-760/mesh-handoff-spike/results.json",
+    "result": {
+      "source_sha256": {
+        "dense.mvs": "2cf3bfdc5d7cff57dbad7cb56543bf0696aa3186f16b7c6eaddd3ce9683bdeb5",
+        "dense.ply": "ac25e4d2e59aa6210ffe5c7c1e8b7fe075474ba6f3022d6d1f343432f21b6804"
+      },
+      "arms": [
+        {
+          "arm": "implicit",
+          "command": [
+            "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/ReconstructMesh",
+            "--input-file",
+            "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/trial-1280-v2/dense.mvs",
+            "--output-file",
+            "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/mesh-handoff-spike/implicit.mvs",
+            "--archive-type",
+            "2",
+            "--max-threads",
+            "8",
+            "--close-holes",
+            "0",
+            "--smooth",
+            "0",
+            "--crop-to-roi",
+            "0"
+          ],
+          "returncode": 0,
+          "seconds": 0.18784916700678878,
+          "boundary_evidence": [
+            "07:59:16 [DepthMap] Delaunay tetrahedralization completed: 9661 points -> 8762 vertices, 54471 (+126) cells, 109005 (+189) faces (33ms)",
+            "07:59:16 [Mesh    ] Mesh 'implicit.ply' saved: 4214 vertices, 8407 faces (0ms)"
+          ]
+        },
+        {
+          "arm": "explicit",
+          "command": [
+            "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/ReconstructMesh",
+            "--input-file",
+            "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/trial-1280-v2/dense.mvs",
+            "--output-file",
+            "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/mesh-handoff-spike/explicit.mvs",
+            "--archive-type",
+            "2",
+            "--max-threads",
+            "8",
+            "--close-holes",
+            "0",
+            "--smooth",
+            "0",
+            "--crop-to-roi",
+            "0",
+            "--pointcloud-file",
+            "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/trial-1280-v2/dense.ply"
+          ],
+          "returncode": 0,
+          "seconds": 10.19390504200419,
+          "boundary_evidence": [
+            "07:59:17 [PointCld] Point-cloud 'dense.ply' loaded: 377940 points (72ms)",
+            "07:59:18 [ScnRecnt] Delaunay tetrahedralization completed: 377940 points -> 281104 vertices, 1774498 (+156) cells, 3549074 (+234) faces (1s256ms)",
+            "07:59:26 [Mesh    ] Mesh 'explicit.ply' saved: 236310 vertices, 472011 faces (22ms)"
+          ]
+        }
+      ]
+    }
+  },
+  "openmvs_complete_mesh_comparison": {
+    "source": "openmvs-chair-760/evaluation-v4-batched/results.json",
+    "result": {
+      "source_resources_sha256": {
+        "property.glb": "4da735c440a1cd03ab0a415f24f85757d2f6a89fda186954cf43b95d8ca3fa2d",
+        "property_0.png": "d7c5eeafccc0f7b41ee9b0487e6d56e78c9d1361126cde7becdec8bd62578626"
+      },
+      "property_sha256": "82e2b91c1d17b2f32febd91b5dd55848d5b6a9a1be7d7e01168150c680d0f9f2",
+      "property_bytes": 25989140,
+      "triangles": 472011,
+      "texture_size": [
+        8192,
+        8192
+      ],
+      "reference_files_sha256": {
+        "cameras.json": "ecd717268346a02d74520f1ed55962ad8f2a4e7cd56b4b7fab3dfd8f4e6b2960",
+        "alignment.json": "92a98149c4b348f80fcc56971e624ba4c5e0206774800aae464516978a32f49a",
+        "web-render-validation.json": "1acde866df321e0b7e6fb3d5da47d1f37d7b4123ab88b72585495c69170a9bae"
+      },
+      "reference_windows_sha256": {
+        "000000.npz": "06ee9ab2df8b96017b2cb4bb96e5005fdee380b9327feeb3b1c72358d1a4b077"
+      },
+      "colmap_sha256": {
+        "cameras.txt": "a1ce3ddb991b7f5d5858a1c5e8e5f773b6eec11cb3b4874c57d1ec90f19c5155",
+        "images.txt": "9ef8415b35e06fcbe5109dbb50569d9916c4f9921af38b905537758e9c7b3747",
+        "points3D.txt": "df47bc9371f58dc434ce5ed60fe53c010607c7e326aec3a5dbbcabd6f0c5100e"
+      },
+      "reserved_view_comparison": {
+        "views": [
+          {
+            "frame": 5,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.7012630208333334,
+            "mean_absolute_rgb_error_visible": 0.45437093500609194,
+            "supported_depth_fraction": 0.43185650567744,
+            "median_relative_depth_error_visible": 0.041518028897644756
+          },
+          {
+            "frame": 15,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.8323546006944444,
+            "mean_absolute_rgb_error_visible": 0.4439731869863429,
+            "supported_depth_fraction": 0.4946701388888889,
+            "median_relative_depth_error_visible": 0.03342449679045612
+          },
+          {
+            "frame": 25,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.8874717881944445,
+            "mean_absolute_rgb_error_visible": 0.37523525548822656,
+            "supported_depth_fraction": 0.5454245581241925,
+            "median_relative_depth_error_visible": 0.04072770692683298
+          },
+          {
+            "frame": 35,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.9228472222222223,
+            "mean_absolute_rgb_error_visible": 0.4276150507422474,
+            "supported_depth_fraction": 0.6880022817643408,
+            "median_relative_depth_error_visible": 0.01986139598745664
+          },
+          {
+            "frame": 45,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.8806434461805556,
+            "mean_absolute_rgb_error_visible": 0.5053940129133772,
+            "supported_depth_fraction": 0.3460127464272029,
+            "median_relative_depth_error_visible": 0.10372522063693601
+          }
+        ],
+        "median_rendered_coverage": 0.8806434461805556,
+        "median_supported_depth_fraction": 0.4946701388888889,
+        "minimum_supported_depth_fraction": 0.3460127464272029,
+        "mesh": "property.glb",
+        "median_absolute_rgb_error_visible": 0.4439731869863429,
+        "metric_accuracy_verified": false,
+        "visual_completeness_gate": true,
+        "view_consistency_gate": false,
+        "ready_for_verified_property_listing": false,
+        "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+        "thresholds": {
+          "median_coverage_minimum": 0.7,
+          "median_depth_support_minimum": 0.6,
+          "relative_depth_tolerance": 0.05,
+          "per_view_depth_support_minimum": 0.4,
+          "median_rgb_error_maximum": 0.12,
+          "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+        },
+        "required_external_checks": [
+          "Measured scale and independent held-out lengths",
+          "Room connectivity and loop drift",
+          "Missing wall, doorway, glass and ceiling review"
+        ]
+      },
+      "gaussian_mesh_baseline": {
+        "views": [
+          {
+            "frame": 5,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.5884190538194445,
+            "mean_absolute_rgb_error_visible": 0.07599583179015343,
+            "supported_depth_fraction": 0.6778454904413426,
+            "median_relative_depth_error_visible": 0.0050693436209674645
+          },
+          {
+            "frame": 15,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.6613292100694445,
+            "mean_absolute_rgb_error_visible": 0.044229123561712894,
+            "supported_depth_fraction": 0.7830078125,
+            "median_relative_depth_error_visible": 0.003970178528925077
+          },
+          {
+            "frame": 25,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.77876953125,
+            "mean_absolute_rgb_error_visible": 0.10038352160265707,
+            "supported_depth_fraction": 0.6743595567714746,
+            "median_relative_depth_error_visible": 0.013913236985514528
+          },
+          {
+            "frame": 35,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.6191579861111111,
+            "mean_absolute_rgb_error_visible": 0.08010892436757487,
+            "supported_depth_fraction": 0.8259550693757025,
+            "median_relative_depth_error_visible": 0.005350489550747771
+          },
+          {
+            "frame": 45,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.5027387152777778,
+            "mean_absolute_rgb_error_visible": 0.029863442587050565,
+            "supported_depth_fraction": 0.6668281878525758,
+            "median_relative_depth_error_visible": 0.004431518665396922
+          }
+        ],
+        "median_rendered_coverage": 0.6191579861111111,
+        "median_supported_depth_fraction": 0.6778454904413426,
+        "minimum_supported_depth_fraction": 0.6668281878525758,
+        "mesh": "property.glb",
+        "median_absolute_rgb_error_visible": 0.07599583179015343,
+        "metric_accuracy_verified": false,
+        "visual_completeness_gate": false,
+        "view_consistency_gate": false,
+        "ready_for_verified_property_listing": false,
+        "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+        "thresholds": {
+          "median_coverage_minimum": 0.7,
+          "median_depth_support_minimum": 0.6,
+          "relative_depth_tolerance": 0.05,
+          "per_view_depth_support_minimum": 0.4,
+          "median_rgb_error_maximum": 0.12,
+          "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+        },
+        "required_external_checks": [
+          "Measured scale and independent held-out lengths",
+          "Room connectivity and loop drift",
+          "Missing wall, doorway, glass and ceiling review"
+        ]
+      },
+      "sparse_observations": [
+        {
+          "frame": 765,
+          "observations": 870,
+          "coverage": 0.957471264367816,
+          "within_5percent_all_tracks": 0.8172413793103448,
+          "median_relative_error_covered": 0.01070221152303172,
+          "p95_relative_error_covered": 0.14200141711428316
+        },
+        {
+          "frame": 775,
+          "observations": 973,
+          "coverage": 0.9969167523124358,
+          "within_5percent_all_tracks": 0.9321685508735869,
+          "median_relative_error_covered": 0.004728096279376289,
+          "p95_relative_error_covered": 0.06804690401283721
+        },
+        {
+          "frame": 785,
+          "observations": 529,
+          "coverage": 0.9319470699432892,
+          "within_5percent_all_tracks": 0.8468809073724007,
+          "median_relative_error_covered": 0.009275232671750514,
+          "p95_relative_error_covered": 0.08294973801659511
+        },
+        {
+          "frame": 795,
+          "observations": 1622,
+          "coverage": 0.9802712700369913,
+          "within_5percent_all_tracks": 0.9044389642416769,
+          "median_relative_error_covered": 0.006424551778465295,
+          "p95_relative_error_covered": 0.06597192401525703
+        },
+        {
+          "frame": 805,
+          "observations": 971,
+          "coverage": 0.9711637487126673,
+          "within_5percent_all_tracks": 0.8918640576725025,
+          "median_relative_error_covered": 0.00990106954127558,
+          "p95_relative_error_covered": 0.06931967924216559
+        }
+      ],
+      "metric_accuracy_verified": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "Complete textured mesh, without triangle reduction. Captured RGB and cameras match the higher-resolution Gaussian mesh comparison. Dense depth-support references remain Gaussian-derived, so they measure model agreement, not ground truth. Sparse COLMAP observations participated in camera estimation and are not independent surveyed measurements. Native OpenMVS world coordinates are preserved through a recorded GLB axis conversion. External native textures are embedded losslessly in the final GLB."
+    }
+  },
+  "openmvs_no_leveling_comparison": {
+    "source": "openmvs-chair-760/evaluation-no-leveling-final/results.json",
+    "result": {
+      "source_resources_sha256": {
+        "property.glb": "4da735c440a1cd03ab0a415f24f85757d2f6a89fda186954cf43b95d8ca3fa2d",
+        "property_0.png": "c102ccd0a445ccfe457ece9e1a23f07fc579daa73492db8186729f2b362fada4"
+      },
+      "property_sha256": "84f43f5f4d034c8dfa123f2083c15183d89304138843da19638c81449d204451",
+      "property_bytes": 30244196,
+      "triangles": 472011,
+      "texture_size": [
+        8192,
+        8192
+      ],
+      "reference_files_sha256": {
+        "cameras.json": "ecd717268346a02d74520f1ed55962ad8f2a4e7cd56b4b7fab3dfd8f4e6b2960",
+        "alignment.json": "92a98149c4b348f80fcc56971e624ba4c5e0206774800aae464516978a32f49a",
+        "web-render-validation.json": "1acde866df321e0b7e6fb3d5da47d1f37d7b4123ab88b72585495c69170a9bae"
+      },
+      "reference_windows_sha256": {
+        "000000.npz": "06ee9ab2df8b96017b2cb4bb96e5005fdee380b9327feeb3b1c72358d1a4b077"
+      },
+      "colmap_sha256": {
+        "cameras.txt": "a1ce3ddb991b7f5d5858a1c5e8e5f773b6eec11cb3b4874c57d1ec90f19c5155",
+        "images.txt": "9ef8415b35e06fcbe5109dbb50569d9916c4f9921af38b905537758e9c7b3747",
+        "points3D.txt": "df47bc9371f58dc434ce5ed60fe53c010607c7e326aec3a5dbbcabd6f0c5100e"
+      },
+      "reserved_view_comparison": {
+        "views": [
+          {
+            "frame": 5,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.7012630208333334,
+            "mean_absolute_rgb_error_visible": 0.08859766541454103,
+            "supported_depth_fraction": 0.43185650567744,
+            "median_relative_depth_error_visible": 0.041518028897644756
+          },
+          {
+            "frame": 15,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.8323546006944444,
+            "mean_absolute_rgb_error_visible": 0.06078562586024705,
+            "supported_depth_fraction": 0.4946701388888889,
+            "median_relative_depth_error_visible": 0.03342449679045612
+          },
+          {
+            "frame": 25,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.8874717881944445,
+            "mean_absolute_rgb_error_visible": 0.10758452311389058,
+            "supported_depth_fraction": 0.5454245581241925,
+            "median_relative_depth_error_visible": 0.04072770692683298
+          },
+          {
+            "frame": 35,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.9228472222222223,
+            "mean_absolute_rgb_error_visible": 0.07958501693375572,
+            "supported_depth_fraction": 0.6880022817643408,
+            "median_relative_depth_error_visible": 0.01986139598745664
+          },
+          {
+            "frame": 45,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.8806434461805556,
+            "mean_absolute_rgb_error_visible": 0.04646743695566367,
+            "supported_depth_fraction": 0.3460127464272029,
+            "median_relative_depth_error_visible": 0.10372522063693601
+          }
+        ],
+        "median_rendered_coverage": 0.8806434461805556,
+        "median_supported_depth_fraction": 0.4946701388888889,
+        "minimum_supported_depth_fraction": 0.3460127464272029,
+        "mesh": "property.glb",
+        "median_absolute_rgb_error_visible": 0.07958501693375572,
+        "metric_accuracy_verified": false,
+        "visual_completeness_gate": true,
+        "view_consistency_gate": false,
+        "ready_for_verified_property_listing": false,
+        "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+        "thresholds": {
+          "median_coverage_minimum": 0.7,
+          "median_depth_support_minimum": 0.6,
+          "relative_depth_tolerance": 0.05,
+          "per_view_depth_support_minimum": 0.4,
+          "median_rgb_error_maximum": 0.12,
+          "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+        },
+        "required_external_checks": [
+          "Measured scale and independent held-out lengths",
+          "Room connectivity and loop drift",
+          "Missing wall, doorway, glass and ceiling review"
+        ]
+      },
+      "gaussian_mesh_baseline": {
+        "views": [
+          {
+            "frame": 5,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.5884190538194445,
+            "mean_absolute_rgb_error_visible": 0.07599583179015343,
+            "supported_depth_fraction": 0.6778454904413426,
+            "median_relative_depth_error_visible": 0.0050693436209674645
+          },
+          {
+            "frame": 15,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.6613292100694445,
+            "mean_absolute_rgb_error_visible": 0.044229123561712894,
+            "supported_depth_fraction": 0.7830078125,
+            "median_relative_depth_error_visible": 0.003970178528925077
+          },
+          {
+            "frame": 25,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.77876953125,
+            "mean_absolute_rgb_error_visible": 0.10038352160265707,
+            "supported_depth_fraction": 0.6743595567714746,
+            "median_relative_depth_error_visible": 0.013913236985514528
+          },
+          {
+            "frame": 35,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.6191579861111111,
+            "mean_absolute_rgb_error_visible": 0.08010892436757487,
+            "supported_depth_fraction": 0.8259550693757025,
+            "median_relative_depth_error_visible": 0.005350489550747771
+          },
+          {
+            "frame": 45,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.5027387152777778,
+            "mean_absolute_rgb_error_visible": 0.029863442587050565,
+            "supported_depth_fraction": 0.6668281878525758,
+            "median_relative_depth_error_visible": 0.004431518665396922
+          }
+        ],
+        "median_rendered_coverage": 0.6191579861111111,
+        "median_supported_depth_fraction": 0.6778454904413426,
+        "minimum_supported_depth_fraction": 0.6668281878525758,
+        "mesh": "property.glb",
+        "median_absolute_rgb_error_visible": 0.07599583179015343,
+        "metric_accuracy_verified": false,
+        "visual_completeness_gate": false,
+        "view_consistency_gate": false,
+        "ready_for_verified_property_listing": false,
+        "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+        "thresholds": {
+          "median_coverage_minimum": 0.7,
+          "median_depth_support_minimum": 0.6,
+          "relative_depth_tolerance": 0.05,
+          "per_view_depth_support_minimum": 0.4,
+          "median_rgb_error_maximum": 0.12,
+          "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+        },
+        "required_external_checks": [
+          "Measured scale and independent held-out lengths",
+          "Room connectivity and loop drift",
+          "Missing wall, doorway, glass and ceiling review"
+        ]
+      },
+      "sparse_observations": [
+        {
+          "frame": 765,
+          "observations": 870,
+          "coverage": 0.957471264367816,
+          "within_5percent_all_tracks": 0.8172413793103448,
+          "median_relative_error_covered": 0.01070221152303172,
+          "p95_relative_error_covered": 0.14200141711428316
+        },
+        {
+          "frame": 775,
+          "observations": 973,
+          "coverage": 0.9969167523124358,
+          "within_5percent_all_tracks": 0.9321685508735869,
+          "median_relative_error_covered": 0.004728096279376289,
+          "p95_relative_error_covered": 0.06804690401283721
+        },
+        {
+          "frame": 785,
+          "observations": 529,
+          "coverage": 0.9319470699432892,
+          "within_5percent_all_tracks": 0.8468809073724007,
+          "median_relative_error_covered": 0.009275232671750514,
+          "p95_relative_error_covered": 0.08294973801659511
+        },
+        {
+          "frame": 795,
+          "observations": 1622,
+          "coverage": 0.9802712700369913,
+          "within_5percent_all_tracks": 0.9044389642416769,
+          "median_relative_error_covered": 0.006424551778465295,
+          "p95_relative_error_covered": 0.06597192401525703
+        },
+        {
+          "frame": 805,
+          "observations": 971,
+          "coverage": 0.9711637487126673,
+          "within_5percent_all_tracks": 0.8918640576725025,
+          "median_relative_error_covered": 0.00990106954127558,
+          "p95_relative_error_covered": 0.06931967924216559
+        }
+      ],
+      "metric_accuracy_verified": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "Complete textured mesh, without triangle reduction. Captured RGB and cameras match the higher-resolution Gaussian mesh comparison. Dense depth-support references remain Gaussian-derived, so they measure model agreement, not ground truth. Sparse COLMAP observations participated in camera estimation and are not independent surveyed measurements. Native OpenMVS world coordinates are preserved through a recorded GLB axis conversion. External native textures are embedded losslessly in the final GLB."
+    }
+  },
+  "openmvs_clean_comparison": {
+    "source": "openmvs-chair-760/evaluation-clean-v2/results.json",
+    "result": {
+      "source_resources_sha256": {
+        "property.glb": "58b2fb1422974ec70ee424e4234433e3a3175ac87ea4e72e28555b55491d56f8",
+        "property_0.png": "2102d2bc6e9f9235e7aa78f66716eb6a417c273526a17276e6f6cf6cfa377395"
+      },
+      "property_sha256": "ed47599f24a9ba3589ce34fa8df2471f37ae7f2de3959f9fe07cd704c076058e",
+      "property_bytes": 30232472,
+      "triangles": 469550,
+      "texture_size": [
+        8192,
+        8192
+      ],
+      "reference_files_sha256": {
+        "cameras.json": "ecd717268346a02d74520f1ed55962ad8f2a4e7cd56b4b7fab3dfd8f4e6b2960",
+        "alignment.json": "92a98149c4b348f80fcc56971e624ba4c5e0206774800aae464516978a32f49a",
+        "web-render-validation.json": "1acde866df321e0b7e6fb3d5da47d1f37d7b4123ab88b72585495c69170a9bae"
+      },
+      "reference_windows_sha256": {
+        "000000.npz": "06ee9ab2df8b96017b2cb4bb96e5005fdee380b9327feeb3b1c72358d1a4b077"
+      },
+      "colmap_sha256": {
+        "cameras.txt": "a1ce3ddb991b7f5d5858a1c5e8e5f773b6eec11cb3b4874c57d1ec90f19c5155",
+        "images.txt": "9ef8415b35e06fcbe5109dbb50569d9916c4f9921af38b905537758e9c7b3747",
+        "points3D.txt": "df47bc9371f58dc434ce5ed60fe53c010607c7e326aec3a5dbbcabd6f0c5100e"
+      },
+      "reserved_view_comparison": {
+        "views": [
+          {
+            "frame": 5,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.7630805121527777,
+            "mean_absolute_rgb_error_visible": 0.0832006835813839,
+            "supported_depth_fraction": 0.4751992602645033,
+            "median_relative_depth_error_visible": 0.04058993923455348
+          },
+          {
+            "frame": 15,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.8268055555555556,
+            "mean_absolute_rgb_error_visible": 0.07492475954069404,
+            "supported_depth_fraction": 0.4929383680555556,
+            "median_relative_depth_error_visible": 0.03453106720223505
+          },
+          {
+            "frame": 25,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.89591796875,
+            "mean_absolute_rgb_error_visible": 0.10769619839616218,
+            "supported_depth_fraction": 0.5168843795075528,
+            "median_relative_depth_error_visible": 0.04547937057309915
+          },
+          {
+            "frame": 35,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.9302962239583333,
+            "mean_absolute_rgb_error_visible": 0.07775144907538244,
+            "supported_depth_fraction": 0.7120144959146352,
+            "median_relative_depth_error_visible": 0.020622871676349262
+          },
+          {
+            "frame": 45,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.8650748697916667,
+            "mean_absolute_rgb_error_visible": 0.04022611826365318,
+            "supported_depth_fraction": 0.3428562100600206,
+            "median_relative_depth_error_visible": 0.10322204053821621
+          }
+        ],
+        "median_rendered_coverage": 0.8650748697916667,
+        "median_supported_depth_fraction": 0.4929383680555556,
+        "minimum_supported_depth_fraction": 0.3428562100600206,
+        "mesh": "property.glb",
+        "median_absolute_rgb_error_visible": 0.07775144907538244,
+        "metric_accuracy_verified": false,
+        "visual_completeness_gate": true,
+        "view_consistency_gate": false,
+        "ready_for_verified_property_listing": false,
+        "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+        "thresholds": {
+          "median_coverage_minimum": 0.7,
+          "median_depth_support_minimum": 0.6,
+          "relative_depth_tolerance": 0.05,
+          "per_view_depth_support_minimum": 0.4,
+          "median_rgb_error_maximum": 0.12,
+          "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+        },
+        "required_external_checks": [
+          "Measured scale and independent held-out lengths",
+          "Room connectivity and loop drift",
+          "Missing wall, doorway, glass and ceiling review"
+        ]
+      },
+      "gaussian_mesh_baseline": {
+        "views": [
+          {
+            "frame": 5,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.5884190538194445,
+            "mean_absolute_rgb_error_visible": 0.07599583179015343,
+            "supported_depth_fraction": 0.6778454904413426,
+            "median_relative_depth_error_visible": 0.0050693436209674645
+          },
+          {
+            "frame": 15,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.6613292100694445,
+            "mean_absolute_rgb_error_visible": 0.044229123561712894,
+            "supported_depth_fraction": 0.7830078125,
+            "median_relative_depth_error_visible": 0.003970178528925077
+          },
+          {
+            "frame": 25,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.77876953125,
+            "mean_absolute_rgb_error_visible": 0.10038352160265707,
+            "supported_depth_fraction": 0.6743595567714746,
+            "median_relative_depth_error_visible": 0.013913236985514528
+          },
+          {
+            "frame": 35,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.6191579861111111,
+            "mean_absolute_rgb_error_visible": 0.08010892436757487,
+            "supported_depth_fraction": 0.8259550693757025,
+            "median_relative_depth_error_visible": 0.005350489550747771
+          },
+          {
+            "frame": 45,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.5027387152777778,
+            "mean_absolute_rgb_error_visible": 0.029863442587050565,
+            "supported_depth_fraction": 0.6668281878525758,
+            "median_relative_depth_error_visible": 0.004431518665396922
+          }
+        ],
+        "median_rendered_coverage": 0.6191579861111111,
+        "median_supported_depth_fraction": 0.6778454904413426,
+        "minimum_supported_depth_fraction": 0.6668281878525758,
+        "mesh": "property.glb",
+        "median_absolute_rgb_error_visible": 0.07599583179015343,
+        "metric_accuracy_verified": false,
+        "visual_completeness_gate": false,
+        "view_consistency_gate": false,
+        "ready_for_verified_property_listing": false,
+        "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+        "thresholds": {
+          "median_coverage_minimum": 0.7,
+          "median_depth_support_minimum": 0.6,
+          "relative_depth_tolerance": 0.05,
+          "per_view_depth_support_minimum": 0.4,
+          "median_rgb_error_maximum": 0.12,
+          "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+        },
+        "required_external_checks": [
+          "Measured scale and independent held-out lengths",
+          "Room connectivity and loop drift",
+          "Missing wall, doorway, glass and ceiling review"
+        ]
+      },
+      "sparse_observations": [
+        {
+          "frame": 765,
+          "observations": 870,
+          "coverage": 0.967816091954023,
+          "within_5percent_all_tracks": 0.8390804597701149,
+          "median_relative_error_covered": 0.010940470945185252,
+          "p95_relative_error_covered": 0.13792247685214645
+        },
+        {
+          "frame": 775,
+          "observations": 973,
+          "coverage": 0.9969167523124358,
+          "within_5percent_all_tracks": 0.9218910585817061,
+          "median_relative_error_covered": 0.004752939434308547,
+          "p95_relative_error_covered": 0.08459836987688873
+        },
+        {
+          "frame": 785,
+          "observations": 529,
+          "coverage": 0.9281663516068053,
+          "within_5percent_all_tracks": 0.8223062381852552,
+          "median_relative_error_covered": 0.009457859103464928,
+          "p95_relative_error_covered": 0.14978466205204555
+        },
+        {
+          "frame": 795,
+          "observations": 1622,
+          "coverage": 0.9728729963008631,
+          "within_5percent_all_tracks": 0.8853267570900123,
+          "median_relative_error_covered": 0.0065898351676984684,
+          "p95_relative_error_covered": 0.090685454351453
+        },
+        {
+          "frame": 805,
+          "observations": 971,
+          "coverage": 0.9752832131822863,
+          "within_5percent_all_tracks": 0.8815653964984552,
+          "median_relative_error_covered": 0.009926312826847137,
+          "p95_relative_error_covered": 0.07758049904524127
+        }
+      ],
+      "metric_accuracy_verified": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "Complete textured mesh, without triangle reduction. Captured RGB and cameras match the higher-resolution Gaussian mesh comparison. Dense depth-support references remain Gaussian-derived, so they measure model agreement, not ground truth. Sparse COLMAP observations participated in camera estimation and are not independent surveyed measurements. Native OpenMVS world coordinates are preserved through a recorded GLB axis conversion. External native textures are embedded losslessly in the final GLB."
+    }
+  },
   "joint-pose-graph-v1_camera_comparison": {
     "baseline": {
       "reserved_observations": 122264,
@@ -17923,5 +19565,1617 @@
         "held_out_from_fusion": false
       }
     ]
+  },
+  "brush-mesh-760-high1280-median": {
+    "results.json": {
+      "method": "median_center_depth",
+      "source_frames": [
+        {
+          "frame": 760,
+          "split": "train",
+          "depth_sha256": "2e1f9da4d0aa0540fa82c3aaa68d14dcb3af5737a591955b857995cb1c2f07eb",
+          "alpha_supported_fraction": 0.3817827690972222
+        },
+        {
+          "frame": 761,
+          "split": "train",
+          "depth_sha256": "59778e30b57fc95299de960625478014f9af4d0dea3f5a1b71cac3fc7680e512",
+          "alpha_supported_fraction": 0.4995627170138889
+        },
+        {
+          "frame": 762,
+          "split": "train",
+          "depth_sha256": "9ac8a04a20d0b5ec6c668fc1a557442232da13560b42fbcfd95facb372ee5e8a",
+          "alpha_supported_fraction": 0.6730913628472223
+        },
+        {
+          "frame": 763,
+          "split": "train",
+          "depth_sha256": "28786e1416c38be560a141a3a07b34c06088a87269f3782397985c4424dbf6d9",
+          "alpha_supported_fraction": 0.6934190538194445
+        },
+        {
+          "frame": 764,
+          "split": "train",
+          "depth_sha256": "2c976f9b372bc9284197df5dae144b08d0e46a1b8473e4fadcb42ddd741fb954",
+          "alpha_supported_fraction": 0.7289832899305555
+        },
+        {
+          "frame": 766,
+          "split": "train",
+          "depth_sha256": "f69e0044e620187492a82ef3fd4b575e150ac5d2f538985f15ecdc37c6cf766e",
+          "alpha_supported_fraction": 0.7741558159722223
+        },
+        {
+          "frame": 767,
+          "split": "train",
+          "depth_sha256": "e42c0f58f706d31e373a95ce02f036d7f891aa508e33a927ac793f51fa661421",
+          "alpha_supported_fraction": 0.8280750868055555
+        },
+        {
+          "frame": 768,
+          "split": "train",
+          "depth_sha256": "8c00fba069d91591e6642f53a81bda177475902286489ecc7c7c88adbd04aecb",
+          "alpha_supported_fraction": 0.9090972222222222
+        },
+        {
+          "frame": 769,
+          "split": "train",
+          "depth_sha256": "26d22e3c8ede772b3869d1947791a85e1b8af6bf36efc7e8645a1fcc12e6328b",
+          "alpha_supported_fraction": 0.9011046006944444
+        },
+        {
+          "frame": 770,
+          "split": "train",
+          "depth_sha256": "4f02bc70a61e399f01d706243191178774e4b005dbd606963475f873e12b6588",
+          "alpha_supported_fraction": 0.8963172743055555
+        },
+        {
+          "frame": 771,
+          "split": "train",
+          "depth_sha256": "68eb894879600bf5a4a8658a20d0c43ea620eec5daf4197efaa069141f762fd4",
+          "alpha_supported_fraction": 0.9312380642361111
+        },
+        {
+          "frame": 772,
+          "split": "train",
+          "depth_sha256": "949ffed67bffc87800b9d86e57fda1710931108fb48b15019290bcf61874756d",
+          "alpha_supported_fraction": 0.9404155815972223
+        },
+        {
+          "frame": 773,
+          "split": "train",
+          "depth_sha256": "d85063f85d900dd84a760673dab5b51eb8eaab50a547c29af45e29821727e95f",
+          "alpha_supported_fraction": 0.9487966579861111
+        },
+        {
+          "frame": 774,
+          "split": "train",
+          "depth_sha256": "599ddc01d4c28ffae43c6da7c61175a53bec015723a031bdc93e3cad3d50b186",
+          "alpha_supported_fraction": 0.943154296875
+        },
+        {
+          "frame": 776,
+          "split": "train",
+          "depth_sha256": "72b868c77140c16673a0c1dc469c4a3eb2481f0060a1c7b6cae8b4f2e4f954f1",
+          "alpha_supported_fraction": 0.92990234375
+        },
+        {
+          "frame": 777,
+          "split": "train",
+          "depth_sha256": "6dfa75bf6ad2c04bf6155fd47a22c7e3cf0acff384b6f2769f68a5da24f816ef",
+          "alpha_supported_fraction": 0.9275824652777778
+        },
+        {
+          "frame": 778,
+          "split": "train",
+          "depth_sha256": "d25e2144bdf97b20b93998a6b95f81532aeff33735328003f2d06ee60a826815",
+          "alpha_supported_fraction": 0.8662250434027777
+        },
+        {
+          "frame": 779,
+          "split": "train",
+          "depth_sha256": "9c3c54322ab9361f8049f2c77d547fc759110f9e54ad3164e5255b7c7a254b9a",
+          "alpha_supported_fraction": 0.8202180989583333
+        },
+        {
+          "frame": 780,
+          "split": "train",
+          "depth_sha256": "d937c4a8def6e0b10f8b4deeabf350b2621c1d1a2b04b71d86ba2d337a30f7c2",
+          "alpha_supported_fraction": 0.8744997829861111
+        },
+        {
+          "frame": 781,
+          "split": "train",
+          "depth_sha256": "88f23ad14e7a5e48e4a2756724c129b40c6ffb2f210ab56dc89b5eae47f0e10a",
+          "alpha_supported_fraction": 0.894296875
+        },
+        {
+          "frame": 782,
+          "split": "train",
+          "depth_sha256": "a8eb68ab65a7145003baa35bb63688e508225d869cca3c7e6d8c465723eb5c5e",
+          "alpha_supported_fraction": 0.9059787326388888
+        },
+        {
+          "frame": 783,
+          "split": "train",
+          "depth_sha256": "e017b8d9e60735a03bfcd34cad8aa37bb019ffa23fe7fe4ad255c5f66928e7a4",
+          "alpha_supported_fraction": 0.9160753038194445
+        },
+        {
+          "frame": 784,
+          "split": "train",
+          "depth_sha256": "28cf6a4a239d96d1b635f5a4da1a980427711b8ce1b35077d57ca91d65d8fb99",
+          "alpha_supported_fraction": 0.9387684461805555
+        },
+        {
+          "frame": 786,
+          "split": "train",
+          "depth_sha256": "bd8f44b586c551c607c800ed861b265c8551dc1c4d1f1410e77b95a3576a5e7c",
+          "alpha_supported_fraction": 0.9453927951388889
+        },
+        {
+          "frame": 787,
+          "split": "train",
+          "depth_sha256": "2289895ae94233f65f38f80282a4fd467a1e1a2ef2ae9d7ddcf57618a1ec0bfc",
+          "alpha_supported_fraction": 0.8725249565972222
+        },
+        {
+          "frame": 788,
+          "split": "train",
+          "depth_sha256": "5cd0567d98fc79cabb266bb344a83415530ef65afc975ad7a5160a9311e9a2fa",
+          "alpha_supported_fraction": 0.8722135416666666
+        },
+        {
+          "frame": 789,
+          "split": "train",
+          "depth_sha256": "4582775fb72fe0fee5db965ae7feae9fdce183340a1cf5d9dae4913f26746d02",
+          "alpha_supported_fraction": 0.8262543402777778
+        },
+        {
+          "frame": 790,
+          "split": "train",
+          "depth_sha256": "252da382089345dca84d8bee5a478de9be3b6802d3d5bb417655c70460ab8d85",
+          "alpha_supported_fraction": 0.8162348090277778
+        },
+        {
+          "frame": 791,
+          "split": "train",
+          "depth_sha256": "d18a8f4a6ab0238fa099e97cbc505a6f8f03df7412f1514da50645223423a599",
+          "alpha_supported_fraction": 0.779794921875
+        },
+        {
+          "frame": 792,
+          "split": "train",
+          "depth_sha256": "99e6125d963795da9e66f4e517151165b383a1f5118b9e3b692964387c34e925",
+          "alpha_supported_fraction": 0.6076095920138889
+        },
+        {
+          "frame": 793,
+          "split": "train",
+          "depth_sha256": "6c51681bd8e1529025fe8359cd65c1fa1411088ae44f5b2568b6f14891de3e23",
+          "alpha_supported_fraction": 0.5500824652777778
+        },
+        {
+          "frame": 794,
+          "split": "train",
+          "depth_sha256": "e96019ab6fdb73fa5ad02ee6152ddc0bf95d931129cb0868ae9c19221e4cfbf0",
+          "alpha_supported_fraction": 0.5591265190972222
+        },
+        {
+          "frame": 796,
+          "split": "train",
+          "depth_sha256": "2d70e151be51c22ebfd4e7036c2b10fd524d36680f63b420afcc51dc4fc997f5",
+          "alpha_supported_fraction": 0.6469976128472222
+        },
+        {
+          "frame": 797,
+          "split": "train",
+          "depth_sha256": "96105b6b518f896ff867b957b63ff0ec017cf81926076f84c26630edc4b6ac9a",
+          "alpha_supported_fraction": 0.5168348524305556
+        },
+        {
+          "frame": 798,
+          "split": "train",
+          "depth_sha256": "1a7a9af0798379b2b94a2a1e06924ff6d7f45a138d9b2a33329c83f1dd7e153d",
+          "alpha_supported_fraction": 0.5639268663194444
+        },
+        {
+          "frame": 799,
+          "split": "train",
+          "depth_sha256": "cf3a54282eb5c6b7252690e59dcc0999295a0d9ffca3f021c70448eb2f22fbc2",
+          "alpha_supported_fraction": 0.6381694878472223
+        },
+        {
+          "frame": 800,
+          "split": "train",
+          "depth_sha256": "9e71361201d37ee0e3c6578158b04ddfc39f8531b9f94a44847c2242b5667050",
+          "alpha_supported_fraction": 0.6184537760416666
+        },
+        {
+          "frame": 801,
+          "split": "train",
+          "depth_sha256": "64c6b5051da2dfa6cdb850741646af6b1c8e7d0b7ff23d7b9879e2f94d05ba5d",
+          "alpha_supported_fraction": 0.7532052951388889
+        },
+        {
+          "frame": 802,
+          "split": "train",
+          "depth_sha256": "31fc7156b3aabd269b3db962934b9200b9ddd76116f65fcf07d1468d15da8de4",
+          "alpha_supported_fraction": 0.6326714409722223
+        },
+        {
+          "frame": 803,
+          "split": "train",
+          "depth_sha256": "c0d565a69b1945c356c2ed8bc6a469ae4d72a42164234871b3ff38233f842e1e",
+          "alpha_supported_fraction": 0.7207280815972222
+        },
+        {
+          "frame": 804,
+          "split": "train",
+          "depth_sha256": "ec19b5e89de68bebc555e5ecb74cdcf1424ef90282fcfdbf874141a855f33a7f",
+          "alpha_supported_fraction": 0.6456369357638889
+        },
+        {
+          "frame": 806,
+          "split": "train",
+          "depth_sha256": "b771f54835e0d879c054282ba7f20d83b9aa037e6e97c6088946e64d766e8ff6",
+          "alpha_supported_fraction": 0.5748101128472223
+        },
+        {
+          "frame": 807,
+          "split": "train",
+          "depth_sha256": "72c3e308064acc4e308d134b2f7d3aeb1110357abc9793b5765c07fdd7cc86c2",
+          "alpha_supported_fraction": 0.5241330295138888
+        },
+        {
+          "frame": 765,
+          "split": "val",
+          "depth_sha256": "6599548ec4e1166efa1faf897192782383b8a1f562b87e1d088c1eb45672ff59",
+          "alpha_supported_fraction": 0.7252029079861111
+        },
+        {
+          "frame": 775,
+          "split": "val",
+          "depth_sha256": "285abce2e4f8c4a2ade4e823a7c38fa6ca439a59959f534965371990b37546eb",
+          "alpha_supported_fraction": 0.9299294704861111
+        },
+        {
+          "frame": 785,
+          "split": "val",
+          "depth_sha256": "d86356d8bc2b999652ffbc7c1e9546a1a7787c9603372528472016ad2b2afe71",
+          "alpha_supported_fraction": 0.9373882378472222
+        },
+        {
+          "frame": 795,
+          "split": "val",
+          "depth_sha256": "bf411451a18f7169c4a2b513c67c78732ed2b7b44c67896ffe8f872f0c80b09b",
+          "alpha_supported_fraction": 0.6467339409722223
+        },
+        {
+          "frame": 805,
+          "split": "val",
+          "depth_sha256": "0c32f26b554216e4b614f778080d2220f756130b76910a32cdfaec9d468b1792",
+          "alpha_supported_fraction": 0.631474609375
+        }
+      ],
+      "full": {
+        "views": [
+          {
+            "frame": 5,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.6225227864583334,
+            "mean_absolute_rgb_error_visible": 0.07211424557308042,
+            "supported_depth_fraction": 0.7192102306137381,
+            "median_relative_depth_error_visible": 0.004906921254743882
+          },
+          {
+            "frame": 15,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.6935601128472222,
+            "mean_absolute_rgb_error_visible": 0.040937971408750135,
+            "supported_depth_fraction": 0.8155034722222222,
+            "median_relative_depth_error_visible": 0.003764257842583222
+          },
+          {
+            "frame": 25,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.8028602430555556,
+            "mean_absolute_rgb_error_visible": 0.0960835971240968,
+            "supported_depth_fraction": 0.686405256936839,
+            "median_relative_depth_error_visible": 0.013765786136426
+          },
+          {
+            "frame": 35,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.6413802083333333,
+            "mean_absolute_rgb_error_visible": 0.07914007045381344,
+            "supported_depth_fraction": 0.8467979799674513,
+            "median_relative_depth_error_visible": 0.005314347132932919
+          },
+          {
+            "frame": 45,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.5335807291666667,
+            "mean_absolute_rgb_error_visible": 0.028886047750372807,
+            "supported_depth_fraction": 0.6991513264497815,
+            "median_relative_depth_error_visible": 0.004512298512492091
+          }
+        ],
+        "median_rendered_coverage": 0.6413802083333333,
+        "median_supported_depth_fraction": 0.7192102306137381,
+        "minimum_supported_depth_fraction": 0.686405256936839,
+        "mesh": "observed-surfaces.ply",
+        "median_absolute_rgb_error_visible": 0.07211424557308042,
+        "metric_accuracy_verified": false,
+        "visual_completeness_gate": false,
+        "view_consistency_gate": false,
+        "ready_for_verified_property_listing": false,
+        "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+        "thresholds": {
+          "median_coverage_minimum": 0.7,
+          "median_depth_support_minimum": 0.6,
+          "relative_depth_tolerance": 0.05,
+          "per_view_depth_support_minimum": 0.4,
+          "median_rgb_error_maximum": 0.12,
+          "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+        },
+        "required_external_checks": [
+          "Measured scale and independent held-out lengths",
+          "Room connectivity and loop drift",
+          "Missing wall, doorway, glass and ceiling review"
+        ]
+      },
+      "app": {
+        "views": [
+          {
+            "frame": 5,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.5884190538194445,
+            "mean_absolute_rgb_error_visible": 0.07599583179015343,
+            "supported_depth_fraction": 0.6778454904413426,
+            "median_relative_depth_error_visible": 0.0050693436209674645
+          },
+          {
+            "frame": 15,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.6613292100694445,
+            "mean_absolute_rgb_error_visible": 0.044229123561712894,
+            "supported_depth_fraction": 0.7830078125,
+            "median_relative_depth_error_visible": 0.003970178528925077
+          },
+          {
+            "frame": 25,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.77876953125,
+            "mean_absolute_rgb_error_visible": 0.10038352160265707,
+            "supported_depth_fraction": 0.6743595567714746,
+            "median_relative_depth_error_visible": 0.013913236985514528
+          },
+          {
+            "frame": 35,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.6191579861111111,
+            "mean_absolute_rgb_error_visible": 0.08010892436757487,
+            "supported_depth_fraction": 0.8259550693757025,
+            "median_relative_depth_error_visible": 0.005350489550747771
+          },
+          {
+            "frame": 45,
+            "held_out_from_fusion": true,
+            "visible_mesh_fraction": 0.5027387152777778,
+            "mean_absolute_rgb_error_visible": 0.029863442587050565,
+            "supported_depth_fraction": 0.6668281878525758,
+            "median_relative_depth_error_visible": 0.004431518665396922
+          }
+        ],
+        "median_rendered_coverage": 0.6191579861111111,
+        "median_supported_depth_fraction": 0.6778454904413426,
+        "minimum_supported_depth_fraction": 0.6668281878525758,
+        "mesh": "property.glb",
+        "median_absolute_rgb_error_visible": 0.07599583179015343,
+        "metric_accuracy_verified": false,
+        "visual_completeness_gate": false,
+        "view_consistency_gate": false,
+        "ready_for_verified_property_listing": false,
+        "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+        "thresholds": {
+          "median_coverage_minimum": 0.7,
+          "median_depth_support_minimum": 0.6,
+          "relative_depth_tolerance": 0.05,
+          "per_view_depth_support_minimum": 0.4,
+          "median_rgb_error_maximum": 0.12,
+          "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+        },
+        "required_external_checks": [
+          "Measured scale and independent held-out lengths",
+          "Room connectivity and loop drift",
+          "Missing wall, doorway, glass and ceiling review"
+        ]
+      },
+      "interpretation": "TSDF uses captured training RGB and Gaussian-derived depths. Reserved RGB does not enter fusion or splat training, but COLMAP used all images. Validation depth is model-derived and does not establish independently measured accuracy."
+    },
+    "inference.json": {
+      "window": 48,
+      "overlap": 8,
+      "poses_global": true,
+      "pose_source": "COLMAP with Gaussian-derived depth",
+      "method": "median_center_depth",
+      "pixel_center_offset": 0.5,
+      "alpha_minimum": 0.9,
+      "gaussian_depth_signatures": {
+        "train": {
+          "algorithm_sha256": "4bc8d6750a8caa098c26687075da4d2be9471b789291bc881a46edccf2c513d7",
+          "ply_sha256": "72a7d64c2d5daf0bec08a271d92b7676192b3762754ddc3fbf827b1c258dd498",
+          "transforms_sha256": "65f13d4de3a7b6afc18284547745d5a6cf6ebbae3313433b8f495f6483f91ca5",
+          "split": "train",
+          "device": "mps",
+          "frames": null
+        },
+        "val": {
+          "algorithm_sha256": "4bc8d6750a8caa098c26687075da4d2be9471b789291bc881a46edccf2c513d7",
+          "ply_sha256": "72a7d64c2d5daf0bec08a271d92b7676192b3762754ddc3fbf827b1c258dd498",
+          "transforms_sha256": "877dc17fda1d557910c2bb3c76277ef9836ee3c08b004c2f7192bf8040018670",
+          "split": "val",
+          "device": "mps",
+          "frames": null
+        }
+      },
+      "implementation_sha256": {
+        "fusion.py": "d86aa20668604ffe5bd777dd695149ff00df3d7960d47bd6a86a035659234e79",
+        "geometry.py": "d438fd34f10f82a92b84d6c2e3038065db4b6d33c3e68359751da905fc219c31",
+        "validation.py": "2fd5c63c1c5c3d064b9e197452f5cc2cbd5a982eea4fba7395185c5841619bde",
+        "export.py": "60d524212f9567808bf166f3b46f92715c4e41b44929501e4f49318a043584f8"
+      },
+      "dataset_provenance_sha256": "4d576f29d292fd8e4cfebfb67324e0a572215b02caeb11cc01ff97ca7559d820",
+      "metric_accuracy_verified": false
+    },
+    "model/validation.json": {
+      "status": "reconstructed_unverified_metric_accuracy",
+      "source_sha256": "ca590d8af33c465953d6ed6c305557e4b4d7cc6ba3710b4c65872bbf06b684e0",
+      "input_signature": {
+        "inference": "e3ea5343e185da4362dd52596e3eb5e87775a2472084a9d12111bd33f3ec41f1",
+        "windows": {
+          "000000.npz": "06ee9ab2df8b96017b2cb4bb96e5005fdee380b9327feeb3b1c72358d1a4b077"
+        }
+      },
+      "frames_expected": 48,
+      "frames_processed": 48,
+      "frames_fused": 43,
+      "frames_held_out": 5,
+      "temporal_coverage": 1.0,
+      "vertices": 1428128,
+      "triangles": 2175971,
+      "web_triangles": 300000,
+      "voxel_size_model_units": 0.0023121675476431847,
+      "units": "uncalibrated model units",
+      "accepted_pixel_fraction": 0.5500132468894676,
+      "observed_points": 1345226,
+      "fusion_seconds": 24.854067082997062,
+      "loop_closure": false,
+      "pose_source": "COLMAP with Gaussian-derived depth",
+      "absolute_dimensions_verified": false,
+      "unseen_surfaces_completed": false,
+      "limitations": [
+        "Monocular scale lacks measured anchors",
+        "Sequential window alignment can drift",
+        "Glass, mirrors, motion and unobserved surfaces remain uncertain",
+        "Depth consistency is an internal check, not independent ground truth"
+      ],
+      "files": {
+        "property.glb": "c1a5e9dd32d928d6b3b781d70201c714d673b0bf8b0fe832e9002a3ddfa2c33d",
+        "observed-surfaces.ply": "7c7505f12a65f5e85742eda8052802c8baa388f2669e6827abd0cb64e1836404",
+        "observed-points.ply": "b980062b0b0496261b06c44455a4deea8f8705582ee1585379cd532e767c6561"
+      }
+    },
+    "model/frame-validation.json": [
+      {
+        "frame": 0,
+        "pixels": 921600,
+        "candidate_pixels": 306445,
+        "accepted_pixels": 277760,
+        "projected_comparisons": 505812,
+        "median_visible_relative_residual": 0.002739248731770631,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 1,
+        "pixels": 921600,
+        "candidate_pixels": 406788,
+        "accepted_pixels": 387944,
+        "projected_comparisons": 931279,
+        "median_visible_relative_residual": 0.002654794286864268,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 2,
+        "pixels": 921600,
+        "candidate_pixels": 558514,
+        "accepted_pixels": 554090,
+        "projected_comparisons": 1245940,
+        "median_visible_relative_residual": 0.001857034457377421,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 3,
+        "pixels": 921600,
+        "candidate_pixels": 579045,
+        "accepted_pixels": 575963,
+        "projected_comparisons": 1614693,
+        "median_visible_relative_residual": 0.0017125339362010533,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 4,
+        "pixels": 921600,
+        "candidate_pixels": 614366,
+        "accepted_pixels": 586601,
+        "projected_comparisons": 1629213,
+        "median_visible_relative_residual": 0.0023035318953265036,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 5,
+        "pixels": 921600,
+        "candidate_pixels": 616022,
+        "accepted_pixels": 564537,
+        "projected_comparisons": 1635055,
+        "median_visible_relative_residual": 0.0029742740212013413,
+        "held_out_from_fusion": true
+      },
+      {
+        "frame": 6,
+        "pixels": 921600,
+        "candidate_pixels": 642912,
+        "accepted_pixels": 623545,
+        "projected_comparisons": 1678289,
+        "median_visible_relative_residual": 0.002178754402533584,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 7,
+        "pixels": 921600,
+        "candidate_pixels": 647407,
+        "accepted_pixels": 616347,
+        "projected_comparisons": 1667864,
+        "median_visible_relative_residual": 0.002281542265327695,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 8,
+        "pixels": 921600,
+        "candidate_pixels": 654221,
+        "accepted_pixels": 593308,
+        "projected_comparisons": 1628779,
+        "median_visible_relative_residual": 0.0042698129118677215,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 9,
+        "pixels": 921600,
+        "candidate_pixels": 649808,
+        "accepted_pixels": 627629,
+        "projected_comparisons": 1753918,
+        "median_visible_relative_residual": 0.0025267109297447427,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 10,
+        "pixels": 921600,
+        "candidate_pixels": 649070,
+        "accepted_pixels": 625743,
+        "projected_comparisons": 1839040,
+        "median_visible_relative_residual": 0.0015187472248401656,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 11,
+        "pixels": 921600,
+        "candidate_pixels": 651075,
+        "accepted_pixels": 626211,
+        "projected_comparisons": 1973676,
+        "median_visible_relative_residual": 0.0017975313910691948,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 12,
+        "pixels": 921600,
+        "candidate_pixels": 655580,
+        "accepted_pixels": 634543,
+        "projected_comparisons": 2116174,
+        "median_visible_relative_residual": 0.0019434739421773336,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 13,
+        "pixels": 921600,
+        "candidate_pixels": 658536,
+        "accepted_pixels": 632603,
+        "projected_comparisons": 2040050,
+        "median_visible_relative_residual": 0.0017638063900907957,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 14,
+        "pixels": 921600,
+        "candidate_pixels": 655682,
+        "accepted_pixels": 620983,
+        "projected_comparisons": 2028754,
+        "median_visible_relative_residual": 0.001861406675218899,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 15,
+        "pixels": 921600,
+        "candidate_pixels": 654777,
+        "accepted_pixels": 623496,
+        "projected_comparisons": 2070323,
+        "median_visible_relative_residual": 0.0018820671595463222,
+        "held_out_from_fusion": true
+      },
+      {
+        "frame": 16,
+        "pixels": 921600,
+        "candidate_pixels": 655968,
+        "accepted_pixels": 622616,
+        "projected_comparisons": 2070407,
+        "median_visible_relative_residual": 0.0017194350141060684,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 17,
+        "pixels": 921600,
+        "candidate_pixels": 656582,
+        "accepted_pixels": 623702,
+        "projected_comparisons": 2079897,
+        "median_visible_relative_residual": 0.0018602594604153432,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 18,
+        "pixels": 921600,
+        "candidate_pixels": 662710,
+        "accepted_pixels": 617404,
+        "projected_comparisons": 2074816,
+        "median_visible_relative_residual": 0.0021386645944625154,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 19,
+        "pixels": 921600,
+        "candidate_pixels": 669900,
+        "accepted_pixels": 607383,
+        "projected_comparisons": 2067843,
+        "median_visible_relative_residual": 0.002564103625922355,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 20,
+        "pixels": 921600,
+        "candidate_pixels": 665564,
+        "accepted_pixels": 642647,
+        "projected_comparisons": 2126928,
+        "median_visible_relative_residual": 0.0017695385925854915,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 21,
+        "pixels": 921600,
+        "candidate_pixels": 664080,
+        "accepted_pixels": 648234,
+        "projected_comparisons": 2184510,
+        "median_visible_relative_residual": 0.001185685392661032,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 22,
+        "pixels": 921600,
+        "candidate_pixels": 665073,
+        "accepted_pixels": 643195,
+        "projected_comparisons": 1983165,
+        "median_visible_relative_residual": 0.0018823787913889029,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 23,
+        "pixels": 921600,
+        "candidate_pixels": 662243,
+        "accepted_pixels": 603357,
+        "projected_comparisons": 1751024,
+        "median_visible_relative_residual": 0.0025256864188436066,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 24,
+        "pixels": 921600,
+        "candidate_pixels": 660563,
+        "accepted_pixels": 598460,
+        "projected_comparisons": 1552965,
+        "median_visible_relative_residual": 0.0029302099713451194,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 25,
+        "pixels": 921600,
+        "candidate_pixels": 647352,
+        "accepted_pixels": 469362,
+        "projected_comparisons": 1190863,
+        "median_visible_relative_residual": 0.005537241698926446,
+        "held_out_from_fusion": true
+      },
+      {
+        "frame": 26,
+        "pixels": 921600,
+        "candidate_pixels": 620705,
+        "accepted_pixels": 266276,
+        "projected_comparisons": 642865,
+        "median_visible_relative_residual": 0.008248059200621941,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 27,
+        "pixels": 921600,
+        "candidate_pixels": 631070,
+        "accepted_pixels": 134051,
+        "projected_comparisons": 346263,
+        "median_visible_relative_residual": 0.013233865579964633,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 28,
+        "pixels": 921600,
+        "candidate_pixels": 605854,
+        "accepted_pixels": 369492,
+        "projected_comparisons": 810036,
+        "median_visible_relative_residual": 0.005146648253519813,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 29,
+        "pixels": 921600,
+        "candidate_pixels": 604177,
+        "accepted_pixels": 423022,
+        "projected_comparisons": 1006613,
+        "median_visible_relative_residual": 0.0027541128956642424,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 30,
+        "pixels": 921600,
+        "candidate_pixels": 616002,
+        "accepted_pixels": 459488,
+        "projected_comparisons": 1249551,
+        "median_visible_relative_residual": 0.0038056235074236215,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 31,
+        "pixels": 921600,
+        "candidate_pixels": 646281,
+        "accepted_pixels": 532603,
+        "projected_comparisons": 1681732,
+        "median_visible_relative_residual": 0.0033961475623073005,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 32,
+        "pixels": 921600,
+        "candidate_pixels": 514244,
+        "accepted_pixels": 402575,
+        "projected_comparisons": 1462230,
+        "median_visible_relative_residual": 0.002564861311832641,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 33,
+        "pixels": 921600,
+        "candidate_pixels": 467055,
+        "accepted_pixels": 380983,
+        "projected_comparisons": 1267084,
+        "median_visible_relative_residual": 0.002377838685226261,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 34,
+        "pixels": 921600,
+        "candidate_pixels": 478676,
+        "accepted_pixels": 431643,
+        "projected_comparisons": 1255782,
+        "median_visible_relative_residual": 0.002114004877950673,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 35,
+        "pixels": 921600,
+        "candidate_pixels": 558273,
+        "accepted_pixels": 532344,
+        "projected_comparisons": 1292174,
+        "median_visible_relative_residual": 0.002548264181787188,
+        "held_out_from_fusion": true
+      },
+      {
+        "frame": 36,
+        "pixels": 921600,
+        "candidate_pixels": 563304,
+        "accepted_pixels": 516637,
+        "projected_comparisons": 1023031,
+        "median_visible_relative_residual": 0.004162142876873838,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 37,
+        "pixels": 921600,
+        "candidate_pixels": 439805,
+        "accepted_pixels": 374219,
+        "projected_comparisons": 798358,
+        "median_visible_relative_residual": 0.004617785260437025,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 38,
+        "pixels": 921600,
+        "candidate_pixels": 469138,
+        "accepted_pixels": 371628,
+        "projected_comparisons": 881171,
+        "median_visible_relative_residual": 0.004854514377788133,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 39,
+        "pixels": 921600,
+        "candidate_pixels": 528678,
+        "accepted_pixels": 364520,
+        "projected_comparisons": 914719,
+        "median_visible_relative_residual": 0.006512847687271989,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 40,
+        "pixels": 921600,
+        "candidate_pixels": 506489,
+        "accepted_pixels": 426149,
+        "projected_comparisons": 1225858,
+        "median_visible_relative_residual": 0.005759838693680689,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 41,
+        "pixels": 921600,
+        "candidate_pixels": 623934,
+        "accepted_pixels": 464178,
+        "projected_comparisons": 1340219,
+        "median_visible_relative_residual": 0.005288736754028729,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 42,
+        "pixels": 921600,
+        "candidate_pixels": 517387,
+        "accepted_pixels": 438042,
+        "projected_comparisons": 1452890,
+        "median_visible_relative_residual": 0.003940350742549576,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 43,
+        "pixels": 921600,
+        "candidate_pixels": 601249,
+        "accepted_pixels": 480317,
+        "projected_comparisons": 1588687,
+        "median_visible_relative_residual": 0.003771645512906884,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 44,
+        "pixels": 921600,
+        "candidate_pixels": 539242,
+        "accepted_pixels": 476389,
+        "projected_comparisons": 1571481,
+        "median_visible_relative_residual": 0.004421892873747406,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 45,
+        "pixels": 921600,
+        "candidate_pixels": 528893,
+        "accepted_pixels": 464137,
+        "projected_comparisons": 1353187,
+        "median_visible_relative_residual": 0.003164282422986524,
+        "held_out_from_fusion": true
+      },
+      {
+        "frame": 46,
+        "pixels": 921600,
+        "candidate_pixels": 481393,
+        "accepted_pixels": 418443,
+        "projected_comparisons": 1226352,
+        "median_visible_relative_residual": 0.002762935687999341,
+        "held_out_from_fusion": false
+      },
+      {
+        "frame": 47,
+        "pixels": 921600,
+        "candidate_pixels": 437221,
+        "accepted_pixels": 356027,
+        "projected_comparisons": 797662,
+        "median_visible_relative_residual": 0.0028517216612085044,
+        "held_out_from_fusion": false
+      }
+    ]
+  },
+  "openmvs_trial-1280-v2": {
+    "run.json": {
+      "start_utc": "2026-09-09T14:54:39.855282+00:00",
+      "dataset_provenance_sha256": "c3551137ec6ed9d9a322d10e966e91a00900b79337bcf8dd2768ed0564ff50e2",
+      "binary_sha256": {
+        "InterfaceCOLMAP": "34d7ee529fe232dc26e23db53097ad4567aa502e9e42f901d1cb1baf613a4d98",
+        "DensifyPointCloud": "8ea970b0349270754d23f31a11dea87417c06d1001fa1ef437ee69b6146a1ce0",
+        "ReconstructMesh": "05f0eae93628ce50fa481db2879e9f62d1636b68f06422f76fd8b5d8d4773b0e",
+        "TextureMesh": "02887713214539f59286f8a2af430a48f6e237a5a98c8a83d050489bc426837f"
+      },
+      "implementation_sha256": "644417c1f97fcbe9b0f4f7c83b0a407574127ce25ce19273a53b73283c44a410",
+      "threads": 8,
+      "metric_accuracy_verified": false,
+      "interpretation": "Classical CPU multiview stereo on captured training RGB. Artificial tower points, automatic region cropping, hole filling, mesh smoothing and texture sharpening are disabled. The surface still requires reserved-view and independent property checks."
+    },
+    "import-completion.json": {
+      "stage": "import",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/InterfaceCOLMAP",
+        "--input-file",
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/dataset",
+        "--image-folder",
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/dataset/images",
+        "--output-file",
+        "scene.mvs",
+        "--max-threads",
+        "8"
+      ],
+      "start_utc": "2026-09-09T14:54:39.855879+00:00",
+      "pid": 81080,
+      "returncode": 0,
+      "seconds": 0.06804466700123157,
+      "end_utc": "2026-09-09T14:54:39.923933+00:00",
+      "outputs": {
+        "scene.mvs": {
+          "bytes": 534561,
+          "sha256": "6da968267c90fdaed641e0e8442bf00d09b2a5e96527c6c2aeaaf81c08873e18"
+        }
+      },
+      "complete": true
+    },
+    "dense-completion.json": {
+      "stage": "dense",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/DensifyPointCloud",
+        "--input-file",
+        "scene.mvs",
+        "--output-file",
+        "dense.mvs",
+        "--resolution-level",
+        "0",
+        "--max-resolution",
+        "1280",
+        "--number-views",
+        "5",
+        "--geometric-iters",
+        "2",
+        "--number-views-fuse",
+        "2",
+        "--estimate-roi",
+        "0",
+        "--crop-to-roi",
+        "0",
+        "--tower-mode",
+        "0",
+        "--remove-dmaps",
+        "0",
+        "--max-threads",
+        "8"
+      ],
+      "start_utc": "2026-09-09T14:54:39.924627+00:00",
+      "pid": 81081,
+      "returncode": 0,
+      "seconds": 116.28630025000894,
+      "end_utc": "2026-09-09T14:56:36.211408+00:00",
+      "outputs": {
+        "dense.mvs": {
+          "bytes": 550239,
+          "sha256": "2cf3bfdc5d7cff57dbad7cb56543bf0696aa3186f16b7c6eaddd3ce9683bdeb5"
+        },
+        "dense.ply": {
+          "bytes": 24897075,
+          "sha256": "ac25e4d2e59aa6210ffe5c7c1e8b7fe075474ba6f3022d6d1f343432f21b6804"
+        }
+      },
+      "complete": true
+    },
+    "mesh-completion.json": {
+      "stage": "mesh",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/ReconstructMesh",
+        "--input-file",
+        "dense.mvs",
+        "--output-file",
+        "mesh.mvs",
+        "--close-holes",
+        "0",
+        "--smooth",
+        "0",
+        "--crop-to-roi",
+        "0",
+        "--max-threads",
+        "8"
+      ],
+      "start_utc": "2026-09-09T14:56:36.222967+00:00",
+      "pid": 89115,
+      "returncode": 0,
+      "seconds": 9.835812667006394,
+      "end_utc": "2026-09-09T14:56:46.058844+00:00",
+      "outputs": {
+        "mesh.ply": {
+          "bytes": 8972051,
+          "sha256": "8cb80c6dab9c9958bea810fb3f87625aa653e855bf10f6a2eb3a6c4a8e1c7026"
+        }
+      },
+      "complete": false
+    }
+  },
+  "openmvs_trial-1280-v4": {
+    "run.json": {
+      "start_utc": "2026-09-09T15:00:16.827110+00:00",
+      "dataset_provenance_sha256": "c3551137ec6ed9d9a322d10e966e91a00900b79337bcf8dd2768ed0564ff50e2",
+      "binary_sha256": {
+        "InterfaceCOLMAP": "34d7ee529fe232dc26e23db53097ad4567aa502e9e42f901d1cb1baf613a4d98",
+        "DensifyPointCloud": "8ea970b0349270754d23f31a11dea87417c06d1001fa1ef437ee69b6146a1ce0",
+        "ReconstructMesh": "05f0eae93628ce50fa481db2879e9f62d1636b68f06422f76fd8b5d8d4773b0e",
+        "TextureMesh": "02887713214539f59286f8a2af430a48f6e237a5a98c8a83d050489bc426837f"
+      },
+      "implementation_sha256": "6f94616afae05b112ad205565118a1171157ee0fce8d104f9a8939d81268d14b",
+      "threads": 8,
+      "reuse_dense": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/trial-1280-v2",
+      "metric_accuracy_verified": false,
+      "interpretation": "Classical CPU multiview stereo on captured training RGB. Artificial tower points, automatic region cropping, hole filling, mesh smoothing and texture sharpening are disabled. The surface still requires reserved-view and independent property checks."
+    },
+    "import-reused.json": {
+      "stage": "import",
+      "reused_from": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/trial-1280-v2",
+      "source_completion_sha256": "646527a5f50a2046c22c878e68914462b5af8312f0c00b87aa155817e7cdf9d7",
+      "outputs": {
+        "scene.mvs": {
+          "bytes": 534561,
+          "sha256": "6da968267c90fdaed641e0e8442bf00d09b2a5e96527c6c2aeaaf81c08873e18"
+        }
+      },
+      "complete": true
+    },
+    "dense-reused.json": {
+      "stage": "dense",
+      "reused_from": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/trial-1280-v2",
+      "source_completion_sha256": "6021703749a0d4707c6c12148b5145487faaedad80e0e7ef1ecc4ee38ac44882",
+      "outputs": {
+        "dense.mvs": {
+          "bytes": 550239,
+          "sha256": "2cf3bfdc5d7cff57dbad7cb56543bf0696aa3186f16b7c6eaddd3ce9683bdeb5"
+        },
+        "dense.ply": {
+          "bytes": 24897075,
+          "sha256": "ac25e4d2e59aa6210ffe5c7c1e8b7fe075474ba6f3022d6d1f343432f21b6804"
+        }
+      },
+      "complete": true
+    },
+    "mesh-completion.json": {
+      "stage": "mesh",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/ReconstructMesh",
+        "--input-file",
+        "dense.mvs",
+        "--pointcloud-file",
+        "dense.ply",
+        "--output-file",
+        "mesh.mvs",
+        "--close-holes",
+        "0",
+        "--smooth",
+        "0",
+        "--crop-to-roi",
+        "0",
+        "--max-threads",
+        "8",
+        "--archive-type",
+        "2"
+      ],
+      "start_utc": "2026-09-09T15:00:16.832325+00:00",
+      "pid": 172,
+      "returncode": 0,
+      "seconds": 10.08349329099292,
+      "end_utc": "2026-09-09T15:00:26.915883+00:00",
+      "outputs": {
+        "mesh.mvs": {
+          "bytes": 4754719,
+          "sha256": "b57659982a74d1623c9eab6579ecdecd541f97e5dfc4f561dbb2568d9ea0d8a6"
+        },
+        "mesh.ply": {
+          "bytes": 8972051,
+          "sha256": "8cb80c6dab9c9958bea810fb3f87625aa653e855bf10f6a2eb3a6c4a8e1c7026"
+        }
+      },
+      "complete": true
+    },
+    "texture-completion.json": {
+      "stage": "texture",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/TextureMesh",
+        "--input-file",
+        "mesh.mvs",
+        "--output-file",
+        "property.mvs",
+        "--export-type",
+        "glb",
+        "--close-holes",
+        "0",
+        "--sharpness-weight",
+        "0",
+        "--max-threads",
+        "8",
+        "--archive-type",
+        "2"
+      ],
+      "start_utc": "2026-09-09T15:00:26.922426+00:00",
+      "pid": 773,
+      "returncode": 0,
+      "seconds": 68.34589891700307,
+      "end_utc": "2026-09-09T15:01:35.268691+00:00",
+      "outputs": {
+        "property.mvs": {
+          "bytes": 49066301,
+          "sha256": "bb602183a6e09eab5e88df13ccd0bf33cfc2b871b6ae8182960f7d4fee8e0a15"
+        },
+        "property.glb": {
+          "bytes": 12913668,
+          "sha256": "4da735c440a1cd03ab0a415f24f85757d2f6a89fda186954cf43b95d8ca3fa2d"
+        }
+      },
+      "complete": true
+    },
+    "completion.json": {
+      "complete": true,
+      "property_sha256": "4da735c440a1cd03ab0a415f24f85757d2f6a89fda186954cf43b95d8ca3fa2d",
+      "metric_accuracy_verified": false
+    }
+  },
+  "openmvs_trial-1280-no-leveling": {
+    "run.json": {
+      "start_utc": "2026-09-09T15:07:03.708763+00:00",
+      "dataset_provenance_sha256": "c3551137ec6ed9d9a322d10e966e91a00900b79337bcf8dd2768ed0564ff50e2",
+      "binary_sha256": {
+        "InterfaceCOLMAP": "34d7ee529fe232dc26e23db53097ad4567aa502e9e42f901d1cb1baf613a4d98",
+        "DensifyPointCloud": "8ea970b0349270754d23f31a11dea87417c06d1001fa1ef437ee69b6146a1ce0",
+        "ReconstructMesh": "05f0eae93628ce50fa481db2879e9f62d1636b68f06422f76fd8b5d8d4773b0e",
+        "TextureMesh": "02887713214539f59286f8a2af430a48f6e237a5a98c8a83d050489bc426837f"
+      },
+      "implementation_sha256": "4153da7c87830fc3627b3391dab688f841c82ba1796d75f26ff9ca5987d9dda6",
+      "threads": 8,
+      "seam_leveling": "off",
+      "reuse_dense": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/trial-1280-v2",
+      "metric_accuracy_verified": false,
+      "interpretation": "Classical CPU multiview stereo on captured training RGB. Artificial tower points, automatic region cropping, hole filling, mesh smoothing and texture sharpening are disabled. The surface still requires reserved-view and independent property checks."
+    },
+    "import-reused.json": {
+      "stage": "import",
+      "reused_from": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/trial-1280-v2",
+      "source_completion_sha256": "646527a5f50a2046c22c878e68914462b5af8312f0c00b87aa155817e7cdf9d7",
+      "outputs": {
+        "scene.mvs": {
+          "bytes": 534561,
+          "sha256": "6da968267c90fdaed641e0e8442bf00d09b2a5e96527c6c2aeaaf81c08873e18"
+        }
+      },
+      "complete": true
+    },
+    "dense-reused.json": {
+      "stage": "dense",
+      "reused_from": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/trial-1280-v2",
+      "source_completion_sha256": "6021703749a0d4707c6c12148b5145487faaedad80e0e7ef1ecc4ee38ac44882",
+      "outputs": {
+        "dense.mvs": {
+          "bytes": 550239,
+          "sha256": "2cf3bfdc5d7cff57dbad7cb56543bf0696aa3186f16b7c6eaddd3ce9683bdeb5"
+        },
+        "dense.ply": {
+          "bytes": 24897075,
+          "sha256": "ac25e4d2e59aa6210ffe5c7c1e8b7fe075474ba6f3022d6d1f343432f21b6804"
+        }
+      },
+      "complete": true
+    },
+    "mesh-completion.json": {
+      "stage": "mesh",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/ReconstructMesh",
+        "--input-file",
+        "dense.mvs",
+        "--pointcloud-file",
+        "dense.ply",
+        "--output-file",
+        "mesh.mvs",
+        "--close-holes",
+        "0",
+        "--smooth",
+        "0",
+        "--crop-to-roi",
+        "0",
+        "--max-threads",
+        "8",
+        "--archive-type",
+        "2"
+      ],
+      "start_utc": "2026-09-09T15:07:03.714865+00:00",
+      "pid": 20433,
+      "returncode": 0,
+      "seconds": 9.940893874998437,
+      "end_utc": "2026-09-09T15:07:13.655825+00:00",
+      "outputs": {
+        "mesh.mvs": {
+          "bytes": 4754719,
+          "sha256": "b57659982a74d1623c9eab6579ecdecd541f97e5dfc4f561dbb2568d9ea0d8a6"
+        },
+        "mesh.ply": {
+          "bytes": 8972051,
+          "sha256": "8cb80c6dab9c9958bea810fb3f87625aa653e855bf10f6a2eb3a6c4a8e1c7026"
+        }
+      },
+      "complete": true
+    },
+    "texture-completion.json": {
+      "stage": "texture",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/TextureMesh",
+        "--input-file",
+        "mesh.mvs",
+        "--output-file",
+        "property.mvs",
+        "--export-type",
+        "glb",
+        "--close-holes",
+        "0",
+        "--sharpness-weight",
+        "0",
+        "--global-seam-leveling",
+        "0",
+        "--local-seam-leveling",
+        "0",
+        "--max-threads",
+        "8",
+        "--archive-type",
+        "2"
+      ],
+      "start_utc": "2026-09-09T15:07:13.662394+00:00",
+      "pid": 21214,
+      "returncode": 0,
+      "seconds": 49.1669311250007,
+      "end_utc": "2026-09-09T15:08:02.829589+00:00",
+      "outputs": {
+        "property.mvs": {
+          "bytes": 66104738,
+          "sha256": "9f2f6818ef47328be9456e0934252b1c57219b723f63396bd6bf8c23213c6fa2"
+        },
+        "property.glb": {
+          "bytes": 12913668,
+          "sha256": "4da735c440a1cd03ab0a415f24f85757d2f6a89fda186954cf43b95d8ca3fa2d"
+        }
+      },
+      "complete": true
+    },
+    "completion.json": {
+      "complete": true,
+      "property_sha256": "4da735c440a1cd03ab0a415f24f85757d2f6a89fda186954cf43b95d8ca3fa2d",
+      "metric_accuracy_verified": false
+    }
+  },
+  "openmvs_trial-clean-no-leveling": {
+    "run.json": {
+      "start_utc": "2026-09-09T15:12:20.452913+00:00",
+      "dataset_provenance_sha256": "c3551137ec6ed9d9a322d10e966e91a00900b79337bcf8dd2768ed0564ff50e2",
+      "binary_sha256": {
+        "InterfaceCOLMAP": "34d7ee529fe232dc26e23db53097ad4567aa502e9e42f901d1cb1baf613a4d98",
+        "DensifyPointCloud": "8ea970b0349270754d23f31a11dea87417c06d1001fa1ef437ee69b6146a1ce0",
+        "ReconstructMesh": "05f0eae93628ce50fa481db2879e9f62d1636b68f06422f76fd8b5d8d4773b0e",
+        "TextureMesh": "02887713214539f59286f8a2af430a48f6e237a5a98c8a83d050489bc426837f"
+      },
+      "implementation_sha256": "4153da7c87830fc3627b3391dab688f841c82ba1796d75f26ff9ca5987d9dda6",
+      "threads": 8,
+      "seam_leveling": "off",
+      "reuse_dense": null,
+      "metric_accuracy_verified": false,
+      "interpretation": "Classical CPU multiview stereo on captured training RGB. Artificial tower points, automatic region cropping, hole filling, mesh smoothing and texture sharpening are disabled. The surface still requires reserved-view and independent property checks."
+    },
+    "import-completion.json": {
+      "stage": "import",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/InterfaceCOLMAP",
+        "--input-file",
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/dataset",
+        "--image-folder",
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/dataset/images",
+        "--output-file",
+        "scene.mvs",
+        "--max-threads",
+        "8",
+        "--archive-type",
+        "2"
+      ],
+      "start_utc": "2026-09-09T15:12:20.453503+00:00",
+      "pid": 35110,
+      "returncode": 0,
+      "seconds": 0.06790933299635071,
+      "end_utc": "2026-09-09T15:12:20.521426+00:00",
+      "outputs": {
+        "scene.mvs": {
+          "bytes": 534561,
+          "sha256": "6da968267c90fdaed641e0e8442bf00d09b2a5e96527c6c2aeaaf81c08873e18"
+        }
+      },
+      "complete": true
+    },
+    "dense-completion.json": {
+      "stage": "dense",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/DensifyPointCloud",
+        "--input-file",
+        "scene.mvs",
+        "--output-file",
+        "dense.mvs",
+        "--resolution-level",
+        "0",
+        "--max-resolution",
+        "1280",
+        "--number-views",
+        "5",
+        "--geometric-iters",
+        "2",
+        "--number-views-fuse",
+        "2",
+        "--estimate-roi",
+        "0",
+        "--crop-to-roi",
+        "0",
+        "--tower-mode",
+        "0",
+        "--remove-dmaps",
+        "0",
+        "--max-threads",
+        "8",
+        "--archive-type",
+        "2"
+      ],
+      "start_utc": "2026-09-09T15:12:20.522233+00:00",
+      "pid": 35115,
+      "returncode": 0,
+      "seconds": 120.3568583749875,
+      "end_utc": "2026-09-09T15:14:20.879704+00:00",
+      "outputs": {
+        "dense.mvs": {
+          "bytes": 17691671,
+          "sha256": "b06ce710347b8193be1e314d0e28a40c4f5cc72e63f8f94ccec487c978b9d719"
+        },
+        "dense.ply": {
+          "bytes": 10471224,
+          "sha256": "80c6bd8bcfdb27c06014453ac0c50790d82eefa7113e038a36cbe2fea4f8f93e"
+        }
+      },
+      "complete": true
+    },
+    "mesh-completion.json": {
+      "stage": "mesh",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/ReconstructMesh",
+        "--input-file",
+        "dense.mvs",
+        "--pointcloud-file",
+        "dense.ply",
+        "--output-file",
+        "mesh.mvs",
+        "--close-holes",
+        "0",
+        "--smooth",
+        "0",
+        "--crop-to-roi",
+        "0",
+        "--max-threads",
+        "8",
+        "--archive-type",
+        "2"
+      ],
+      "start_utc": "2026-09-09T15:14:20.892709+00:00",
+      "pid": 42134,
+      "returncode": -11,
+      "seconds": 0.43779675000405405,
+      "end_utc": "2026-09-09T15:14:21.330526+00:00",
+      "outputs": {},
+      "complete": false
+    }
+  },
+  "openmvs_trial-clean-v2-no-leveling": {
+    "run.json": {
+      "start_utc": "2026-09-09T15:16:07.741201+00:00",
+      "dataset_provenance_sha256": "c3551137ec6ed9d9a322d10e966e91a00900b79337bcf8dd2768ed0564ff50e2",
+      "binary_sha256": {
+        "InterfaceCOLMAP": "34d7ee529fe232dc26e23db53097ad4567aa502e9e42f901d1cb1baf613a4d98",
+        "DensifyPointCloud": "8ea970b0349270754d23f31a11dea87417c06d1001fa1ef437ee69b6146a1ce0",
+        "ReconstructMesh": "05f0eae93628ce50fa481db2879e9f62d1636b68f06422f76fd8b5d8d4773b0e",
+        "TextureMesh": "02887713214539f59286f8a2af430a48f6e237a5a98c8a83d050489bc426837f"
+      },
+      "implementation_sha256": "0c1aa18563893a11ea04ed1fc48fd65aee1e46e65c16330713df4c69087e1770",
+      "threads": 8,
+      "seam_leveling": "off",
+      "reuse_dense": null,
+      "metric_accuracy_verified": false,
+      "interpretation": "Classical CPU multiview stereo on captured training RGB. Artificial tower points, automatic region cropping, hole filling, mesh smoothing and texture sharpening are disabled. The surface still requires reserved-view and independent property checks."
+    },
+    "import-completion.json": {
+      "stage": "import",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/InterfaceCOLMAP",
+        "--input-file",
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/dataset",
+        "--image-folder",
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/openmvs-chair-760/dataset/images",
+        "--output-file",
+        "scene.mvs",
+        "--max-threads",
+        "8",
+        "--archive-type",
+        "-1"
+      ],
+      "start_utc": "2026-09-09T15:16:07.741619+00:00",
+      "pid": 47495,
+      "returncode": 0,
+      "seconds": 0.06909616700431798,
+      "end_utc": "2026-09-09T15:16:07.810725+00:00",
+      "outputs": {
+        "scene.mvs": {
+          "bytes": 534561,
+          "sha256": "6da968267c90fdaed641e0e8442bf00d09b2a5e96527c6c2aeaaf81c08873e18"
+        }
+      },
+      "complete": true
+    },
+    "dense-completion.json": {
+      "stage": "dense",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/DensifyPointCloud",
+        "--input-file",
+        "scene.mvs",
+        "--output-file",
+        "dense.mvs",
+        "--resolution-level",
+        "0",
+        "--max-resolution",
+        "1280",
+        "--number-views",
+        "5",
+        "--geometric-iters",
+        "2",
+        "--number-views-fuse",
+        "2",
+        "--estimate-roi",
+        "0",
+        "--crop-to-roi",
+        "0",
+        "--tower-mode",
+        "0",
+        "--remove-dmaps",
+        "0",
+        "--max-threads",
+        "8",
+        "--archive-type",
+        "-1"
+      ],
+      "start_utc": "2026-09-09T15:16:07.811737+00:00",
+      "pid": 47512,
+      "returncode": 0,
+      "seconds": 116.60564345799503,
+      "end_utc": "2026-09-09T15:18:04.417973+00:00",
+      "outputs": {
+        "dense.mvs": {
+          "bytes": 550239,
+          "sha256": "2cf3bfdc5d7cff57dbad7cb56543bf0696aa3186f16b7c6eaddd3ce9683bdeb5"
+        },
+        "dense.ply": {
+          "bytes": 24902970,
+          "sha256": "09531eb4b9c96e7d3da56a5bfa7515573017d5e46bc8d25b23679cfa47c1cf05"
+        }
+      },
+      "complete": true,
+      "dense_handoff": {
+        "has_view_indices": true,
+        "has_view_weights": true
+      }
+    },
+    "mesh-completion.json": {
+      "stage": "mesh",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/ReconstructMesh",
+        "--input-file",
+        "dense.mvs",
+        "--pointcloud-file",
+        "dense.ply",
+        "--output-file",
+        "mesh.mvs",
+        "--close-holes",
+        "0",
+        "--smooth",
+        "0",
+        "--crop-to-roi",
+        "0",
+        "--max-threads",
+        "8",
+        "--archive-type",
+        "2"
+      ],
+      "start_utc": "2026-09-09T15:18:04.429479+00:00",
+      "pid": 54695,
+      "returncode": 0,
+      "seconds": 10.091998875010177,
+      "end_utc": "2026-09-09T15:18:14.521545+00:00",
+      "outputs": {
+        "mesh.mvs": {
+          "bytes": 4728406,
+          "sha256": "e2e19b51f1be42cffc3022e7a984e7357f26f2bab30953c4bb77393cddb65b6e"
+        },
+        "mesh.ply": {
+          "bytes": 8924662,
+          "sha256": "308f19881c479853f9c767f3f9d646ebf875027dfd8b00062758c53191b633e7"
+        }
+      },
+      "complete": true
+    },
+    "texture-completion.json": {
+      "stage": "texture",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/TextureMesh",
+        "--input-file",
+        "mesh.mvs",
+        "--output-file",
+        "property.mvs",
+        "--export-type",
+        "glb",
+        "--close-holes",
+        "0",
+        "--sharpness-weight",
+        "0",
+        "--global-seam-leveling",
+        "0",
+        "--local-seam-leveling",
+        "0",
+        "--max-threads",
+        "8",
+        "--archive-type",
+        "2"
+      ],
+      "start_utc": "2026-09-09T15:18:14.527581+00:00",
+      "pid": 55149,
+      "returncode": 0,
+      "seconds": 48.6085243330017,
+      "end_utc": "2026-09-09T15:19:03.136377+00:00",
+      "outputs": {
+        "property.mvs": {
+          "bytes": 66002183,
+          "sha256": "7cf358b28a0d938f20af5ae03abe5bd95d972fca9a8abdd4602564b1c27c6c61"
+        },
+        "property.glb": {
+          "bytes": 12805832,
+          "sha256": "58b2fb1422974ec70ee424e4234433e3a3175ac87ea4e72e28555b55491d56f8"
+        }
+      },
+      "complete": true
+    },
+    "completion.json": {
+      "complete": true,
+      "property_sha256": "58b2fb1422974ec70ee424e4234433e3a3175ac87ea4e72e28555b55491d56f8",
+      "metric_accuracy_verified": false
+    }
   }
 }

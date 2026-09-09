@@ -97,13 +97,50 @@ This artifact is retained as a local improvement over mean-depth extraction, not
 The figure's local frame numbers map to original frames by adding 760.
 The complete test suite passes 46 tests after these changes.
 
-## Next image-resolution comparison
+## Completed image-resolution comparison
 
 The completed models above train from 518-by-294 processed RGB.
 A new dataset retains the original extracted 1280-by-720 JPEG pixels, decoded to PNG, with COLMAP's corresponding raw calibration.
 It preserves the exact 9,482 seed points and colors, camera poses and 43/5 frame assignment.
 It does not claim to restore the original video's 4K detail.
-The initial higher-resolution trial keeps 10,000 steps, 500,000 maximum Gaussians and growth through step 8,000.
-Any image-quality comparison across resolutions must render both models at a common resolution and use the same source images.
+The higher-resolution trial completes 10,000 steps, reaches 500,000 Gaussians and allows growth through step 8,000.
+The recorded single run takes 339.50 seconds; this is not a controlled performance benchmark.
+Its final PLY has SHA-256 `72a7d64c2d5daf0bec08a271d92b7676192b3762754ddc3fbf827b1c258dd498`.
+
+Both saved models are rendered at the same calibrated 1280-by-720 camera views with the same float32 renderer and captured reference images.
+All pixels enter the image metrics after the same eight-bit conversion.
+This avoids comparing native training metrics measured at different resolutions.
+
+| Original frame | Trained at 518 by 294, PSNR | Trained at 1280 by 720, PSNR |
+|---|---:|---:|
+| 765 | 20.54 dB | 22.05 dB |
+| 775 | 23.83 dB | 25.25 dB |
+| 785 | 17.80 dB | 18.52 dB |
+| 795 | 23.44 dB | 24.38 dB |
+| 805 | 22.84 dB | 25.41 dB |
+| Mean | 21.69 dB | 23.12 dB |
+
+Mean full-image absolute RGB error falls from 0.04841 to 0.03936.
+The high-resolution model's float32 render agrees with native exported PNGs to mean absolute error between 0.000977 and 0.000979.
+The old model has no native exported 1280-pixel reference, so its native compatibility at that resolution is explicitly unmeasured.
+The close chair view retains ghosting and displaced details despite improved image scores.
+
+![Two training resolutions rendered with the same cameras](evidence/brush-resolution-comparison.jpg)
+
+At the same 4,965 sparse observations, the fraction within 5% depth agreement improves in every reserved view.
+For example, frame 805 improves from 41.71% to 56.13% of all observations, while covered-observation median relative error falls from 0.98% to 0.73%.
+This comparison still uses COLMAP geometry involved in camera estimation and cannot establish independent accuracy.
+
+All 43 higher-resolution training views are rendered and fused using median-center depth and the same opacity, edge and neighboring-view support rules.
+The complete mesh has 2,175,971 triangles and a voxel size of 0.002312 model units.
+Its median visible coverage is 64.14%, with 71.92% median depth support and 68.64% minimum depth support.
+The 300,000-triangle app mesh has 61.92% median coverage, 67.78% median depth support and 66.68% minimum depth support.
+Both meshes fail screening because surfaces remain missing.
+These mesh metrics use 1280-pixel reference views; the earlier mesh table uses 518-pixel reference views and is not a controlled resolution comparison.
+The app asset is `reconstructions/brush-mesh-760-high1280-median/model/property.glb`, SHA-256 `c1a5e9dd32d928d6b3b781d70201c714d673b0bf8b0fe832e9002a3ddfa2c33d`.
+
+![Higher-resolution Gaussian depths fused into the exported mesh](evidence/gaussian-high1280-mesh-comparison.jpg)
+
+The remaining surface failures motivate a separate [native CPU multiview stereo experiment with OpenMVS](openmvs-mac-results.md).
 
 An actual property capture and independent measured references remain necessary for the final real estate acceptance check.

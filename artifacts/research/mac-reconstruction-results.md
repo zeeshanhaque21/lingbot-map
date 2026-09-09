@@ -15,7 +15,9 @@ It improves reserved feature alignment and has five failing app viewpoints out o
 The complete camera-optimization and MapAnything comparisons appear below.
 The subsequent [depth-correction and native Brush experiments](photometric-and-brush-results.md) retain three failed depth variants and compare shared Gaussian optimization with an unchanged TSDF.
 Brush runs on Metal and improves local reserved-view appearance, while geometric and property-verification checks remain unresolved.
-The subsequent [Gaussian surface report](gaussian-surface-results.md) includes renderer agreement, sparse-depth checks and three failed local mesh variants.
+The subsequent [Gaussian surface report](gaussian-surface-results.md) includes renderer agreement, sparse-depth checks, three extraction variants and the failed higher-resolution mesh trial.
+The [native OpenMVS report](openmvs-mac-results.md) adds CPU multiview stereo, a complete textured GLB and matching reserved-view checks.
+Its local mesh improves coverage but retains missing regions and geometry disagreements; full-building verification remains unresolved.
 Neither the latest candidate nor the earlier review baseline is verified for property listings.
 
 The hybrid candidate at `reconstructions/indoor-travel-learned-motion10-bootstrap/model/property.glb` is retained for review.

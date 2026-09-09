@@ -2,6 +2,8 @@
 
 Implementation continuation, 2026-09-09: the [native Mac pipeline and measured failures](mac-reconstruction-results.md) now include complete walkthrough reconstruction and exported-asset checks.
 The latest [image-constrained depth and Brush experiments](photometric-and-brush-results.md) document failed depth corrections and successful native Metal training of a local Gaussian model.
+The [Gaussian surface experiments](gaussian-surface-results.md) and [native OpenMVS pipeline](openmvs-mac-results.md) continue this work through actual triangle meshes, complete textured GLB exports and reserved-view checks.
+Neither establishes a verified complete property model.
 The local appearance improvement is not a verified full-building reconstruction.
 
 ## Recommendation

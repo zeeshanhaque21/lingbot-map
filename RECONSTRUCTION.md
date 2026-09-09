@@ -9,6 +9,8 @@ The short integration capture passes internal screening, but every tested full-w
 The [implementation report](artifacts/research/mac-reconstruction-results.md) identifies the current review asset and its remaining failures.
 The [Brush experiment report](artifacts/research/photometric-and-brush-results.md) includes native Metal Gaussian training, calibrated dataset export and reserved-image comparisons.
 Its current result covers a 24-second section and does not replace the unresolved full-building geometry checks.
+The [Gaussian surface report](artifacts/research/gaussian-surface-results.md) covers depth extraction, pixel conventions and failed mesh variants.
+The [OpenMVS report](artifacts/research/openmvs-mac-results.md) provides a tested native CPU path from calibrated photographs to a complete textured GLB, with reserved-view evidence and remaining geometry failures.
 
 ## Setup
 
