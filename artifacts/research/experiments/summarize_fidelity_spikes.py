@@ -45,6 +45,9 @@ def main():
         "openmvs_complete_mesh_comparison": "openmvs-chair-760/evaluation-v4-batched/results.json",
         "openmvs_no_leveling_comparison": "openmvs-chair-760/evaluation-no-leveling-final/results.json",
         "openmvs_clean_comparison": "openmvs-chair-760/evaluation-clean-v2/results.json",
+        "openmvs_refined_comparison": "openmvs-chair-760/evaluation-refined-1280/results.json",
+        "openmvs_refined_captured_comparison": "openmvs-chair-760/evaluation-generic-refined-final/results.json",
+        "openmvs_full_capture_comparison": "openmvs-full/evaluation-final/results.json",
     }.items():
         path = captures / relative
         if not path.exists():
@@ -146,6 +149,7 @@ def main():
         "trial-1280-no-leveling",
         "trial-clean-no-leveling",
         "trial-clean-v2-no-leveling",
+        "refined-1280",
     ]:
         records[f"openmvs_{run}"] = {}
         for name in [
@@ -155,6 +159,7 @@ def main():
             "import-reused.json",
             "dense-reused.json",
             "mesh-completion.json",
+            "refine-completion.json",
             "texture-completion.json",
             "completion.json",
         ]:
@@ -211,6 +216,11 @@ def main():
     source = captures / "brush-resolution-comparison-760/comparison.jpg"
     if source.exists():
         shutil.copy2(source, evidence / "brush-resolution-comparison.jpg")
+    source = (
+        captures / "openmvs-chair-760/evaluation-generic-refined-final/views/000785.jpg"
+    )
+    if source.exists():
+        shutil.copy2(source, evidence / "openmvs-refinement-comparison.jpg")
     print(f"Saved {len(records)} experiment groups to {evidence}")
 
 

@@ -80,6 +80,19 @@ def test_multiple_textures_transformed_nodes_and_colored_occluder(tmp_path):
         transform = np.eye(4)
         transform[0, 3] = shift
         scene.add_geometry(mesh, node_name=name, geom_name=name, transform=transform)
+    # Native exporters can assign separate atlases to transformed scene nodes.
+    from artifacts.research.experiments.evaluate_openmvs_capture import package_scene
+    from lingbot_map.reconstruction.rendering import SurfaceRenderer
+
+    scene.export(tmp_path / "native.glb")
+    parts = package_scene(tmp_path / "native.glb", tmp_path / "packaged.glb")
+    assert len(parts) == 2
+    rendered, _, visible = SurfaceRenderer.from_file(
+        tmp_path / "packaged.glb", glb=True
+    ).render(np.array([[64.0, 0, 128], [0, 64, 128], [0, 0, 1]]), np.eye(4), 256, 256)
+    assert visible.all()
+    assert np.all(rendered[:, :128] == [80, 120, 160])
+    assert np.all(rendered[:, 128:] == [160, 90, 30])
     occluder = trimesh.Trimesh(
         vertices=[[-0.5, -0.5, 1], [0.5, -0.5, 1], [0.5, 0.5, 1], [-0.5, 0.5, 1]],
         faces=[[0, 1, 2], [0, 2, 3]],

@@ -103,7 +103,52 @@ These existing triangulated observations participated in camera estimation and a
 The complete textured GLB initially reproduced OpenCV's destination-size limit because more than 32,766 visible samples were passed as one remap column.
 The validator now samples in bounded batches without changing interpolation or reducing the mesh.
 An end-to-end 65,536-pixel textured-plane regression first reproduces the native assertion and then passes with exact color, coverage and depth agreement.
-The complete suite passes 47 tests; Ruff passes the changed code.
+The complete suite passes 48 tests; Ruff passes the changed code.
+The renderer also preserves distinct texture materials, transformed scene nodes and occlusion between textured and vertex-colored geometry.
+A physical two-material fixture verifies the complete standalone export, node placement, image colors and depth.
+The original five-view textured-mesh results remain identical after extracting the shared renderer and adding material support.
+
+## Photometric refinement on unchanged dense input
+
+The native `RefineMesh` stage completes on the same 377,940 dense points and byte-identical starting mesh.
+It uses two image scales, eight views, a regularity weight of 0.2 and no requested decimation or hole closure.
+The stage changes vertex positions and triangle topology through photometric optimization and regularization.
+It takes 55.18 seconds in this single run and produces 526,181 triangles, compared with the unchanged mesh's 472,011.
+Texture seam adjustments remain disabled in both arms.
+
+| Five-view statistic | Unchanged mesh | Refined mesh |
+|---|---:|---:|
+| Median visible coverage | 88.06% | 87.11% |
+| Median visible RGB error | 0.07959 | 0.07992 |
+| Mean whole-image PSNR, missing pixels black | 11.50 dB | 11.33 dB |
+| Median Gaussian-depth agreement within 5% | 49.47% | 48.86% |
+
+The fraction of all sparse observations agreeing within 5% decreases in each of the five views.
+The Gaussian-depth columns remain model-agreement diagnostics, not accuracy measurements.
+Visual inspection of frame 785 shows missing ceiling regions, warped chair surfaces and gaps in both arms.
+This experiment does not justify enabling refinement by default.
+
+![Captured frame beside refined and unchanged native meshes](evidence/openmvs-refinement-comparison.jpg)
+
+The general captured-view evaluator independently reproduces every sparse-consistency value from the earlier chair-specific evaluator.
+It uses the same captured RGB at 1280 by 720, unchanged COLMAP cameras and direct subpixel rays at the existing sparse observations.
+It reports coverage and whole-image RGB error without creating a dense depth reference.
+Whole-image PSNR includes missing mesh pixels as black, preventing uncovered areas from disappearing from the image comparison.
+Its paired baseline is evaluated only on views reserved from both reconstructions.
+
+## Complete captured walkthrough
+
+`prepare_colmap_capture_dataset` now prepares all 1,000 captured images with their existing calibrated cameras.
+Exactly 900 images enter dense reconstruction and texturing; 100 frames ending in 5 remain reserved for evaluation.
+The training-only sparse export contains 177,447 points.
+The full native run is in progress at `reconstructions/openmvs-full/trial-1280` and uses the unrefined configuration.
+No full native model result is claimed until that run and its evaluation complete.
+
+`evaluate_openmvs_capture` packages all native materials into one standalone GLB while preserving every scene node and triangle.
+It verifies geometry, node transforms, texture pixels and UV coordinates after reloading the export.
+It checks every reserved source-image hash and camera against the input model, records evaluator source hashes and flushes per-view results as they finish.
+Each reserved image receives a comparison artifact at its original evaluation resolution.
+The unchanged local mesh supplies a paired baseline on its five common reserved views; that local comparison does not establish a full-building baseline.
 
 ## Reproduction
 
@@ -136,6 +181,7 @@ This run produces 378,639 dense points and 469,550 triangles, demonstrating that
 Its standalone asset is `reconstructions/openmvs-chair-760/evaluation-clean-v2/model/property.glb`, 30,232,472 bytes, SHA-256 `ed47599f24a9ba3589ce34fa8df2471f37ae7f2de3959f9fe07cd704c076058e`.
 It has 86.51% median coverage, 49.29% median Gaussian-depth support and 0.07775 median visible RGB error.
 The clean run also fails the fidelity gate; successful pipeline execution is separate from faithful reconstruction.
-The comparison script deliberately requires the calibrated 760-807 chair fixture and one texture material; it rejects unsupported layouts rather than silently merging materials.
-The next geometry experiment should test native photometric mesh refinement against this unchanged dense-mesh baseline before scaling to the full walkthrough.
+The earlier `evaluate_openmvs_trial` comparison deliberately requires the calibrated 760-807 chair fixture and one texture material.
+The newer `evaluate_openmvs_capture` supports the complete captured dataset and multiple native materials.
+Add `--refine` to the native runner only when explicitly testing the refinement arm; the current evidence favors the unchanged local baseline.
 Actual property capture, measured scale, independent dimensions and complete room-connectivity checks remain outstanding.
