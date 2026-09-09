@@ -15,6 +15,7 @@ from .io import digest, write_json
 
 def fuse(output):
     from .geometry import ownership_bounds
+
     output = Path(output)
     files = sorted((output / "windows").glob("*.npz"))
     if not files:
@@ -98,10 +99,15 @@ def fuse(output):
     started = time.monotonic()
     for chunk, (path, transform) in enumerate(zip(files, transforms)):
         data = dict(np.load(path))
+        pixel_offset = float(data.get("pixel_center_offset", 0.0))
+        if pixel_offset not in (0.0, 0.5):
+            raise ValueError("Supported pixel-center offsets are 0 and 0.5")
         scale = float(np.cbrt(np.linalg.det(transform[:3, :3])))
         rotation = transform[:3, :3] / scale
         # Prefer predictions after the scale bootstrap; use each frame exactly once.
-        low, high = ownership_bounds(ranges, chunk, inference.get("depth_ownership_warmup"))
+        low, high = ownership_bounds(
+            ranges, chunk, inference.get("depth_ownership_warmup")
+        )
         for i, frame_id in enumerate(data["frame_ids"]):
             if not low <= frame_id < high:
                 continue
@@ -119,7 +125,12 @@ def fuse(output):
             k = data["intrinsics"][i]
             h, w = filtered.shape
             intrinsic = o3d.camera.PinholeCameraIntrinsic(
-                w, h, float(k[0, 0]), float(k[1, 1]), float(k[0, 2]), float(k[1, 2])
+                w,
+                h,
+                float(k[0, 0]),
+                float(k[1, 1]),
+                float(k[0, 2]) - pixel_offset,
+                float(k[1, 2]) - pixel_offset,
             )
             rgbd = o3d.geometry.RGBDImage.create_from_color_and_depth(
                 o3d.geometry.Image(np.ascontiguousarray(data["rgb"][i])),
@@ -142,6 +153,7 @@ def fuse(output):
                     "intrinsics": k.tolist(),
                     "window": chunk,
                     "held_out_from_fusion": held_out,
+                    "pixel_center_offset": pixel_offset,
                 }
             )
             diagnostics.append(stats)

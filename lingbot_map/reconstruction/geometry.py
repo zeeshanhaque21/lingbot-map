@@ -21,10 +21,15 @@ def preprocessing_transform(width, height, processed_width, processed_height):
     )
 
 
-def unproject(depth, intrinsics, extrinsics):
+def unproject(depth, intrinsics, extrinsics, pixel_center_offset=0.0):
     """Camera z-depth to world XYZ, using OpenCV world-to-camera matrices."""
     y, x = np.indices(depth.shape)
-    rays = np.stack([x, y, np.ones_like(x)], axis=-1) @ np.linalg.inv(intrinsics).T
+    rays = (
+        np.stack(
+            [x + pixel_center_offset, y + pixel_center_offset, np.ones_like(x)], axis=-1
+        )
+        @ np.linalg.inv(intrinsics).T
+    )
     camera = rays * depth[..., None]
     return (camera - extrinsics[:, 3]) @ extrinsics[:, :3]
 
@@ -135,7 +140,8 @@ def supported_depth(index, data, relative_tolerance=0.03):
     high = cv2.dilate(depth, np.ones((3, 3), np.uint8))
     low = cv2.erode(depth, np.ones((3, 3), np.uint8))
     valid &= (high - low) < 0.08 * np.maximum(depth, 1e-6)
-    xyz = unproject(depth, data["intrinsics"][index], data["extrinsics"][index])
+    offset = float(data.get("pixel_center_offset", 0.0))
+    xyz = unproject(depth, data["intrinsics"][index], data["extrinsics"][index], offset)
     support = np.zeros(depth.shape, np.uint8)
     tested, errors = 0, []
     for neighbor in (index - 3, index - 1, index + 1, index + 3):
@@ -150,7 +156,10 @@ def supported_depth(index, data, relative_tolerance=0.03):
         camera = xyz @ extrinsic[:, :3].T + extrinsic[:, 3]
         pixels = camera @ intrinsic.T
         denominator = np.maximum(pixels[..., 2], 1e-8)
-        u, v = pixels[..., 0] / denominator, pixels[..., 1] / denominator
+        u, v = (
+            pixels[..., 0] / denominator - offset,
+            pixels[..., 1] / denominator - offset,
+        )
         observed = cv2.remap(
             data["depth"][neighbor],
             u.astype(np.float32),
