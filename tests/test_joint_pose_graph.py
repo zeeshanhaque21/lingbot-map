@@ -1,8 +1,14 @@
+import json
+
 import numpy as np
 import open3d as o3d
 from scipy.spatial.transform import Rotation
 
-from artifacts.research.experiments.joint_pose_graph import information_matrix, optimize
+from artifacts.research.experiments.joint_pose_graph import (
+    information_matrix,
+    optimize,
+    publish,
+)
 
 
 def test_information_matches_open3d_point_correspondences():
@@ -64,3 +70,35 @@ def test_joint_optimizer_corrects_known_camera_errors(tmp_path):
     np.testing.assert_allclose(result[0], true[0], atol=1e-8)
     assert np.max(np.abs(result - true)) < 0.002
     np.testing.assert_allclose(np.linalg.det(result[:, :3, :3]), 1.0, atol=1e-8)
+
+
+def test_publication_maps_scales_by_frame_and_preserves_source(tmp_path):
+    source, output = tmp_path / "source", tmp_path / "experiment"
+    (source / "windows").mkdir(parents=True)
+    (source / "frames").mkdir()
+    output.mkdir()
+    (source / "input.json").write_text("{}")
+    (source / "inference.json").write_text(json.dumps({"poses_global": True}))
+    depth = np.array([[[2.0]], [[3.0]]], dtype=np.float32)
+    np.savez(
+        source / "windows/000000.npz",
+        frame_ids=np.array([20, 10]),
+        depth=depth,
+        extrinsics=np.repeat(np.eye(4)[None, :3], 2, axis=0),
+    )
+    poses = np.repeat(np.eye(4)[None], 2, axis=0)
+    poses[:, 0, 3] = [1, 2]
+    candidate = publish(
+        source,
+        output,
+        [{"frame": 10}, {"frame": 20}],
+        poses,
+        {"test": True},
+        depth_scales=[0.5, 2.0],
+    )
+    saved = np.load(candidate / "windows/000000.npz")
+    np.testing.assert_allclose(saved["depth"].ravel(), [4.0, 1.5])
+    np.testing.assert_allclose(saved["extrinsics"][:, 0, 3], [-2.0, -1.0])
+    np.testing.assert_array_equal(
+        np.load(source / "windows/000000.npz")["depth"], depth
+    )

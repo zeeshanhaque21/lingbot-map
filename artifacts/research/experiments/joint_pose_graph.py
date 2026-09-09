@@ -267,7 +267,15 @@ def optimize(data, cameras, edges, output, prior_weight):
     return poses
 
 
-def publish(source, output, cameras, poses, signature):
+def publish(
+    source,
+    output,
+    cameras,
+    poses,
+    signature,
+    depth_scales=None,
+    pose_source="Joint SE3 camera graph from depth-backed image features",
+):
     candidate = output / "candidate"
     candidate.mkdir(exist_ok=True)
     for name in ["input.json", "frames"]:
@@ -276,13 +284,18 @@ def publish(source, output, cameras, poses, signature):
             destination.symlink_to((source / name).resolve())
     config = json.loads((source / "inference.json").read_text())
     config.update(
-        pose_source="Joint SE3 camera graph from depth-backed image features",
+        pose_source=pose_source,
         joint_pose_signature=signature,
     )
     write_json(candidate / "inference.json", config)
     extrinsics = {
         camera["frame"]: np.linalg.inv(pose)[:3] for camera, pose in zip(cameras, poses)
     }
+    scales = (
+        {camera["frame"]: scale for camera, scale in zip(cameras, depth_scales)}
+        if depth_scales is not None
+        else {}
+    )
     for path in sorted((source / "windows").glob("*.npz")):
         destination = candidate / "windows" / path.name
         if destination.exists():
@@ -291,6 +304,8 @@ def publish(source, output, cameras, poses, signature):
         for i, frame in enumerate(data["frame_ids"]):
             if int(frame) in extrinsics:
                 data["extrinsics"][i] = extrinsics[int(frame)]
+            if int(frame) in scales:
+                data["depth"][i] *= scales[int(frame)]
         write_npz(destination, **data)
         print(f"published_window: {path.stem}", flush=True)
     return candidate
@@ -307,7 +322,9 @@ def main():
         parser.error("--prior-weight must be finite and positive")
     source_config = json.loads((args.source / "inference.json").read_text())
     if not source_config.get("poses_global"):
-        parser.error("--source must contain registered cameras in shared world coordinates")
+        parser.error(
+            "--source must contain registered cameras in shared world coordinates"
+        )
     signature = {
         "version": 1,
         "prior_weight": args.prior_weight,
