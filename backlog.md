@@ -16,10 +16,17 @@
   The 3.1 MB navigation mesh is cleaned and simplified to 150,000 triangles.
   The return audit verifies 160 pairs; median pair error improves from 9.98 to 3.02 pixels.
   A 61-frame anchored spherical sweep and calibrated stitching baseline cover every direction.
-  All 52 tests pass, including MPS precision and spherical projection checks.
+  All 55 tests pass, including MPS precision, spherical projection and shared-surface reprojection checks.
   FixAnything and pinned DiffSynth source are installed in .venv-fixanything.
-  The 82.86 GB model download is progressing through Motrix checksums.
-  Next: complete a real Mac inference run, stitch the refined sweep and inspect structural changes and seams.
+  The 82.86 GB model download completed with Motrix checksums.
+  A five-frame, two-step smoke run completed in 104 seconds; its actual pairs are visible at http://127.0.0.1:8083/fixanything-smoke-v1/review.html.
+  The full 61-frame, 10-step run is active with durable latent checkpoints.
+  The unchanged panorama was compared with all 24 source photos excluded from mesh fusion, covering 1,197,452 shared pixels.
+  These photos still contributed to camera estimation and learned reconstruction context.
+  Next: finish the full Mac run, stitch it, inspect structural changes and seams, and run compare_panorama_sources.py against the generated panorama.
+  Expose a refined candidate only with the raw panorama retained and review status explicit.
+  Ego space 30 is handed to the user for the smoke gallery; fresh PR image rendering verification is pending browser availability.
+  PR body is verified and image links remain unchanged and pinned to their previously verified commit.
   The native full indoor mesh and native TSDF comparisons remain research evidence rather than PoC acceptance requirements.
 
   Draft PR: https://github.com/zeeshanhaque21/lingbot-map/pull/2
