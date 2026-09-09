@@ -1,0 +1,76 @@
+{
+  "source_frames": [
+    0,
+    10,
+    20,
+    30,
+    40,
+    51,
+    61,
+    71,
+    81,
+    91,
+    102,
+    112,
+    122,
+    132,
+    143,
+    153,
+    163,
+    173,
+    183,
+    194,
+    204,
+    214,
+    224,
+    236
+  ],
+  "rows": [
+    {
+      "frame": 5,
+      "coverage": 0.9550862816168939,
+      "photo_fraction": 0.8082105429044204,
+      "metrics": {
+        "baseline": {
+          "whole_rgb_l1": 0.0747719679892549,
+          "visible_rgb_l1": 0.06180598356549671
+        },
+        "photos": {
+          "whole_rgb_l1": 0.07406785107865539,
+          "visible_rgb_l1": 0.06106875497772191
+        }
+      }
+    },
+    {
+      "frame": 35,
+      "coverage": 0.9399114858298532,
+      "photo_fraction": 0.8139823496966354,
+      "metrics": {
+        "baseline": {
+          "whole_rgb_l1": 0.05886418917631403,
+          "visible_rgb_l1": 0.03909065758233814
+        },
+        "photos": {
+          "whole_rgb_l1": 0.06158229057388721,
+          "visible_rgb_l1": 0.04198252712383369
+        }
+      }
+    },
+    {
+      "frame": 65,
+      "coverage": 0.9607267617471699,
+      "photo_fraction": 0.8668216321277545,
+      "metrics": {
+        "baseline": {
+          "whole_rgb_l1": 0.06374750672469759,
+          "visible_rgb_l1": 0.048165544761554796
+        },
+        "photos": {
+          "whole_rgb_l1": 0.06465645889415397,
+          "visible_rgb_l1": 0.049111653692468046
+        }
+      }
+    }
+  ],
+  "interpretation": "Three photographs excluded from fusion and projection, but used by model inference and camera estimation. Same visible mask and unchanged baseline."
+}

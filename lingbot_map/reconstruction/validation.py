@@ -47,8 +47,10 @@ def validate(output, maximum_views=None, asset_name=None):
         reference = data["rgb"][i]
         h, w = reference.shape[:2]
         extrinsic = np.linalg.inv(np.asarray(camera["camera_to_world"]))
+        ray_intrinsics = np.asarray(camera["intrinsics"], dtype=float).copy()
+        ray_intrinsics[:2, 2] += 0.5 - camera.get("pixel_center_offset", 0.0)
         rendered, rendered_depth, visible = renderer.render(
-            np.asarray(camera["intrinsics"]), extrinsic, w, h
+            ray_intrinsics, extrinsic, w, h
         )
         scale = np.cbrt(
             np.linalg.det(np.asarray(alignment["transforms"][window])[:3, :3])

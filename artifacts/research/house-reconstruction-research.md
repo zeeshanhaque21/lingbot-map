@@ -1,5 +1,9 @@
 # House reconstruction from walkthrough video
 
+The latest [LingBot quality diagnosis and source-photo conditioning experiments](lingbot-quality-diagnosis.md) isolate losses from window resets, depth filtering and mesh fusion using controlled local comparisons.
+Source photographs now have a pose-aware experimental projection path, but the complete 61-view conditioning sample still lacks 18 directions and FixAnything generation remains stopped.
+The current product target is a rough navigation mesh with faithful fixed 360 views; no complete generated panorama has passed acceptance yet.
+
 Implementation continuation, 2026-09-09: the [native Mac pipeline and measured failures](mac-reconstruction-results.md) now include complete walkthrough reconstruction and exported-asset checks.
 The latest [image-constrained depth and Brush experiments](photometric-and-brush-results.md) document failed depth corrections and successful native Metal training of a local Gaussian model.
 The [Gaussian surface experiments](gaussian-surface-results.md) and [native OpenMVS pipeline](openmvs-mac-results.md) continue this work through actual triangle meshes, complete textured GLB exports and reserved-view checks.

@@ -26,7 +26,9 @@ def load_photos(source, maximum=24):
     windows = sorted((source / "windows").glob("*.npz"))
     photos = []
     for window in sorted({c["window"] for c in cameras}):
-        with np.load(windows[window]) as data:
+        archive_hash = digest(windows[window])
+        with np.load(windows[window]) as archive:
+            data = {key: archive[key] for key in ("frame_ids", "depth", "confidence")}
             for camera in cameras:
                 if camera["window"] != window:
                     continue
@@ -53,7 +55,7 @@ def load_photos(source, maximum=24):
                         "world_to_camera": np.linalg.inv(camera["camera_to_world"]),
                         "path": str(path.resolve()),
                         "sha256": digest(path),
-                        "depth_archive_sha256": digest(windows[window]),
+                        "depth_archive_sha256": archive_hash,
                     }
                 )
     return sorted(photos, key=lambda p: p["frame"])

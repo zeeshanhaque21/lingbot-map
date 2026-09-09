@@ -141,7 +141,8 @@ def main():
     targets = [5, 35, 65]
     training = [i for i in range(72) if i % 10 != 5]
     depth = [filter_depth(registered, i) for i in training]
-    voxel = float(np.median(registered["depth"][0]) / 180)
+    # Match production: the reference statistic spans the first saved window.
+    voxel = float(np.median(registered["depth"]) / 180)
     volume = o3d.pipelines.integration.ScalableTSDFVolume(
         voxel_length=voxel,
         sdf_trunc=voxel * 4,

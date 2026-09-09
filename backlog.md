@@ -38,5 +38,11 @@
   Draft PR: https://github.com/zeeshanhaque21/lingbot-map/pull/2
   Product scope: https://github.com/zeeshanhaque21/lingbot-map/issues/5
 
+  The LingBot quality diagnosis now includes a 72-frame stage ablation and an uninterrupted 237-frame context experiment.
+  Reset-window raw closure error is 8.36 px; uninterrupted inference is 3.28 px; the current fitted cameras are 3.06 px on the same 153 pairs.
+  Source-photo conditioning uses 24 photos in one complete 61-view input, but 18 directions remain empty and generation stays stopped.
+  Projection worsens two of three reserved images slightly, so it remains experimental.
+  Evidence: artifacts/research/lingbot-quality-diagnosis.md.
+
 ## Queued
 ## Done

@@ -35,6 +35,8 @@ def test_textured_plane_with_more_than_32767_visible_pixels(tmp_path):
         "intrinsics": [[64, 0, 128], [0, 64, 128], [0, 0, 1]],
         "held_out_from_fusion": True,
         "timestamp_seconds": 0,
+        # This synthetic raster samples centers at x + 0.5 and y + 0.5.
+        "pixel_center_offset": 0.5,
     }
     (root / "cameras.json").write_text(json.dumps([camera]))
     (root / "alignment.json").write_text(
@@ -124,6 +126,8 @@ def test_multiple_textures_transformed_nodes_and_colored_occluder(tmp_path):
         "intrinsics": [[64, 0, 128], [0, 64, 128], [0, 0, 1]],
         "held_out_from_fusion": True,
         "timestamp_seconds": 0,
+        # The expected occluder covers centers 96.5 through 159.5.
+        "pixel_center_offset": 0.5,
     }
     (root / "cameras.json").write_text(json.dumps([camera]))
     (root / "alignment.json").write_text(

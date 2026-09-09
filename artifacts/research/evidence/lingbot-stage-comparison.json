@@ -14,9 +14,9 @@
   "point_pixel_stride": 2,
   "point_splat_radius_pixels": 1,
   "raw_confidence_threshold": 2.5,
-  "voxel_model_units": 0.003678919281810522,
-  "tsdf_triangles": 1019421,
-  "simplified_triangles": 150000,
+  "voxel_model_units": 0.0037841445300728083,
+  "tsdf_triangles": 956826,
+  "simplified_triangles": 149999,
   "accepted_depth_fraction": 0.7194003826656887,
   "metrics": [
     {
@@ -43,16 +43,16 @@
     {
       "frame": 5,
       "stage": "tsdf",
-      "coverage": 0.9231936017650303,
-      "whole_rgb_l1": 0.0656072124259399,
-      "visible_rgb_l1": 0.035199700990677575
+      "coverage": 0.9233643264255509,
+      "whole_rgb_l1": 0.06541836811944855,
+      "visible_rgb_l1": 0.03515255138353856
     },
     {
       "frame": 5,
       "stage": "simplified",
-      "coverage": 0.9215126204922123,
-      "whole_rgb_l1": 0.06738423383081245,
-      "visible_rgb_l1": 0.03631925439925648
+      "coverage": 0.921545452157697,
+      "whole_rgb_l1": 0.06729371285193614,
+      "visible_rgb_l1": 0.036328709028311014
     },
     {
       "frame": 35,
@@ -78,16 +78,16 @@
     {
       "frame": 35,
       "stage": "tsdf",
-      "coverage": 0.9092664092664092,
-      "whole_rgb_l1": 0.07097428417956629,
-      "visible_rgb_l1": 0.036027923790417325
+      "coverage": 0.9098048485803588,
+      "whole_rgb_l1": 0.0707880664063137,
+      "visible_rgb_l1": 0.03602377236584174
     },
     {
       "frame": 35,
       "stage": "simplified",
-      "coverage": 0.9065151156987892,
-      "whole_rgb_l1": 0.0727966862420644,
-      "visible_rgb_l1": 0.03690524970747899
+      "coverage": 0.9075394636619126,
+      "whole_rgb_l1": 0.0724219674999987,
+      "visible_rgb_l1": 0.036906959014972034
     },
     {
       "frame": 65,
@@ -113,16 +113,16 @@
     {
       "frame": 65,
       "stage": "tsdf",
-      "coverage": 0.8766054684422031,
-      "whole_rgb_l1": 0.09415311384098898,
-      "visible_rgb_l1": 0.03782168367971408
+      "coverage": 0.8773999947469335,
+      "whole_rgb_l1": 0.09389981646884407,
+      "visible_rgb_l1": 0.038049291007592294
     },
     {
       "frame": 65,
       "stage": "simplified",
-      "coverage": 0.8733945315577969,
-      "whole_rgb_l1": 0.09625529319406871,
-      "visible_rgb_l1": 0.03858488680699316
+      "coverage": 0.8751674414939721,
+      "whole_rgb_l1": 0.09563906214566478,
+      "visible_rgb_l1": 0.03896690235231053
     }
   ],
   "limitations": [
