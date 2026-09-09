@@ -11,12 +11,24 @@ import viser
 
 def view(output, port=8081):
     output = Path(output)
+    if (
+        not (output / "model" / "validation.json").exists()
+        and (output / "pipeline-result.json").exists()
+    ):
+        output = Path(
+            json.loads((output / "pipeline-result.json").read_text())["output"]
+        )
     root = output / "model"
     report = json.loads((root / "validation.json").read_text())
     cameras = json.loads((root / "cameras.json").read_text())
     server = viser.ViserServer(host="127.0.0.1", port=port)
     server.scene.set_up_direction((0, -1, 0))
-    mesh = trimesh.load(root / "property.glb", force="mesh", process=False)
+    asset_path = next(
+        root / name
+        for name in ("property-textured.glb", "property-unlit.glb", "property.glb")
+        if (root / name).exists()
+    )
+    mesh = trimesh.load(asset_path, force="mesh", process=False)
     mesh.apply_transform(np.diag([1.0, -1.0, -1.0, 1.0]))
     server.scene.add_mesh_trimesh("/property", mesh)
     positions = np.array([c["camera_to_world"] for c in cameras])[:, :3, 3]
@@ -31,14 +43,19 @@ def view(output, port=8081):
     server.gui.add_markdown(
         f"{report['web_triangles']:,} display triangles · {len(cameras):,} views"
     )
-    show_path = server.gui.add_checkbox("Capture path", initial_value=True)
+    show_path = server.gui.add_checkbox("Capture path", initial_value=False)
+    trajectory.visible = False
 
     @show_path.on_update
     def toggle(_):
         trajectory.visible = show_path.value
 
     selected = server.gui.add_slider(
-        "Source frame", min=0, max=len(cameras) - 1, step=1, initial_value=0
+        "Captured view",
+        min=0,
+        max=len(cameras) - 1,
+        step=1,
+        initial_value=min(14, len(cameras) - 1),
     )
     preview = server.gui.add_image(
         np.zeros((294, 518, 3), np.uint8), label="Captured view"
@@ -50,9 +67,7 @@ def view(output, port=8081):
     @download.on_click
     def save(event):
         if event.client is not None:
-            event.client.send_file_download(
-                "property.glb", (root / "property.glb").read_bytes()
-            )
+            event.client.send_file_download("property.glb", asset_path.read_bytes())
 
     cached_window, archived_rgb, archived_ids = None, None, None
 
@@ -87,11 +102,14 @@ def view(output, port=8081):
 
     @server.on_client_connect
     def connected(client):
-        extent = float(np.linalg.norm(mesh.extents))
-        center = mesh.bounds.mean(0)
-        client.camera.position = center + np.array([0.5, -0.7, -0.7]) * extent
-        client.camera.look_at = center
-        client.camera.up_direction = (0, -1, 0)
+        camera = cameras[selected.value]
+        pose = np.asarray(camera["camera_to_world"])
+        client.camera.position = pose[:3, 3]
+        client.camera.look_at = pose[:3, 3] + pose[:3, 2]
+        client.camera.up_direction = -pose[:3, 1]
+        client.camera.fov = 2 * np.arctan(
+            preview.image.shape[0] / (2 * camera["intrinsics"][1][1])
+        )
 
     update()
     print(f"viewer: http://127.0.0.1:{port}", flush=True)

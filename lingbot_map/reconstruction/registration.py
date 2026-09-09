@@ -345,7 +345,7 @@ def evaluate_tracks(tracks, images, centers):
     }
 
 
-def register(source, destination, colmap_model):
+def register(source, destination, colmap_model, bridges=None):
     source, destination, colmap_model = (
         Path(source),
         Path(destination),
@@ -353,6 +353,8 @@ def register(source, destination, colmap_model):
     )
     manifest = json.loads((source / "input.json").read_text())
     config = json.loads((source / "inference.json").read_text())
+    if config.get("stored_pose_convention") != "world-to-camera":
+        raise ValueError("Normalize legacy pose archives before camera registration")
     from .inference import window_ranges
 
     ranges = list(
@@ -362,7 +364,8 @@ def register(source, destination, colmap_model):
     if [int(f.stem) for f in files] != [r[0] for r in ranges]:
         raise ValueError("Finish source inference before registration")
     signature = {
-        "method_version": 3,
+        "method_version": 4,
+        "bridges_sha256": digest(Path(bridges)) if bridges else None,
         "source_inference_sha256": digest(source / "inference.json"),
         "source_windows": {p.name: digest(p) for p in files},
         "colmap_files": {
@@ -397,11 +400,20 @@ def register(source, destination, colmap_model):
         if Path(item["file"]).name in image_names
     }
     learned, orientation_overlaps = learned_rotations(files, ranges)
+    bridge_data = []
+    if bridges:
+        from .bridges import load_bridges
+
+        bridge_data = load_bridges(bridges, source, files, ranges, learned)
     orientation_groups = stabilize_rotations(images, learned)
     tracks, scales, frame_depths, overlaps, motion_edges, motion_checks = (
         collect_tracks(source, images, files, ranges)
     )
     edges = track_edges(tracks, frame_depths) + motion_edges
+    from .bridges import bridge_edges
+
+    extra_edges, bridge_checks = bridge_edges(bridge_data, images, scales)
+    edges.extend(extra_edges)
     write_json(
         destination / "registration-diagnostics.json",
         {
@@ -411,6 +423,8 @@ def register(source, destination, colmap_model):
             "depth_overlaps": overlaps,
             "orientation_groups": orientation_groups,
             "orientation_overlaps": orientation_overlaps,
+            "dense_bridges": bridge_checks,
+            "edge_frames": [[e[0], e[1]] for e in edges],
         },
     )
     ids = sorted(images)
@@ -467,6 +481,7 @@ def register(source, destination, colmap_model):
             "edges": len(edges),
             "learned_motion_edges": len(motion_edges),
             "motion_checks": motion_checks,
+            "dense_bridges": bridge_checks,
             "orientation_groups": orientation_groups,
             "orientation_overlaps": orientation_overlaps,
             "depth_scales": scales,

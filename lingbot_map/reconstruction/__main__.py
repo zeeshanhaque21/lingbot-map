@@ -22,6 +22,8 @@ def main():
             "normalize",
             "refine",
             "register",
+            "repair",
+            "texture",
             "fuse",
             "validate",
             "view",
@@ -31,6 +33,7 @@ def main():
     parser.add_argument("--video", type=Path)
     parser.add_argument("--source", type=Path)
     parser.add_argument("--colmap-model", type=Path)
+    parser.add_argument("--bridges", type=Path)
     parser.add_argument("--mapper", choices=["global", "incremental"], default="global")
     parser.add_argument(
         "--pose-convention",
@@ -82,7 +85,7 @@ def main():
                     args.pose_convention,
                 )
         if args.stage == "run":
-            from .registration import register
+            from .repair import register_with_repairs
             from .sfm import reconstruct_cameras
 
             models = reconstruct_cameras(args.output, args.mapper)
@@ -91,7 +94,9 @@ def main():
                     f"Photogrammetry produced {len(models)} disconnected models; inspect them before assembling a building"
                 )
             artifact_output = args.output / "final"
-            register(args.output, artifact_output, models[0])
+            artifact_output = register_with_repairs(
+                args.output, artifact_output, models[0], args.checkpoint, args.bridges
+            )
         if args.stage in ("fuse", "run"):
             with contextlib.redirect_stdout(sys.stderr):
                 from .fusion import fuse
@@ -132,7 +137,25 @@ def main():
                 )
             from .registration import register
 
-            register(args.source, args.output, args.colmap_model)
+            register(args.source, args.output, args.colmap_model, args.bridges)
+        if args.stage == "repair":
+            if args.source is None or args.colmap_model is None:
+                raise ValueError(
+                    "repair requires --source, --colmap-model and --output"
+                )
+            from .repair import register_with_repairs
+
+            artifact_output = register_with_repairs(
+                args.source,
+                args.output,
+                args.colmap_model,
+                args.checkpoint,
+                args.bridges,
+            )
+        if args.stage == "texture":
+            from .texturing import texture
+
+            texture(args.output)
         if args.stage == "view":
             from .viewer import view
 

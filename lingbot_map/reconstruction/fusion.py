@@ -189,7 +189,9 @@ def fuse(output):
             "unseen_surfaces": "not completed",
         }
     )
-    asset.export(artifact / "property.glb")
+    from .materials import unlit_materials
+
+    asset.export(artifact / "property.glb", tree_postprocessor=unlit_materials)
     write_json(artifact / "cameras.json", cameras)
     write_json(artifact / "frame-validation.json", diagnostics)
     report = {
