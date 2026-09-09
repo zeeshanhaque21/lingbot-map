@@ -5,7 +5,6 @@ import time
 from pathlib import Path
 
 import numpy as np
-import trimesh
 import viser
 
 
@@ -28,9 +27,8 @@ def view(output, port=8081):
         for name in ("property-textured.glb", "property-unlit.glb", "property.glb")
         if (root / name).exists()
     )
-    mesh = trimesh.load(asset_path, force="mesh", process=False)
-    mesh.apply_transform(np.diag([1.0, -1.0, -1.0, 1.0]))
-    server.scene.add_mesh_trimesh("/property", mesh)
+    # Serve the exact GLB bytes; a parse/export roundtrip can discard vertex colors.
+    server.scene.add_glb("/property", asset_path.read_bytes(), wxyz=(0, 1, 0, 0))
     positions = np.array([c["camera_to_world"] for c in cameras])[:, :3, 3]
     path = np.stack([positions[:-1], positions[1:]], axis=1)
     trajectory = server.scene.add_line_segments(

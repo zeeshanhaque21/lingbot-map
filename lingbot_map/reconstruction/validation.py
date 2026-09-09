@@ -6,17 +6,46 @@ from pathlib import Path
 import cv2
 import numpy as np
 import open3d as o3d
+import trimesh
 from PIL import Image, ImageDraw
 
 from .io import write_json
 
 
-def validate(output, maximum_views=24):
+def validate(output, maximum_views=24, asset_name=None):
     output = Path(output)
     root = output / "model"
     cameras = json.loads((root / "cameras.json").read_text())
     alignment = json.loads((root / "alignment.json").read_text())
-    mesh = o3d.io.read_triangle_mesh(str(root / "observed-surfaces.ply"))
+    texture, texture_uv = None, None
+    prefix = "web-" if asset_name else ""
+    if asset_name:
+        app_mesh = trimesh.load(root / asset_name, force="mesh", process=False)
+        has_texture = (
+            app_mesh.visual.kind == "texture"
+            and getattr(app_mesh.visual.material, "baseColorTexture", None) is not None
+        )
+        if not has_texture:
+            # Trimesh drops COLOR_0 when a material exists without a texture.
+            app_mesh = trimesh.load(
+                root / asset_name, force="mesh", process=False, skip_materials=True
+            )
+        app_mesh.apply_transform(np.diag([1.0, -1.0, -1.0, 1.0]))
+        mesh = o3d.geometry.TriangleMesh(
+            o3d.utility.Vector3dVector(app_mesh.vertices),
+            o3d.utility.Vector3iVector(app_mesh.faces),
+        )
+        if has_texture:
+            texture_uv = np.asarray(app_mesh.visual.uv)
+            texture = np.asarray(
+                app_mesh.visual.material.baseColorTexture.convert("RGB")
+            )
+        else:
+            mesh.vertex_colors = o3d.utility.Vector3dVector(
+                np.asarray(app_mesh.visual.vertex_colors)[:, :3] / 255
+            )
+    else:
+        mesh = o3d.io.read_triangle_mesh(str(root / "observed-surfaces.ply"))
     scene = o3d.t.geometry.RaycastingScene()
     scene.add_triangles(o3d.t.geometry.TriangleMesh.from_legacy(mesh))
     colors = np.asarray(mesh.vertex_colors)
@@ -66,14 +95,32 @@ def validate(output, maximum_views=24):
         weights = np.column_stack([1 - uv.sum(1), uv])
         rendered = np.full(reference.shape, 24, np.uint8)
         if visible.any():
-            rendered[visible] = (
-                (
-                    255
-                    * np.sum(colors[triangles[primitive]] * weights[..., None], axis=1)
+            if texture is not None:
+                coordinates = np.sum(
+                    texture_uv[triangles[primitive]] * weights[..., None], axis=1
                 )
-                .clip(0, 255)
-                .astype(np.uint8)
-            )
+                rendered[visible] = cv2.remap(
+                    texture,
+                    (coordinates[:, 0] * texture.shape[1] - 0.5).astype(np.float32)[
+                        :, None
+                    ],
+                    ((1 - coordinates[:, 1]) * texture.shape[0] - 0.5).astype(
+                        np.float32
+                    )[:, None],
+                    cv2.INTER_LINEAR,
+                    borderMode=cv2.BORDER_REPLICATE,
+                )[:, 0]
+            else:
+                rendered[visible] = (
+                    (
+                        255
+                        * np.sum(
+                            colors[triangles[primitive]] * weights[..., None], axis=1
+                        )
+                    )
+                    .clip(0, 255)
+                    .astype(np.uint8)
+                )
         difference = np.abs(rendered.astype(float) - reference) / 255
         heat = np.zeros((h, w, 3), np.uint8)
         heat[visible] = cv2.applyColorMap(
@@ -116,7 +163,7 @@ def validate(output, maximum_views=24):
         )
         for j, row in enumerate(rows[start : start + 6]):
             sheet.paste(row, (0, j * row.height))
-        sheet.save(root / f"source-comparison-{start // 6:02d}.jpg", quality=92)
+        sheet.save(root / f"{prefix}source-comparison-{start // 6:02d}.jpg", quality=92)
     coverage = float(np.median([m["visible_mesh_fraction"] for m in metrics]))
     depth_support = float(np.median([m["supported_depth_fraction"] for m in metrics]))
     color_error = float(
@@ -130,11 +177,19 @@ def validate(output, maximum_views=24):
         )
     )
     # Operational screening thresholds, not calibrated guarantees of survey accuracy.
-    fidelity_gate = coverage >= 0.7 and depth_support >= 0.6 and color_error <= 0.12
+    minimum_depth_support = min(m["supported_depth_fraction"] for m in metrics)
+    fidelity_gate = (
+        coverage >= 0.7
+        and depth_support >= 0.6
+        and color_error <= 0.12
+        and minimum_depth_support >= 0.4
+    )
     report = {
         "views": metrics,
         "median_rendered_coverage": coverage,
         "median_supported_depth_fraction": depth_support,
+        "minimum_supported_depth_fraction": minimum_depth_support,
+        "mesh": asset_name or "observed-surfaces.ply",
         "median_absolute_rgb_error_visible": color_error,
         "metric_accuracy_verified": False,
         "visual_completeness_gate": coverage >= 0.7,
@@ -145,6 +200,7 @@ def validate(output, maximum_views=24):
             "median_coverage_minimum": 0.7,
             "median_depth_support_minimum": 0.6,
             "relative_depth_tolerance": 0.05,
+            "per_view_depth_support_minimum": 0.4,
             "median_rgb_error_maximum": 0.12,
             "status": "engineering screening defaults, not empirically calibrated accuracy guarantees",
         },
@@ -154,5 +210,5 @@ def validate(output, maximum_views=24):
             "Missing wall, doorway, glass and ceiling review",
         ],
     }
-    write_json(root / "render-validation.json", report)
+    write_json(root / f"{prefix}render-validation.json", report)
     return report

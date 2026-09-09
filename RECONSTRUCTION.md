@@ -25,7 +25,7 @@ The model source is [Robbyant's model repository](https://huggingface.co/robbyan
   --video /path/to/walkthrough.mp4 --output reconstructions/property
 
 .venv-reconstruction/bin/python -m lingbot_map.reconstruction view \
-  --output reconstructions/property/final
+  --output reconstructions/property
 ```
 
 The viewer opens at `http://127.0.0.1:8081`.
@@ -52,6 +52,11 @@ For individual stages:
 It refuses to assemble disconnected camera models into an apparently complete building.
 Depth scales are aligned through shared images between inference windows.
 A robust translation graph then fits multi-view feature correspondences, reserving one fifth of feature tracks for evaluation.
+Reliable photogrammetry rotation groups are aligned to overlapping learned orientations.
+When the graph is disconnected, `run` extracts 10 fps bursts around short gaps, verifies their continuous depth agreement, and retries registration.
+Every unsuccessful attempt is preserved separately.
+`pipeline-result.json` identifies the successful output directory, and the viewer accepts the run's root directory.
+Adaptive repair currently requires a 2 fps base capture and permits two repair rounds.
 This hybrid is necessary because unconstrained monocular photogrammetry can collapse scale over a long walkthrough while retaining small reprojection errors.
 `sfm` builds feature tracks and global bundle-adjusted cameras with COLMAP 4 on CPU.
 Use `--mapper incremental` to reproduce the incremental comparison.
@@ -67,6 +72,10 @@ Existing inference can be registered explicitly with a selected photogrammetry m
 .venv-reconstruction/bin/python -m lingbot_map.reconstruction validate --output reconstructions/property-refined
 ```
 
+Use `repair` in place of `register` to enable adaptive sampling for an existing inference run.
+It also accepts `--bridges /path/to/bridges.json` for previously validated dense bursts.
+Registration diagnostics retain the tested graph edges, rejected motions, bridge checks and withheld feature-track errors.
+
 ## Artifacts and evidence
 
 | Artifact | Meaning |
@@ -74,6 +83,7 @@ Existing inference can be registered explicitly with a selected photogrammetry m
 | `input.json` | Source hash, probe metadata, sampling configuration and timestamps |
 | `windows/*.npz` | RGB, depth, confidence, intrinsics, extrinsics and frame IDs |
 | `registration.json` | Depth overlap checks, connected cameras and withheld feature-track errors |
+| `pipeline-result.json` | Actual completed registration directory after any adaptive repairs |
 | `model/property.glb` | Simplified colored triangle mesh for app ingestion |
 | `model/observed-surfaces.ply` | Full-resolution fused surface mesh |
 | `model/observed-points.ply` | Fused observed points |
@@ -82,6 +92,7 @@ Existing inference can be registered explicitly with a selected photogrammetry m
 | `model/frame-validation.json` | Accepted depth support and per-frame diagnostics |
 | `model/validation.json` | Coverage, hashes, geometry counts and explicit limitations |
 | `model/render-validation.json` | Source-view mesh coverage and appearance checks |
+| `model/web-render-validation.json` | The same checks on the actual exported GLB |
 | `model/source-comparison-*.jpg` | Source images beside rendered geometry and difference maps |
 
 Input extraction and completed inference windows are resumable.
@@ -99,6 +110,8 @@ TSDF fusion creates an open surface mesh without watertight completion or invent
 Every tenth frame, with index ending in 5, is withheld from fusion for render comparison.
 Those frames still participate in pose/depth inference, so the check is not independent ground truth.
 Validation checks rendered depth agreement and color error as well as coverage; a large incorrect plane cannot pass just by covering the image.
+It checks the least-supported sampled view as well as median results.
+The CLI returns exit status 2 with `status: needs_review` when these checks fail.
 Its numeric screening thresholds are engineering defaults, not calibrated guarantees of building accuracy.
 
 Stored extrinsics are explicitly world-to-camera matrices in the OpenCV axis convention.
@@ -108,6 +121,8 @@ This was checked against 80 independently estimated photogrammetry cameras and m
 Unknown checkpoint hashes require an explicit `--pose-convention` instead of inheriting an unverified assumption.
 GLB vertices receive the explicit transform `diag(1,-1,-1)` for viewing in a Y-up application.
 That transform does not establish gravity or metric scale.
+The GLB uses `KHR_materials_unlit` because its colors already contain captured illumination.
+The viewer serves the exact GLB bytes, preserving its colors and material metadata.
 All distances remain in model units until an external measured reference is supplied and validated.
 
 Sequential learned-window registration does not perform global loop closure.
@@ -116,3 +131,4 @@ Reflective floors, glass, people, textureless walls and unseen ceilings can leav
 The generated report keeps `ready_for_verified_property_listing` false until independent dimensions, room connectivity and missing-surface checks are supplied.
 
 Object-completion options, Lucida's role, and the limits of its reported metrics are documented in [the research follow-up](artifacts/research/lucida-and-object-reconstruction.md).
+Measured local outcomes and failed alternatives are recorded in [the implementation report](artifacts/research/mac-reconstruction-results.md).

@@ -23,7 +23,6 @@ def main():
             "refine",
             "register",
             "repair",
-            "texture",
             "fuse",
             "validate",
             "view",
@@ -106,6 +105,17 @@ def main():
             from .validation import validate
 
             quality = validate(artifact_output)
+            asset = next(
+                name
+                for name in (
+                    "property-textured.glb",
+                    "property-unlit.glb",
+                    "property.glb",
+                )
+                if (artifact_output / "model" / name).exists()
+            )
+            web_quality = validate(artifact_output, asset_name=asset)
+            quality["view_consistency_gate"] &= web_quality["view_consistency_gate"]
         if args.stage == "sfm":
             from .sfm import reconstruct_cameras
 
@@ -152,10 +162,6 @@ def main():
                 args.checkpoint,
                 args.bridges,
             )
-        if args.stage == "texture":
-            from .texturing import texture
-
-            texture(args.output)
         if args.stage == "view":
             from .viewer import view
 

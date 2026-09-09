@@ -4,9 +4,9 @@ import struct
 import numpy as np
 import trimesh
 
+from artifacts.research.experiments.texture_bake import rasterize_positions
 from lingbot_map.reconstruction.materials import unlit_materials
 from lingbot_map.reconstruction.repair import disconnected_joins
-from lingbot_map.reconstruction.texturing import rasterize_positions
 
 
 def test_uv_rasterization_preserves_surface_coordinates():

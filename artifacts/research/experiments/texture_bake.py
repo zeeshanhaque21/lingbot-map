@@ -1,17 +1,17 @@
 """Bake observed mesh colors onto the simplified app asset without generating pixels."""
 
 import json
+import sys
 from pathlib import Path
 
 import cv2
 import numpy as np
 import open3d as o3d
 import trimesh
-import xatlas
 from PIL import Image
 
-from .io import digest, write_json
-from .materials import unlit_materials
+from lingbot_map.reconstruction.io import digest, write_json
+from lingbot_map.reconstruction.materials import unlit_materials
 
 
 def rasterize_positions(vertices, triangles, uv, width, height):
@@ -49,12 +49,15 @@ def rasterize_positions(vertices, triangles, uv, width, height):
 
 
 def texture(output, resolution=4096):
+    import xatlas
+
     root = Path(output) / "model"
     signature = {
         "source_mesh": digest(root / "observed-surfaces.ply"),
         "simplified_mesh": digest(root / "property.glb"),
         "resolution": resolution,
-        "schema": 1,
+        "schema": 2,
+        "target_charts": 2048,
     }
     marker = root / "texture.json"
     target = root / "property-textured.glb"
@@ -79,7 +82,12 @@ def texture(output, resolution=4096):
     )
     options = xatlas.PackOptions()
     options.resolution, options.padding = resolution, 4
-    atlas.generate(pack_options=options)
+    charts = xatlas.ChartOptions()
+    charts.max_chart_area = float(simplified.area / 2048)
+    charts.max_boundary_length = float(4 * np.sqrt(charts.max_chart_area))
+    print("Texture: building bounded UV charts", file=sys.stderr, flush=True)
+    atlas.generate(chart_options=charts, pack_options=options)
+    print("Texture: rasterizing observed surface colors", file=sys.stderr, flush=True)
     mapping, faces, uv = atlas[0]
     vertices = simplified.vertices[mapping]
     positions, occupied = rasterize_positions(

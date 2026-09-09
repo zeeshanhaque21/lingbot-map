@@ -1,0 +1,2 @@
+# Optional UV baking experiment, excluded from the working reconstruction path.
+xatlas==0.0.11
