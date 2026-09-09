@@ -9,16 +9,17 @@ def view_tour(output, port=8083):
     root = Path(output).resolve()
     if not (root / "tour.json").is_file():
         raise ValueError("Tour directory must contain tour.json")
-    viewer = Path(__file__).with_name("tour_viewer.html").read_bytes()
+    viewer = Path(__file__).with_name("tour_viewer.html")
 
     class Handler(SimpleHTTPRequestHandler):
         def do_GET(self):
             if self.path.split("?", 1)[0] == "/":
+                body = viewer.read_bytes()
                 self.send_response(200)
                 self.send_header("Content-Type", "text/html; charset=utf-8")
-                self.send_header("Content-Length", str(len(viewer)))
+                self.send_header("Content-Length", str(len(body)))
                 self.end_headers()
-                self.wfile.write(viewer)
+                self.wfile.write(body)
             else:
                 super().do_GET()
 
