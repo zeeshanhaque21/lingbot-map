@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 
 import numpy as np
 
@@ -57,8 +58,10 @@ def prepare(video, output, fps=2.0, limit=None):
     # A partial extraction can be resumed without replacing already saved frames.
     existing = sorted(frames.glob("*.jpg"))
     start = len(existing)
-    command = ["ffmpeg", "-hide_banner", "-loglevel", "error", "-nostdin", "-n",
-               "-i", str(video), "-vf",
+    command = ["ffmpeg", "-hide_banner", "-loglevel", "error", "-nostdin", "-n"]
+    if sys.platform == "darwin":
+        command += ["-hwaccel", "videotoolbox"]
+    command += ["-i", str(video), "-vf",
                f"fps={fps}:start_time=0,select='gte(n,{start})',scale=1280:-2",
                "-fps_mode", "vfr", "-start_number", str(start), "-q:v", "2"]
     if limit is not None:
