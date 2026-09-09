@@ -7,7 +7,6 @@ from pathlib import Path
 import numpy as np
 import trimesh
 import viser
-from PIL import Image
 
 
 def view(output, port=8081):
@@ -15,10 +14,10 @@ def view(output, port=8081):
     root = output / "model"
     report = json.loads((root / "validation.json").read_text())
     cameras = json.loads((root / "cameras.json").read_text())
-    manifest = json.loads((output / "input.json").read_text())
     server = viser.ViserServer(host="127.0.0.1", port=port)
     server.scene.set_up_direction((0, -1, 0))
-    mesh = trimesh.load(root / "observed-surfaces.ply", process=False)
+    mesh = trimesh.load(root / "property.glb", force="mesh", process=False)
+    mesh.apply_transform(np.diag([1.0, -1.0, -1.0, 1.0]))
     server.scene.add_mesh_trimesh("/property", mesh)
     positions = np.array([c["camera_to_world"] for c in cameras])[:, :3, 3]
     path = np.stack([positions[:-1], positions[1:]], axis=1)
@@ -30,7 +29,7 @@ def view(output, port=8081):
         "## Property reconstruction\nObserved surfaces from the walkthrough.\n\n**Dimensions unverified.** Hidden surfaces remain open."
     )
     server.gui.add_markdown(
-        f"{report['triangles']:,} triangles · {len(cameras):,} views"
+        f"{report['web_triangles']:,} display triangles · {len(cameras):,} views"
     )
     show_path = server.gui.add_checkbox("Capture path", initial_value=True)
 
@@ -55,12 +54,18 @@ def view(output, port=8081):
                 "property.glb", (root / "property.glb").read_bytes()
             )
 
+    cached_window, archived_rgb, archived_ids = None, None, None
+
     def update():
+        nonlocal cached_window, archived_rgb, archived_ids
         camera = cameras[selected.value]
-        frame = manifest["frames"][camera["frame"]]
-        preview.image = np.asarray(
-            Image.open(output / frame["file"]).resize((518, 294))
-        )
+        if cached_window != camera["window"]:
+            windows = sorted((output / "windows").glob("*.npz"))
+            with np.load(windows[camera["window"]]) as data:
+                archived_rgb, archived_ids = data["rgb"], data["frame_ids"]
+            cached_window = camera["window"]
+        index = int(np.flatnonzero(archived_ids == camera["frame"])[0])
+        preview.image = archived_rgb[index]
         timestamp.content = f"Capture time: {camera['timestamp_seconds']:.1f}s"
 
     @selected.on_update
@@ -76,7 +81,9 @@ def view(output, port=8081):
         event.client.camera.position = pose[:3, 3]
         event.client.camera.look_at = pose[:3, 3] + pose[:3, 2]
         event.client.camera.up_direction = -pose[:3, 1]
-        event.client.camera.fov = 2 * np.arctan(294 / (2 * camera["intrinsics"][1][1]))
+        event.client.camera.fov = 2 * np.arctan(
+            preview.image.shape[0] / (2 * camera["intrinsics"][1][1])
+        )
 
     @server.on_client_connect
     def connected(client):

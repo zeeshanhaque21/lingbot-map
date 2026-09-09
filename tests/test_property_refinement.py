@@ -22,13 +22,13 @@ def test_colmap_refinement_calibrates_depth_and_preserves_global_cameras(tmp_pat
     write_npz(
         source / "windows/000000.npz",
         frame_ids=np.arange(8),
-        depth=np.ones((8, 7, 7), np.float32),
+        depth=np.ones((8, 14, 14), np.float32),
         intrinsics=k,
         extrinsics=e,
-        confidence=np.full((8, 7, 7), 10.0, np.float32),
-        rgb=np.zeros((8, 7, 7, 3), np.uint8),
+        confidence=np.full((8, 14, 14), 10.0, np.float32),
+        rgb=np.zeros((8, 14, 14, 3), np.uint8),
     )
-    (model / "cameras.txt").write_text("# camera\n1 PINHOLE 7 7 10 10 3 3\n")
+    (model / "cameras.txt").write_text("# camera\n1 PINHOLE 14 14 10 10 3 3\n")
     point_rows = []
     observations = []
     for y in range(7):

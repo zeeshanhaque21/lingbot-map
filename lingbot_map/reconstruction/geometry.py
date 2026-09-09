@@ -4,6 +4,23 @@ import cv2
 import numpy as np
 
 
+def preprocessing_transform(width, height, processed_width, processed_height):
+    """Match the upstream resize-to-width and center-crop preprocessing."""
+    if processed_width % 14 or processed_height % 14:
+        raise ValueError(
+            "Processed image dimensions must be multiples of the model's 14-pixel patch size"
+        )
+    resized_height = round(height * processed_width / width / 14) * 14
+    crop_top = max(0, (resized_height - processed_height) // 2)
+    return np.array(
+        [
+            [processed_width / width, 0, 0],
+            [0, resized_height / height, -crop_top],
+            [0, 0, 1.0],
+        ]
+    )
+
+
 def unproject(depth, intrinsics, extrinsics):
     """Camera z-depth to world XYZ, using OpenCV world-to-camera matrices."""
     y, x = np.indices(depth.shape)

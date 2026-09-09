@@ -42,21 +42,25 @@ For individual stages:
 ```sh
 .venv-reconstruction/bin/python -m lingbot_map.reconstruction prepare --video /path/to/video.mp4 --output reconstructions/property
 .venv-reconstruction/bin/python -m lingbot_map.reconstruction infer --output reconstructions/property
-.venv-reconstruction/bin/python -m lingbot_map.reconstruction fuse --output reconstructions/property
-.venv-reconstruction/bin/python -m lingbot_map.reconstruction validate --output reconstructions/property
 .venv-reconstruction/bin/python -m lingbot_map.reconstruction sfm --output reconstructions/property
+.venv-reconstruction/bin/python -m lingbot_map.reconstruction register --source reconstructions/property --colmap-model reconstructions/property/colmap/global/0/text --output reconstructions/property/final
+.venv-reconstruction/bin/python -m lingbot_map.reconstruction fuse --output reconstructions/property/final
+.venv-reconstruction/bin/python -m lingbot_map.reconstruction validate --output reconstructions/property/final
 ```
 
-`run` reconstructs global COLMAP cameras, calibrates learned depth against triangulated points, and writes the final artifacts under `final/model/`.
+`run` builds COLMAP tracks and global rotations, constrains camera translations using learned depths in a shared scale, and writes the final artifacts under `final/model/`.
 It refuses to assemble disconnected camera models into an apparently complete building.
+Depth scales are aligned through shared images between inference windows.
+A robust translation graph then fits multi-view feature correspondences, reserving one fifth of feature tracks for evaluation.
+This hybrid is necessary because unconstrained monocular photogrammetry can collapse scale over a long walkthrough while retaining small reprojection errors.
 `sfm` builds feature tracks and global bundle-adjusted cameras with COLMAP 4 on CPU.
 Use `--mapper incremental` to reproduce the incremental comparison.
 Photogrammetry results remain in `colmap/`, including disconnected models and intermediate snapshots.
 
-Existing inference can be refined explicitly with a selected photogrammetry model.
+Existing inference can be registered explicitly with a selected photogrammetry model.
 
 ```sh
-.venv-reconstruction/bin/python -m lingbot_map.reconstruction refine \
+.venv-reconstruction/bin/python -m lingbot_map.reconstruction register \
   --source reconstructions/property --output reconstructions/property-refined \
   --colmap-model reconstructions/property/colmap/global/0/text
 .venv-reconstruction/bin/python -m lingbot_map.reconstruction fuse --output reconstructions/property-refined
@@ -69,6 +73,7 @@ Existing inference can be refined explicitly with a selected photogrammetry mode
 |---|---|
 | `input.json` | Source hash, probe metadata, sampling configuration and timestamps |
 | `windows/*.npz` | RGB, depth, confidence, intrinsics, extrinsics and frame IDs |
+| `registration.json` | Depth overlap checks, connected cameras and withheld feature-track errors |
 | `model/property.glb` | Simplified colored triangle mesh for app ingestion |
 | `model/observed-surfaces.ply` | Full-resolution fused surface mesh |
 | `model/observed-points.ply` | Fused observed points |
@@ -87,11 +92,14 @@ Completed windows are written through temporary files followed by atomic replace
 ## Fidelity policy
 
 The pipeline rejects uncertain depths, depth discontinuities and samples lacking agreement with another camera view.
-The production path uses a common photogrammetry coordinate system for all windows.
+The default path uses global photogrammetry rotations and a depth-constrained translation graph for all windows.
+The experimental `refine` stage instead scales each learned depth map to raw SfM points; it remains available for controlled comparisons and can inherit SfM scale collapse.
 The experimental learned-pose path instead aligns shared-frame geometry with a robust similarity transform and refuses joins whose residuals exceed its gate.
 TSDF fusion creates an open surface mesh without watertight completion or invented room boundaries.
 Every tenth frame, with index ending in 5, is withheld from fusion for render comparison.
 Those frames still participate in pose/depth inference, so the check is not independent ground truth.
+Validation checks rendered depth agreement and color error as well as coverage; a large incorrect plane cannot pass just by covering the image.
+Its numeric screening thresholds are engineering defaults, not calibrated guarantees of building accuracy.
 
 Stored extrinsics are explicitly world-to-camera matrices in the OpenCV axis convention.
 The tested long checkpoint actually decodes camera-to-world poses despite the upstream helper's documentation.

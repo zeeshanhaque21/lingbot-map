@@ -15,6 +15,7 @@ def validate(output, maximum_views=24):
     output = Path(output)
     root = output / "model"
     cameras = json.loads((root / "cameras.json").read_text())
+    alignment = json.loads((root / "alignment.json").read_text())
     mesh = o3d.io.read_triangle_mesh(str(root / "observed-surfaces.ply"))
     scene = o3d.t.geometry.RaycastingScene()
     scene.add_triangles(o3d.t.geometry.TriangleMesh.from_legacy(mesh))
@@ -47,6 +48,19 @@ def validate(output, maximum_views=24):
         )
         hit = scene.cast_rays(rays)
         visible = np.isfinite(hit["t_hit"].numpy())
+        # Convert ray distance to camera Z instead of assuming normalized rays.
+        ray_z = rays.numpy()[..., 3:] @ extrinsic[2, :3]
+        rendered_depth = hit["t_hit"].numpy() * ray_z
+        scale = np.cbrt(
+            np.linalg.det(np.asarray(alignment["transforms"][window])[:3, :3])
+        )
+        expected_depth = data["depth"][i] * scale
+        confident = data["confidence"][i] >= np.quantile(data["confidence"][i], 0.25)
+        valid_depth = confident & (expected_depth > 0) & np.isfinite(expected_depth)
+        relative_depth_error = np.abs(rendered_depth - expected_depth) / np.maximum(
+            expected_depth, 1e-8
+        )
+        agreeing = visible & valid_depth & (relative_depth_error < 0.05)
         primitive = hit["primitive_ids"].numpy()[visible]
         uv = hit["primitive_uvs"].numpy()[visible]
         weights = np.column_stack([1 - uv.sum(1), uv])
@@ -84,6 +98,14 @@ def validate(output, maximum_views=24):
                 "mean_absolute_rgb_error_visible": float(difference[visible].mean())
                 if visible.any()
                 else None,
+                "supported_depth_fraction": float(
+                    agreeing.sum() / max(valid_depth.sum(), 1)
+                ),
+                "median_relative_depth_error_visible": float(
+                    np.median(relative_depth_error[visible & valid_depth])
+                )
+                if np.any(visible & valid_depth)
+                else None,
             }
         )
     for start in range(0, len(rows), 6):
@@ -96,13 +118,36 @@ def validate(output, maximum_views=24):
             sheet.paste(row, (0, j * row.height))
         sheet.save(root / f"source-comparison-{start // 6:02d}.jpg", quality=92)
     coverage = float(np.median([m["visible_mesh_fraction"] for m in metrics]))
+    depth_support = float(np.median([m["supported_depth_fraction"] for m in metrics]))
+    color_error = float(
+        np.median(
+            [
+                m["mean_absolute_rgb_error_visible"]
+                if m["mean_absolute_rgb_error_visible"] is not None
+                else 1
+                for m in metrics
+            ]
+        )
+    )
+    # Operational screening thresholds, not calibrated guarantees of survey accuracy.
+    fidelity_gate = coverage >= 0.7 and depth_support >= 0.6 and color_error <= 0.12
     report = {
         "views": metrics,
         "median_rendered_coverage": coverage,
+        "median_supported_depth_fraction": depth_support,
+        "median_absolute_rgb_error_visible": color_error,
         "metric_accuracy_verified": False,
         "visual_completeness_gate": coverage >= 0.7,
+        "view_consistency_gate": fidelity_gate,
         "ready_for_verified_property_listing": False,
         "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+        "thresholds": {
+            "median_coverage_minimum": 0.7,
+            "median_depth_support_minimum": 0.6,
+            "relative_depth_tolerance": 0.05,
+            "median_rgb_error_maximum": 0.12,
+            "status": "engineering screening defaults, not empirically calibrated accuracy guarantees",
+        },
         "required_external_checks": [
             "Measured scale and independent held-out lengths",
             "Room connectivity and loop drift",

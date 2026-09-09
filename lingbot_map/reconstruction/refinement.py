@@ -7,6 +7,7 @@ import cv2
 import numpy as np
 
 from .colmap_io import read_model
+from .geometry import preprocessing_transform
 from .io import digest, write_json, write_npz
 
 
@@ -68,8 +69,13 @@ def refine(source, destination, colmap_model):
             valid = np.asarray(valid)
             xyz = np.array([points[int(o[2])]["xyz"] for o in valid])
             z = (xyz @ image["extrinsics"][:, :3].T + image["extrinsics"][:, 3])[:, 2]
-            u = (valid[:, 0] * w / camera["width"]).astype(np.float32)
-            v = (valid[:, 1] * h / camera["height"]).astype(np.float32)
+            image_transform = preprocessing_transform(
+                camera["width"], camera["height"], w, h
+            )
+            u = (valid[:, 0] * image_transform[0, 0]).astype(np.float32)
+            v = (valid[:, 1] * image_transform[1, 1] + image_transform[1, 2]).astype(
+                np.float32
+            )
             predicted = cv2.remap(
                 depth, u[:, None], v[:, None], cv2.INTER_LINEAR
             ).ravel()
@@ -91,9 +97,7 @@ def refine(source, destination, colmap_model):
             fits.append(fit)
             if not fit["accepted"]:
                 continue
-            intrinsic = camera["intrinsics"].copy()
-            intrinsic[0] *= w / camera["width"]
-            intrinsic[1] *= h / camera["height"]
+            intrinsic = image_transform @ camera["intrinsics"]
             data["depth"][index] *= scale
             data["intrinsics"][index] = intrinsic
             data["extrinsics"][index] = image["extrinsics"]

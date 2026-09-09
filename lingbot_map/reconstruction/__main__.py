@@ -21,6 +21,7 @@ def main():
             "densify",
             "normalize",
             "refine",
+            "register",
             "fuse",
             "validate",
             "view",
@@ -80,7 +81,7 @@ def main():
                     args.pose_convention,
                 )
         if args.stage == "run":
-            from .refinement import refine
+            from .registration import register
             from .sfm import reconstruct_cameras
 
             models = reconstruct_cameras(args.output, args.mapper)
@@ -89,8 +90,7 @@ def main():
                     f"Photogrammetry produced {len(models)} disconnected models; inspect them before assembling a building"
                 )
             artifact_output = args.output / "final"
-            if not (artifact_output / "depth-calibration.json").exists():
-                refine(args.output, artifact_output, models[0])
+            register(args.output, artifact_output, models[0])
         if args.stage in ("fuse", "run"):
             with contextlib.redirect_stdout(sys.stderr):
                 from .fusion import fuse
@@ -124,6 +124,14 @@ def main():
             from .refinement import refine
 
             refine(args.source, args.output, args.colmap_model)
+        if args.stage == "register":
+            if args.source is None or args.colmap_model is None:
+                raise ValueError(
+                    "register requires --source, --colmap-model and --output"
+                )
+            from .registration import register
+
+            register(args.source, args.output, args.colmap_model)
         if args.stage == "view":
             from .viewer import view
 

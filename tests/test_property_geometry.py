@@ -2,6 +2,7 @@ import numpy as np
 from scipy.spatial.transform import Rotation
 
 from lingbot_map.reconstruction.geometry import (
+    preprocessing_transform,
     robust_similarity,
     supported_depth,
     transform_points,
@@ -9,6 +10,13 @@ from lingbot_map.reconstruction.geometry import (
 )
 from lingbot_map.reconstruction.inference import window_ranges
 from lingbot_map.reconstruction.poses import world_to_camera
+
+
+def test_portrait_camera_intrinsics_account_for_center_crop():
+    transform = preprocessing_transform(1280, 2276, 518, 518)
+    center = transform @ [640, 1138, 1]
+    np.testing.assert_allclose(center, [259, 259, 1])
+    assert (transform @ [640, 100, 1])[1] < 0
 
 
 def test_checkpoint_camera_to_world_is_normalized_before_unprojection():
