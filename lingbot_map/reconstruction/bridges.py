@@ -6,7 +6,8 @@ from pathlib import Path
 import numpy as np
 
 
-def load_bridges(path, source, files, ranges, learned):
+def load_bridges(path, source, files, ranges, learned, warmup=None):
+    from .geometry import ownership_bounds
     from .registration import motion_constraint
 
     path, source = Path(path), Path(source)
@@ -57,9 +58,8 @@ def load_bridges(path, source, files, ranges, learned):
         owner = next(
             i
             for i, (start, end) in enumerate(ranges)
-            if (start if i == 0 else (start + ranges[i - 1][1]) // 2)
-            <= a
-            < (end if i == len(ranges) - 1 else (end + ranges[i + 1][0]) // 2)
+            if ownership_bounds(ranges, i, warmup)[0]
+            <= a < ownership_bounds(ranges, i, warmup)[1]
         )
         with np.load(files[owner]) as raw:
             index = int(np.flatnonzero(raw["frame_ids"] == a)[0])

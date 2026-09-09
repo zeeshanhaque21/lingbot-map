@@ -79,6 +79,8 @@ Registration diagnostics retain the tested graph edges, rejected motions, bridge
 
 `--camera-source learned` is an experimental registration alternative for `run`, `register` and `repair`.
 It retains the learned intrinsics associated with each depth map and uses aligned learned orientations with photogrammetry feature tracks.
+It also selects newer overlapping predictions after the checkpoint's eight-frame scale bootstrap, using the same ownership for depth, intrinsics, orientations, feature tracks and fusion.
+`--motion-weight 10` increases the influence of depth-validated local motion relative to photogrammetry feature edges for a controlled comparison.
 Use a new output directory to compare it with the default `sfm` camera source.
 The local camera falsifier in the implementation report motivates this option; its complete-scene validation remains separate from the default baseline.
 
@@ -141,3 +143,4 @@ The generated report keeps `ready_for_verified_property_listing` false until ind
 
 Object-completion options, Lucida's role, and the limits of its reported metrics are documented in [the research follow-up](artifacts/research/lucida-and-object-reconstruction.md).
 Measured local outcomes and failed alternatives are recorded in [the implementation report](artifacts/research/mac-reconstruction-results.md).
+FixAnything's released video output, proposed role and Mac limitations are assessed in [a separate review](artifacts/research/fixanything-assessment.md).

@@ -28,6 +28,7 @@ def main():
     parser.add_argument("--colmap-model", type=Path, required=True)
     parser.add_argument("--bridges", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--factors", type=float, nargs="+", default=[1, 10, 100, 1000])
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     log = args.output / "results.jsonl"
@@ -39,14 +40,14 @@ def main():
     files = sorted((args.source / "windows").glob("*.npz"))
     names, _ = read_model(args.colmap_model)
     images = {frame: names[Path(item["file"]).name] for frame, item in enumerate(manifest["frames"]) if Path(item["file"]).name in names}
-    learned, _ = learned_rotations(files, ranges)
+    learned, _ = learned_rotations(files, ranges, match_depth_ownership=True)
     bridges = load_bridges(args.bridges, args.source, files, ranges, learned)
     select_learned_cameras(images, learned, files, ranges)
     tracks, scales, frame_depths, _, motion, _ = collect_tracks(args.source, images, files, ranges)
     feature_edges = track_edges(tracks, frame_depths)
     extra, _ = bridge_edges(bridges, images, scales)
     ids = sorted(images)
-    for factor in [1, 10, 100, 1000]:
+    for factor in args.factors:
         edges = feature_edges + [(a, b, delta, weight * factor, depth) for a, b, delta, weight, depth in motion + extra]
         positions, connected, residual = solve_centers(ids, edges)
         centers = {frame: position for frame, position, keep in zip(ids, positions, connected) if keep}

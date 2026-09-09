@@ -1,7 +1,10 @@
 import numpy as np
 
 from lingbot_map.reconstruction.geometry import preprocessing_transform
-from lingbot_map.reconstruction.registration import select_learned_cameras
+from lingbot_map.reconstruction.registration import (
+    learned_rotations,
+    select_learned_cameras,
+)
 
 
 def test_depth_camera_calibration_preserves_rays_and_shared_sfm_camera(tmp_path):
@@ -22,3 +25,32 @@ def test_depth_camera_calibration_preserves_rays_and_shared_sfm_camera(tmp_path)
     np.testing.assert_array_equal(shared["intrinsics"], sfm_k)
     assert images[0]["camera"] is not images[1]["camera"]
     assert not np.array_equal(images[0]["camera"]["intrinsics"], images[1]["camera"]["intrinsics"])
+
+
+def test_owned_window_preserves_relative_orientation_across_overlap(tmp_path):
+    from scipy.spatial.transform import Rotation
+
+    first = np.tile(np.column_stack([np.eye(3), np.zeros(3)]), (6, 1, 1))
+    second = first.copy()
+    second[2:, :, :3] = Rotation.from_rotvec([0, 0.04, 0]).as_matrix()
+    a, b = tmp_path / "000000.npz", tmp_path / "000002.npz"
+    np.savez(a, frame_ids=np.arange(6), extrinsics=first)
+    np.savez(b, frame_ids=np.arange(2, 8), extrinsics=second)
+    rotations, _ = learned_rotations([a, b], [(0, 6), (2, 8)], match_depth_ownership=True)
+    # These two cameras face the same direction in their shared depth window.
+    # Keeping frame 4's stale earlier pose would introduce a false relative turn.
+    ray = np.array([0.1, 0.2, 1.0])
+    np.testing.assert_allclose(rotations[4] @ rotations[7].T @ ray, ray, atol=1e-10)
+    np.testing.assert_allclose(rotations[3], np.eye(3), atol=1e-10)
+
+
+def test_bootstrap_ownership_covers_capture_once_and_rejects_gaps():
+    import pytest
+
+    from lingbot_map.reconstruction.geometry import ownership_bounds
+
+    windows = [(0, 96), (72, 168), (144, 193)]
+    owned = [frame for i in range(len(windows)) for frame in range(*ownership_bounds(windows, i, 8))]
+    assert owned == list(range(193))
+    with pytest.raises(ValueError, match="overlap"):
+        ownership_bounds(windows, 0, 25)

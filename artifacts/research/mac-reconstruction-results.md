@@ -104,6 +104,18 @@ It fails the same gate and is not adopted as the default.
 Preserving intrinsics and orientations alone does not preserve the native local reconstruction when the global translation solver changes camera positions.
 The reproducible paired experiment is `experiments/local_pose_falsifier.py`.
 
+Repeating that test on the actual owning windows reveals an additional failure in prediction selection.
+At frame 515, native fusion using window 432 has only 27.36% supported depth, compared with 87.24% using window 504.
+At frame 945, native window 864 has 66.69% support, compared with 88.18% using window 936.
+Thus registration is not the sole source of error across all windows.
+An eight-frame bootstrap policy now selects newer predictions consistently in the experimental learned-camera path.
+
+The motion-weight experiment holds images, depths and orientations fixed while changing the influence of depth-supported local motion in the translation graph.
+For the late window, multiplying motion weights by ten increases local support from 24.21% to 85.33%, with withheld-track median reprojection error changing from 3.56 px to 3.71 px.
+Much larger weights increase track error and do not improve that local view.
+This motivates a bounded alternative rather than a general claim that more motion weight is always better.
+The complete bootstrap-and-motion candidate is recorded separately and must pass full-scene rendering checks.
+
 ### Exact adaptive sampling
 
 An initial burst-extraction command omitted variable-frame-rate output mode and produced duplicate output frames.
@@ -141,8 +153,6 @@ A bounded-chart variant also had not completed after seven minutes.
 Both experiments were stopped after verifying that the source meshes were saved and no texture output existed.
 They are excluded from the working pipeline and are not claimed as completed texture results.
 
-## Remaining acceptance requirements
-
 ## Apple Object Capture comparison
 
 [Apple's Object Capture API](https://developer.apple.com/videos/play/wwdc2021/10076/) provides native Mac photogrammetry for real-world objects.
@@ -165,3 +175,4 @@ Mirrors, glass, people and unobserved surfaces remain uncertain.
 The reports deliberately retain `ready_for_verified_property_listing: false` while these checks are absent.
 
 Lucida, ShapeR and other object-model candidates are evaluated separately in [the research continuation](lucida-and-object-reconstruction.md).
+The user-supplied FixAnything repository is evaluated in [its own assessment](fixanything-assessment.md).

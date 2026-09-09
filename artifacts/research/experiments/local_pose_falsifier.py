@@ -84,6 +84,7 @@ def reconstruct(data, target, radius, destination, label):
     rendered[visible] = (255 * np.sum(colors * weights[..., None], 1)).clip(0, 255).astype(np.uint8)
     result = {
         "target": target, "arm": label, "frames_fused": len(selected),
+        "window_start": int(data["frame_ids"][0]),
         "coverage": float(visible.mean()),
         "supported_depth_fraction": float(np.sum(valid & visible & (relative_error < 0.05)) / valid.sum()),
         "rgb_mae_visible": float(np.abs(rendered.astype(float) - reference)[visible].mean() / 255),
@@ -103,11 +104,12 @@ def main():
     parser.add_argument("--native", type=Path, required=True)
     parser.add_argument("--registered", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--pairs", nargs="+", default=["936:945", "504:515"], help="window-start:reserved-frame pairs")
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     log = args.output / "results.jsonl"
     done = {(r["target"], r["arm"]) for r in map(json.loads, log.read_text().splitlines())} if log.exists() else set()
-    for start, target in [(936, 945), (504, 515)]:
+    for start, target in [map(int, pair.split(":")) for pair in args.pairs]:
         for source, name in [(args.registered, "registered"), (args.native, "native")]:
             data = dict(np.load(source / "windows" / f"{start:06d}.npz"))
             for radius, span in [(9999, "window"), (8, "neighbors")]:

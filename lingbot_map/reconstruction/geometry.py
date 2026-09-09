@@ -109,6 +109,22 @@ def align_overlap(previous, current):
     return transform, stats
 
 
+def ownership_bounds(ranges, index, warmup=None):
+    """Partition overlapping predictions after an explicit model bootstrap."""
+    start, end = ranges[index]
+    if warmup is None:
+        low = start if index == 0 else (start + ranges[index - 1][1]) // 2
+        high = end if index == len(ranges) - 1 else (end + ranges[index + 1][0]) // 2
+    else:
+        if warmup < 0:
+            raise ValueError("Prediction warmup must be nonnegative")
+        low = start if index == 0 else start + warmup
+        high = end if index == len(ranges) - 1 else ranges[index + 1][0] + warmup
+    if not start <= low < high <= end:
+        raise ValueError("Prediction warmup must fit inside every window overlap")
+    return low, high
+
+
 def supported_depth(index, data, relative_tolerance=0.03):
     """Keep depth supported by another view; reject uncertain pixels and depth edges."""
     depth = data["depth"][index]

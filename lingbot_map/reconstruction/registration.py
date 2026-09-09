@@ -22,8 +22,9 @@ from .geometry import preprocessing_transform
 from .io import digest, write_json, write_npz
 
 
-def learned_rotations(files, ranges):
+def learned_rotations(files, ranges, match_depth_ownership=False, warmup=None):
     """Align overlapping camera orientations without translation or scale fitting."""
+    from .geometry import ownership_bounds
     rotations, checks = {}, []
     for chunk, file in enumerate(files):
         with np.load(file) as data:
@@ -49,9 +50,13 @@ def learned_rotations(files, ranges):
                     "p95_orientation_disagreement_degrees": error,
                 }
             )
+        low, high = ownership_bounds(ranges, chunk, warmup)
         for i, frame in enumerate(ids):
-            # Use each frame from the earlier window to keep overlapping poses stable.
-            rotations.setdefault(int(frame), extrinsics[i, :, :3] @ transform.T)
+            # The learned-camera path must use the same window as the depth map.
+            if int(frame) not in rotations or (
+                match_depth_ownership and low <= frame < high
+            ):
+                rotations[int(frame)] = extrinsics[i, :, :3] @ transform.T
     return rotations, checks
 
 
@@ -218,7 +223,8 @@ def motion_constraint(data, i, j, images, scale):
     return edge, stats
 
 
-def collect_tracks(source, images, files, ranges):
+def collect_tracks(source, images, files, ranges, warmup=None):
+    from .geometry import ownership_bounds
     tracks, scales, frame_depths, overlaps = defaultdict(list), [], {}, []
     motion_edges, motion_checks = [], []
     previous, scale = None, 1.0
@@ -247,9 +253,7 @@ def collect_tracks(source, images, files, ranges):
                 }
             )
         scales.append(float(scale))
-        start, end = ranges[chunk]
-        low = start if chunk == 0 else (start + ranges[chunk - 1][1]) // 2
-        high = end if chunk == len(files) - 1 else (end + ranges[chunk + 1][0]) // 2
+        low, high = ownership_bounds(ranges, chunk, warmup)
         for i, frame in enumerate(data["frame_ids"]):
             frame = int(frame)
             if not low <= frame < high or frame not in images:
@@ -345,15 +349,14 @@ def evaluate_tracks(tracks, images, centers):
     }
 
 
-def select_learned_cameras(images, learned, files, ranges):
+def select_learned_cameras(images, learned, files, ranges, warmup=None):
     """Use the camera model that produced each owned depth map."""
+    from .geometry import ownership_bounds
     for chunk, file in enumerate(files):
         with np.load(file) as data:
             ids, intrinsics = data["frame_ids"], data["intrinsics"]
             h, w = data["depth"].shape[1:]
-        start, end = ranges[chunk]
-        low = start if chunk == 0 else (start + ranges[chunk - 1][1]) // 2
-        high = end if chunk == len(files) - 1 else (end + ranges[chunk + 1][0]) // 2
+        low, high = ownership_bounds(ranges, chunk, warmup)
         for i, frame in enumerate(ids):
             frame = int(frame)
             if frame not in images or not low <= frame < high:
@@ -367,7 +370,7 @@ def select_learned_cameras(images, learned, files, ranges):
             images[frame] = {**image, "extrinsics": extrinsics, "camera": camera}
 
 
-def register(source, destination, colmap_model, bridges=None, camera_source="sfm"):
+def register(source, destination, colmap_model, bridges=None, camera_source="sfm", motion_weight=1.0):
     source, destination, colmap_model = (
         Path(source),
         Path(destination),
@@ -387,9 +390,14 @@ def register(source, destination, colmap_model, bridges=None, camera_source="sfm
         raise ValueError("Finish source inference before registration")
     if camera_source not in ("sfm", "learned"):
         raise ValueError("camera_source must be sfm or learned")
+    if not np.isfinite(motion_weight) or motion_weight <= 0:
+        raise ValueError("motion_weight must be finite and positive")
+    warmup = 8 if camera_source == "learned" else None
     signature = {
-        "method_version": 5,
+        "method_version": 7,
         "camera_source": camera_source,
+        "motion_weight": motion_weight,
+        "depth_ownership_warmup": warmup,
         "bridges_sha256": digest(Path(bridges)) if bridges else None,
         "source_inference_sha256": digest(source / "inference.json"),
         "source_windows": {p.name: digest(p) for p in files},
@@ -424,23 +432,28 @@ def register(source, destination, colmap_model, bridges=None, camera_source="sfm
         for frame, item in enumerate(manifest["frames"])
         if Path(item["file"]).name in image_names
     }
-    learned, orientation_overlaps = learned_rotations(files, ranges)
+    learned, orientation_overlaps = learned_rotations(
+        files, ranges, match_depth_ownership=camera_source == "learned", warmup=warmup
+    )
     bridge_data = []
     if bridges:
         from .bridges import load_bridges
 
-        bridge_data = load_bridges(bridges, source, files, ranges, learned)
+        bridge_data = load_bridges(bridges, source, files, ranges, learned, warmup=warmup)
     orientation_groups = stabilize_rotations(images, learned)
     if camera_source == "learned":
-        select_learned_cameras(images, learned, files, ranges)
+        select_learned_cameras(images, learned, files, ranges, warmup=warmup)
     tracks, scales, frame_depths, overlaps, motion_edges, motion_checks = (
-        collect_tracks(source, images, files, ranges)
+        collect_tracks(source, images, files, ranges, warmup=warmup)
     )
-    edges = track_edges(tracks, frame_depths) + motion_edges
+    edges = track_edges(tracks, frame_depths)
     from .bridges import bridge_edges
 
     extra_edges, bridge_checks = bridge_edges(bridge_data, images, scales)
-    edges.extend(extra_edges)
+    edges.extend(
+        (a, b, delta, weight * motion_weight, depth)
+        for a, b, delta, weight, depth in motion_edges + extra_edges
+    )
     write_json(
         destination / "registration-diagnostics.json",
         {
@@ -474,6 +487,7 @@ def register(source, destination, colmap_model, bridges=None, camera_source="sfm
     config.update(
         poses_global=True,
         pose_source=pose_source,
+        depth_ownership_warmup=warmup,
         registration_signature=signature,
     )
     frames_link = destination / "frames"

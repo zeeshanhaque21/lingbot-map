@@ -35,6 +35,7 @@ def main():
     parser.add_argument("--colmap-model", type=Path)
     parser.add_argument("--bridges", type=Path)
     parser.add_argument("--camera-source", choices=["sfm", "learned"], default="sfm")
+    parser.add_argument("--motion-weight", type=float, default=1.0)
     parser.add_argument("--mapper", choices=["global", "incremental"], default="global")
     parser.add_argument(
         "--pose-convention",
@@ -98,6 +99,7 @@ def main():
             artifact_output = register_with_repairs(
                 args.output, artifact_output, models[0], args.checkpoint, args.bridges,
                 camera_source=args.camera_source,
+                motion_weight=args.motion_weight,
             )
         if args.stage in ("fuse", "run"):
             with contextlib.redirect_stdout(sys.stderr):
@@ -153,6 +155,7 @@ def main():
             register(
                 args.source, args.output, args.colmap_model, args.bridges,
                 camera_source=args.camera_source,
+                motion_weight=args.motion_weight,
             )
         if args.stage == "repair":
             if args.source is None or args.colmap_model is None:
@@ -168,6 +171,7 @@ def main():
                 args.checkpoint,
                 args.bridges,
                 camera_source=args.camera_source,
+                motion_weight=args.motion_weight,
             )
         if args.stage == "export":
             from .export import export_detail

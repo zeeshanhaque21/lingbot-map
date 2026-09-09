@@ -14,6 +14,7 @@ from .io import digest, write_json
 
 
 def fuse(output):
+    from .geometry import ownership_bounds
     output = Path(output)
     files = sorted((output / "windows").glob("*.npz"))
     if not files:
@@ -99,10 +100,8 @@ def fuse(output):
         data = dict(np.load(path))
         scale = float(np.cbrt(np.linalg.det(transform[:3, :3])))
         rotation = transform[:3, :3] / scale
-        start, end = ranges[chunk]
         # Prefer predictions after the scale bootstrap; use each frame exactly once.
-        low = start if chunk == 0 else (start + ranges[chunk - 1][1]) // 2
-        high = end if chunk == len(files) - 1 else (end + ranges[chunk + 1][0]) // 2
+        low, high = ownership_bounds(ranges, chunk, inference.get("depth_ownership_warmup"))
         for i, frame_id in enumerate(data["frame_ids"]):
             if not low <= frame_id < high:
                 continue
