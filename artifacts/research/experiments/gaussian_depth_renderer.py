@@ -225,7 +225,7 @@ def rasterize(
     tiles = tile_indices(projected, extents, width, height)
     nx, ny = (width + 15) // 16, (height + 15) // 16
     packed = torch.as_tensor(projected, device=device)
-    output = np.zeros((ny * 16, nx * 16, 9), np.float32)
+    output = np.zeros((ny * 16, nx * 16, 13), np.float32)
     pending = [i for i, indices in enumerate(tiles) if indices]
     while pending:
         count, longest = 1, len(tiles[pending[0]])
@@ -285,6 +285,23 @@ def rasterize(
             weights * ((conditional - depth[:, None]) ** 2 + data[:, :, None, 12])
         ).sum(dim=1) / denominator
         component_variance = (weights * data[:, :, None, 13]).sum(dim=1) / denominator
+        cumulative = weights.cumsum(dim=1)
+
+        def quantile_value(
+            values, fraction, cumulative=cumulative, opacity=opacity, weights=weights
+        ):
+            selected = (
+                (cumulative >= opacity[:, None] * fraction)
+                .to(torch.int32)
+                .argmax(dim=1, keepdim=True)
+            )
+            value = values.expand_as(weights).gather(1, selected)[:, 0]
+            return torch.where(opacity > 0, value, 0)
+
+        median_center = quantile_value(z, 0.5)
+        center_iqr = quantile_value(z, 0.75) - quantile_value(z, 0.25)
+        median_depth = quantile_value(conditional, 0.5)
+        median_sigma = quantile_value(data[:, :, None, 12].clamp_min(0).sqrt(), 0.5)
         result = (
             torch.cat(
                 [
@@ -295,6 +312,10 @@ def rasterize(
                     depth[..., None],
                     variance.clamp_min(0).sqrt()[..., None],
                     component_variance.clamp_min(0).sqrt()[..., None],
+                    median_center[..., None],
+                    center_iqr[..., None],
+                    median_depth[..., None],
+                    median_sigma[..., None],
                 ],
                 dim=-1,
             )
@@ -303,7 +324,7 @@ def rasterize(
         )
         for row, index in enumerate(chosen):
             y, x = (index // nx) * 16, (index % nx) * 16
-            output[y : y + 16, x : x + 16] = result[row].reshape(16, 16, 9)
+            output[y : y + 16, x : x + 16] = result[row].reshape(16, 16, 13)
     output = output[:height, :width]
     return {
         "rgb": output[..., :3],
@@ -313,6 +334,10 @@ def rasterize(
         "depth": output[..., 6],
         "sigma": output[..., 7],
         "component_sigma": output[..., 8],
+        "median_center_depth": output[..., 9],
+        "center_iqr": output[..., 10],
+        "median_depth": output[..., 11],
+        "median_sigma": output[..., 12],
     }
 
 
@@ -346,9 +371,14 @@ def main():
     else:
         args.output.mkdir(parents=True)
         signature_path.write_text(json.dumps(signature, indent=2))
+        (args.output / "producer.py").write_bytes(Path(__file__).read_bytes())
     gaussians = read_gaussians(args.ply)
     selected = set(map(int, args.frames.split(","))) if args.frames else None
     frames = json.loads(transform_path.read_text())["frames"]
+    if selected is not None and selected - {
+        int(Path(frame["file_path"]).stem) for frame in frames
+    }:
+        parser.error("Requested frame is absent from this split")
     trace_path = args.output / "trace.jsonl"
     previous = (
         {

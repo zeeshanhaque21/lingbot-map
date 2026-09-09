@@ -43,6 +43,8 @@ def test_front_to_back_compositing_and_depth_moments():
     np.testing.assert_allclose(result["alpha"][8, 8], 0.75, atol=1e-6)
     np.testing.assert_allclose(result["center_depth"][8, 8], 8 / 3, atol=1e-6)
     assert result["center_sigma"][8, 8] > 0.9
+    np.testing.assert_allclose(result["median_center_depth"][8, 8], 2, atol=1e-6)
+    np.testing.assert_allclose(result["center_iqr"][8, 8], 2, atol=1e-6)
 
 
 def test_conditional_depth_respects_tilted_thin_gaussian():

@@ -122,7 +122,8 @@ They are different from the earlier visible-only RGB metric and must not be comp
 The first trial completes in 49.86 seconds and the COLMAP trial in 21.28 seconds, including evaluation and exports.
 These are individual local runs with different initialization sizes, not a controlled throughput benchmark.
 The COLMAP trial exports 48,755 Gaussians at its final checkpoint.
-Saved PNG metrics differ slightly from native floating-point log metrics because the images are quantized to eight bits.
+Native evaluation already simulates an eight-bit round trip before computing its log metrics.
+The comparisons here recompute metrics from the actual saved PNGs, whose values differ slightly from the native evaluation tensors.
 
 The COLMAP initialization improves reserved-view appearance, but chair edges still show blur and ghosting.
 A Gaussian PLY is a volumetric appearance representation, not a verified building surface mesh.
