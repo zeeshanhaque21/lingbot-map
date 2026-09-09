@@ -25,7 +25,7 @@ The model source is [Robbyant's model repository](https://huggingface.co/robbyan
   --video /path/to/walkthrough.mp4 --output reconstructions/property
 
 .venv-reconstruction/bin/python -m lingbot_map.reconstruction view \
-  --output reconstructions/property
+  --output reconstructions/property/final
 ```
 
 The viewer opens at `http://127.0.0.1:8081`.
@@ -47,9 +47,21 @@ For individual stages:
 .venv-reconstruction/bin/python -m lingbot_map.reconstruction sfm --output reconstructions/property
 ```
 
-`sfm` builds an independent feature-track and bundle-adjustment reconstruction with COLMAP on CPU.
-It currently serves as a camera-validation backend; its poses are not silently substituted into learned depth predictions.
+`run` reconstructs global COLMAP cameras, calibrates learned depth against triangulated points, and writes the final artifacts under `final/model/`.
+It refuses to assemble disconnected camera models into an apparently complete building.
+`sfm` builds feature tracks and global bundle-adjusted cameras with COLMAP 4 on CPU.
+Use `--mapper incremental` to reproduce the incremental comparison.
 Photogrammetry results remain in `colmap/`, including disconnected models and intermediate snapshots.
+
+Existing inference can be refined explicitly with a selected photogrammetry model.
+
+```sh
+.venv-reconstruction/bin/python -m lingbot_map.reconstruction refine \
+  --source reconstructions/property --output reconstructions/property-refined \
+  --colmap-model reconstructions/property/colmap/global/0/text
+.venv-reconstruction/bin/python -m lingbot_map.reconstruction fuse --output reconstructions/property-refined
+.venv-reconstruction/bin/python -m lingbot_map.reconstruction validate --output reconstructions/property-refined
+```
 
 ## Artifacts and evidence
 
@@ -75,17 +87,23 @@ Completed windows are written through temporary files followed by atomic replace
 ## Fidelity policy
 
 The pipeline rejects uncertain depths, depth discontinuities and samples lacking agreement with another camera view.
-Shared-frame geometry aligns neighboring windows with a robust similarity transform.
+The production path uses a common photogrammetry coordinate system for all windows.
+The experimental learned-pose path instead aligns shared-frame geometry with a robust similarity transform and refuses joins whose residuals exceed its gate.
 TSDF fusion creates an open surface mesh without watertight completion or invented room boundaries.
 Every tenth frame, with index ending in 5, is withheld from fusion for render comparison.
 Those frames still participate in pose/depth inference, so the check is not independent ground truth.
 
-PLY and camera records use the OpenCV world convention.
+Stored extrinsics are explicitly world-to-camera matrices in the OpenCV axis convention.
+The tested long checkpoint actually decodes camera-to-world poses despite the upstream helper's documentation.
+The adapter normalizes that convention before saving any depth geometry.
+This was checked against 80 independently estimated photogrammetry cameras and multi-view depth consistency.
+Unknown checkpoint hashes require an explicit `--pose-convention` instead of inheriting an unverified assumption.
 GLB vertices receive the explicit transform `diag(1,-1,-1)` for viewing in a Y-up application.
 That transform does not establish gravity or metric scale.
 All distances remain in model units until an external measured reference is supplied and validated.
 
-Sequential window registration does not perform global loop closure.
+Sequential learned-window registration does not perform global loop closure.
+The photogrammetry path jointly optimizes the connected visual track graph; its current matcher uses temporal and quadratic pairs without a dedicated place-recognition loop detector.
 Reflective floors, glass, people, textureless walls and unseen ceilings can leave missing or incorrect geometry.
 The generated report keeps `ready_for_verified_property_listing` false until independent dimensions, room connectivity and missing-surface checks are supplied.
 

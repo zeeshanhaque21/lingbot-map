@@ -74,5 +74,18 @@ These are single-run numerical comparisons with a float32 baseline, not accuracy
 
 The first float32 full-video attempt was terminated by signal 9 at frame 44 during rising memory pressure.
 Bfloat16 processing is being evaluated for the complete sequence.
-The early mesh has substantial holes, and source-view checks do not justify calling it a complete or verified property model.
+The early mesh had substantial holes, and its pose convention was subsequently found to be incorrect for the tested checkpoint.
+Those early coverage figures must not be treated as a fair learned-pose baseline.
 Current run status and eventual final quality findings belong in the implementation report and generated validation artifacts.
+
+## Checkpoint convention discovered during implementation
+
+The official long checkpoint hash above produces decoded camera-to-world matrices, although the upstream pose-decoding helper describes world-to-camera output.
+Using the wrong interpretation caused severely inconsistent fusion while all tensor shapes and ordinary geometry unit tests still passed.
+On 80 frames matched to a separate COLMAP reconstruction, a single similarity alignment gave median orientation disagreement of 106.07 degrees under the documented interpretation and 2.33 degrees under the camera-to-world interpretation.
+Median camera-center residual, divided by the reference trajectory's bounding-box diagonal, changed from 19.31% to 0.769%.
+These are comparisons against an estimated photogrammetry model, not surveyed ground truth.
+
+This is a local finding for the exact tested checkpoint, not a universal statement about all Lingbot releases.
+The adapter now identifies that checkpoint by hash and normalizes its pose matrices at the inference boundary.
+Existing experimental archives are preserved and corrected into separate directories.

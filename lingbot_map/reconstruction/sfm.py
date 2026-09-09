@@ -10,7 +10,7 @@ from pathlib import Path
 from .io import digest, write_json
 
 
-def reconstruct_cameras(output):
+def reconstruct_cameras(output, mapper="global"):
     output = Path(output)
     executable = shutil.which("colmap")
     if executable is None:
@@ -20,7 +20,7 @@ def reconstruct_cameras(output):
     root = output / "colmap"
     root.mkdir(exist_ok=True)
     database = root / "database.db"
-    sparse = root / "sparse"
+    sparse = root / ("global" if mapper == "global" else "sparse")
     snapshots = root / "snapshots"
     sparse.mkdir(exist_ok=True)
     snapshots.mkdir(exist_ok=True)
@@ -97,6 +97,25 @@ def reconstruct_cameras(output):
             ],
         ),
     ]
+    if mapper == "global":
+        commands[-1] = (
+            "global-mapping",
+            [
+                "global_mapper",
+                "--database_path",
+                str(database),
+                "--image_path",
+                str(output / "frames"),
+                "--output_path",
+                str(sparse),
+                "--GlobalMapper.num_threads",
+                "6",
+                "--GlobalMapper.gp_use_gpu",
+                "0",
+                "--GlobalMapper.ba_ceres_use_gpu",
+                "0",
+            ],
+        )
     for name, command in commands:
         marker = root / (name + ".complete.json")
         if marker.exists():
@@ -145,7 +164,7 @@ def reconstruct_cameras(output):
             ).fetchone()[0],
         }
     write_json(
-        root / "result.json",
+        root / ("global-result.json" if mapper == "global" else "result.json"),
         {
             "models": models,
             **counts,
@@ -157,3 +176,4 @@ def reconstruct_cameras(output):
         raise ValueError(
             "Photogrammetry could not register a camera model; inspect mapping.log"
         )
+    return [output / model for model in models]

@@ -30,6 +30,7 @@ def main():
     parser.add_argument("--video", type=Path)
     parser.add_argument("--source", type=Path)
     parser.add_argument("--colmap-model", type=Path)
+    parser.add_argument("--mapper", choices=["global", "incremental"], default="global")
     parser.add_argument(
         "--pose-convention",
         choices=["auto", "camera-to-world", "world-to-camera"],
@@ -48,6 +49,7 @@ def main():
         "--precision", choices=["float32", "bfloat16", "float16"], default="bfloat16"
     )
     args = parser.parse_args()
+    artifact_output = args.output
     if not args.stage:
         print("description: Reconstruct observed property surfaces on this Mac")
         print('status: "Choose an input video to begin"')
@@ -77,19 +79,31 @@ def main():
                     args.precision,
                     args.pose_convention,
                 )
+        if args.stage == "run":
+            from .refinement import refine
+            from .sfm import reconstruct_cameras
+
+            models = reconstruct_cameras(args.output, args.mapper)
+            if len(models) != 1:
+                raise ValueError(
+                    f"Photogrammetry produced {len(models)} disconnected models; inspect them before assembling a building"
+                )
+            artifact_output = args.output / "final"
+            if not (artifact_output / "depth-calibration.json").exists():
+                refine(args.output, artifact_output, models[0])
         if args.stage in ("fuse", "run"):
             with contextlib.redirect_stdout(sys.stderr):
                 from .fusion import fuse
 
-                fuse(args.output)
+                fuse(artifact_output)
         if args.stage in ("validate", "run"):
             from .validation import validate
 
-            validate(args.output)
+            validate(artifact_output)
         if args.stage == "sfm":
             from .sfm import reconstruct_cameras
 
-            reconstruct_cameras(args.output)
+            reconstruct_cameras(args.output, args.mapper)
         if args.stage == "densify":
             if args.source is None:
                 raise ValueError("densify requires --source and a new --output")
@@ -115,7 +129,7 @@ def main():
 
             view(args.output)
         print("status: complete")
-        print("output: " + json.dumps(str(args.output.resolve())))
+        print("output: " + json.dumps(str(artifact_output.resolve())))
     except (ValueError, FileNotFoundError, RuntimeError) as error:
         print("error: " + json.dumps(str(error)))
         print(
