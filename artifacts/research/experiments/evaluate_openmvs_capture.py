@@ -369,6 +369,16 @@ def main():
         for row in rows
         if row["absolute_rgb_error_visible"] is not None
     ]
+    with (args.trial / "dense.ply").open("rb") as handle:
+        header = handle.read(4096).split(b"end_header", 1)[0].decode("ascii")
+    dense_points = int(
+        next(
+            line.split()[-1]
+            for line in header.splitlines()
+            if line.startswith("element vertex ")
+        )
+    )
+    native_records = sorted(args.trial.glob("*-completion.json"))
     result = {
         "producer_sources_sha256": sources,
         "source_resources_sha256": resources,
@@ -376,6 +386,18 @@ def main():
         "property_bytes": (model / "property.glb").stat().st_size,
         "parts": parts,
         "triangles": sum(part["triangles"] for part in parts),
+        "dense_points": dense_points,
+        "training_images": provenance["training_images"],
+        "native_run_sha256": digest(args.trial / "run.json"),
+        "native_stage_record_sha256": {
+            path.name: digest(path) for path in native_records
+        },
+        "native_stage_seconds": {
+            path.stem.removesuffix("-completion"): json.loads(path.read_text())[
+                "seconds"
+            ]
+            for path in native_records
+        },
         "colmap_sha256": colmap_hashes,
         "capture_provenance_sha256": digest(args.captured_dataset / "provenance.json"),
         "dataset_provenance_sha256": digest(args.dataset / "provenance.json"),
