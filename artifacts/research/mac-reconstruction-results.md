@@ -98,7 +98,10 @@ The spike uses windows starting at 936 and 504, so its percentages are not direc
 
 An experimental `--camera-source learned` path now preserves learned camera intrinsics and aligned learned orientations while retaining photogrammetry tracks and the robust translation graph.
 It registers all 1,000 base cameras with 3.56 px median withheld-track reprojection error.
-Full-mesh validation is required before adopting this path as the default.
+The full-mesh experiment reached 74.74% median supported depth but only 19.34% minimum supported depth.
+Its exported asset reached 71.88% median and 20.68% minimum supported depth.
+It fails the same gate and is not adopted as the default.
+Preserving intrinsics and orientations alone does not preserve the native local reconstruction when the global translation solver changes camera positions.
 The reproducible paired experiment is `experiments/local_pose_falsifier.py`.
 
 ### Exact adaptive sampling
@@ -137,6 +140,19 @@ On the fragmented 300,000-triangle sample, the default chart calculation had not
 A bounded-chart variant also had not completed after seven minutes.
 Both experiments were stopped after verifying that the source meshes were saved and no texture output existed.
 They are excluded from the working pipeline and are not claimed as completed texture results.
+
+## Remaining acceptance requirements
+
+## Apple Object Capture comparison
+
+[Apple's Object Capture API](https://developer.apple.com/videos/play/wwdc2021/10076/) provides native Mac photogrammetry for real-world objects.
+The standalone Swift program in `experiments/apple_photogrammetry.swift` compiles against the installed macOS SDK, and `PhotogrammetrySession.isSupported` returns true on this Mac.
+Two runs on the same 80 extracted 1280-by-720 frames failed with `processError`; neither produced a USDZ model.
+Both used sequential image ordering, high feature sensitivity, medium output detail and disabled object masking.
+The system log reported CorePG error -15.
+It initially reported an unavailable LearnedMVS asset, then successful access to that asset; the final internal error messages were private.
+The root cause remains undetermined, so these failures do not establish that Apple photogrammetry cannot reconstruct this scene.
+This comparison is separate from the working mesh pipeline.
 
 ## Remaining acceptance requirements
 
