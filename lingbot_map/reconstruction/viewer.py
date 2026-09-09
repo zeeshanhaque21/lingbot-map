@@ -6,6 +6,7 @@ from pathlib import Path
 
 import numpy as np
 import viser
+from PIL import Image
 
 
 def view(output, port=8081):
@@ -41,7 +42,7 @@ def view(output, port=8081):
     )
     server.gui.configure_theme(control_layout="collapsible", dark_mode=True)
     server.gui.add_markdown(
-        "## Property reconstruction\nObserved surfaces from the walkthrough.\n\n**Dimensions unverified.** Hidden surfaces remain open."
+        "## Property reconstruction\nReconstructed from the walkthrough.\n\n**Dimensions unverified.** Surfaces may be missing or misplaced."
     )
     server.gui.add_markdown(
         f"{display_triangles:,} display triangles · {len(cameras):,} views"
@@ -85,6 +86,12 @@ def view(output, port=8081):
     def update():
         nonlocal cached_window, archived_rgb, archived_ids
         camera = cameras[selected.value]
+        if camera.get("captured_image"):
+            preview.image = np.asarray(
+                Image.open(camera["captured_image"]).convert("RGB")
+            )
+            timestamp.content = f"Capture time: {camera['timestamp_seconds']:.1f}s"
+            return
         if cached_window != camera["window"]:
             windows = sorted((output / "windows").glob("*.npz"))
             with np.load(windows[camera["window"]]) as data:

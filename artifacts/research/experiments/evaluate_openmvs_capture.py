@@ -187,6 +187,55 @@ def checked_provenance(trial, dataset, colmap_hashes):
     return provenance
 
 
+def write_viewer_metadata(model, dataset, images, reserved_ids, triangles):
+    frames = [
+        frame
+        for split in ("train", "val")
+        for frame in json.loads((dataset / f"transforms_{split}.json").read_text())[
+            "frames"
+        ]
+    ]
+    # Older local fixtures do not carry capture timing; do not invent timestamps.
+    if not all("timestamp_seconds" in frame for frame in frames):
+        return False
+    identifiers = [frame_number(frame) for frame in frames]
+    if len(set(identifiers)) != len(identifiers):
+        raise ValueError("Duplicate viewer capture frames")
+    cameras = []
+    for frame in sorted(frames, key=frame_number):
+        number = frame_number(frame)
+        image = images[f"{number:06d}.jpg"]
+        path = (dataset / frame["file_path"]).resolve()
+        if not path.is_relative_to(dataset.resolve()) or not path.is_file():
+            raise ValueError("Viewer image is missing or escapes the capture dataset")
+        cameras.append(
+            {
+                "frame": number,
+                "timestamp_seconds": frame["timestamp_seconds"],
+                "camera_to_world": np.linalg.inv(
+                    np.vstack([image["extrinsics"], [0, 0, 0, 1]])
+                ).tolist(),
+                "intrinsics": image["camera"]["intrinsics"].tolist(),
+                "captured_image": str(path),
+                "held_out_from_fusion": number in reserved_ids,
+            }
+        )
+    (model / "cameras.json").write_text(json.dumps(cameras, indent=2) + "\n")
+    (model / "validation.json").write_text(
+        json.dumps(
+            {
+                "web_triangles": triangles,
+                "metric_accuracy_verified": False,
+                "ready_for_verified_property_listing": False,
+                "interpretation": "Native scene export passed geometry and texture round-trip checks. Building fidelity, dimensions and connectivity remain unverified; captured-view results are in the parent results.json.",
+            },
+            indent=2,
+        )
+        + "\n"
+    )
+    return True
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--trial", type=Path, required=True)
@@ -315,6 +364,11 @@ def main():
             print(json.dumps({"frame": number, **metrics}), flush=True)
     if any(digest(repository / name) != value for name, value in sources.items()):
         raise ValueError("Evaluation sources changed during this run")
+    visible_errors = [
+        row["absolute_rgb_error_visible"]
+        for row in rows
+        if row["absolute_rgb_error_visible"] is not None
+    ]
     result = {
         "producer_sources_sha256": sources,
         "source_resources_sha256": resources,
@@ -335,15 +389,9 @@ def main():
             np.median([row["rendered_coverage"] for row in rows])
         ),
         "minimum_rendered_coverage": min(row["rendered_coverage"] for row in rows),
-        "median_absolute_rgb_error_visible": float(
-            np.median(
-                [
-                    row["absolute_rgb_error_visible"]
-                    for row in rows
-                    if row["absolute_rgb_error_visible"] is not None
-                ]
-            )
-        ),
+        "median_absolute_rgb_error_visible": float(np.median(visible_errors))
+        if visible_errors
+        else None,
         "mean_psnr_all_pixels_missing_black": float(
             np.mean([row["psnr_all_pixels_missing_black"] for row in rows])
         ),
@@ -352,6 +400,9 @@ def main():
         "ready_for_verified_property_listing": False,
         "interpretation": "All reserved captured RGB views, with unchanged COLMAP cameras and no per-view alignment. Reserved images were excluded from dense stereo and texturing but participated in camera estimation. Sparse tracks measure consistency with that same calibration, not independent geometry accuracy. No generated or model-derived depth is treated as truth. The unchanged local mesh baseline is compared only on its common reserved frames. All native materials are embedded and geometry, texture pixels, UVs and node transforms pass a complete export round trip. Scale and building connectivity remain unverified.",
     }
+    result["viewer_metadata_available"] = write_viewer_metadata(
+        model, args.captured_dataset, images, set(frame_ids), result["triangles"]
+    )
     (args.output / "results.json").write_text(json.dumps(result, indent=2) + "\n")
     print(
         json.dumps(
