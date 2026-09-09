@@ -29,7 +29,11 @@ def main():
     parser.add_argument("--depth", type=Path, required=True)
     parser.add_argument("--dataset", type=Path, required=True)
     parser.add_argument("--colmap-text", type=Path, required=True)
-    parser.add_argument("--native-renders", type=Path, required=True)
+    parser.add_argument(
+        "--native-renders",
+        type=Path,
+        help="Native reference PNGs; omit to leave RGB compatibility unmeasured",
+    )
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists():
@@ -42,11 +46,21 @@ def main():
         name = Path(frame["file_path"]).stem
         path = args.depth / f"{name}.npz"
         data = dict(np.load(path))
+        if data["alpha"].shape != (frame["h"], frame["w"]):
+            raise ValueError("Depth dimensions differ from camera calibration")
         native = (
-            np.asarray(Image.open(args.native_renders / f"{name}.png").convert("RGB"))
-            / 255.0
+            (
+                np.asarray(
+                    Image.open(args.native_renders / f"{name}.png").convert("RGB")
+                )
+                / 255.0
+            )
+            if args.native_renders
+            else None
         )
-        difference = np.abs(data["rgb"].clip(0, 1) - native)
+        difference = (
+            np.abs(data["rgb"].clip(0, 1) - native) if native is not None else None
+        )
         visible = (data["alpha"] > 0.9) & (data["median_depth"] > 0)
         narrow = (
             visible
@@ -55,8 +69,12 @@ def main():
         )
         camera = images[f"{name}.jpg"]
         model = camera["camera"]
-        transform = preprocessing_transform(
-            model["width"], model["height"], frame["w"], frame["h"]
+        transform = (
+            np.eye(3)
+            if (frame["w"], frame["h"]) == (model["width"], model["height"])
+            else preprocessing_transform(
+                model["width"], model["height"], frame["w"], frame["h"]
+            )
         )
         pixels, depths = [], []
         for x, y, identifier in camera["observations"]:
@@ -113,10 +131,18 @@ def main():
         row = {
             "frame": int(name),
             "depth_sha256": digest(path),
-            "native_png_sha256": digest(args.native_renders / f"{name}.png"),
-            "renderer_rgb_mae": float(difference.mean()),
-            "renderer_rgb_p99": float(np.quantile(difference, 0.99)),
-            "renderer_rgb_max": float(difference.max()),
+            "native_png_sha256": digest(args.native_renders / f"{name}.png")
+            if args.native_renders
+            else None,
+            "renderer_rgb_mae": float(difference.mean())
+            if difference is not None
+            else None,
+            "renderer_rgb_p99": float(np.quantile(difference, 0.99))
+            if difference is not None
+            else None,
+            "renderer_rgb_max": float(difference.max())
+            if difference is not None
+            else None,
             "sparse_reference_points": len(depths),
             "alpha_over_09": float(visible.mean()),
             "narrow_depth_fraction": float(narrow.mean()),
@@ -174,7 +200,7 @@ def main():
         },
         "metric_accuracy_verified": False,
         "ready_for_verified_property_listing": False,
-        "interpretation": "Renderer RGB agreement checks implementation compatibility. Sparse COLMAP points participated in camera estimation and seed geometry; they are not independent surveyed truth. Median depth uses center-depth ordering and each selected Gaussian's conditional projected Z. IQR and component width are diagnostics, not calibrated confidence probabilities. Center-depth expectation is the unchanged Gaussian extraction baseline.",
+        "interpretation": "Renderer RGB agreement checks implementation compatibility only when native reference images were supplied; otherwise it is unmeasured. Sparse COLMAP points participated in camera estimation and seed geometry; they are not independent surveyed truth. Median depth uses center-depth ordering and each selected Gaussian's conditional projected Z. IQR and component width are diagnostics, not calibrated confidence probabilities. Center-depth expectation is the unchanged Gaussian extraction baseline.",
     }
     (args.output / "results.json").write_text(json.dumps(report, indent=2))
     print(json.dumps(rows), flush=True)
