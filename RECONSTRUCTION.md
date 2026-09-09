@@ -7,6 +7,8 @@ It does not certify dimensions from an uncalibrated monocular video.
 Current status is a research prototype.
 The short integration capture passes internal screening, but every tested full-walkthrough variant still fails fidelity checks.
 The [implementation report](artifacts/research/mac-reconstruction-results.md) identifies the current review asset and its remaining failures.
+The [Brush experiment report](artifacts/research/photometric-and-brush-results.md) includes native Metal Gaussian training, calibrated dataset export and reserved-image comparisons.
+Its current result covers a 24-second section and does not replace the unresolved full-building geometry checks.
 
 ## Setup
 

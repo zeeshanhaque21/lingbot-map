@@ -13,6 +13,8 @@ The long checkpoint SHA-256 is `832bc82cbae0bc9bbe946ef5ee1f7226abd8c0e183ccf8be
 The latest complete-scene experiment is `reconstructions/direct-bundle-cauchy-v1/candidate/model/property.glb`.
 It improves reserved feature alignment and has five failing app viewpoints out of 100, while its full mesh fails six.
 The complete camera-optimization and MapAnything comparisons appear below.
+The subsequent [depth-correction and native Brush experiments](photometric-and-brush-results.md) retain three failed depth variants and compare shared Gaussian optimization with an unchanged TSDF.
+Brush runs on Metal and improves local reserved-view appearance, while geometric and property-verification checks remain unresolved.
 Neither the latest candidate nor the earlier review baseline is verified for property listings.
 
 The hybrid candidate at `reconstructions/indoor-travel-learned-motion10-bootstrap/model/property.glb` is retained for review.
@@ -371,7 +373,8 @@ Reproduce the calibration-conditioned inference with:
 The completed-run check validates the saved archive hash and reuses it.
 Fusion and source/app validation use the existing `lingbot_map.reconstruction.fusion.fuse` and `lingbot_map.reconstruction.validation.validate` functions in `.venv-reconstruction`.
 The complete experiment snapshots, including failures and checkpoint hashes, are in [fidelity-spikes.json](evidence/fidelity-spikes.json).
-The next depth experiment should test direct multiview image evidence with fixed cameras and explicit occlusion handling; additional generative polishing does not address the measured geometry failures.
+The subsequent direct multiview experiments retain fixed cameras and explicit occlusion handling, but lose surface coverage and fail screening.
+Their results and the native Brush comparison are recorded in [the next experiment report](photometric-and-brush-results.md).
 
 The current validation images are withheld from fusion, but still participate in learned inference or photogrammetry.
 The feature-track split is also a development check, not independently surveyed ground truth.

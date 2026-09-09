@@ -1,5 +1,9 @@
 # House reconstruction from walkthrough video
 
+Implementation continuation, 2026-09-09: the [native Mac pipeline and measured failures](mac-reconstruction-results.md) now include complete walkthrough reconstruction and exported-asset checks.
+The latest [image-constrained depth and Brush experiments](photometric-and-brush-results.md) document failed depth corrections and successful native Metal training of a local Gaussian model.
+The local appearance improvement is not a verified full-building reconstruction.
+
 ## Recommendation
 
 Start with **LingBot-Map on the existing video**, evaluate Depth Anything 3 as a complementary reconstruction/depth candidate, and retain a conventional photogrammetry baseline.

@@ -32,7 +32,7 @@ def main():
         "mapanything_local": "mapanything-mac-760/completed.json",
         "mapanything_local_comparison": "mapanything-mac-760/local-comparison.jsonl",
         "photometric_synthetic_mps": "photometric-depth-synthetic-mps.json",
-        "brush_chair_comparison": "brush-chair-760/evaluation-combined/results.json",
+        "brush_chair_comparison": "brush-chair-760/evaluation-final/results.json",
     }.items():
         path = captures / relative
         if not path.exists():
@@ -136,7 +136,7 @@ def main():
         source = captures / run / "model" / f"web-source-comparison-{page}.jpg"
         if source.exists():
             shutil.copy2(source, evidence / name)
-    for source in (captures / "brush-chair-760/evaluation-combined").glob(
+    for source in (captures / "brush-chair-760/evaluation-final").glob(
         "*-comparison.jpg"
     ):
         shutil.copy2(source, evidence / f"brush-{source.name}")
