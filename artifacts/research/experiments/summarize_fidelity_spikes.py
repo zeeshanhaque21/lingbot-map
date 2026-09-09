@@ -24,6 +24,13 @@ def main():
         "fresh_context_float32": "local-depth-reset-760-float32/local-comparison.jsonl",
         "visibility_carving": "visibility-carving-v1/results.json",
         "camera_pair_fits": "pair-pose-falsifier-v1/results.jsonl",
+        "joint_pose_graph": "joint-pose-graph-v1/results.json",
+        "direct_bundle_huber": "direct-bundle-v1/results.json",
+        "direct_bundle_huber_objective": "direct-bundle-v1/objective-diagnostics.json",
+        "direct_bundle_cauchy": "direct-bundle-cauchy-v1/results.json",
+        "mapanything_smoke": "mapanything-mac-smoke-785/completed.json",
+        "mapanything_local": "mapanything-mac-760/completed.json",
+        "mapanything_local_comparison": "mapanything-mac-760/local-comparison.jsonl",
     }.items():
         path = captures / relative
         if not path.exists():
@@ -34,6 +41,14 @@ def main():
             if path.suffix == ".jsonl"
             else json.loads(path.read_text()),
         }
+    for run in ["joint-pose-graph-v1", "direct-bundle-v1", "direct-bundle-cauchy-v1"]:
+        path = captures / run / "camera-comparison.json"
+        if path.exists():
+            comparison = json.loads(path.read_text())
+            for value in comparison.values():
+                if isinstance(value, dict):
+                    value.pop("per_frame", None)
+            records[f"{run}_camera_comparison"] = comparison
     for run in ["indoor-travel-learned-cameras-v1", "indoor-travel-learned-motion10-bootstrap", "indoor-travel-native-stream1000"]:
         model = captures / run / "model"
         records[run] = {}
@@ -48,6 +63,7 @@ def main():
     for run, page, name in [
         ("indoor-travel-learned-motion10-bootstrap", "05", "hybrid-app-comparison.jpg"),
         ("indoor-travel-native-stream1000", "08", "native-stream-app-comparison.jpg"),
+        ("direct-bundle-cauchy-v1/candidate", "13", "robust-bundle-chair-comparison.jpg"),
     ]:
         source = captures / run / "model" / f"web-source-comparison-{page}.jpg"
         if source.exists():

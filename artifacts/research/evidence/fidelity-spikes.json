@@ -1667,6 +1667,490 @@
       }
     ]
   },
+  "joint_pose_graph": {
+    "source": "joint-pose-graph-v1/results.json",
+    "result": {
+      "full": {
+        "median_rendered_coverage": 0.8586399810889607,
+        "median_supported_depth_fraction": 0.6430290470674804,
+        "minimum_supported_depth_fraction": 0.0,
+        "mesh": "observed-surfaces.ply",
+        "median_absolute_rgb_error_visible": 0.11705140397069497,
+        "metric_accuracy_verified": false,
+        "visual_completeness_gate": true,
+        "view_consistency_gate": false,
+        "ready_for_verified_property_listing": false,
+        "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+        "thresholds": {
+          "median_coverage_minimum": 0.7,
+          "median_depth_support_minimum": 0.6,
+          "relative_depth_tolerance": 0.05,
+          "per_view_depth_support_minimum": 0.4,
+          "median_rgb_error_maximum": 0.12,
+          "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+        },
+        "required_external_checks": [
+          "Measured scale and independent held-out lengths",
+          "Room connectivity and loop drift",
+          "Missing wall, doorway, glass and ceiling review"
+        ],
+        "failed_views": [
+          65,
+          325,
+          415,
+          435,
+          485,
+          525,
+          535,
+          705,
+          785,
+          955
+        ]
+      },
+      "app": {
+        "median_rendered_coverage": 0.8251845139600242,
+        "median_supported_depth_fraction": 0.6228035615790718,
+        "minimum_supported_depth_fraction": 0.0,
+        "mesh": "property.glb",
+        "median_absolute_rgb_error_visible": 0.11537651447816054,
+        "metric_accuracy_verified": false,
+        "visual_completeness_gate": true,
+        "view_consistency_gate": false,
+        "ready_for_verified_property_listing": false,
+        "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+        "thresholds": {
+          "median_coverage_minimum": 0.7,
+          "median_depth_support_minimum": 0.6,
+          "relative_depth_tolerance": 0.05,
+          "per_view_depth_support_minimum": 0.4,
+          "median_rgb_error_maximum": 0.12,
+          "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+        },
+        "required_external_checks": [
+          "Measured scale and independent held-out lengths",
+          "Room connectivity and loop drift",
+          "Missing wall, doorway, glass and ceiling review"
+        ],
+        "failed_views": [
+          65,
+          205,
+          325,
+          415,
+          435,
+          485,
+          525,
+          535,
+          665,
+          705,
+          785,
+          955
+        ]
+      }
+    }
+  },
+  "direct_bundle_huber": {
+    "source": "direct-bundle-v1/results.json",
+    "result": {
+      "full": {
+        "median_rendered_coverage": 0.8677277860951331,
+        "median_supported_depth_fraction": 0.7119305894816099,
+        "minimum_supported_depth_fraction": 0.18032901706371093,
+        "mesh": "observed-surfaces.ply",
+        "median_absolute_rgb_error_visible": 0.10251150943298531,
+        "metric_accuracy_verified": false,
+        "visual_completeness_gate": true,
+        "view_consistency_gate": false,
+        "ready_for_verified_property_listing": false,
+        "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+        "thresholds": {
+          "median_coverage_minimum": 0.7,
+          "median_depth_support_minimum": 0.6,
+          "relative_depth_tolerance": 0.05,
+          "per_view_depth_support_minimum": 0.4,
+          "median_rgb_error_maximum": 0.12,
+          "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+        },
+        "required_external_checks": [
+          "Measured scale and independent held-out lengths",
+          "Room connectivity and loop drift",
+          "Missing wall, doorway, glass and ceiling review"
+        ],
+        "failed_views": [
+          355,
+          785,
+          795,
+          945,
+          965
+        ]
+      },
+      "app": {
+        "median_rendered_coverage": 0.8431467181467182,
+        "median_supported_depth_fraction": 0.6863525332913087,
+        "minimum_supported_depth_fraction": 0.16840455615965821,
+        "mesh": "property.glb",
+        "median_absolute_rgb_error_visible": 0.1054388963875495,
+        "metric_accuracy_verified": false,
+        "visual_completeness_gate": true,
+        "view_consistency_gate": false,
+        "ready_for_verified_property_listing": false,
+        "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+        "thresholds": {
+          "median_coverage_minimum": 0.7,
+          "median_depth_support_minimum": 0.6,
+          "relative_depth_tolerance": 0.05,
+          "per_view_depth_support_minimum": 0.4,
+          "median_rgb_error_maximum": 0.12,
+          "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+        },
+        "required_external_checks": [
+          "Measured scale and independent held-out lengths",
+          "Room connectivity and loop drift",
+          "Missing wall, doorway, glass and ceiling review"
+        ],
+        "failed_views": [
+          355,
+          515,
+          535,
+          665,
+          785,
+          795,
+          945,
+          965
+        ]
+      }
+    }
+  },
+  "direct_bundle_huber_objective": {
+    "source": "direct-bundle-v1/objective-diagnostics.json",
+    "result": {
+      "observations": 466983,
+      "pixel_error_p50_p95_p99_p999_max": [
+        0.7843130826950073,
+        5.417150545120237,
+        91.93760223388661,
+        333.3402904052708,
+        466164.875
+      ],
+      "pixel_loss_mean": 2.442974090576172,
+      "fraction_pixel_loss_from_worst_one_percent": 0.7596829533576965,
+      "count_over_100px": 4232,
+      "total_loss": 2.4949750900268555
+    }
+  },
+  "direct_bundle_cauchy": {
+    "source": "direct-bundle-cauchy-v1/results.json",
+    "result": {
+      "full": {
+        "median_rendered_coverage": 0.8724424132587398,
+        "median_supported_depth_fraction": 0.717205543736156,
+        "minimum_supported_depth_fraction": 0.27392750831728246,
+        "mesh": "observed-surfaces.ply",
+        "median_absolute_rgb_error_visible": 0.09501355827717198,
+        "metric_accuracy_verified": false,
+        "visual_completeness_gate": true,
+        "view_consistency_gate": false,
+        "ready_for_verified_property_listing": false,
+        "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+        "thresholds": {
+          "median_coverage_minimum": 0.7,
+          "median_depth_support_minimum": 0.6,
+          "relative_depth_tolerance": 0.05,
+          "per_view_depth_support_minimum": 0.4,
+          "median_rgb_error_maximum": 0.12,
+          "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+        },
+        "required_external_checks": [
+          "Measured scale and independent held-out lengths",
+          "Room connectivity and loop drift",
+          "Missing wall, doorway, glass and ceiling review"
+        ],
+        "failed_views": [
+          355,
+          515,
+          665,
+          755,
+          785,
+          795
+        ]
+      },
+      "app": {
+        "median_rendered_coverage": 0.8384452236493053,
+        "median_supported_depth_fraction": 0.7081615142839632,
+        "minimum_supported_depth_fraction": 0.24874803011731747,
+        "mesh": "property.glb",
+        "median_absolute_rgb_error_visible": 0.10173505514047199,
+        "metric_accuracy_verified": false,
+        "visual_completeness_gate": true,
+        "view_consistency_gate": false,
+        "ready_for_verified_property_listing": false,
+        "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+        "thresholds": {
+          "median_coverage_minimum": 0.7,
+          "median_depth_support_minimum": 0.6,
+          "relative_depth_tolerance": 0.05,
+          "per_view_depth_support_minimum": 0.4,
+          "median_rgb_error_maximum": 0.12,
+          "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+        },
+        "required_external_checks": [
+          "Measured scale and independent held-out lengths",
+          "Room connectivity and loop drift",
+          "Missing wall, doorway, glass and ceiling review"
+        ],
+        "failed_views": [
+          355,
+          515,
+          665,
+          785,
+          795
+        ]
+      }
+    }
+  },
+  "mapanything_smoke": {
+    "source": "mapanything-mac-smoke-785/completed.json",
+    "result": {
+      "pinhole_relative_error_p50_p95_p99": [
+        0.003623113844446628,
+        0.01154886695207067,
+        0.01629009288077853
+      ],
+      "native_c2w_world_error_max": 1.9660499219753547e-06,
+      "native_c2w_world_error_relative_p99": 2.3225396716952673e-07,
+      "mask_fraction": 1.0,
+      "depth_p5_p50_p95": [
+        0.6103448003530503,
+        0.9027605354785919,
+        2.4926698684692363
+      ],
+      "inference_seconds": 1.0446842919918709,
+      "frames": 2,
+      "metric_accuracy_verified": false,
+      "mps_current_bytes": 4964965120,
+      "mps_driver_bytes": 5496422400,
+      "archive_sha256": "056ba092054d8d73bfbfa841f6cfd48e74d91abf5bd986910b84980f202485e3"
+    }
+  },
+  "mapanything_local": {
+    "source": "mapanything-mac-760/completed.json",
+    "result": {
+      "pinhole_relative_error_p50_p95_p99": [
+        0.0057102538543753485,
+        0.020484895721041025,
+        0.03308137187999071
+      ],
+      "native_c2w_world_error_max": 3.846231720672222e-06,
+      "native_c2w_world_error_relative_p99": 8.24299092982983e-07,
+      "mask_fraction": 0.9999861833407752,
+      "depth_p5_p50_p95": [
+        0.5712312638759613,
+        1.8709571361541748,
+        6.613912677764892
+      ],
+      "inference_seconds": 29.951877540996065,
+      "frames": 48,
+      "metric_accuracy_verified": false,
+      "mps_current_bytes": 6051158784,
+      "mps_driver_bytes": 10693165056,
+      "archive_sha256": "53b2b373d3e838c5f0dd09de06816d46ec4ee5a06528ad73baa09606f87d5e36"
+    }
+  },
+  "mapanything_local_comparison": {
+    "source": "mapanything-mac-760/local-comparison.jsonl",
+    "result": [
+      {
+        "target": 775,
+        "arm": "mapanything-window",
+        "frames_fused": 43,
+        "window_start": 760,
+        "coverage": 0.7446681375252804,
+        "supported_depth_fraction": 0.6208013446202061,
+        "rgb_mae_visible": 0.12174046500685742,
+        "median_depth_error": 0.019853120280571863,
+        "triangles": 3427430,
+        "seconds": 5.190274417007458
+      },
+      {
+        "target": 775,
+        "arm": "mapanything-neighbors",
+        "frames_fused": 16,
+        "window_start": 760,
+        "coverage": 0.7415359966380375,
+        "supported_depth_fraction": 0.621212784396803,
+        "rgb_mae_visible": 0.12060450426517902,
+        "median_depth_error": 0.019476796829464935,
+        "triangles": 1367431,
+        "seconds": 2.0203803750046063
+      },
+      {
+        "target": 785,
+        "arm": "mapanything-window",
+        "frames_fused": 43,
+        "window_start": 760,
+        "coverage": 0.8598284873795078,
+        "supported_depth_fraction": 0.2505318636678019,
+        "rgb_mae_visible": 0.18420337631151332,
+        "median_depth_error": 0.10619802446303928,
+        "triangles": 3427430,
+        "seconds": 5.055676750009297
+      },
+      {
+        "target": 785,
+        "arm": "mapanything-neighbors",
+        "frames_fused": 16,
+        "window_start": 760,
+        "coverage": 0.664821527066425,
+        "supported_depth_fraction": 0.11497885677765035,
+        "rgb_mae_visible": 0.1731999095462588,
+        "median_depth_error": 0.12431153197544449,
+        "triangles": 1173658,
+        "seconds": 1.6992790420044912
+      },
+      {
+        "target": 795,
+        "arm": "mapanything-window",
+        "frames_fused": 43,
+        "window_start": 760,
+        "coverage": 0.7803364589078875,
+        "supported_depth_fraction": 0.5662382686650791,
+        "rgb_mae_visible": 0.13993468507153112,
+        "median_depth_error": 0.03600533657873064,
+        "triangles": 3427430,
+        "seconds": 5.196753541997168
+      },
+      {
+        "target": 795,
+        "arm": "mapanything-neighbors",
+        "frames_fused": 16,
+        "window_start": 760,
+        "coverage": 0.6736466787487195,
+        "supported_depth_fraction": 0.6347790306765654,
+        "rgb_mae_visible": 0.1264695657093339,
+        "median_depth_error": 0.026399615089577663,
+        "triangles": 1012715,
+        "seconds": 1.6038296250044368
+      }
+    ]
+  },
+  "joint-pose-graph-v1_camera_comparison": {
+    "baseline": {
+      "reserved_observations": 122264,
+      "pixel_error_p50_p90_p95": [
+        1.6141290760460572,
+        5.466143922716352,
+        8.430152680349185
+      ],
+      "relative_3d_error_p50_p90_p95": [
+        0.013555039383770746,
+        0.04676606186849434,
+        0.06801086431803312
+      ],
+      "interpretation": "Tracks reserved from pair fitting; shared depth and source images, not independent survey accuracy"
+    },
+    "optimized": {
+      "reserved_observations": 122264,
+      "pixel_error_p50_p90_p95": [
+        1.7854752488223937,
+        7.469758826620308,
+        11.769295826809431
+      ],
+      "relative_3d_error_p50_p90_p95": [
+        0.013724610456054939,
+        0.049467869766650144,
+        0.07515313194180842
+      ],
+      "interpretation": "Tracks reserved from pair fitting; shared depth and source images, not independent survey accuracy"
+    },
+    "relative_translation_change_p50_p90_p95": [
+      1.7594893370318694,
+      4.2318913405886915,
+      4.454453131105504
+    ],
+    "rotation_change_degrees_p50_p90_p95": [
+      29.431053855300373,
+      35.911949294321836,
+      37.60919736124475
+    ],
+    "accepted_feature_edges": 3419,
+    "retained_graph_edges": 4275,
+    "weak_prior_edges": 999
+  },
+  "direct-bundle-v1_camera_comparison": {
+    "baseline": {
+      "reserved_observations": 122264,
+      "pixel_error_p50_p90_p95": [
+        1.6141290760460572,
+        5.466143922716352,
+        8.430152680349185
+      ],
+      "relative_3d_error_p50_p90_p95": [
+        0.013555039383770746,
+        0.04676606186849434,
+        0.06801086431803312
+      ],
+      "interpretation": "Tracks reserved from pair fitting; shared depth and source images, not independent survey accuracy"
+    },
+    "optimized": {
+      "reserved_observations": 122264,
+      "pixel_error_p50_p90_p95": [
+        0.975198112635572,
+        4.771819520455102,
+        10.036514504253091
+      ],
+      "relative_3d_error_p50_p90_p95": [
+        0.013696855803621018,
+        0.05425170131157993,
+        0.0923792454359462
+      ],
+      "interpretation": "Tracks reserved from pair fitting; shared depth and source images, not independent survey accuracy"
+    },
+    "depth_scale_p0_p5_p50_p95_p100": [
+      0.9996047019958496,
+      0.999954879283905,
+      1.0000027418136597,
+      1.0000664472579956,
+      1.0006259679794312
+    ],
+    "metric_accuracy_verified": false
+  },
+  "direct-bundle-cauchy-v1_camera_comparison": {
+    "baseline": {
+      "reserved_observations": 122264,
+      "pixel_error_p50_p90_p95": [
+        1.6141290760460572,
+        5.466143922716352,
+        8.430152680349185
+      ],
+      "relative_3d_error_p50_p90_p95": [
+        0.013555039383770746,
+        0.04676606186849434,
+        0.06801086431803312
+      ],
+      "interpretation": "Tracks reserved from pair fitting; shared depth and source images, not independent survey accuracy"
+    },
+    "optimized": {
+      "reserved_observations": 122264,
+      "pixel_error_p50_p90_p95": [
+        0.5761958552544988,
+        2.362745973962127,
+        4.03378249433102
+      ],
+      "relative_3d_error_p50_p90_p95": [
+        0.01356295702524183,
+        0.04748603314412956,
+        0.06911524125344037
+      ],
+      "interpretation": "Tracks reserved from pair fitting; shared depth and source images, not independent survey accuracy"
+    },
+    "depth_scale_p0_p5_p50_p95_p100": [
+      0.988999605178833,
+      0.9960130035877228,
+      1.000158429145813,
+      1.004695862531662,
+      1.0101171731948853
+    ],
+    "metric_accuracy_verified": false
+  },
   "indoor-travel-learned-cameras-v1": {
     "validation.json": {
       "status": "reconstructed_unverified_metric_accuracy",

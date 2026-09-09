@@ -261,8 +261,67 @@ At frame 515's pair, it lowers error from 1.54 to 0.83 pixels over 19 reserved m
 At frame 355's pair, the native poses have 20.30 pixels median error over nine reserved matches despite their high local depth support; the registered poses have 1.21 pixels error.
 This is a concrete counterexample to treating agreement with predicted depth as proof of correct camera motion.
 Frame 785 has insufficient reserved feature tracks for this paired comparison.
-The next geometry experiment must jointly optimize rotations and translations while retaining both feature alignment and complete-scene render checks.
-The camera-pair results do not yet prove a corrected full-scene model.
+The camera-pair results motivated the complete-scene camera experiments below.
+They did not themselves prove a corrected full-scene model.
+
+### Complete-scene camera optimization
+
+`experiments/joint_pose_graph.py` builds an SE3 pose graph for all 1,000 cameras from depth-backed feature correspondences.
+It fits 4,467 camera pairs and accepts 3,419 feature edges, with weak existing-motion priors keeping the graph connected.
+The transform convention and information matrices are verified against [Open3D's pose-graph formulation](https://www.open3d.org/docs/release/tutorial/pipelines/multiway_registration.html) and a synthetic camera graph.
+This first graph worsens reserved feature alignment and increases exported-view failures from seven to twelve.
+Its complete output is retained in `reconstructions/joint-pose-graph-v1/`.
+
+`experiments/direct_bundle_refinement.py` instead jointly optimizes camera rotations, camera centers, 90,591 shared landmarks and per-frame depth scales against 466,983 training feature observations.
+Camera zero anchors the coordinate system; reserved feature tracks do not contribute to the objective or its normalization.
+Each outer optimization step saves a resumable parameter checkpoint and appends its trace.
+The implementation runs on MPS and reconstructs and validates both complete output meshes after optimization.
+
+The pseudo-Huber version lowers median reserved feature error but worsens its tail and increases app failures to eight.
+An objective audit finds that the worst 1% of training matches contributes 75.97% of its pixel loss.
+The Cauchy variant reduces those outliers' influence while preserving the same near-zero curvature and all reserved checks.
+Absolute training objectives from these two loss functions are not comparable quality scores.
+
+| Complete-scene variant | Reserved feature error, median / 95th percentile, pixels | App median depth support | App median RGB error | App failures / 100 |
+|---|---:|---:|---:|---:|
+| Unchanged registered baseline | 1.614 / 8.430 | 69.38% | 0.1053 | 7 |
+| SE3 pose graph | 1.785 / 11.769 | 62.28% | 0.1154 | 12 |
+| Direct bundle, pseudo-Huber | 0.975 / 10.037 | 68.64% | 0.1054 | 8 |
+| Direct bundle, Cauchy | 0.576 / 4.034 | 70.82% | 0.1017 | 5 |
+
+Feature statistics cover 122,264 reserved correspondences at the processed image resolution.
+All rows use the same original video and all 100 reserved rendering viewpoints, but optimized poses and depth scales change each candidate's rendering references.
+These are development comparisons, not independent measurements of building accuracy.
+The Cauchy model's app failures are frames 355, 515, 665, 785 and 795.
+Its full mesh fails six views: 355, 515, 665, 755, 785 and 795.
+Its improved median statistics therefore do not establish uniformly improved or faithful geometry.
+
+The Cauchy full mesh has 39,018,464 triangles; its GLB has 3,000,000 triangles and SHA-256 `b92b7c0f5e7714c32a4a979bb03024081cb241ac4ee09fbe47e7963a50282f53`.
+Fusion and export take 417.74 seconds in this run, excluding model inference, optimization and rendering validation.
+The complete candidate is `reconstructions/direct-bundle-cauchy-v1/candidate/`.
+Visual inspection still shows warped chair backs and missing nearby surfaces.
+
+![Exported robust-bundle mesh beside captured chair-section views](evidence/robust-bundle-chair-comparison.jpg)
+
+### MapAnything on the Mac
+
+[MapAnything](https://github.com/facebookresearch/map-anything) accepts images and optional calibration, poses or depth, making it relevant both as an alternative depth model and as a geometry-conditioned reconstruction component.
+The repository recommends its [Apache model](https://huggingface.co/facebook/map-anything-apache) for commercial applications; this experiment uses that checkpoint, rather than the noncommercial research weights.
+The local source checkout is commit `3d10cf7a3016fc0f9bb13a071ee66c47b10be0d9`, with UniCeption 0.1.7, PyTorch 2.13.0 and torchvision 0.28.0 in `.venv-mapanything`.
+Checkpoint revision `00f9c245bbcb60522d1ed7f9e9d88462c6e3f38a` contains a 4,914,062,480-byte weights file, verified as SHA-256 `fa06c0fdccefc5048e072c85935d5789b1e36b307f3859033c17f9dcb9fd5201`.
+The model files were obtained through Motrix with a pinned revision and checksum.
+
+`experiments/mapanything_mac.py` loads the complete local checkpoint strictly and redirects its DINO architecture lookup to local checkout `7764ea0f912e53c92e82eb78a2a1631e92725fc8`.
+It rejects backbone-weight downloads, records source-frame hashes, checks the predicted C2W convention against native world points, and exports the existing pipeline's depth/K/W2C archive format.
+The first two-frame GPU inference completed, but publication exposed an adapter assumption: raw inference returns `non_ambiguous_mask`, while the combined `mask` field exists only when output masking is requested.
+The adapter now uses the raw non-ambiguous mask and leaves edge/support filtering to the reconstruction pipeline.
+Three focused tests cover camera-coordinate conversion, rejection of incorrect pose conventions and prevention of redundant backbone downloads.
+
+The repeated two-frame check on original frames 785 and 786 completes in float32 on MPS, with 1.04 seconds measured for inference and 5.50 GB reported driver allocation after inference.
+This is a warm two-frame compatibility check, not a throughput benchmark or full-scene accuracy result.
+The 99th-percentile relative difference between the fitted pinhole representation and native camera points is 1.63%; native C2W reconstruction agrees with native world points to about 2.4e-7 relative error at the 99th percentile.
+The pinhole approximation must therefore remain visible in subsequent comparisons.
+The 48-frame chair-section experiment uses the same original frames 760 through 807 as the Lingbot precision comparison.
 
 The current validation images are withheld from fusion, but still participate in learned inference or photogrammetry.
 The feature-track split is also a development check, not independently surveyed ground truth.

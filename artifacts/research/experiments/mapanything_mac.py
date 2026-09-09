@@ -6,12 +6,12 @@ Use the separate .venv-mapanything environment for inference and the existing
 """
 
 import argparse
-from contextlib import contextmanager
 import hashlib
 import json
-from pathlib import Path
 import subprocess
 import time
+from contextlib import contextmanager
+from pathlib import Path
 from unittest.mock import patch
 
 import numpy as np
@@ -57,7 +57,9 @@ def pack_predictions(predictions):
     poses = array("camera_poses")
     intrinsics = array("intrinsics")
     confidence = array("conf")
-    mask = array("mask")[..., 0].astype(bool)
+    # apply_mask=False retains raw geometry and returns this original mask.
+    # The reconstruction pipeline performs its own edge/support filtering.
+    mask = array("non_ambiguous_mask").astype(bool)
     rgb = (array("img_no_norm") * 255).round().clip(0, 255).astype(np.uint8)
     if not all(np.isfinite(x).all() for x in (depth, poses, intrinsics, confidence)):
         raise ValueError("Nonfinite predictions; preserve run for diagnosis")
@@ -110,6 +112,41 @@ def pack_predictions(predictions):
     }, report
 
 
+def processed_sources(root, selected):
+    cameras = json.loads((root / "model/cameras.json").read_text())
+    windows = sorted((root / "windows").glob("*.npz"))
+    by_frame = {camera["frame"]: windows[camera["window"]] for camera in cameras}
+    paths = [by_frame[frame["id"]] for frame in selected]
+    return paths, {str(path.resolve()): digest(path) for path in set(paths)}
+
+
+def conditioned_views(paths, selected, conditioning):
+    """Use the exact owning-window RGB/K/pose triplet, with no resizing ambiguity."""
+    views = []
+    mean = torch.tensor([0.485, 0.456, 0.406])[:, None, None]
+    std = torch.tensor([0.229, 0.224, 0.225])[:, None, None]
+    data, previous = None, None
+    for path, frame in zip(paths, selected):
+        if path != previous:
+            with np.load(path) as archive:
+                data = dict(archive)
+            previous = path
+        index = int(np.flatnonzero(data["frame_ids"] == frame["id"])[0])
+        rgb = torch.from_numpy(data["rgb"][index].copy()).permute(2, 0, 1).float() / 255
+        view = {"img": ((rgb - mean) / std)[None], "data_norm_type": ["dinov2"]}
+        if conditioning in ("calibration", "posed"):
+            view["intrinsics"] = torch.from_numpy(data["intrinsics"][index].copy())[
+                None
+            ]
+        if conditioning == "posed":
+            w2c = np.eye(4, dtype=np.float32)
+            w2c[:3] = data["extrinsics"][index]
+            view["camera_poses"] = torch.from_numpy(np.linalg.inv(w2c))[None]
+            view["is_metric_scale"] = False
+        views.append(view)
+    return views
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, required=True)
@@ -119,6 +156,14 @@ def main():
     parser.add_argument("--start", type=int, default=760)
     parser.add_argument("--count", type=int, default=48)
     parser.add_argument("--device", choices=("mps", "cpu"), default="mps")
+    parser.add_argument(
+        "--processed-source",
+        type=Path,
+        help="Reuse exact owning-window RGB, calibration and optional poses",
+    )
+    parser.add_argument(
+        "--conditioning", choices=("images", "calibration", "posed"), default="images"
+    )
     args = parser.parse_args()
     source = args.source.resolve()
     manifest = json.loads((source / "input.json").read_text())
@@ -130,7 +175,15 @@ def main():
     if args.device == "mps" and not torch.backends.mps.is_available():
         parser.error("MPS is unavailable")
     paths = [(source / frame["file"]).resolve() for frame in selected]
+    if args.conditioning != "images" and args.processed_source is None:
+        parser.error("Conditioning requires --processed-source")
+    processed_paths, processed_hashes = [], {}
+    if args.processed_source is not None:
+        processed_paths, processed_hashes = processed_sources(
+            args.processed_source, selected
+        )
     signature = {
+        "adapter_schema": 2,
         "model": "facebook/map-anything-apache",
         "weights_directory": str(args.weights.resolve()),
         "checkpoint_sha256": digest(args.weights / "model.safetensors"),
@@ -145,7 +198,12 @@ def main():
         "device": args.device,
         "precision": "float32",
         "resolution": [518, 294],
-        "input_modalities": ["images"],
+        "input_modalities": {
+            "images": ["images"],
+            "calibration": ["images", "intrinsics"],
+            "posed": ["images", "intrinsics", "unscaled_poses"],
+        }[args.conditioning],
+        "processed_window_sha256": processed_hashes,
     }
     args.output.mkdir(parents=True, exist_ok=True)
     signature_path = args.output / "run-signature.json"
@@ -178,8 +236,12 @@ def main():
         )
     model = model.to(args.device).eval()
     print(f"Loaded model in {time.monotonic() - started:.1f}s", flush=True)
-    views = load_images(
-        [str(path) for path in paths], resize_mode="fixed_size", size=(518, 294)
+    views = (
+        conditioned_views(processed_paths, selected, args.conditioning)
+        if processed_paths
+        else load_images(
+            [str(path) for path in paths], resize_mode="fixed_size", size=(518, 294)
+        )
     )
     inference_start = time.monotonic()
     with torch.inference_mode():
@@ -226,12 +288,12 @@ def main():
         {
             **signature,
             "window": args.count,
-            "overlap": 0,
+            "overlap": min(24, args.count // 2),
             "image_size": 518,
             "schema": 2,
             "checkpoint_pose_convention": "camera-to-world",
             "stored_pose_convention": "world-to-camera",
-            "pose_source": "MapAnything Apache image-only predictions",
+            "pose_source": f"MapAnything Apache {args.conditioning} predictions",
         },
     )
     report["archive_sha256"] = digest(args.output / "windows/000000.npz")
