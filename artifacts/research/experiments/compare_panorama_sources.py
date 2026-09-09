@@ -86,6 +86,11 @@ def main():
     parser.add_argument("--station", default="000")
     parser.add_argument("--panorama", type=Path, required=True)
     parser.add_argument("--baseline", type=Path, required=True)
+    parser.add_argument(
+        "--coverage",
+        type=Path,
+        help="Shared direction mask for matching partial candidate and baseline sweeps",
+    )
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.output.exists():
@@ -114,6 +119,12 @@ def main():
         or candidate.shape[1] != 2 * candidate.shape[0]
     ):
         parser.error("Use matching 2:1 candidate and baseline panoramas")
+    coverage = None
+    if args.coverage:
+        coverage = np.asarray(Image.open(args.coverage).convert("L"), dtype=np.float32)
+        if coverage.shape != candidate.shape[:2]:
+            parser.error("Coverage mask dimensions must match the panoramas")
+        coverage = (coverage > 0).astype(np.float32)
     renderer = SurfaceRenderer.from_file(args.tour / "render-mesh.ply")
     args.output.mkdir(parents=True)
     records = []
@@ -128,6 +139,8 @@ def main():
             height,
             (candidate.shape[1], candidate.shape[0]),
         )
+        if coverage is not None:
+            mask &= sample_panorama(coverage, x, y) >= 1 - 1e-6
         raw_view = sample_panorama(baseline, x, y)
         candidate_view = sample_panorama(candidate, x, y)
         record = {
@@ -168,6 +181,7 @@ def main():
         "baseline_sha256": digest(args.baseline),
         "mesh_sha256": digest(args.tour / "render-mesh.ply"),
         "cameras_sha256": digest(cameras_path),
+        "shared_direction_mask_sha256": digest(args.coverage) if args.coverage else None,
         "visibility_tolerance_relative": 0.001,
         "visibility_tolerance_absolute": 1e-5,
         "visibility_boundary_erosion_pixels": 1,
