@@ -1,6 +1,9 @@
 import numpy as np
+import pytest
+import torch
 
 from artifacts.research.experiments.photometric_depth_falsifier import refine_frame
+from artifacts.research.experiments.spatial_depth_cost import spatial_costs
 
 
 def plane_scene(pure_rotation=False, texture=True):
@@ -60,10 +63,11 @@ def plane_scene(pure_rotation=False, texture=True):
     }
 
 
-def test_recovers_known_depth_even_when_prior_is_occluded():
+@pytest.mark.parametrize("spatial", [False, True])
+def test_recovers_known_depth_even_when_prior_is_occluded(spatial):
     data = plane_scene()
     original = data["depth"].copy()
-    result, report = refine_frame(data, 2, "cpu", hypotheses=65)
+    result, report = refine_frame(data, 2, "cpu", hypotheses=65, spatial=spatial)
     accepted = result != original[2]
     assert report["changed_fraction"] > 0.05
     assert report["accepted_from_occluded_prior_fraction"] > 0.05
@@ -71,26 +75,47 @@ def test_recovers_known_depth_even_when_prior_is_occluded():
     np.testing.assert_array_equal(data["depth"], original)
 
 
-def test_unobservable_depth_and_flat_texture_preserve_prior():
+@pytest.mark.parametrize("spatial", [False, True])
+def test_unobservable_depth_and_flat_texture_preserve_prior(spatial):
     for data in [plane_scene(pure_rotation=True), plane_scene(texture=False)]:
-        result, report = refine_frame(data, 2, "cpu", hypotheses=17)
+        result, report = refine_frame(data, 2, "cpu", hypotheses=17, spatial=spatial)
         np.testing.assert_array_equal(result, data["depth"][2])
         assert report["changed_fraction"] == 0
 
 
-def test_reserved_source_images_cannot_change_training_correction():
+@pytest.mark.parametrize("spatial", [False, True])
+def test_reserved_source_images_cannot_change_training_correction(spatial):
     data = plane_scene()
     data["frame_ids"][4] = 5
-    first, _ = refine_frame(data, 2, "cpu", hypotheses=33)
+    first, _ = refine_frame(data, 2, "cpu", hypotheses=33, spatial=spatial)
     data["rgb"][4] = 255 - data["rgb"][4]
-    second, report = refine_frame(data, 2, "cpu", hypotheses=33)
+    second, report = refine_frame(data, 2, "cpu", hypotheses=33, spatial=spatial)
     np.testing.assert_array_equal(first, second)
     assert 5 not in report["source_frames"]
 
 
-def test_reserved_reference_depth_is_unchanged():
+@pytest.mark.parametrize("spatial", [False, True])
+def test_reserved_reference_depth_is_unchanged(spatial):
     data = plane_scene()
     data["frame_ids"][2] = 5
-    result, report = refine_frame(data, 2, "cpu", hypotheses=33)
+    result, report = refine_frame(data, 2, "cpu", hypotheses=33, spatial=spatial)
     np.testing.assert_array_equal(result, data["depth"][2])
     assert report["changed_fraction"] == 0
+
+
+def test_spatial_agreement_uses_absolute_depth_and_respects_image_edges():
+    factors = torch.exp(torch.linspace(-np.log(2), np.log(2), 65))
+    prior = torch.tensor([[3.0, 2.4, 3.0]])
+    depth = factors[:, None, None] * prior[None]
+    volume = ((depth.log() - np.log(2)) / 0.03).square().clamp(max=1)
+    volume[:, 0, 1] = 0.2  # Ambiguous center should agree at absolute Z=2.
+    rgb = torch.zeros(3, 1, 3)
+    energy = spatial_costs(volume, prior, rgb, factors)
+    result = prior * factors[energy.argmin(0)]
+    assert abs(result[0, 1].item() - 2) < 0.07
+    # A strong appearance boundary must attenuate otherwise dominant neighbors.
+    rgb[:, 0, 1] = 1
+    volume[:, 0, 1] = 0.01 * (depth[:, 0, 1].log() - np.log(3)).square()
+    energy = spatial_costs(volume, prior, rgb, factors)
+    result = prior * factors[energy.argmin(0)]
+    assert abs(result[0, 1].item() - 3) < 0.08

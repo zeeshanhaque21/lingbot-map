@@ -16,6 +16,7 @@ import torch
 import torch.nn.functional as F
 
 from artifacts.research.experiments.mapanything_mac import digest, processed_sources
+from artifacts.research.experiments.spatial_depth_cost import spatial_costs
 from lingbot_map.reconstruction.fusion import fuse
 from lingbot_map.reconstruction.validation import validate
 
@@ -32,7 +33,9 @@ def neighbors_for(frame_ids, index):
     ]
 
 
-def refine_frame(data, index, device="mps", hypotheses=65, occlusion=True):
+def refine_frame(
+    data, index, device="mps", hypotheses=65, occlusion=True, spatial=False
+):
     """Return corrected depth and diagnostics, without changing inputs."""
     frame = int(data["frame_ids"][index])
     neighbors = neighbors_for(data["frame_ids"], index)
@@ -175,14 +178,18 @@ def refine_frame(data, index, device="mps", hypotheses=65, occlusion=True):
         best_two = torch.topk(torch.stack(source_costs), 2, dim=0, largest=False).values
         costs.append(best_two.mean(0))
     volume = torch.cat(costs)
-    best_cost, best_index = volume.min(0)
+    selection_cost = (
+        spatial_costs(volume, prior, target[0], factors) if spatial else volume
+    )
+    selection_best, best_index = selection_cost.min(0)
+    best_cost = torch.gather(volume, 0, best_index[None])[0]
     best_factor = factors[best_index]
     baseline_cost = volume[hypotheses // 2]
     separated = torch.abs(
         torch.log(factors[:, None, None] / best_factor[None])
     ) > math.log(1.06)
-    runner_up = torch.where(separated, volume, 1000).min(0).values
-    margin = runner_up - best_cost
+    runner_up = torch.where(separated, selection_cost, 1000).min(0).values
+    margin = runner_up - selection_best
     accepted = (
         (target_variance[0, 0] > 1e-4)
         & (best_cost < 0.25)
@@ -261,6 +268,11 @@ def main():
     parser.add_argument("--device", choices=("cpu", "mps"), default="mps")
     parser.add_argument("--hypotheses", type=int, default=65)
     parser.add_argument("--no-occlusion", action="store_true")
+    parser.add_argument(
+        "--spatial",
+        action="store_true",
+        help="Regularize image-guided log-depth agreement",
+    )
     args = parser.parse_args()
     if args.start < 0 or args.start % 10 or args.count < 8:
         parser.error(
@@ -278,6 +290,9 @@ def main():
     signature = {
         "schema": 1,
         "algorithm_sha256": digest(__file__),
+        "spatial_algorithm_sha256": digest(
+            Path(__file__).with_name("spatial_depth_cost.py")
+        ),
         "input_sha256": digest(args.source / "input.json"),
         "camera_assignment_sha256": digest(args.source / "model/cameras.json"),
         "camera_windows": hashes,
@@ -286,6 +301,7 @@ def main():
         "device": args.device,
         "hypotheses": args.hypotheses,
         "occlusion": not args.no_occlusion,
+        "spatial": args.spatial,
     }
     args.output.mkdir(parents=True, exist_ok=True)
     signature_path = args.output / "signature.json"
@@ -350,7 +366,12 @@ def main():
                         continue
                     with torch.inference_mode():
                         corrected[i], report = refine_frame(
-                            data, i, args.device, args.hypotheses, not args.no_occlusion
+                            data,
+                            i,
+                            args.device,
+                            args.hypotheses,
+                            not args.no_occlusion,
+                            spatial=args.spatial,
                         )
                     report["original_frame"] = args.start + i
                     with path.open("xb") as stream:
