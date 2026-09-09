@@ -179,6 +179,10 @@ def register_with_repairs(
             return target
         except ValueError as error:
             diagnostic = target / "registration-diagnostics.json"
+            if manifest["configuration"].get("source_kind") == "image_sequence":
+                raise ValueError(
+                    f"Image-sequence registration failed: {error}. Additional video frames are unavailable; inspect saved diagnostics."
+                ) from error
             if (
                 "connects only" not in str(error)
                 or not diagnostic.exists()

@@ -22,5 +22,12 @@
   Draft PR: https://github.com/zeeshanhaque21/lingbot-map/pull/2
   Issues: #1 and #3.
 
+  User supplied example/ sequences: loop 237, courthouse 286, university 324 RGB images, all 518 by 294.
+  Direct lossless image import and evaluation are tracked in GitHub issue #4.
+  Full native geometry completed with 9,107,943 faces.
+  Original texture packing remains CPU-active; local virtual-face grouping increases patches and visible RGB error.
+  A separate unchanged-geometry dense-point-color export completes in 6.16 seconds, with all 100 reserved views being evaluated.
+  All 49 tests pass after the image-input change.
+
 ## Queued
 ## Done

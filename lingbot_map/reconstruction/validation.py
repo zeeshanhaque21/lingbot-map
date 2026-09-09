@@ -7,6 +7,7 @@ import cv2
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
+from .images import frame_label
 from .io import write_json
 from .rendering import SurfaceRenderer
 
@@ -70,7 +71,7 @@ def validate(output, maximum_views=None, asset_name=None):
         row = Image.new("RGB", (w * 3, h + header_height), (24, 24, 24))
         for j, (title, array) in enumerate(
             [
-                (f"Source {frame} · {camera['timestamp_seconds']:.1f}s", reference),
+                (f"Source {frame_label(camera)}", reference),
                 ("Reconstructed visible surfaces", rendered),
                 ("Color difference; black = unobserved", heat),
             ]

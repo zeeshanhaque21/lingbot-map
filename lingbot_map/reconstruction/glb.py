@@ -149,19 +149,41 @@ def package_scene(source, destination):
             before.vertices, after.vertices, atol=1e-7, rtol=0
         ):
             raise ValueError("Packaging changed geometry")
-        texture = getattr(before.visual.material, "baseColorTexture", None)
-        after_texture = getattr(after.visual.material, "baseColorTexture", None)
+        texture = getattr(
+            getattr(before.visual, "material", None), "baseColorTexture", None
+        )
+        after_texture = getattr(
+            getattr(after.visual, "material", None), "baseColorTexture", None
+        )
         if texture is None or after_texture is None:
-            raise ValueError("Expected native textured geometry")
-        if not np.array_equal(np.asarray(texture), np.asarray(after_texture)):
-            raise ValueError("Packaging changed texture pixels")
-        if not np.allclose(before.visual.uv, after.visual.uv, atol=1e-7, rtol=0):
-            raise ValueError("Packaging changed texture coordinates")
+            if texture is not None or after_texture is not None:
+                raise ValueError("Packaging removed a texture")
+            source_colors = (
+                trimesh.load_scene(source, process=False, skip_materials=True)
+                .geometry[name]
+                .visual
+            )
+            target_colors = (
+                trimesh.load_scene(destination, process=False, skip_materials=True)
+                .geometry[after_name]
+                .visual
+            )
+            if source_colors.kind != "vertex" or target_colors.kind != "vertex":
+                raise ValueError("Expected captured texture or vertex colors")
+            if not np.array_equal(
+                source_colors.vertex_colors, target_colors.vertex_colors
+            ):
+                raise ValueError("Packaging changed captured vertex colors")
+        else:
+            if not np.array_equal(np.asarray(texture), np.asarray(after_texture)):
+                raise ValueError("Packaging changed texture pixels")
+            if not np.allclose(before.visual.uv, after.visual.uv, atol=1e-7, rtol=0):
+                raise ValueError("Packaging changed texture coordinates")
         rows.append(
             {
                 "node": node,
                 "triangles": len(before.faces),
-                "texture_size": list(texture.size),
+                "texture_size": list(texture.size) if texture is not None else None,
             }
         )
     return rows

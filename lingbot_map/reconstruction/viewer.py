@@ -8,6 +8,8 @@ import numpy as np
 import viser
 from PIL import Image
 
+from .images import frame_label
+
 
 def view(output, port=8081):
     output = Path(output)
@@ -90,7 +92,7 @@ def view(output, port=8081):
             preview.image = np.asarray(
                 Image.open(camera["captured_image"]).convert("RGB")
             )
-            timestamp.content = f"Capture time: {camera['timestamp_seconds']:.1f}s"
+            timestamp.content = frame_label(camera)
             return
         if cached_window != camera["window"]:
             windows = sorted((output / "windows").glob("*.npz"))
@@ -99,7 +101,7 @@ def view(output, port=8081):
             cached_window = camera["window"]
         index = int(np.flatnonzero(archived_ids == camera["frame"])[0])
         preview.image = archived_rgb[index]
-        timestamp.content = f"Capture time: {camera['timestamp_seconds']:.1f}s"
+        timestamp.content = frame_label(camera)
 
     @selected.on_update
     def select(_):
@@ -129,7 +131,7 @@ def view(output, port=8081):
                 if camera["frame"] == problem["frame"]
             )
             button = server.gui.add_button(
-                f"Review {cameras[index]['timestamp_seconds']:.1f}s"
+                f"Review {frame_label(cameras[index])}"
             )
 
             @button.on_click

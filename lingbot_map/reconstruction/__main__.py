@@ -30,7 +30,9 @@ def main():
         ],
         nargs="?",
     )
-    parser.add_argument("--video", type=Path)
+    inputs = parser.add_mutually_exclusive_group()
+    inputs.add_argument("--video", type=Path)
+    inputs.add_argument("--images", type=Path, help="Ordered RGB PNG/JPEG directory; preserves pixels, timing unknown")
     parser.add_argument("--source", type=Path)
     parser.add_argument("--colmap-model", type=Path)
     parser.add_argument("--bridges", type=Path)
@@ -70,11 +72,16 @@ def main():
         if args.fps <= 0 or (args.limit is not None and args.limit < 1):
             raise ValueError("fps and limit must be positive")
         if args.stage in ("prepare", "run"):
-            if args.video is None:
-                raise ValueError("--video is required for prepare/run")
-            from .io import prepare
+            if args.images is not None:
+                from .images import prepare_images
 
-            prepare(args.video, args.output, args.fps, args.limit)
+                prepare_images(args.images, args.output, args.limit)
+            else:
+                if args.video is None:
+                    raise ValueError("--video or --images is required for prepare/run")
+                from .io import prepare
+
+                prepare(args.video, args.output, args.fps, args.limit)
         if args.stage in ("infer", "run"):
             with contextlib.redirect_stdout(sys.stderr):
                 from .inference import infer

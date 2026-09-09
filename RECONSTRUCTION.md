@@ -41,6 +41,18 @@ Select a captured frame and use **Compare from this camera** to inspect the reco
 The GLB download uses the actual mesh, not a point-cloud placeholder.
 The viewer displays failed geometry checks and provides buttons for the weakest inspected viewpoints.
 
+An existing ordered image sequence can be supplied directly.
+PNG and JPEG files are copied byte-for-byte in natural filename order, with source hashes and no resizing or recompression.
+Select one sequence directory, such as `example/loop`, rather than the parent containing several captures.
+Image sequences retain unknown capture times and use frame numbers in the viewer.
+Adaptive extraction of extra video frames is unavailable for this input type.
+
+```sh
+.venv-reconstruction/bin/python -m lingbot_map.reconstruction run \
+  --images example/loop --output reconstructions/examples/loop \
+  --camera-source learned --motion-weight 10 --mapper incremental
+```
+
 The default sampling rate is 2 fps with 96-frame inference windows and 24 shared frames.
 The model retains its 8 scale frames, 64-frame cache and 518-pixel inference width.
 Bfloat16 is the Mac default; camera and depth heads retain float32 arithmetic.
