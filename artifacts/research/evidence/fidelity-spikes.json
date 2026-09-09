@@ -7813,6 +7813,2102 @@
       "interpretation": "All reserved captured RGB views, with unchanged COLMAP cameras and no per-view alignment. Reserved images were excluded from dense stereo and texturing but participated in camera estimation. Sparse tracks measure consistency with that same calibration, not independent geometry accuracy. No generated or model-derived depth is treated as truth. The unchanged local mesh baseline is compared only on its common reserved frames. All native materials are embedded and geometry, texture pixels, UVs and node transforms pass a complete export round trip. Scale and building connectivity remain unverified."
     }
   },
+  "openmvs_unlit_preserved_comparison": {
+    "source": "openmvs-chair-760/evaluation-native-preserved-v1/results.json",
+    "result": {
+      "producer_sources_sha256": {
+        "artifacts/research/experiments/evaluate_openmvs_capture.py": "c1a39d47edbe28869533dbf838a34961f5d6101a50c6e65e31ad0d9e14893dea",
+        "artifacts/research/experiments/evaluate_openmvs_trial.py": "b9157e35daab49537fce7f28e2be2007f48a00561e552d49fb0539d0ca5c0ff4",
+        "lingbot_map/reconstruction/rendering.py": "1ff18ba06ea19988cadbc92f5bde76ba71c7400de3cf36b72fdfdbc33ed0c404",
+        "lingbot_map/reconstruction/colmap_io.py": "00172146dcb75561f2b8b40035c0212d9289bbf527ccc296e4eb1cc4a8f00124",
+        "lingbot_map/reconstruction/io.py": "e94ac8a46997ac8b4363c8f421ba7be95dc3f3c46c5693e622fb852f9eaa6e21"
+      },
+      "source_resources_sha256": {
+        "property.glb": "4da735c440a1cd03ab0a415f24f85757d2f6a89fda186954cf43b95d8ca3fa2d",
+        "property_0.png": "c102ccd0a445ccfe457ece9e1a23f07fc579daa73492db8186729f2b362fada4"
+      },
+      "property_sha256": "b24c461e6ff7e18f0a101e897524a4e4b385d192d7d08575021112424dab8576",
+      "property_bytes": 30532904,
+      "parts": [
+        {
+          "node": "node",
+          "triangles": 472011,
+          "texture_size": [
+            8192,
+            8192
+          ]
+        }
+      ],
+      "triangles": 472011,
+      "dense_points": 377940,
+      "training_images": 43,
+      "native_run_sha256": "378c05f940220cddf64ec0466a3abc218c95992c469e312200735604cb9d8b9f",
+      "native_stage_record_sha256": {
+        "mesh-completion.json": "512ad51afd93a6f04bcabcc91eebe71976537af3ab74ae5daf0feb181dec2912",
+        "texture-completion.json": "d4024bb1a0bec84a0b6df87c5e5c95fb41b207d1cb11b0b551a08d9113750ff3"
+      },
+      "native_stage_seconds": {
+        "mesh": 9.940893874998437,
+        "texture": 49.1669311250007
+      },
+      "colmap_sha256": {
+        "cameras.txt": "a1ce3ddb991b7f5d5858a1c5e8e5f773b6eec11cb3b4874c57d1ec90f19c5155",
+        "images.txt": "9ef8415b35e06fcbe5109dbb50569d9916c4f9921af38b905537758e9c7b3747",
+        "points3D.txt": "df47bc9371f58dc434ce5ed60fe53c010607c7e326aec3a5dbbcabd6f0c5100e"
+      },
+      "capture_provenance_sha256": "4d576f29d292fd8e4cfebfb67324e0a572215b02caeb11cc01ff97ca7559d820",
+      "dataset_provenance_sha256": "c3551137ec6ed9d9a322d10e966e91a00900b79337bcf8dd2768ed0564ff50e2",
+      "reserved_transforms_sha256": "877dc17fda1d557910c2bb3c76277ef9836ee3c08b004c2f7192bf8040018670",
+      "baseline_resources_sha256": null,
+      "paired_baseline_frames": [],
+      "reserved_views": 5,
+      "median_rendered_coverage": 0.8806434461805556,
+      "minimum_rendered_coverage": 0.7012630208333334,
+      "median_absolute_rgb_error_visible": 0.07958495616912842,
+      "mean_psnr_all_pixels_missing_black": 11.496007951172965,
+      "views": [
+        {
+          "frame": 765,
+          "image_sha256": "bba3fdae66e24069c8caac3423548a4a888b286a915af68992e8f5b2bd73b314",
+          "rendered_coverage": 0.7012630208333334,
+          "absolute_rgb_error_visible": 0.08859792351722717,
+          "absolute_rgb_error_all_pixels_missing_black": 0.1963796615600586,
+          "psnr_all_pixels_missing_black": 9.994772499183807,
+          "sparse_consistency": {
+            "observations": 870,
+            "coverage": 0.957471264367816,
+            "within_5percent_all_tracks": 0.8172413793103448,
+            "median_relative_error_covered": 0.01070221152303172,
+            "p95_relative_error_covered": 0.14200141711428316
+          }
+        },
+        {
+          "frame": 775,
+          "image_sha256": "fb01f9e7ee2d459ae9ad856c5141fbaaa8bcc30f69ea9cad2232410235f1928a",
+          "rendered_coverage": 0.8323546006944444,
+          "absolute_rgb_error_visible": 0.060784727334976196,
+          "absolute_rgb_error_all_pixels_missing_black": 0.1468297392129898,
+          "psnr_all_pixels_missing_black": 10.49308985133802,
+          "sparse_consistency": {
+            "observations": 973,
+            "coverage": 0.9969167523124358,
+            "within_5percent_all_tracks": 0.9321685508735869,
+            "median_relative_error_covered": 0.004728096279376289,
+            "p95_relative_error_covered": 0.06804690401283721
+          }
+        },
+        {
+          "frame": 785,
+          "image_sha256": "e509153fc7b37a2171cad6fe04c319f31099a596d232adb784f70d2e2f7a3015",
+          "rendered_coverage": 0.8874717881944445,
+          "absolute_rgb_error_visible": 0.10758499801158905,
+          "absolute_rgb_error_all_pixels_missing_black": 0.159446120262146,
+          "psnr_all_pixels_missing_black": 10.664098842609516,
+          "sparse_consistency": {
+            "observations": 529,
+            "coverage": 0.9319470699432892,
+            "within_5percent_all_tracks": 0.8468809073724007,
+            "median_relative_error_covered": 0.009275232671750514,
+            "p95_relative_error_covered": 0.08294973801659511
+          }
+        },
+        {
+          "frame": 795,
+          "image_sha256": "78d893398561817a76e3434217b270c7c2af84b710095392fb52861540b8ca5d",
+          "rendered_coverage": 0.9228472222222223,
+          "absolute_rgb_error_visible": 0.07958495616912842,
+          "absolute_rgb_error_all_pixels_missing_black": 0.11071707308292389,
+          "psnr_all_pixels_missing_black": 14.058439548639495,
+          "sparse_consistency": {
+            "observations": 1622,
+            "coverage": 0.9802712700369913,
+            "within_5percent_all_tracks": 0.9044389642416769,
+            "median_relative_error_covered": 0.006424551778465295,
+            "p95_relative_error_covered": 0.06597192401525703
+          }
+        },
+        {
+          "frame": 805,
+          "image_sha256": "070eee377b665d6b6cd3bf0bc0fa87f0a802225aff8355000141f58516a2b3c8",
+          "rendered_coverage": 0.8806434461805556,
+          "absolute_rgb_error_visible": 0.046466998755931854,
+          "absolute_rgb_error_all_pixels_missing_black": 0.11122008413076401,
+          "psnr_all_pixels_missing_black": 12.26963901409398,
+          "sparse_consistency": {
+            "observations": 971,
+            "coverage": 0.9711637487126673,
+            "within_5percent_all_tracks": 0.8918640576725025,
+            "median_relative_error_covered": 0.00990106954127558,
+            "p95_relative_error_covered": 0.06931967924216559
+          }
+        }
+      ],
+      "metric_accuracy_verified": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "All reserved captured RGB views, with unchanged COLMAP cameras and no per-view alignment. Reserved images were excluded from dense stereo and texturing but participated in camera estimation. Sparse tracks measure consistency with that same calibration, not independent geometry accuracy. No generated or model-derived depth is treated as truth. The unchanged local mesh baseline is compared only on its common reserved frames. All native materials are embedded and geometry, texture pixels, UVs and node transforms pass a complete export round trip. Scale and building connectivity remain unverified.",
+      "viewer_metadata_available": false
+    }
+  },
+  "openmvs_virtual_face_comparison": {
+    "source": "openmvs-chair-760/evaluation-virtual3-v1/results.json",
+    "result": {
+      "producer_sources_sha256": {
+        "artifacts/research/experiments/evaluate_openmvs_capture.py": "585f36e74529252dc67d56d836372dd7085db83aeeaa0b9d5f64c3ebb469a650",
+        "lingbot_map/reconstruction/glb.py": "e8ef4de6718ef2ea5d699b1f943c1bbf51bfb2d2f62fb3fb0ca352bf0c53030e",
+        "lingbot_map/reconstruction/rendering.py": "1ff18ba06ea19988cadbc92f5bde76ba71c7400de3cf36b72fdfdbc33ed0c404",
+        "lingbot_map/reconstruction/colmap_io.py": "00172146dcb75561f2b8b40035c0212d9289bbf527ccc296e4eb1cc4a8f00124",
+        "lingbot_map/reconstruction/io.py": "e94ac8a46997ac8b4363c8f421ba7be95dc3f3c46c5693e622fb852f9eaa6e21"
+      },
+      "source_resources_sha256": {
+        "property.glb": "47768eb7bb59c74f9bb1722363487f5262323c70334e054ab1698f0b886ae73e",
+        "property_0.png": "313f6bdadc76e32e12809798a427451fd5962b9daff9d8adfca363e0e19bd650"
+      },
+      "property_sha256": "e5af448aa8c31613cbddb9809e5dfb60191f06011e619f1c86f8ea6eeab95ed9",
+      "property_bytes": 38558356,
+      "parts": [
+        {
+          "node": "node",
+          "triangles": 472011,
+          "texture_size": [
+            8192,
+            8192
+          ]
+        }
+      ],
+      "triangles": 472011,
+      "dense_points": 377940,
+      "training_images": 43,
+      "native_run_sha256": "6b4f7cccaab5b21556e81282f726943f686aa184f647665907a8418a09e2d04b",
+      "native_stage_record_sha256": {
+        "texture-completion.json": "57bb5d770e84aef3ae7a3eeff7f116684d320fa1f67c39acbf2502cf0f3120cb"
+      },
+      "native_stage_seconds": {
+        "texture": 78.31568737499765
+      },
+      "colmap_sha256": {
+        "cameras.txt": "a1ce3ddb991b7f5d5858a1c5e8e5f773b6eec11cb3b4874c57d1ec90f19c5155",
+        "images.txt": "9ef8415b35e06fcbe5109dbb50569d9916c4f9921af38b905537758e9c7b3747",
+        "points3D.txt": "df47bc9371f58dc434ce5ed60fe53c010607c7e326aec3a5dbbcabd6f0c5100e"
+      },
+      "capture_provenance_sha256": "4d576f29d292fd8e4cfebfb67324e0a572215b02caeb11cc01ff97ca7559d820",
+      "dataset_provenance_sha256": "c3551137ec6ed9d9a322d10e966e91a00900b79337bcf8dd2768ed0564ff50e2",
+      "reserved_transforms_sha256": "877dc17fda1d557910c2bb3c76277ef9836ee3c08b004c2f7192bf8040018670",
+      "baseline_resources_sha256": {
+        "property.glb": "4da735c440a1cd03ab0a415f24f85757d2f6a89fda186954cf43b95d8ca3fa2d",
+        "property_0.png": "c102ccd0a445ccfe457ece9e1a23f07fc579daa73492db8186729f2b362fada4"
+      },
+      "paired_baseline_frames": [
+        765,
+        775,
+        785,
+        795,
+        805
+      ],
+      "reserved_views": 5,
+      "median_rendered_coverage": 0.8806434461805556,
+      "minimum_rendered_coverage": 0.7012630208333334,
+      "median_absolute_rgb_error_visible": 0.08283574134111404,
+      "mean_psnr_all_pixels_missing_black": 11.453675211168363,
+      "views": [
+        {
+          "frame": 765,
+          "image_sha256": "bba3fdae66e24069c8caac3423548a4a888b286a915af68992e8f5b2bd73b314",
+          "rendered_coverage": 0.7012630208333334,
+          "absolute_rgb_error_visible": 0.09471503645181656,
+          "absolute_rgb_error_all_pixels_missing_black": 0.20066936314105988,
+          "psnr_all_pixels_missing_black": 9.951715678683694,
+          "sparse_consistency": {
+            "observations": 870,
+            "coverage": 0.957471264367816,
+            "within_5percent_all_tracks": 0.8172413793103448,
+            "median_relative_error_covered": 0.01070221152303172,
+            "p95_relative_error_covered": 0.14200141711428316
+          },
+          "unchanged_local_baseline": {
+            "rendered_coverage": 0.7012630208333334,
+            "absolute_rgb_error_visible": 0.08859792351722717,
+            "absolute_rgb_error_all_pixels_missing_black": 0.1963796615600586,
+            "psnr_all_pixels_missing_black": 9.994772499183807,
+            "sparse_consistency": {
+              "observations": 870,
+              "coverage": 0.957471264367816,
+              "within_5percent_all_tracks": 0.8172413793103448,
+              "median_relative_error_covered": 0.01070221152303172,
+              "p95_relative_error_covered": 0.14200141711428316
+            }
+          }
+        },
+        {
+          "frame": 775,
+          "image_sha256": "fb01f9e7ee2d459ae9ad856c5141fbaaa8bcc30f69ea9cad2232410235f1928a",
+          "rendered_coverage": 0.8323546006944444,
+          "absolute_rgb_error_visible": 0.0801413357257843,
+          "absolute_rgb_error_all_pixels_missing_black": 0.16294129192829132,
+          "psnr_all_pixels_missing_black": 10.051108463962752,
+          "sparse_consistency": {
+            "observations": 973,
+            "coverage": 0.9969167523124358,
+            "within_5percent_all_tracks": 0.9321685508735869,
+            "median_relative_error_covered": 0.004728096279376289,
+            "p95_relative_error_covered": 0.06804690401283721
+          },
+          "unchanged_local_baseline": {
+            "rendered_coverage": 0.8323546006944444,
+            "absolute_rgb_error_visible": 0.060784727334976196,
+            "absolute_rgb_error_all_pixels_missing_black": 0.1468297392129898,
+            "psnr_all_pixels_missing_black": 10.49308985133802,
+            "sparse_consistency": {
+              "observations": 973,
+              "coverage": 0.9969167523124358,
+              "within_5percent_all_tracks": 0.9321685508735869,
+              "median_relative_error_covered": 0.004728096279376289,
+              "p95_relative_error_covered": 0.06804690401283721
+            }
+          }
+        },
+        {
+          "frame": 785,
+          "image_sha256": "e509153fc7b37a2171cad6fe04c319f31099a596d232adb784f70d2e2f7a3015",
+          "rendered_coverage": 0.8874717881944445,
+          "absolute_rgb_error_visible": 0.10420562326908112,
+          "absolute_rgb_error_all_pixels_missing_black": 0.15644700825214386,
+          "psnr_all_pixels_missing_black": 10.763721323405079,
+          "sparse_consistency": {
+            "observations": 529,
+            "coverage": 0.9319470699432892,
+            "within_5percent_all_tracks": 0.8468809073724007,
+            "median_relative_error_covered": 0.009275232671750514,
+            "p95_relative_error_covered": 0.08294973801659511
+          },
+          "unchanged_local_baseline": {
+            "rendered_coverage": 0.8874717881944445,
+            "absolute_rgb_error_visible": 0.10758499801158905,
+            "absolute_rgb_error_all_pixels_missing_black": 0.159446120262146,
+            "psnr_all_pixels_missing_black": 10.664098842609516,
+            "sparse_consistency": {
+              "observations": 529,
+              "coverage": 0.9319470699432892,
+              "within_5percent_all_tracks": 0.8468809073724007,
+              "median_relative_error_covered": 0.009275232671750514,
+              "p95_relative_error_covered": 0.08294973801659511
+            }
+          }
+        },
+        {
+          "frame": 795,
+          "image_sha256": "78d893398561817a76e3434217b270c7c2af84b710095392fb52861540b8ca5d",
+          "rendered_coverage": 0.9228472222222223,
+          "absolute_rgb_error_visible": 0.08283574134111404,
+          "absolute_rgb_error_all_pixels_missing_black": 0.11371704190969467,
+          "psnr_all_pixels_missing_black": 14.27263864070228,
+          "sparse_consistency": {
+            "observations": 1622,
+            "coverage": 0.9802712700369913,
+            "within_5percent_all_tracks": 0.9044389642416769,
+            "median_relative_error_covered": 0.006424551778465295,
+            "p95_relative_error_covered": 0.06597192401525703
+          },
+          "unchanged_local_baseline": {
+            "rendered_coverage": 0.9228472222222223,
+            "absolute_rgb_error_visible": 0.07958495616912842,
+            "absolute_rgb_error_all_pixels_missing_black": 0.11071707308292389,
+            "psnr_all_pixels_missing_black": 14.058439548639495,
+            "sparse_consistency": {
+              "observations": 1622,
+              "coverage": 0.9802712700369913,
+              "within_5percent_all_tracks": 0.9044389642416769,
+              "median_relative_error_covered": 0.006424551778465295,
+              "p95_relative_error_covered": 0.06597192401525703
+            }
+          }
+        },
+        {
+          "frame": 805,
+          "image_sha256": "070eee377b665d6b6cd3bf0bc0fa87f0a802225aff8355000141f58516a2b3c8",
+          "rendered_coverage": 0.8806434461805556,
+          "absolute_rgb_error_visible": 0.05052976310253143,
+          "absolute_rgb_error_all_pixels_missing_black": 0.1147979199886322,
+          "psnr_all_pixels_missing_black": 12.229191949088012,
+          "sparse_consistency": {
+            "observations": 971,
+            "coverage": 0.9711637487126673,
+            "within_5percent_all_tracks": 0.8918640576725025,
+            "median_relative_error_covered": 0.00990106954127558,
+            "p95_relative_error_covered": 0.06931967924216559
+          },
+          "unchanged_local_baseline": {
+            "rendered_coverage": 0.8806434461805556,
+            "absolute_rgb_error_visible": 0.046466998755931854,
+            "absolute_rgb_error_all_pixels_missing_black": 0.11122008413076401,
+            "psnr_all_pixels_missing_black": 12.26963901409398,
+            "sparse_consistency": {
+              "observations": 971,
+              "coverage": 0.9711637487126673,
+              "within_5percent_all_tracks": 0.8918640576725025,
+              "median_relative_error_covered": 0.00990106954127558,
+              "p95_relative_error_covered": 0.06931967924216559
+            }
+          }
+        }
+      ],
+      "metric_accuracy_verified": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "All reserved captured RGB views, with unchanged COLMAP cameras and no per-view alignment. Reserved images were excluded from dense stereo and texturing but participated in camera estimation. Sparse tracks measure consistency with that same calibration, not independent geometry accuracy. No generated or model-derived depth is treated as truth. The unchanged local mesh baseline is compared only on its common reserved frames. All native materials are embedded and geometry, texture pixels, UVs and node transforms pass a complete export round trip. Scale and building connectivity remain unverified.",
+      "viewer_metadata_available": false
+    }
+  },
+  "openmvs_full_point_color_export": {
+    "source": "openmvs-full/point-colors-v1/completion.json",
+    "result": {
+      "complete": true,
+      "property_sha256": "2beb8d855db551ec95e29db2adb276b8ab59905e2205e17fbdb7d7429aa4eea7",
+      "seconds": 6.155621166995843,
+      "vertices": 4559190,
+      "triangles": 9107943,
+      "exact_point_matches": 4524521,
+      "nearest_point_distance_quantiles_model_units": {
+        "min": 0.0,
+        "p50": 0.0,
+        "p95": 0.0,
+        "p99": 0.0,
+        "max": 0.0814030064495165
+      },
+      "source_geometry_unchanged": true,
+      "metric_accuracy_verified": false,
+      "interpretation": "Observed dense-point colors transferred to unchanged mesh vertices. Nonzero nearest-point distances and vertex interpolation can blur appearance. This bypasses texture-atlas packing for geometry inspection; it does not repair camera errors, missing surfaces or scale."
+    }
+  },
+  "openmvs_full_point_color_comparison": {
+    "source": "openmvs-full/evaluation-point-colors-v1/results.json",
+    "result": {
+      "producer_sources_sha256": {
+        "artifacts/research/experiments/evaluate_openmvs_capture.py": "585f36e74529252dc67d56d836372dd7085db83aeeaa0b9d5f64c3ebb469a650",
+        "lingbot_map/reconstruction/glb.py": "6775ec5cfd26eab4033c4d9d3b2b4744612e4368ae2a98f86d48e9db5bcfdad4",
+        "lingbot_map/reconstruction/rendering.py": "1ff18ba06ea19988cadbc92f5bde76ba71c7400de3cf36b72fdfdbc33ed0c404",
+        "lingbot_map/reconstruction/colmap_io.py": "00172146dcb75561f2b8b40035c0212d9289bbf527ccc296e4eb1cc4a8f00124",
+        "lingbot_map/reconstruction/io.py": "e94ac8a46997ac8b4363c8f421ba7be95dc3f3c46c5693e622fb852f9eaa6e21"
+      },
+      "source_resources_sha256": {
+        "property.glb": "2beb8d855db551ec95e29db2adb276b8ab59905e2205e17fbdb7d7429aa4eea7"
+      },
+      "property_sha256": "92aea10e251da6ca4d1c7d95ddad38a0465f943eb5f2c5b7597d6fce6600054a",
+      "property_bytes": 182243700,
+      "parts": [
+        {
+          "node": "geometry_0",
+          "triangles": 9107943,
+          "texture_size": null
+        }
+      ],
+      "triangles": 9107943,
+      "dense_points": 9304339,
+      "training_images": 900,
+      "native_run_sha256": "e09a6ea7fb5067330cb044bea7d3d3a2dc03e9075492281c738942aef3ac3ea8",
+      "native_stage_record_sha256": {},
+      "native_stage_seconds": {},
+      "colmap_sha256": {
+        "cameras.txt": "a1ce3ddb991b7f5d5858a1c5e8e5f773b6eec11cb3b4874c57d1ec90f19c5155",
+        "images.txt": "9ef8415b35e06fcbe5109dbb50569d9916c4f9921af38b905537758e9c7b3747",
+        "points3D.txt": "df47bc9371f58dc434ce5ed60fe53c010607c7e326aec3a5dbbcabd6f0c5100e"
+      },
+      "capture_provenance_sha256": "295bb439f05c7e16a9fe31f98170b2faa42533b8083e724daf5f651fe9c90d09",
+      "dataset_provenance_sha256": "5a241378e3d3759c33a87219de4a1bb3b6ca09313cfd7caaa4254528800caa05",
+      "reserved_transforms_sha256": "e77161a8bcc757dfb2a0746b3ab2b9fa227e954269018ca450be983c9770e7f1",
+      "baseline_resources_sha256": {
+        "property.glb": "4da735c440a1cd03ab0a415f24f85757d2f6a89fda186954cf43b95d8ca3fa2d",
+        "property_0.png": "c102ccd0a445ccfe457ece9e1a23f07fc579daa73492db8186729f2b362fada4"
+      },
+      "paired_baseline_frames": [
+        765,
+        775,
+        785,
+        795,
+        805
+      ],
+      "reserved_views": 100,
+      "median_rendered_coverage": 0.9987841796875,
+      "minimum_rendered_coverage": 0.08249674479166667,
+      "median_absolute_rgb_error_visible": 0.13069111853837967,
+      "mean_psnr_all_pixels_missing_black": 12.888773739788249,
+      "views": [
+        {
+          "frame": 5,
+          "image_sha256": "bc51b96d2377e7a2595212615856e29e3f873fbd1bf7cce6275439ffcdbeec2b",
+          "rendered_coverage": 0.19072591145833334,
+          "absolute_rgb_error_visible": 0.06853631883859634,
+          "absolute_rgb_error_all_pixels_missing_black": 0.30975282192230225,
+          "psnr_all_pixels_missing_black": 8.3397125770839,
+          "sparse_consistency": {
+            "observations": 272,
+            "coverage": 0.8272058823529411,
+            "within_5percent_all_tracks": 0.8014705882352942,
+            "median_relative_error_covered": 0.002734508394036095,
+            "p95_relative_error_covered": 0.029945113766812657
+          }
+        },
+        {
+          "frame": 15,
+          "image_sha256": "80ffd0b759a37b129b8122fc69fc1e34800f75d83011ee67a99f49beef40a82f",
+          "rendered_coverage": 0.49254340277777775,
+          "absolute_rgb_error_visible": 0.07705458998680115,
+          "absolute_rgb_error_all_pixels_missing_black": 0.24280384182929993,
+          "psnr_all_pixels_missing_black": 9.235219150864205,
+          "sparse_consistency": {
+            "observations": 1964,
+            "coverage": 0.8559063136456212,
+            "within_5percent_all_tracks": 0.835030549898167,
+            "median_relative_error_covered": 0.0027658306724548634,
+            "p95_relative_error_covered": 0.025680557327895266
+          }
+        },
+        {
+          "frame": 25,
+          "image_sha256": "17aa1b9ad26bc39793dd845700f43dba707421be25f8ade610c925ed2a16d695",
+          "rendered_coverage": 0.3648904079861111,
+          "absolute_rgb_error_visible": 0.05248011276125908,
+          "absolute_rgb_error_all_pixels_missing_black": 0.3515930771827698,
+          "psnr_all_pixels_missing_black": 7.110802295731182,
+          "sparse_consistency": {
+            "observations": 598,
+            "coverage": 0.8394648829431438,
+            "within_5percent_all_tracks": 0.7909698996655519,
+            "median_relative_error_covered": 0.006205907403313401,
+            "p95_relative_error_covered": 0.05403106515940528
+          }
+        },
+        {
+          "frame": 35,
+          "image_sha256": "5d541bd0e1fa1e01be03e2f5739b344bbb8f8329c2d079a7ee7f48bdc2b3cbd9",
+          "rendered_coverage": 0.6048057725694445,
+          "absolute_rgb_error_visible": 0.03720587119460106,
+          "absolute_rgb_error_all_pixels_missing_black": 0.2572319507598877,
+          "psnr_all_pixels_missing_black": 7.858660585227167,
+          "sparse_consistency": {
+            "observations": 532,
+            "coverage": 0.9060150375939849,
+            "within_5percent_all_tracks": 0.8909774436090225,
+            "median_relative_error_covered": 0.004803565793458111,
+            "p95_relative_error_covered": 0.03076726507337135
+          }
+        },
+        {
+          "frame": 45,
+          "image_sha256": "0eddaea6fdae93ca4fd097acb5170ece02990f6b665ad3ad8ae4bea791648921",
+          "rendered_coverage": 0.08249674479166667,
+          "absolute_rgb_error_visible": 0.08203885704278946,
+          "absolute_rgb_error_all_pixels_missing_black": 0.503652036190033,
+          "psnr_all_pixels_missing_black": 5.209867941483846,
+          "sparse_consistency": {
+            "observations": 121,
+            "coverage": 0.7851239669421488,
+            "within_5percent_all_tracks": 0.7355371900826446,
+            "median_relative_error_covered": 0.00938944287281947,
+            "p95_relative_error_covered": 0.05421138386693267
+          }
+        },
+        {
+          "frame": 55,
+          "image_sha256": "246e5ca956ea42b3d5168ffc4c8625e05ab0617cb46ef352a8d717f554728feb",
+          "rendered_coverage": 0.2785275607638889,
+          "absolute_rgb_error_visible": 0.1604432761669159,
+          "absolute_rgb_error_all_pixels_missing_black": 0.42249953746795654,
+          "psnr_all_pixels_missing_black": 6.3354884412797965,
+          "sparse_consistency": {
+            "observations": 94,
+            "coverage": 0.4148936170212766,
+            "within_5percent_all_tracks": 0.32978723404255317,
+            "median_relative_error_covered": 0.013896827112438604,
+            "p95_relative_error_covered": 1.4399533136586937
+          }
+        },
+        {
+          "frame": 65,
+          "image_sha256": "b162cbfb9d78eaeac2745326b35b57cb4912b8f7d0caa69b95b374f10dd85409",
+          "rendered_coverage": 0.3743435329861111,
+          "absolute_rgb_error_visible": 0.08089844882488251,
+          "absolute_rgb_error_all_pixels_missing_black": 0.3561173975467682,
+          "psnr_all_pixels_missing_black": 7.208354889011037,
+          "sparse_consistency": {
+            "observations": 150,
+            "coverage": 0.9266666666666666,
+            "within_5percent_all_tracks": 0.7733333333333333,
+            "median_relative_error_covered": 0.0043484491469604316,
+            "p95_relative_error_covered": 0.11272123722490474
+          }
+        },
+        {
+          "frame": 75,
+          "image_sha256": "c38849e1f8aa45a74007c866ea2fc61bab58a4d3e6e67ab11f57f09dc4bfc0a3",
+          "rendered_coverage": 0.5246961805555556,
+          "absolute_rgb_error_visible": 0.0392143577337265,
+          "absolute_rgb_error_all_pixels_missing_black": 0.23696674406528473,
+          "psnr_all_pixels_missing_black": 8.387659684937285,
+          "sparse_consistency": {
+            "observations": 1034,
+            "coverage": 0.45454545454545453,
+            "within_5percent_all_tracks": 0.43036750483558994,
+            "median_relative_error_covered": 0.005193120841411028,
+            "p95_relative_error_covered": 0.05760542888935764
+          }
+        },
+        {
+          "frame": 85,
+          "image_sha256": "a105b9e58f0068540a42a7e352211c1f57d080c77edc534ba800fb1b5c253de7",
+          "rendered_coverage": 0.7316579861111111,
+          "absolute_rgb_error_visible": 0.07465764880180359,
+          "absolute_rgb_error_all_pixels_missing_black": 0.16543370485305786,
+          "psnr_all_pixels_missing_black": 11.270614570621884,
+          "sparse_consistency": {
+            "observations": 391,
+            "coverage": 0.8158567774936062,
+            "within_5percent_all_tracks": 0.7135549872122762,
+            "median_relative_error_covered": 0.008717315119910064,
+            "p95_relative_error_covered": 0.14552995468416466
+          }
+        },
+        {
+          "frame": 95,
+          "image_sha256": "296fa1eb3523c66b5c0db93fef5dbe71877d5bb2fd699c807643cd983599b378",
+          "rendered_coverage": 0.5074327256944444,
+          "absolute_rgb_error_visible": 0.09445801377296448,
+          "absolute_rgb_error_all_pixels_missing_black": 0.19381622970104218,
+          "psnr_all_pixels_missing_black": 11.67201323186501,
+          "sparse_consistency": {
+            "observations": 1248,
+            "coverage": 0.9967948717948718,
+            "within_5percent_all_tracks": 0.9599358974358975,
+            "median_relative_error_covered": 0.003666608384487385,
+            "p95_relative_error_covered": 0.037411759049332714
+          }
+        },
+        {
+          "frame": 105,
+          "image_sha256": "d7697a12c0aa446750ee5ac2b36572fe482cbd04a39187f34e761fdae3e0525d",
+          "rendered_coverage": 0.8768804253472222,
+          "absolute_rgb_error_visible": 0.08788957446813583,
+          "absolute_rgb_error_all_pixels_missing_black": 0.12442605942487717,
+          "psnr_all_pixels_missing_black": 14.004081267725066,
+          "sparse_consistency": {
+            "observations": 1393,
+            "coverage": 0.9813352476669059,
+            "within_5percent_all_tracks": 0.949748743718593,
+            "median_relative_error_covered": 0.006497600559085967,
+            "p95_relative_error_covered": 0.03810343149878197
+          }
+        },
+        {
+          "frame": 115,
+          "image_sha256": "bb64c162c0e10c18a6e6c987fce8aa89b6c7f288a8529bc253ede6f3501a209b",
+          "rendered_coverage": 0.9342643229166666,
+          "absolute_rgb_error_visible": 0.16340282559394836,
+          "absolute_rgb_error_all_pixels_missing_black": 0.17643311619758606,
+          "psnr_all_pixels_missing_black": 13.068374962330473,
+          "sparse_consistency": {
+            "observations": 1142,
+            "coverage": 0.9693520140105079,
+            "within_5percent_all_tracks": 0.861646234676007,
+            "median_relative_error_covered": 0.009946657280683259,
+            "p95_relative_error_covered": 0.1015314784862554
+          }
+        },
+        {
+          "frame": 125,
+          "image_sha256": "34253b79d8cf3f0643853773a3b9feeeecf8fcba00bc18c2d663cbbc9498b800",
+          "rendered_coverage": 0.7524739583333333,
+          "absolute_rgb_error_visible": 0.14060601592063904,
+          "absolute_rgb_error_all_pixels_missing_black": 0.18709978461265564,
+          "psnr_all_pixels_missing_black": 11.89437532667019,
+          "sparse_consistency": {
+            "observations": 1102,
+            "coverage": 0.956442831215971,
+            "within_5percent_all_tracks": 0.7540834845735027,
+            "median_relative_error_covered": 0.011231842737575302,
+            "p95_relative_error_covered": 0.8677324612972925
+          }
+        },
+        {
+          "frame": 135,
+          "image_sha256": "44d1d55a66282b79cb3747f08652074798357e7d3e22d8ef797fc58341ca8f24",
+          "rendered_coverage": 0.9686176215277778,
+          "absolute_rgb_error_visible": 0.1441684067249298,
+          "absolute_rgb_error_all_pixels_missing_black": 0.15161316096782684,
+          "psnr_all_pixels_missing_black": 13.15241392771782,
+          "sparse_consistency": {
+            "observations": 847,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.6871310507674144,
+            "median_relative_error_covered": 0.028661138163555602,
+            "p95_relative_error_covered": 0.26785076190261914
+          }
+        },
+        {
+          "frame": 145,
+          "image_sha256": "d3b6acb05cfa7364b0253c64992326c7229d60b890a489f8f3d50aff49e48cf3",
+          "rendered_coverage": 0.9026508246527778,
+          "absolute_rgb_error_visible": 0.14556998014450073,
+          "absolute_rgb_error_all_pixels_missing_black": 0.1509096473455429,
+          "psnr_all_pixels_missing_black": 13.76591884780267,
+          "sparse_consistency": {
+            "observations": 714,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.623249299719888,
+            "median_relative_error_covered": 0.02410405850098405,
+            "p95_relative_error_covered": 0.9276861386287644
+          }
+        },
+        {
+          "frame": 155,
+          "image_sha256": "86fe361c16f5d3d3c60d22272b1a2096200b654129498b68e4c55cfc9c65a9dd",
+          "rendered_coverage": 0.9909342447916667,
+          "absolute_rgb_error_visible": 0.11639495939016342,
+          "absolute_rgb_error_all_pixels_missing_black": 0.11672739684581757,
+          "psnr_all_pixels_missing_black": 14.412332215456747,
+          "sparse_consistency": {
+            "observations": 306,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.9052287581699346,
+            "median_relative_error_covered": 0.01194816483943106,
+            "p95_relative_error_covered": 0.10740559977228062
+          }
+        },
+        {
+          "frame": 165,
+          "image_sha256": "f46aa7c06028237eeb3d597998302b9082fce1f524728c8c5526b58d39b810c5",
+          "rendered_coverage": 0.9422677951388889,
+          "absolute_rgb_error_visible": 0.12350726872682571,
+          "absolute_rgb_error_all_pixels_missing_black": 0.15465553104877472,
+          "psnr_all_pixels_missing_black": 12.632059902410093,
+          "sparse_consistency": {
+            "observations": 457,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.9212253829321663,
+            "median_relative_error_covered": 0.005831362871437113,
+            "p95_relative_error_covered": 0.08629764920270645
+          }
+        },
+        {
+          "frame": 175,
+          "image_sha256": "6a363fb0dbc3f651fa5c97c860e612812466ca33f713d70d415cc2c16941891e",
+          "rendered_coverage": 0.9389138454861111,
+          "absolute_rgb_error_visible": 0.08678193390369415,
+          "absolute_rgb_error_all_pixels_missing_black": 0.11022400110960007,
+          "psnr_all_pixels_missing_black": 15.10406695031121,
+          "sparse_consistency": {
+            "observations": 342,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.8011695906432749,
+            "median_relative_error_covered": 0.0074137438827788435,
+            "p95_relative_error_covered": 0.2508089395161393
+          }
+        },
+        {
+          "frame": 185,
+          "image_sha256": "8bd088ebf3bd3fe71529f262e60a9257b82603ad887cb65f846c74c631fb6085",
+          "rendered_coverage": 0.9971310763888889,
+          "absolute_rgb_error_visible": 0.12114180624485016,
+          "absolute_rgb_error_all_pixels_missing_black": 0.12247905135154724,
+          "psnr_all_pixels_missing_black": 15.173241379294653,
+          "sparse_consistency": {
+            "observations": 746,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.9450402144772118,
+            "median_relative_error_covered": 0.004030478065820366,
+            "p95_relative_error_covered": 0.05995762034959046
+          }
+        },
+        {
+          "frame": 195,
+          "image_sha256": "1d641b437a5b27ea7e8ff4f809a79ea8a70dbcef9873a8def4be64e3ab015866",
+          "rendered_coverage": 0.9357269965277778,
+          "absolute_rgb_error_visible": 0.1279740333557129,
+          "absolute_rgb_error_all_pixels_missing_black": 0.14885078370571136,
+          "psnr_all_pixels_missing_black": 13.02806060499875,
+          "sparse_consistency": {
+            "observations": 860,
+            "coverage": 0.9988372093023256,
+            "within_5percent_all_tracks": 0.8209302325581396,
+            "median_relative_error_covered": 0.008170780492435326,
+            "p95_relative_error_covered": 0.40537544732967407
+          }
+        },
+        {
+          "frame": 205,
+          "image_sha256": "c0092dfb37ca0024dcdc1ac955bfe91fde50b0da431ecd9be334bc5303be58f8",
+          "rendered_coverage": 0.9444422743055556,
+          "absolute_rgb_error_visible": 0.08298516273498535,
+          "absolute_rgb_error_all_pixels_missing_black": 0.09918849915266037,
+          "psnr_all_pixels_missing_black": 16.08446872440974,
+          "sparse_consistency": {
+            "observations": 923,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.9274106175514626,
+            "median_relative_error_covered": 0.01057567815352772,
+            "p95_relative_error_covered": 0.06616724754422247
+          }
+        },
+        {
+          "frame": 215,
+          "image_sha256": "f3245275065aa94d666ab03548960fdd6e4e3aad1d905e2b158845c23a37a54b",
+          "rendered_coverage": 0.9998763020833333,
+          "absolute_rgb_error_visible": 0.107030488550663,
+          "absolute_rgb_error_all_pixels_missing_black": 0.10709530860185623,
+          "psnr_all_pixels_missing_black": 15.636161487991572,
+          "sparse_consistency": {
+            "observations": 2041,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.9412052915237629,
+            "median_relative_error_covered": 0.004877573362570894,
+            "p95_relative_error_covered": 0.05589584744808154
+          }
+        },
+        {
+          "frame": 225,
+          "image_sha256": "3497b33c8ac8062bf0fdc7899d0d1e6db4d8b6121cd1068aa9e8481ce0d28b80",
+          "rendered_coverage": 0.9641015625,
+          "absolute_rgb_error_visible": 0.17102274298667908,
+          "absolute_rgb_error_all_pixels_missing_black": 0.17597626149654388,
+          "psnr_all_pixels_missing_black": 12.316357078636013,
+          "sparse_consistency": {
+            "observations": 1046,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.6720841300191205,
+            "median_relative_error_covered": 0.01295410544811915,
+            "p95_relative_error_covered": 0.5429454845265844
+          }
+        },
+        {
+          "frame": 235,
+          "image_sha256": "748a1dee621ad7c3fbe745343fb0a2b7865ad3cb92cbe76b72457ce05791c7d4",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.16052424907684326,
+          "absolute_rgb_error_all_pixels_missing_black": 0.16052423417568207,
+          "psnr_all_pixels_missing_black": 12.508820721511423,
+          "sparse_consistency": {
+            "observations": 1577,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.4933417882054534,
+            "median_relative_error_covered": 0.052077488119739224,
+            "p95_relative_error_covered": 0.6477904348426534
+          }
+        },
+        {
+          "frame": 245,
+          "image_sha256": "0020933648b32e1e3c9e47c404105a645cf54416674b45fa752aff306daf5f55",
+          "rendered_coverage": 0.9997395833333333,
+          "absolute_rgb_error_visible": 0.23065626621246338,
+          "absolute_rgb_error_all_pixels_missing_black": 0.23073838651180267,
+          "psnr_all_pixels_missing_black": 10.188537306340987,
+          "sparse_consistency": {
+            "observations": 868,
+            "coverage": 0.9988479262672811,
+            "within_5percent_all_tracks": 0.3444700460829493,
+            "median_relative_error_covered": 0.3041578179146856,
+            "p95_relative_error_covered": 0.8160393795421529
+          }
+        },
+        {
+          "frame": 255,
+          "image_sha256": "cbc61f9c783f45b76d6c79f3e74729fb7505ab0fd3b7673d38216b835404bb29",
+          "rendered_coverage": 0.9813953993055555,
+          "absolute_rgb_error_visible": 0.07852739840745926,
+          "absolute_rgb_error_all_pixels_missing_black": 0.08233501017093658,
+          "psnr_all_pixels_missing_black": 17.348296756797716,
+          "sparse_consistency": {
+            "observations": 1909,
+            "coverage": 0.9790466212676794,
+            "within_5percent_all_tracks": 0.8706128863279203,
+            "median_relative_error_covered": 0.00515670701230066,
+            "p95_relative_error_covered": 0.9327967831049193
+          }
+        },
+        {
+          "frame": 265,
+          "image_sha256": "721fe144bf26e1f49b1b45e1e076daa3dcf4ecb74316f275761448f2d6a320e7",
+          "rendered_coverage": 0.9986990017361111,
+          "absolute_rgb_error_visible": 0.12640409171581268,
+          "absolute_rgb_error_all_pixels_missing_black": 0.12705878913402557,
+          "psnr_all_pixels_missing_black": 13.520790650276506,
+          "sparse_consistency": {
+            "observations": 770,
+            "coverage": 0.9935064935064936,
+            "within_5percent_all_tracks": 0.7545454545454545,
+            "median_relative_error_covered": 0.009306502627131725,
+            "p95_relative_error_covered": 0.3283591637498654
+          }
+        },
+        {
+          "frame": 275,
+          "image_sha256": "c1a50bc458c027d43d5361a3659709aea6847494aeedf7a594c006eadfc6ded4",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.09034056216478348,
+          "absolute_rgb_error_all_pixels_missing_black": 0.09034055471420288,
+          "psnr_all_pixels_missing_black": 16.174117065004122,
+          "sparse_consistency": {
+            "observations": 631,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.971473851030111,
+            "median_relative_error_covered": 0.006417691955250203,
+            "p95_relative_error_covered": 0.03499946751708263
+          }
+        },
+        {
+          "frame": 285,
+          "image_sha256": "5567caf02266fde2eed79d378cdc5224a0a4a269203a5dea039650b054a25c48",
+          "rendered_coverage": 0.9956759982638889,
+          "absolute_rgb_error_visible": 0.09262772649526596,
+          "absolute_rgb_error_all_pixels_missing_black": 0.09519099444150925,
+          "psnr_all_pixels_missing_black": 16.506369864261636,
+          "sparse_consistency": {
+            "observations": 1002,
+            "coverage": 0.9960079840319361,
+            "within_5percent_all_tracks": 0.908183632734531,
+            "median_relative_error_covered": 0.0077536264342906724,
+            "p95_relative_error_covered": 0.1652063020138188
+          }
+        },
+        {
+          "frame": 295,
+          "image_sha256": "c18758e49fa9f570a03d949e2b723630dbec3266481b38e7f3d0d116ad4cda8c",
+          "rendered_coverage": 0.9490082465277778,
+          "absolute_rgb_error_visible": 0.16470949351787567,
+          "absolute_rgb_error_all_pixels_missing_black": 0.16943621635437012,
+          "psnr_all_pixels_missing_black": 13.027834155194935,
+          "sparse_consistency": {
+            "observations": 206,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.4174757281553398,
+            "median_relative_error_covered": 0.10214770830882604,
+            "p95_relative_error_covered": 0.7751211920104439
+          }
+        },
+        {
+          "frame": 305,
+          "image_sha256": "ebaf80db22140317aa7646ae29e8d57975b8616276ce133fed116226a79bc511",
+          "rendered_coverage": 0.9999967447916667,
+          "absolute_rgb_error_visible": 0.0903824046254158,
+          "absolute_rgb_error_all_pixels_missing_black": 0.09038479626178741,
+          "psnr_all_pixels_missing_black": 15.76517711357075,
+          "sparse_consistency": {
+            "observations": 1334,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.9430284857571214,
+            "median_relative_error_covered": 0.004532620843332568,
+            "p95_relative_error_covered": 0.06534787180784353
+          }
+        },
+        {
+          "frame": 315,
+          "image_sha256": "66020e32fbe245b2cbc3c2f982db17b58fa44d748520d9fdd4f9f1cebaa5af86",
+          "rendered_coverage": 0.9999967447916667,
+          "absolute_rgb_error_visible": 0.07900632172822952,
+          "absolute_rgb_error_all_pixels_missing_black": 0.07900886237621307,
+          "psnr_all_pixels_missing_black": 17.506407368031198,
+          "sparse_consistency": {
+            "observations": 1546,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.9087968952134541,
+            "median_relative_error_covered": 0.009450691291292286,
+            "p95_relative_error_covered": 0.11079384958596897
+          }
+        },
+        {
+          "frame": 325,
+          "image_sha256": "e4b4e8fa542d1581f58bf0033519a54ea4e790e78c7a23da116010958b57d260",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.1813729703426361,
+          "absolute_rgb_error_all_pixels_missing_black": 0.18137295544147491,
+          "psnr_all_pixels_missing_black": 12.27117346549458,
+          "sparse_consistency": {
+            "observations": 246,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.44308943089430897,
+            "median_relative_error_covered": 0.11186324427803089,
+            "p95_relative_error_covered": 0.9665658748845611
+          }
+        },
+        {
+          "frame": 335,
+          "image_sha256": "5c1e2b6ad3f9988d8943fbe4f845633711d9400a7ed140c3ee67e4f5e1464d37",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.17552323639392853,
+          "absolute_rgb_error_all_pixels_missing_black": 0.17552322149276733,
+          "psnr_all_pixels_missing_black": 11.919648854869667,
+          "sparse_consistency": {
+            "observations": 605,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.6099173553719008,
+            "median_relative_error_covered": 0.00946115487343028,
+            "p95_relative_error_covered": 1.120583296625898
+          }
+        },
+        {
+          "frame": 345,
+          "image_sha256": "b37d154e7cbd2561362e87020a0601f9bc8d4c98340ac6458118ab6cf789277a",
+          "rendered_coverage": 0.9992426215277778,
+          "absolute_rgb_error_visible": 0.1339256912469864,
+          "absolute_rgb_error_all_pixels_missing_black": 0.13436934351921082,
+          "psnr_all_pixels_missing_black": 13.707509427720794,
+          "sparse_consistency": {
+            "observations": 1386,
+            "coverage": 0.9985569985569985,
+            "within_5percent_all_tracks": 0.6717171717171717,
+            "median_relative_error_covered": 0.011076805958387396,
+            "p95_relative_error_covered": 1.566859616071645
+          }
+        },
+        {
+          "frame": 355,
+          "image_sha256": "f40a2adcb17061462d8726ea345fdfe0ed428a66ceea1aeed35fa8356087bac3",
+          "rendered_coverage": 0.9947992621527778,
+          "absolute_rgb_error_visible": 0.255440890789032,
+          "absolute_rgb_error_all_pixels_missing_black": 0.2556755542755127,
+          "psnr_all_pixels_missing_black": 9.89662674224653,
+          "sparse_consistency": {
+            "observations": 84,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.25,
+            "median_relative_error_covered": 1.5254517474777884,
+            "p95_relative_error_covered": 5.700657338437423
+          }
+        },
+        {
+          "frame": 365,
+          "image_sha256": "059849d12abef3d5e5d729096bdd2a1dbb3a260d96ab841abfabf878ca526f9b",
+          "rendered_coverage": 0.9973882378472222,
+          "absolute_rgb_error_visible": 0.09963349252939224,
+          "absolute_rgb_error_all_pixels_missing_black": 0.09985053539276123,
+          "psnr_all_pixels_missing_black": 14.861201164679068,
+          "sparse_consistency": {
+            "observations": 303,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.9603960396039604,
+            "median_relative_error_covered": 0.003608721107172449,
+            "p95_relative_error_covered": 0.03130611587596138
+          }
+        },
+        {
+          "frame": 375,
+          "image_sha256": "5245c39ead07a9108c09924f6f5052309285941c7be0ba43abcce72a156f615a",
+          "rendered_coverage": 0.9995627170138889,
+          "absolute_rgb_error_visible": 0.13045525550842285,
+          "absolute_rgb_error_all_pixels_missing_black": 0.13048511743545532,
+          "psnr_all_pixels_missing_black": 15.487349928316869,
+          "sparse_consistency": {
+            "observations": 989,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.9433771486349848,
+            "median_relative_error_covered": 0.00482789355864694,
+            "p95_relative_error_covered": 0.061118173182344165
+          }
+        },
+        {
+          "frame": 385,
+          "image_sha256": "f109697afbde928370a5c3ae7b41a78978d6dfa90a9abf5ae37b570e2af2d079",
+          "rendered_coverage": 0.9999989149305556,
+          "absolute_rgb_error_visible": 0.0963101014494896,
+          "absolute_rgb_error_all_pixels_missing_black": 0.09631092846393585,
+          "psnr_all_pixels_missing_black": 15.485543035310329,
+          "sparse_consistency": {
+            "observations": 1689,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.9005328596802842,
+            "median_relative_error_covered": 0.007699676220519451,
+            "p95_relative_error_covered": 0.0842524573347562
+          }
+        },
+        {
+          "frame": 395,
+          "image_sha256": "5b1c5b29f39c4d7f026f431de9ee31c6e33ebafb0ad349def50fccbbe04612fe",
+          "rendered_coverage": 0.9989442274305556,
+          "absolute_rgb_error_visible": 0.21650618314743042,
+          "absolute_rgb_error_all_pixels_missing_black": 0.21686819195747375,
+          "psnr_all_pixels_missing_black": 11.022001997629529,
+          "sparse_consistency": {
+            "observations": 906,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.630242825607064,
+            "median_relative_error_covered": 0.012658955719042565,
+            "p95_relative_error_covered": 0.4795286247421201
+          }
+        },
+        {
+          "frame": 405,
+          "image_sha256": "510d1b178eafceb3ca5dda710487a85f4b46ff168c8352be94130722c23b5a5b",
+          "rendered_coverage": 0.9870475260416667,
+          "absolute_rgb_error_visible": 0.15549424290657043,
+          "absolute_rgb_error_all_pixels_missing_black": 0.15674492716789246,
+          "psnr_all_pixels_missing_black": 12.268472778908205,
+          "sparse_consistency": {
+            "observations": 928,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.7424568965517241,
+            "median_relative_error_covered": 0.005718557265693992,
+            "p95_relative_error_covered": 0.8599840608347671
+          }
+        },
+        {
+          "frame": 415,
+          "image_sha256": "52642aeb603e115667a7b90fd5a4239683748c3cad7170d865b00b0a71e20e74",
+          "rendered_coverage": 0.9673101128472222,
+          "absolute_rgb_error_visible": 0.16312384605407715,
+          "absolute_rgb_error_all_pixels_missing_black": 0.1713397204875946,
+          "psnr_all_pixels_missing_black": 11.917316082254064,
+          "sparse_consistency": {
+            "observations": 583,
+            "coverage": 0.9982847341337907,
+            "within_5percent_all_tracks": 0.7667238421955404,
+            "median_relative_error_covered": 0.006678995064882746,
+            "p95_relative_error_covered": 2.837745840770873
+          }
+        },
+        {
+          "frame": 425,
+          "image_sha256": "9183005a75ddf85bd382f221cc2b9de634f60c2b8b08d59bd8dbcbefcf2b09fd",
+          "rendered_coverage": 0.9996571180555556,
+          "absolute_rgb_error_visible": 0.13579188287258148,
+          "absolute_rgb_error_all_pixels_missing_black": 0.13601580262184143,
+          "psnr_all_pixels_missing_black": 13.603638046748275,
+          "sparse_consistency": {
+            "observations": 583,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.5265866209262435,
+            "median_relative_error_covered": 0.03915391511831518,
+            "p95_relative_error_covered": 1.0993830234797548
+          }
+        },
+        {
+          "frame": 435,
+          "image_sha256": "15db56fd2ed8fa5def8b63d057ada8e6a48ff78da2c556de1f5bf422797bc24b",
+          "rendered_coverage": 0.9982562934027778,
+          "absolute_rgb_error_visible": 0.24289360642433167,
+          "absolute_rgb_error_all_pixels_missing_black": 0.24331004917621613,
+          "psnr_all_pixels_missing_black": 10.032831288362127,
+          "sparse_consistency": {
+            "observations": 770,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.7922077922077922,
+            "median_relative_error_covered": 0.005758771181904774,
+            "p95_relative_error_covered": 1.0369689762176164
+          }
+        },
+        {
+          "frame": 445,
+          "image_sha256": "f57e6b7494b431456cabea75ccfa6e37b4675443d118715cdd524d4eb6f375a8",
+          "rendered_coverage": 0.9973470052083333,
+          "absolute_rgb_error_visible": 0.2220381796360016,
+          "absolute_rgb_error_all_pixels_missing_black": 0.2225717008113861,
+          "psnr_all_pixels_missing_black": 10.470845367288263,
+          "sparse_consistency": {
+            "observations": 1166,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.7409948542024014,
+            "median_relative_error_covered": 0.006338042349830638,
+            "p95_relative_error_covered": 1.1106601753210763
+          }
+        },
+        {
+          "frame": 455,
+          "image_sha256": "0eeed8a7c48b2b21c56ae434a05822efdf7255dbe07b5846846312d089216d49",
+          "rendered_coverage": 0.9957172309027778,
+          "absolute_rgb_error_visible": 0.13585764169692993,
+          "absolute_rgb_error_all_pixels_missing_black": 0.13704930245876312,
+          "psnr_all_pixels_missing_black": 13.826138807373669,
+          "sparse_consistency": {
+            "observations": 687,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.7802037845705968,
+            "median_relative_error_covered": 0.006768089599801217,
+            "p95_relative_error_covered": 0.7160384054431811
+          }
+        },
+        {
+          "frame": 465,
+          "image_sha256": "ce5fa1c5ce47514f9f6a647abeed9cae8a9130d4c72ad29e6b71cee53f99cdae",
+          "rendered_coverage": 0.9745041232638889,
+          "absolute_rgb_error_visible": 0.23086018860340118,
+          "absolute_rgb_error_all_pixels_missing_black": 0.23625588417053223,
+          "psnr_all_pixels_missing_black": 10.529983774749256,
+          "sparse_consistency": {
+            "observations": 735,
+            "coverage": 0.9700680272108844,
+            "within_5percent_all_tracks": 0.6530612244897959,
+            "median_relative_error_covered": 0.011223728189220523,
+            "p95_relative_error_covered": 0.8762381575462062
+          }
+        },
+        {
+          "frame": 475,
+          "image_sha256": "abf585ad058cb92436ca66194a81d98a2f6f5e4b3fc905adb2fc8bcb2f9a97ae",
+          "rendered_coverage": 0.9884787326388889,
+          "absolute_rgb_error_visible": 0.17742958664894104,
+          "absolute_rgb_error_all_pixels_missing_black": 0.18030185997486115,
+          "psnr_all_pixels_missing_black": 11.918577687392816,
+          "sparse_consistency": {
+            "observations": 1304,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.8205521472392638,
+            "median_relative_error_covered": 0.007708755902468064,
+            "p95_relative_error_covered": 0.746720479345942
+          }
+        },
+        {
+          "frame": 485,
+          "image_sha256": "cad53ffda24fba866c2b85b4f43835ef7f318f9c0662065866e6ac901fb025d0",
+          "rendered_coverage": 0.9770442708333333,
+          "absolute_rgb_error_visible": 0.2714757025241852,
+          "absolute_rgb_error_all_pixels_missing_black": 0.28062957525253296,
+          "psnr_all_pixels_missing_black": 9.22938081916582,
+          "sparse_consistency": {
+            "observations": 621,
+            "coverage": 0.9919484702093397,
+            "within_5percent_all_tracks": 0.6956521739130435,
+            "median_relative_error_covered": 0.006643683130244298,
+            "p95_relative_error_covered": 1.0352138634220123
+          }
+        },
+        {
+          "frame": 495,
+          "image_sha256": "d9e9f0f3f47631e8e127027aa8a10a5ece860e25c95133bbde9475b1e2d974a9",
+          "rendered_coverage": 0.9995290798611111,
+          "absolute_rgb_error_visible": 0.22627608478069305,
+          "absolute_rgb_error_all_pixels_missing_black": 0.2265114039182663,
+          "psnr_all_pixels_missing_black": 11.054633878874194,
+          "sparse_consistency": {
+            "observations": 565,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.647787610619469,
+            "median_relative_error_covered": 0.006376191731717118,
+            "p95_relative_error_covered": 1.6274498787043346
+          }
+        },
+        {
+          "frame": 505,
+          "image_sha256": "d5da7cc933d427e9e20067faf9ef27bcba7a20b8f91fe68247bf8af3a3eecd9f",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.16852548718452454,
+          "absolute_rgb_error_all_pixels_missing_black": 0.16852548718452454,
+          "psnr_all_pixels_missing_black": 12.910539981896383,
+          "sparse_consistency": {
+            "observations": 1115,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.547085201793722,
+            "median_relative_error_covered": 0.03507620527973069,
+            "p95_relative_error_covered": 0.6117580840576861
+          }
+        },
+        {
+          "frame": 515,
+          "image_sha256": "5958f23c49b746ef89bedc4757aa326dc6e39ddd0e730ec4bf6abac8b290f4bc",
+          "rendered_coverage": 0.9994715711805555,
+          "absolute_rgb_error_visible": 0.21556416153907776,
+          "absolute_rgb_error_all_pixels_missing_black": 0.21561582386493683,
+          "psnr_all_pixels_missing_black": 11.007225213780396,
+          "sparse_consistency": {
+            "observations": 440,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.1318181818181818,
+            "median_relative_error_covered": 0.7401837042586923,
+            "p95_relative_error_covered": 1.6139171685924059
+          }
+        },
+        {
+          "frame": 525,
+          "image_sha256": "7146528b6e26527dfc2371c6815ac9211dd843eeeae47e58aa2036c3ccb37046",
+          "rendered_coverage": 0.9988693576388888,
+          "absolute_rgb_error_visible": 0.2279411405324936,
+          "absolute_rgb_error_all_pixels_missing_black": 0.22809667885303497,
+          "psnr_all_pixels_missing_black": 10.718389681921325,
+          "sparse_consistency": {
+            "observations": 257,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.019455252918287938,
+            "median_relative_error_covered": 0.28452716993715205,
+            "p95_relative_error_covered": 0.6644729744579354
+          }
+        },
+        {
+          "frame": 535,
+          "image_sha256": "f99e024aeeafaf0a9a2b182dee73f02dd83e4f93c4369fcc2fb3b708c87a84c5",
+          "rendered_coverage": 0.9490342881944445,
+          "absolute_rgb_error_visible": 0.2107466161251068,
+          "absolute_rgb_error_all_pixels_missing_black": 0.2182454615831375,
+          "psnr_all_pixels_missing_black": 11.040257278654089,
+          "sparse_consistency": {
+            "observations": 655,
+            "coverage": 0.9954198473282443,
+            "within_5percent_all_tracks": 0.4442748091603053,
+            "median_relative_error_covered": 0.13026324000253242,
+            "p95_relative_error_covered": 0.8430941057415337
+          }
+        },
+        {
+          "frame": 545,
+          "image_sha256": "2169de6f7444f92a964bb660ccdf6b6cbfa4e7596c41988cb875ffe870fbb895",
+          "rendered_coverage": 0.9603862847222222,
+          "absolute_rgb_error_visible": 0.12004978209733963,
+          "absolute_rgb_error_all_pixels_missing_black": 0.14346055686473846,
+          "psnr_all_pixels_missing_black": 12.370394172570938,
+          "sparse_consistency": {
+            "observations": 2132,
+            "coverage": 0.9901500938086304,
+            "within_5percent_all_tracks": 0.8738273921200751,
+            "median_relative_error_covered": 0.005183769096687794,
+            "p95_relative_error_covered": 0.7404224953861365
+          }
+        },
+        {
+          "frame": 555,
+          "image_sha256": "ad30598b96c1e498ade0c2ebe2676cb00d04dd9e1a7425b071c85ab95477127c",
+          "rendered_coverage": 0.9917513020833333,
+          "absolute_rgb_error_visible": 0.14721418917179108,
+          "absolute_rgb_error_all_pixels_missing_black": 0.1518644541501999,
+          "psnr_all_pixels_missing_black": 13.309187898554498,
+          "sparse_consistency": {
+            "observations": 2077,
+            "coverage": 0.9995185363505056,
+            "within_5percent_all_tracks": 0.8921521425132403,
+            "median_relative_error_covered": 0.005016064507574605,
+            "p95_relative_error_covered": 1.093625460998025
+          }
+        },
+        {
+          "frame": 565,
+          "image_sha256": "35b8a6002433ff1264377e347f36d7fa1f2b103f8a8084cba158211c875dfedc",
+          "rendered_coverage": 0.9965256076388889,
+          "absolute_rgb_error_visible": 0.1784667819738388,
+          "absolute_rgb_error_all_pixels_missing_black": 0.1791437864303589,
+          "psnr_all_pixels_missing_black": 12.230859547104526,
+          "sparse_consistency": {
+            "observations": 2138,
+            "coverage": 0.999532273152479,
+            "within_5percent_all_tracks": 0.6534144059869037,
+            "median_relative_error_covered": 0.011935644503348823,
+            "p95_relative_error_covered": 0.6338093134257032
+          }
+        },
+        {
+          "frame": 575,
+          "image_sha256": "2a29b98011ef9004705d5a05fad35c5039d83f48d6b18813f8188673a4b6eb21",
+          "rendered_coverage": 0.9999826388888889,
+          "absolute_rgb_error_visible": 0.20856091380119324,
+          "absolute_rgb_error_all_pixels_missing_black": 0.2085612714290619,
+          "psnr_all_pixels_missing_black": 10.809232496419234,
+          "sparse_consistency": {
+            "observations": 777,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.6216216216216216,
+            "median_relative_error_covered": 0.011009372540790851,
+            "p95_relative_error_covered": 1.5356522874984795
+          }
+        },
+        {
+          "frame": 585,
+          "image_sha256": "4c8d3f79493000a7b6dedbcecd460edd35efc41a6d21d75f880700f6c0ac38c7",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.14794869720935822,
+          "absolute_rgb_error_all_pixels_missing_black": 0.14794869720935822,
+          "psnr_all_pixels_missing_black": 13.563064031631576,
+          "sparse_consistency": {
+            "observations": 525,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.579047619047619,
+            "median_relative_error_covered": 0.02068442689406111,
+            "p95_relative_error_covered": 1.6185768844864385
+          }
+        },
+        {
+          "frame": 595,
+          "image_sha256": "1bb031edc75c13776cf67d6c99d3b94299dd952bc808282b60265e9bc5bf8a4c",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.2698218524456024,
+          "absolute_rgb_error_all_pixels_missing_black": 0.26982182264328003,
+          "psnr_all_pixels_missing_black": 9.546937193831612,
+          "sparse_consistency": {
+            "observations": 1134,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.13139329805996472,
+            "median_relative_error_covered": 0.4076774313990226,
+            "p95_relative_error_covered": 4.08920497351692
+          }
+        },
+        {
+          "frame": 605,
+          "image_sha256": "195809bd1fb12e1b920c5aafc3d275741d0f35a10a618d768d446cddf1e6f23d",
+          "rendered_coverage": 0.9694542100694444,
+          "absolute_rgb_error_visible": 0.16333740949630737,
+          "absolute_rgb_error_all_pixels_missing_black": 0.16998791694641113,
+          "psnr_all_pixels_missing_black": 12.23422399830475,
+          "sparse_consistency": {
+            "observations": 1903,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.6568575932737782,
+            "median_relative_error_covered": 0.014137709475185887,
+            "p95_relative_error_covered": 1.1959860655579675
+          }
+        },
+        {
+          "frame": 615,
+          "image_sha256": "36cad39e6def3f039fb24b5fc3b873d5c751609fa58513ed4f528d19544478db",
+          "rendered_coverage": 0.9591612413194445,
+          "absolute_rgb_error_visible": 0.1748516857624054,
+          "absolute_rgb_error_all_pixels_missing_black": 0.19168223440647125,
+          "psnr_all_pixels_missing_black": 11.770859590152154,
+          "sparse_consistency": {
+            "observations": 810,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.8271604938271605,
+            "median_relative_error_covered": 0.006819223404662441,
+            "p95_relative_error_covered": 0.26547419394150357
+          }
+        },
+        {
+          "frame": 625,
+          "image_sha256": "540e75e1c08b5ac8d7d7b2ea662091e2c0d81047fdcf635926a7e58579fbca4d",
+          "rendered_coverage": 0.9938205295138889,
+          "absolute_rgb_error_visible": 0.09528681635856628,
+          "absolute_rgb_error_all_pixels_missing_black": 0.0993349626660347,
+          "psnr_all_pixels_missing_black": 16.020420268375005,
+          "sparse_consistency": {
+            "observations": 2369,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.937526382439848,
+            "median_relative_error_covered": 0.005730294850049045,
+            "p95_relative_error_covered": 0.06553734946550019
+          }
+        },
+        {
+          "frame": 635,
+          "image_sha256": "c8e7355e5d62052586c33409649e4d6567b4008d89c25ca34479eb177f4115b7",
+          "rendered_coverage": 0.9999989149305556,
+          "absolute_rgb_error_visible": 0.19471436738967896,
+          "absolute_rgb_error_all_pixels_missing_black": 0.1947149783372879,
+          "psnr_all_pixels_missing_black": 11.614281103770871,
+          "sparse_consistency": {
+            "observations": 1976,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.4934210526315789,
+            "median_relative_error_covered": 0.05377532516535176,
+            "p95_relative_error_covered": 0.6651242271229993
+          }
+        },
+        {
+          "frame": 645,
+          "image_sha256": "871ebb0a7cac70a3a273e32e6c08b1d7f40ef0a516810d5bf68c1a30d738e02d",
+          "rendered_coverage": 0.9998025173611111,
+          "absolute_rgb_error_visible": 0.14534595608711243,
+          "absolute_rgb_error_all_pixels_missing_black": 0.14544573426246643,
+          "psnr_all_pixels_missing_black": 13.210262183077063,
+          "sparse_consistency": {
+            "observations": 1684,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.6514251781472684,
+            "median_relative_error_covered": 0.010224114616627804,
+            "p95_relative_error_covered": 2.8035593143241493
+          }
+        },
+        {
+          "frame": 655,
+          "image_sha256": "c50eff9e155dd6ceec9c1cd2703ab720ac5312c77f508c03619ed0e7a269dc87",
+          "rendered_coverage": 0.9984147135416667,
+          "absolute_rgb_error_visible": 0.11967326700687408,
+          "absolute_rgb_error_all_pixels_missing_black": 0.12075214833021164,
+          "psnr_all_pixels_missing_black": 13.437190545321272,
+          "sparse_consistency": {
+            "observations": 2215,
+            "coverage": 0.9990970654627539,
+            "within_5percent_all_tracks": 0.8514672686230248,
+            "median_relative_error_covered": 0.008765302716681939,
+            "p95_relative_error_covered": 0.39455691655542663
+          }
+        },
+        {
+          "frame": 665,
+          "image_sha256": "ca96bb821fb203733377df0ca5cdf158593b9965240d5b10e48a1d58fd79368c",
+          "rendered_coverage": 0.9999240451388889,
+          "absolute_rgb_error_visible": 0.17233622074127197,
+          "absolute_rgb_error_all_pixels_missing_black": 0.1723593920469284,
+          "psnr_all_pixels_missing_black": 12.587751956455996,
+          "sparse_consistency": {
+            "observations": 855,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.6035087719298246,
+            "median_relative_error_covered": 0.017035114909702047,
+            "p95_relative_error_covered": 2.1486923257453068
+          }
+        },
+        {
+          "frame": 675,
+          "image_sha256": "ff1ff0ed0cdc2010612db19f0bed423facc3d656c377810e57637c06c1358f59",
+          "rendered_coverage": 0.99970703125,
+          "absolute_rgb_error_visible": 0.1257414072751999,
+          "absolute_rgb_error_all_pixels_missing_black": 0.12586984038352966,
+          "psnr_all_pixels_missing_black": 13.978131552158462,
+          "sparse_consistency": {
+            "observations": 1952,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.7935450819672131,
+            "median_relative_error_covered": 0.004887279667659836,
+            "p95_relative_error_covered": 2.4241155422050435
+          }
+        },
+        {
+          "frame": 685,
+          "image_sha256": "e18229e10f73acec33ddad5f133124c89053970dd603a371eeab56f57a3b3139",
+          "rendered_coverage": 0.9998263888888889,
+          "absolute_rgb_error_visible": 0.11489485949277878,
+          "absolute_rgb_error_all_pixels_missing_black": 0.11489980667829514,
+          "psnr_all_pixels_missing_black": 15.193892266816057,
+          "sparse_consistency": {
+            "observations": 876,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.930365296803653,
+            "median_relative_error_covered": 0.009108391581630548,
+            "p95_relative_error_covered": 0.07400140606370258
+          }
+        },
+        {
+          "frame": 695,
+          "image_sha256": "218184000911eea6cb4f76001eaac16659ac069d42a3dfda71e6278bc026ab14",
+          "rendered_coverage": 0.9997981770833333,
+          "absolute_rgb_error_visible": 0.12165934592485428,
+          "absolute_rgb_error_all_pixels_missing_black": 0.12177950888872147,
+          "psnr_all_pixels_missing_black": 14.370656085075835,
+          "sparse_consistency": {
+            "observations": 1222,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.839607201309329,
+            "median_relative_error_covered": 0.005473453919244191,
+            "p95_relative_error_covered": 0.8116349599073954
+          }
+        },
+        {
+          "frame": 705,
+          "image_sha256": "7c35774eed4800bf282aea9f2a27f1f329af080cf5edfdf8e5c03596e252a000",
+          "rendered_coverage": 0.9994357638888889,
+          "absolute_rgb_error_visible": 0.18360048532485962,
+          "absolute_rgb_error_all_pixels_missing_black": 0.1837504655122757,
+          "psnr_all_pixels_missing_black": 11.410300448913675,
+          "sparse_consistency": {
+            "observations": 608,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.5164473684210527,
+            "median_relative_error_covered": 0.04842286374597123,
+            "p95_relative_error_covered": 0.500641449468654
+          }
+        },
+        {
+          "frame": 715,
+          "image_sha256": "f4b77fb7d6221ef90d3136991a803d27855403f11a3a2053c3d6bd76efd39c5a",
+          "rendered_coverage": 0.9999989149305556,
+          "absolute_rgb_error_visible": 0.0650520995259285,
+          "absolute_rgb_error_all_pixels_missing_black": 0.06505252420902252,
+          "psnr_all_pixels_missing_black": 17.86389060111219,
+          "sparse_consistency": {
+            "observations": 889,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.9167604049493814,
+            "median_relative_error_covered": 0.0033613318111882446,
+            "p95_relative_error_covered": 0.9704037729918721
+          }
+        },
+        {
+          "frame": 725,
+          "image_sha256": "a7b594ff66c33062e73a68e4655a872d4deddbe32816a5d64b8ee8832a650a79",
+          "rendered_coverage": 0.9999891493055556,
+          "absolute_rgb_error_visible": 0.11990553140640259,
+          "absolute_rgb_error_all_pixels_missing_black": 0.11990921199321747,
+          "psnr_all_pixels_missing_black": 15.084172167448774,
+          "sparse_consistency": {
+            "observations": 169,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.727810650887574,
+            "median_relative_error_covered": 0.015164365125708236,
+            "p95_relative_error_covered": 0.28171171568271974
+          }
+        },
+        {
+          "frame": 735,
+          "image_sha256": "696c86059e561dc581efd2dda3e38b4581d2ddfae649710c4f68f65a09aff89a",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.11267013847827911,
+          "absolute_rgb_error_all_pixels_missing_black": 0.11267013847827911,
+          "psnr_all_pixels_missing_black": 16.38028143906653,
+          "sparse_consistency": {
+            "observations": 495,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.8161616161616162,
+            "median_relative_error_covered": 0.013944645447471066,
+            "p95_relative_error_covered": 0.21719979938666165
+          }
+        },
+        {
+          "frame": 745,
+          "image_sha256": "f051aaf3b53f57e74f16ee06e72db779792cf581168bc79793d2d451b8138897",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.14580769836902618,
+          "absolute_rgb_error_all_pixels_missing_black": 0.14580769836902618,
+          "psnr_all_pixels_missing_black": 13.558071916738028,
+          "sparse_consistency": {
+            "observations": 641,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.6677067082683308,
+            "median_relative_error_covered": 0.024287071851747645,
+            "p95_relative_error_covered": 0.6218373110077718
+          }
+        },
+        {
+          "frame": 755,
+          "image_sha256": "7167c8a4cdcde611a6406d585c21c4d6b2198824e6065f5c04df3f53c4c9e185",
+          "rendered_coverage": 0.9723882378472222,
+          "absolute_rgb_error_visible": 0.11072807013988495,
+          "absolute_rgb_error_all_pixels_missing_black": 0.12305863946676254,
+          "psnr_all_pixels_missing_black": 13.597427695071303,
+          "sparse_consistency": {
+            "observations": 1107,
+            "coverage": 0.992773261065944,
+            "within_5percent_all_tracks": 0.7199638663053297,
+            "median_relative_error_covered": 0.007995238534261751,
+            "p95_relative_error_covered": 1.2490203431480518
+          }
+        },
+        {
+          "frame": 765,
+          "image_sha256": "bba3fdae66e24069c8caac3423548a4a888b286a915af68992e8f5b2bd73b314",
+          "rendered_coverage": 0.9982085503472222,
+          "absolute_rgb_error_visible": 0.22492893040180206,
+          "absolute_rgb_error_all_pixels_missing_black": 0.22570298612117767,
+          "psnr_all_pixels_missing_black": 10.846923722798232,
+          "sparse_consistency": {
+            "observations": 870,
+            "coverage": 0.9988505747126437,
+            "within_5percent_all_tracks": 0.47586206896551725,
+            "median_relative_error_covered": 0.06158778054211566,
+            "p95_relative_error_covered": 1.9923366074645381
+          },
+          "unchanged_local_baseline": {
+            "rendered_coverage": 0.7012630208333334,
+            "absolute_rgb_error_visible": 0.08859792351722717,
+            "absolute_rgb_error_all_pixels_missing_black": 0.1963796615600586,
+            "psnr_all_pixels_missing_black": 9.994772499183807,
+            "sparse_consistency": {
+              "observations": 870,
+              "coverage": 0.957471264367816,
+              "within_5percent_all_tracks": 0.8172413793103448,
+              "median_relative_error_covered": 0.01070221152303172,
+              "p95_relative_error_covered": 0.14200141711428316
+            }
+          }
+        },
+        {
+          "frame": 775,
+          "image_sha256": "fb01f9e7ee2d459ae9ad856c5141fbaaa8bcc30f69ea9cad2232410235f1928a",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.12391109764575958,
+          "absolute_rgb_error_all_pixels_missing_black": 0.12391108274459839,
+          "psnr_all_pixels_missing_black": 13.236037434469445,
+          "sparse_consistency": {
+            "observations": 973,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.894141829393628,
+            "median_relative_error_covered": 0.005040140386994517,
+            "p95_relative_error_covered": 0.10956757536372753
+          },
+          "unchanged_local_baseline": {
+            "rendered_coverage": 0.8323546006944444,
+            "absolute_rgb_error_visible": 0.060784727334976196,
+            "absolute_rgb_error_all_pixels_missing_black": 0.1468297392129898,
+            "psnr_all_pixels_missing_black": 10.49308985133802,
+            "sparse_consistency": {
+              "observations": 973,
+              "coverage": 0.9969167523124358,
+              "within_5percent_all_tracks": 0.9321685508735869,
+              "median_relative_error_covered": 0.004728096279376289,
+              "p95_relative_error_covered": 0.06804690401283721
+            }
+          }
+        },
+        {
+          "frame": 785,
+          "image_sha256": "e509153fc7b37a2171cad6fe04c319f31099a596d232adb784f70d2e2f7a3015",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.11912518739700317,
+          "absolute_rgb_error_all_pixels_missing_black": 0.11912517994642258,
+          "psnr_all_pixels_missing_black": 14.156730946333836,
+          "sparse_consistency": {
+            "observations": 529,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.7863894139886578,
+            "median_relative_error_covered": 0.009622827337870666,
+            "p95_relative_error_covered": 0.4153879992832311
+          },
+          "unchanged_local_baseline": {
+            "rendered_coverage": 0.8874717881944445,
+            "absolute_rgb_error_visible": 0.10758499801158905,
+            "absolute_rgb_error_all_pixels_missing_black": 0.159446120262146,
+            "psnr_all_pixels_missing_black": 10.664098842609516,
+            "sparse_consistency": {
+              "observations": 529,
+              "coverage": 0.9319470699432892,
+              "within_5percent_all_tracks": 0.8468809073724007,
+              "median_relative_error_covered": 0.009275232671750514,
+              "p95_relative_error_covered": 0.08294973801659511
+            }
+          }
+        },
+        {
+          "frame": 795,
+          "image_sha256": "78d893398561817a76e3434217b270c7c2af84b710095392fb52861540b8ca5d",
+          "rendered_coverage": 0.9824576822916666,
+          "absolute_rgb_error_visible": 0.2312069833278656,
+          "absolute_rgb_error_all_pixels_missing_black": 0.23498256504535675,
+          "psnr_all_pixels_missing_black": 10.73787395329672,
+          "sparse_consistency": {
+            "observations": 1622,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.218249075215783,
+            "median_relative_error_covered": 0.9500096375631387,
+            "p95_relative_error_covered": 0.9869239397965465
+          },
+          "unchanged_local_baseline": {
+            "rendered_coverage": 0.9228472222222223,
+            "absolute_rgb_error_visible": 0.07958495616912842,
+            "absolute_rgb_error_all_pixels_missing_black": 0.11071707308292389,
+            "psnr_all_pixels_missing_black": 14.058439548639495,
+            "sparse_consistency": {
+              "observations": 1622,
+              "coverage": 0.9802712700369913,
+              "within_5percent_all_tracks": 0.9044389642416769,
+              "median_relative_error_covered": 0.006424551778465295,
+              "p95_relative_error_covered": 0.06597192401525703
+            }
+          }
+        },
+        {
+          "frame": 805,
+          "image_sha256": "070eee377b665d6b6cd3bf0bc0fa87f0a802225aff8355000141f58516a2b3c8",
+          "rendered_coverage": 0.6665266927083333,
+          "absolute_rgb_error_visible": 0.12112651765346527,
+          "absolute_rgb_error_all_pixels_missing_black": 0.27852559089660645,
+          "psnr_all_pixels_missing_black": 8.280213100353254,
+          "sparse_consistency": {
+            "observations": 971,
+            "coverage": 0.9855818743563337,
+            "within_5percent_all_tracks": 0.8074150360453141,
+            "median_relative_error_covered": 0.008488776132377175,
+            "p95_relative_error_covered": 1.0061460902775317
+          },
+          "unchanged_local_baseline": {
+            "rendered_coverage": 0.8806434461805556,
+            "absolute_rgb_error_visible": 0.046466998755931854,
+            "absolute_rgb_error_all_pixels_missing_black": 0.11122008413076401,
+            "psnr_all_pixels_missing_black": 12.26963901409398,
+            "sparse_consistency": {
+              "observations": 971,
+              "coverage": 0.9711637487126673,
+              "within_5percent_all_tracks": 0.8918640576725025,
+              "median_relative_error_covered": 0.00990106954127558,
+              "p95_relative_error_covered": 0.06931967924216559
+            }
+          }
+        },
+        {
+          "frame": 815,
+          "image_sha256": "d1ad5ec347aa755111ebce45c8cce47db0d9170d30a84af230219b8ca85bb92b",
+          "rendered_coverage": 0.9535221354166666,
+          "absolute_rgb_error_visible": 0.09618369489908218,
+          "absolute_rgb_error_all_pixels_missing_black": 0.11152325570583344,
+          "psnr_all_pixels_missing_black": 14.558784748342354,
+          "sparse_consistency": {
+            "observations": 1419,
+            "coverage": 0.9950669485553206,
+            "within_5percent_all_tracks": 0.8505990133897111,
+            "median_relative_error_covered": 0.007543724042166672,
+            "p95_relative_error_covered": 0.08900071547758562
+          }
+        },
+        {
+          "frame": 825,
+          "image_sha256": "fb420fb74b930380abf9df07abac90d54cabca8ef52b9b3ebab193d7b6e9fc7f",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.1446455717086792,
+          "absolute_rgb_error_all_pixels_missing_black": 0.144645556807518,
+          "psnr_all_pixels_missing_black": 13.508203664905743,
+          "sparse_consistency": {
+            "observations": 626,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.8258785942492013,
+            "median_relative_error_covered": 0.011370122054801507,
+            "p95_relative_error_covered": 0.44207711556283624
+          }
+        },
+        {
+          "frame": 835,
+          "image_sha256": "f703b1bfdc90d2a10cd2eebb1eef3b2895ccdcf1bcf8fb702d9e57dc154c5ab0",
+          "rendered_coverage": 0.9719314236111111,
+          "absolute_rgb_error_visible": 0.09798687696456909,
+          "absolute_rgb_error_all_pixels_missing_black": 0.10543504357337952,
+          "psnr_all_pixels_missing_black": 16.01716807830705,
+          "sparse_consistency": {
+            "observations": 1409,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.9091554293825408,
+            "median_relative_error_covered": 0.006737725914242482,
+            "p95_relative_error_covered": 0.1684571120774651
+          }
+        },
+        {
+          "frame": 845,
+          "image_sha256": "557307aa1e8fc0bfd82fd017b02abf482cc872774e6bb5c141c42b24ff554e09",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.10879699885845184,
+          "absolute_rgb_error_all_pixels_missing_black": 0.10879699885845184,
+          "psnr_all_pixels_missing_black": 15.726047577980394,
+          "sparse_consistency": {
+            "observations": 969,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.8431372549019608,
+            "median_relative_error_covered": 0.010551219190948504,
+            "p95_relative_error_covered": 0.19411295444105012
+          }
+        },
+        {
+          "frame": 855,
+          "image_sha256": "cb9c4ae95e53c5ce9e1b1f782ae53fa9516f1dd361da145baf09341ae4d76069",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.1309269815683365,
+          "absolute_rgb_error_all_pixels_missing_black": 0.1309269815683365,
+          "psnr_all_pixels_missing_black": 14.273746981426797,
+          "sparse_consistency": {
+            "observations": 2294,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.7558849171752398,
+            "median_relative_error_covered": 0.015573367570177094,
+            "p95_relative_error_covered": 0.34285705925710247
+          }
+        },
+        {
+          "frame": 865,
+          "image_sha256": "b7261b457f68f121a69e922ea6588bb80e41369eaa0bc648506b00a1d031b51f",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.10869185626506805,
+          "absolute_rgb_error_all_pixels_missing_black": 0.10869185626506805,
+          "psnr_all_pixels_missing_black": 15.48434800911971,
+          "sparse_consistency": {
+            "observations": 1157,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.6542783059636992,
+            "median_relative_error_covered": 0.009956680754286287,
+            "p95_relative_error_covered": 0.5313371490931815
+          }
+        },
+        {
+          "frame": 875,
+          "image_sha256": "8d0d6f36690f9e70f45ce8b38e4598ebe32429927dbfdd53dbad83de672e07f0",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.10469988733530045,
+          "absolute_rgb_error_all_pixels_missing_black": 0.10469987243413925,
+          "psnr_all_pixels_missing_black": 16.14928458284878,
+          "sparse_consistency": {
+            "observations": 293,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.4402730375426621,
+            "median_relative_error_covered": 0.23613686931224714,
+            "p95_relative_error_covered": 0.6313543813034469
+          }
+        },
+        {
+          "frame": 885,
+          "image_sha256": "534a80f64704a7c148bc4d14838acf5808d55b8164ecc207bb4358ab2207d774",
+          "rendered_coverage": 0.9999945746527777,
+          "absolute_rgb_error_visible": 0.08081987500190735,
+          "absolute_rgb_error_all_pixels_missing_black": 0.08082076162099838,
+          "psnr_all_pixels_missing_black": 16.775110722948416,
+          "sparse_consistency": {
+            "observations": 451,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.9600886917960089,
+            "median_relative_error_covered": 0.003375045449200161,
+            "p95_relative_error_covered": 0.02779656529973501
+          }
+        },
+        {
+          "frame": 895,
+          "image_sha256": "c11f77852c2a70b063a9f34891ca55a17c359236e8d004a91005cfb3700ece26",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.12612472474575043,
+          "absolute_rgb_error_all_pixels_missing_black": 0.12612472474575043,
+          "psnr_all_pixels_missing_black": 14.069879383104942,
+          "sparse_consistency": {
+            "observations": 1120,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.39464285714285713,
+            "median_relative_error_covered": 0.28545292399772837,
+            "p95_relative_error_covered": 0.5798130319634247
+          }
+        },
+        {
+          "frame": 905,
+          "image_sha256": "317f17dbe39a943066b665746ef6f9589495b9d2dbb773c5d51879336b6161dd",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.0802745372056961,
+          "absolute_rgb_error_all_pixels_missing_black": 0.08027452975511551,
+          "psnr_all_pixels_missing_black": 17.660390916453114,
+          "sparse_consistency": {
+            "observations": 1148,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.9041811846689896,
+            "median_relative_error_covered": 0.017078749522886225,
+            "p95_relative_error_covered": 0.07229934625075325
+          }
+        },
+        {
+          "frame": 915,
+          "image_sha256": "1d5530f0ca2ae4843b31d103a44af7db08997b267053bbf2f53a79379abbb088",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.1189250573515892,
+          "absolute_rgb_error_all_pixels_missing_black": 0.1189250648021698,
+          "psnr_all_pixels_missing_black": 15.51662453360799,
+          "sparse_consistency": {
+            "observations": 757,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.7859973579920739,
+            "median_relative_error_covered": 0.018305304814273126,
+            "p95_relative_error_covered": 0.28108745358883586
+          }
+        },
+        {
+          "frame": 925,
+          "image_sha256": "5c2cd8c5dffeacbef7079ca3dee26f0175919e5fb7c1e113a6537d5a4c32b240",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.10040470957756042,
+          "absolute_rgb_error_all_pixels_missing_black": 0.10040470957756042,
+          "psnr_all_pixels_missing_black": 16.288450715664574,
+          "sparse_consistency": {
+            "observations": 317,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.8675078864353313,
+            "median_relative_error_covered": 0.016077141964044358,
+            "p95_relative_error_covered": 0.3380876634717028
+          }
+        },
+        {
+          "frame": 935,
+          "image_sha256": "b1c8943ad5497840d134b7e4e8f61ff3d3e5981ee9e59422ed51af83a8480976",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.13567548990249634,
+          "absolute_rgb_error_all_pixels_missing_black": 0.13567548990249634,
+          "psnr_all_pixels_missing_black": 14.461261621044004,
+          "sparse_consistency": {
+            "observations": 545,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.7137614678899082,
+            "median_relative_error_covered": 0.01684173750393942,
+            "p95_relative_error_covered": 0.9728490649428005
+          }
+        },
+        {
+          "frame": 945,
+          "image_sha256": "1b77af717b2d15273f1ce2a88e0c09437a40979160800a80edf236950d75478c",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.15359024703502655,
+          "absolute_rgb_error_all_pixels_missing_black": 0.15359023213386536,
+          "psnr_all_pixels_missing_black": 12.766908672163721,
+          "sparse_consistency": {
+            "observations": 1478,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.8146143437077131,
+            "median_relative_error_covered": 0.008960883425410654,
+            "p95_relative_error_covered": 0.3648878540200679
+          }
+        },
+        {
+          "frame": 955,
+          "image_sha256": "3c0ae60a6a369e38f6eed9c0871bce31ac1b5544dfc78734cd51f0f10cc3daa1",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.36190226674079895,
+          "absolute_rgb_error_all_pixels_missing_black": 0.36190223693847656,
+          "psnr_all_pixels_missing_black": 7.615661348291111,
+          "sparse_consistency": {
+            "observations": 191,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.680628272251309,
+            "median_relative_error_covered": 0.013583450774308151,
+            "p95_relative_error_covered": 0.697802663918574
+          }
+        },
+        {
+          "frame": 965,
+          "image_sha256": "c2f4964bed47e2d373bf7f6b26e9defa5c8218ef13b81a3d125b4179068f259a",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.15277473628520966,
+          "absolute_rgb_error_all_pixels_missing_black": 0.15277472138404846,
+          "psnr_all_pixels_missing_black": 13.205667826084259,
+          "sparse_consistency": {
+            "observations": 918,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.7167755991285403,
+            "median_relative_error_covered": 0.014974367878706141,
+            "p95_relative_error_covered": 0.4173567700328646
+          }
+        },
+        {
+          "frame": 975,
+          "image_sha256": "f015b2fc768f4f9fe2cfa70d156a5aa26c16602558466e3a9b04c15c93f2b00a",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.18459664285182953,
+          "absolute_rgb_error_all_pixels_missing_black": 0.18459664285182953,
+          "psnr_all_pixels_missing_black": 12.281379630696005,
+          "sparse_consistency": {
+            "observations": 263,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.7490494296577946,
+            "median_relative_error_covered": 0.009812140799166738,
+            "p95_relative_error_covered": 0.7633087926167632
+          }
+        },
+        {
+          "frame": 985,
+          "image_sha256": "0a0bfa04e407171ffa5f8c8a9499514a744e33e8a00186c03d396b7a933a4ec8",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.13400313258171082,
+          "absolute_rgb_error_all_pixels_missing_black": 0.13400311768054962,
+          "psnr_all_pixels_missing_black": 14.358518419164374,
+          "sparse_consistency": {
+            "observations": 343,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.8279883381924198,
+            "median_relative_error_covered": 0.013016712009610578,
+            "p95_relative_error_covered": 0.7250423431108188
+          }
+        },
+        {
+          "frame": 995,
+          "image_sha256": "42a1334420d9259740a515edad9d3e9dc7eba027cc0589bd02cc26c1ac112f33",
+          "rendered_coverage": 1.0,
+          "absolute_rgb_error_visible": 0.09882735460996628,
+          "absolute_rgb_error_all_pixels_missing_black": 0.09882735460996628,
+          "psnr_all_pixels_missing_black": 16.13472588296407,
+          "sparse_consistency": {
+            "observations": 1006,
+            "coverage": 1.0,
+            "within_5percent_all_tracks": 0.9622266401590457,
+            "median_relative_error_covered": 0.007587139220269724,
+            "p95_relative_error_covered": 0.03883613568512874
+          }
+        }
+      ],
+      "metric_accuracy_verified": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "All reserved captured RGB views, with unchanged COLMAP cameras and no per-view alignment. Reserved images were excluded from dense stereo and texturing but participated in camera estimation. Sparse tracks measure consistency with that same calibration, not independent geometry accuracy. No generated or model-derived depth is treated as truth. The unchanged local mesh baseline is compared only on its common reserved frames. All native materials are embedded and geometry, texture pixels, UVs and node transforms pass a complete export round trip. Scale and building connectivity remain unverified.",
+      "viewer_metadata_available": true
+    }
+  },
+  "openmvs_full_dense_stage": {
+    "source": "openmvs-full/trial-1280/dense-completion.json",
+    "result": {
+      "stage": "dense",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/DensifyPointCloud",
+        "--input-file",
+        "scene.mvs",
+        "--output-file",
+        "dense.mvs",
+        "--resolution-level",
+        "0",
+        "--max-resolution",
+        "1280",
+        "--number-views",
+        "5",
+        "--geometric-iters",
+        "2",
+        "--number-views-fuse",
+        "2",
+        "--estimate-roi",
+        "0",
+        "--crop-to-roi",
+        "0",
+        "--tower-mode",
+        "0",
+        "--remove-dmaps",
+        "0",
+        "--max-threads",
+        "8",
+        "--archive-type",
+        "-1"
+      ],
+      "start_utc": "2026-09-09T15:34:12.371448+00:00",
+      "pid": 1329,
+      "returncode": 0,
+      "seconds": 2785.93021458399,
+      "end_utc": "2026-09-09T16:20:38.301697+00:00",
+      "outputs": {
+        "dense.mvs": {
+          "bytes": 11907189,
+          "sha256": "ea4bab2746d1116150839dd3f382bff127680cf45470af0943bce7afb2f601d0"
+        },
+        "dense.ply": {
+          "bytes": 611844927,
+          "sha256": "5e4b4b7f85a6084d14b715026702e0c18fb9d23d2ad68a02c90233ceb1276f81"
+        }
+      },
+      "complete": true,
+      "dense_handoff": {
+        "has_view_indices": true,
+        "has_view_weights": true
+      }
+    }
+  },
+  "openmvs_full_mesh_stage": {
+    "source": "openmvs-full/trial-1280/mesh-completion.json",
+    "result": {
+      "stage": "mesh",
+      "command": [
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/ReconstructMesh",
+        "--input-file",
+        "dense.mvs",
+        "--pointcloud-file",
+        "dense.ply",
+        "--output-file",
+        "mesh.mvs",
+        "--close-holes",
+        "0",
+        "--smooth",
+        "0",
+        "--crop-to-roi",
+        "0",
+        "--max-threads",
+        "8",
+        "--archive-type",
+        "2"
+      ],
+      "start_utc": "2026-09-09T16:20:38.562851+00:00",
+      "pid": 51908,
+      "returncode": 0,
+      "seconds": 323.7518192090065,
+      "end_utc": "2026-09-09T16:26:02.326547+00:00",
+      "outputs": {
+        "mesh.mvs": {
+          "bytes": 92085977,
+          "sha256": "60811a2a7aca1f6c9535c07a33662d27a4a4795e9fd328654ea78e7582949630"
+        },
+        "mesh.ply": {
+          "bytes": 173113729,
+          "sha256": "6a9e2d19daa55cc159133787853c270a4985692ab265f28f470a5fd9e41d2b2f"
+        }
+      },
+      "complete": true
+    }
+  },
+  "openmvs_full_texture_stop": {
+    "source": "openmvs-full/trial-1280/texture-stop.json",
+    "result": {
+      "pid": 67170,
+      "command": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tools/openmvs-v2.4.0/TextureMesh --input-file mesh.mvs --output-file property.mvs --export-type glb --close-holes 0 --sharpness-weight 0 --global-seam-leveling 0 --local-seam-leveling 0 --max-threads 8 --archive-type 2",
+      "time_utc": "2026-09-09T17:06:27.828407+00:00",
+      "reason": "Full geometry and separate vertex-color GLB are saved and hash verified. Original texturing consumed 40 minutes and profiled inside quadratic patch merging over 4776843 patches. No texture output or checkpoint exists. Accept loss of texture-only in-memory work; retain dense points and mesh.",
+      "signal": "SIGTERM"
+    }
+  },
   "camera_turn_correspondence_audit": {
     "source": "camera-turn-correspondence-audit-v1/results.json",
     "result": {

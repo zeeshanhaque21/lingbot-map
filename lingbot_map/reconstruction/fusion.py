@@ -21,6 +21,8 @@ def fuse(output):
     if not files:
         raise ValueError("No inference windows; run infer first")
     manifest = json.loads((output / "input.json").read_text())
+    # Image-sequence manifests contain the ordered source hashes, not a video hash.
+    source_sha256 = manifest["configuration"].get("source_sha256") or digest(output / "input.json")
     inference = json.loads((output / "inference.json").read_text())
     expected = len(manifest["frames"])
     from .inference import window_ranges
@@ -36,7 +38,7 @@ def fuse(output):
     if (artifact / "validation.json").exists():
         saved = json.loads((artifact / "validation.json").read_text())
         if (
-            saved["source_sha256"] != manifest["configuration"]["source_sha256"]
+            saved["source_sha256"] != source_sha256
             or saved["frames_expected"] != expected
             or saved.get("input_signature") != input_signature
         ):
@@ -205,7 +207,7 @@ def fuse(output):
     write_json(artifact / "frame-validation.json", diagnostics)
     report = {
         "status": "reconstructed_unverified_metric_accuracy",
-        "source_sha256": manifest["configuration"]["source_sha256"],
+        "source_sha256": source_sha256,
         "input_signature": input_signature,
         "frames_expected": expected,
         "frames_processed": len(cameras),

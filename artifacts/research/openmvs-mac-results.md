@@ -73,6 +73,12 @@ The corrected-color artifact is:
 It contains all 472,011 triangles, occupies 30,244,196 bytes and has SHA-256 `84f43f5f4d034c8dfa123f2083c15183d89304138843da19638c81449d204451`.
 It is not a reduced preview proxy.
 
+The earlier Trimesh packaging preserved texture pixels but dropped the native `KHR_materials_unlit` extension.
+The repaired exporter embeds the original image bytes, preserves the original geometry buffer and material JSON, and adds the explicit axis transform as a parent node.
+Its replacement asset is `reconstructions/openmvs-chair-760/evaluation-unlit-preserved-final/model/property.glb`, 30,532,904 bytes, SHA-256 `b24c461e6ff7e18f0a101e897524a4e4b385d192d7d08575021112424dab8576`.
+All five coverage, RGB and sparse-consistency results remain identical after this material-preserving repair.
+Use this replacement for browser inspection because captured lighting must remain unlit.
+
 ![Complete exported OpenMVS mesh beside captured reserved views](evidence/openmvs-chair-comparison.jpg)
 
 ## Geometry checks and limitations
@@ -141,8 +147,40 @@ Its paired baseline is evaluated only on views reserved from both reconstruction
 `prepare_colmap_capture_dataset` now prepares all 1,000 captured images with their existing calibrated cameras.
 Exactly 900 images enter dense reconstruction and texturing; 100 frames ending in 5 remain reserved for evaluation.
 The training-only sparse export contains 177,447 points.
-The full native run is in progress at `reconstructions/openmvs-full/trial-1280` and uses the unrefined configuration.
-No full native model result is claimed until that run and its evaluation complete.
+The full native run at `reconstructions/openmvs-full/trial-1280` uses the unrefined configuration.
+Dense reconstruction completes in 2,785.93 seconds with 9,304,339 points.
+Meshing completes in 323.75 seconds with 4,559,190 vertices and 9,107,943 triangles.
+These are single-run timings on the Mac.
+
+Texturing assigns 4,776,843 patches, then remains inside atlas generation.
+Two native samples locate CPU work in the nested patch-containment merge loop in `MeshTexture::GenerateTexture`.
+The source compares patches pairwise before packing, making the observed patch count a serious scaling problem.
+The process remains active on one CPU rather than demonstrating a deadlock.
+It is stopped after approximately 40 minutes, after hashes confirm the dense reconstruction, saved mesh and separate review export remain available.
+Only the unsaved texture stage is discarded; the native atlas run is not reported as complete.
+
+A local comparison with `--virtual-face-images 3` increases patch count from 22,313 to 66,952 on the unchanged 472,011-triangle mesh.
+Its complete texturing stage takes 78.32 seconds, compared with approximately 49 seconds for the unchanged local configuration.
+Median visible RGB error worsens from 0.07959 to 0.08284 across five reserved views, with unchanged geometric coverage.
+This arm does not justify applying the option to the full walkthrough.
+
+An alternate export transfers dense-point colors to the unchanged full mesh vertices in 6.16 seconds.
+Exactly 4,524,521 of 4,559,190 vertices coincide with a dense point; the rest use their nearest point's color.
+The maximum transfer distance is 0.0814 uncalibrated model units.
+Every triangle, vertex and exported vertex color passes a round-trip check.
+This avoids atlas packing for geometry inspection; color interpolation can still blur appearance.
+
+The complete review asset is `reconstructions/openmvs-full/evaluation-point-colors-v1/model/property.glb`, 182,243,700 bytes, SHA-256 `92aea10e251da6ca4d1c7d95ddad38a0465f943eb5f2c5b7597d6fce6600054a`.
+All 100 reserved captured views are evaluated at 1280 by 720.
+Median coverage is 99.88%, but minimum coverage is 8.25%, and ten views have coverage below 70%.
+Median visible RGB error is 0.13069; mean whole-image PSNR with missing pixels black is 12.89 dB.
+High median coverage does not establish correctness: visible false surfaces bridge missing regions.
+At frame 795, only 21.82% of 1,622 existing sparse observations agree within 5% depth, compared with 90.44% for the unchanged local baseline.
+This confirms a geometric regression in the complete native mesh on that view, independently of the vertex-color appearance change.
+The sparse observations still originate in the same estimated calibration and are not survey truth.
+The complete native mesh is retained as a failed research candidate.
+
+![Captured view beside full native point-colored mesh and unchanged local textured mesh](evidence/openmvs-full-point-color-comparison.jpg)
 
 `evaluate_openmvs_capture` packages all native materials into one standalone GLB while preserving every scene node and triangle.
 It verifies geometry, node transforms, texture pixels and UV coordinates after reloading the export.

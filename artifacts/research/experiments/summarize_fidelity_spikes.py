@@ -48,6 +48,13 @@ def main():
         "openmvs_refined_comparison": "openmvs-chair-760/evaluation-refined-1280/results.json",
         "openmvs_refined_captured_comparison": "openmvs-chair-760/evaluation-generic-refined-final/results.json",
         "openmvs_full_capture_comparison": "openmvs-full/evaluation-final/results.json",
+        "openmvs_unlit_preserved_comparison": "openmvs-chair-760/evaluation-native-preserved-v1/results.json",
+        "openmvs_virtual_face_comparison": "openmvs-chair-760/evaluation-virtual3-v1/results.json",
+        "openmvs_full_point_color_export": "openmvs-full/point-colors-v1/completion.json",
+        "openmvs_full_point_color_comparison": "openmvs-full/evaluation-point-colors-v1/results.json",
+        "openmvs_full_dense_stage": "openmvs-full/trial-1280/dense-completion.json",
+        "openmvs_full_mesh_stage": "openmvs-full/trial-1280/mesh-completion.json",
+        "openmvs_full_texture_stop": "openmvs-full/trial-1280/texture-stop.json",
         "camera_turn_correspondence_audit": "camera-turn-correspondence-audit-v1/results.json",
         "cached_pose_mapper_completion": "colmap-cached-pose-spike-v1/completion.json",
         "cached_pose_mapper_run": "colmap-cached-pose-spike-v1/run.json",
@@ -239,6 +246,9 @@ def main():
     source = captures / "global-camera-path-comparison-v2/camera-path-comparison.png"
     if source.exists():
         shutil.copy2(source, evidence / "global-camera-path-comparison.png")
+    source = captures / "openmvs-full/evaluation-point-colors-v1/views/000785.jpg"
+    if source.exists():
+        shutil.copy2(source, evidence / "openmvs-full-point-color-comparison.jpg")
     print(f"Saved {len(records)} experiment groups to {evidence}")
 
 

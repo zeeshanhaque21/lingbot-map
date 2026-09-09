@@ -38,8 +38,8 @@ def main():
         for frame in manifest["frames"]:
             source = args.capture / frame["file"]
             name = source.stem
-            if name != f"{frame['id']:06d}" or source.suffix.lower() != ".jpg":
-                raise ValueError("Expected the captured JPEG naming convention")
+            if name != f"{frame['id']:06d}" or source.suffix.lower() not in {".jpg", ".jpeg", ".png"}:
+                raise ValueError("Expected numbered captured PNG or JPEG images")
             calibration = images[source.name]
             camera = calibration["camera"]
             rgb = Image.open(source).convert("RGB")
@@ -99,7 +99,8 @@ def main():
     report = {
         "capture": str(args.capture.resolve()),
         "source_manifest_sha256": digest(args.capture / "input.json"),
-        "source_video_sha256": manifest["configuration"]["source_sha256"],
+        "source_video_sha256": manifest["configuration"].get("source_sha256"),
+        "source_kind": manifest["configuration"].get("source_kind", "video"),
         "source_image_sha256": source_hashes,
         "image_sha256": image_hashes,
         "colmap_sha256": {
