@@ -40,6 +40,13 @@ def main():
     for arm in ["native-window", "registered-window"]:
         source = captures / "local-pose-falsifier-v1" / f"945-{arm}.jpg"
         shutil.copy2(source, evidence / f"kitchen-{arm}.jpg")
+    for run, page, name in [
+        ("indoor-travel-learned-motion10-bootstrap", "05", "hybrid-app-comparison.jpg"),
+        ("indoor-travel-native-stream1000", "08", "native-stream-app-comparison.jpg"),
+    ]:
+        source = captures / run / "model" / f"web-source-comparison-{page}.jpg"
+        if source.exists():
+            shutil.copy2(source, evidence / name)
     print(f"Saved {len(records)} experiment groups to {evidence}")
 
 

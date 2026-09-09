@@ -8,6 +8,28 @@ It is not a supplied residential property scan.
 The source SHA-256 is `ca590d8af33c465953d6ed6c305557e4b4d7cc6ba3710b4c65872bbf06b684e0`.
 The long checkpoint SHA-256 is `832bc82cbae0bc9bbe946ef5ee1f7226abd8c0e183ccf8beddbb3d133576f409`.
 
+## Current review artifact
+
+The hybrid candidate at `reconstructions/indoor-travel-learned-motion10-bootstrap/model/property.glb` is retained for review.
+It contains 2,999,999 triangles, occupies 59,950,028 bytes and has SHA-256 `8dc31c39a12669fdd491c968e9208d39659658de6a88bae968735de41eb85d4c`.
+The complete 100-view audit gives 69.38% median depth support, with seven views below the 40% screening threshold.
+It remains unsuitable for a verified property listing.
+The uninterrupted native-stream alternative fails 92 of the same 100 reserved viewpoints and is retained as a failed comparison.
+
+| Exported asset, same 100 reserved views | Hybrid with bootstrap and motion constraints | Uninterrupted native stream |
+|---|---:|---:|
+| Median visible coverage | 84.41% | 87.14% |
+| Median depth support | 69.38% | 8.50% |
+| Minimum depth support | 27.44% | 0.0158% |
+| Median visible RGB absolute error, 0 to 1 | 0.1053 | 0.2405 |
+| Views below 40% depth support | 7 | 92 |
+| Fidelity gate | Failed | Failed |
+
+These are internal view-consistency measurements, not geometric accuracy against independent ground truth.
+The hybrid comparison includes a failing captured view at frame 355.
+
+![Hybrid exported mesh compared with captured views, including frame 355](evidence/hybrid-app-comparison.jpg)
+
 ## Working pipeline
 
 The implementation performs video extraction, native MPS inference, CPU photogrammetry, depth and motion constrained registration, adaptive dense motion bridges, TSDF fusion, colored GLB export and source-view validation.
@@ -143,7 +165,16 @@ These are overlapping allocator measurements rather than quantities to add toget
 Depth, confidence, extrinsics, intrinsics and RGB for the first 96 frames are bitwise identical to the earlier normalized 96-frame baseline.
 The larger run therefore preserves that initial baseline while extending its uninterrupted history.
 The archive is retained at `reconstructions/indoor-travel-native-stream1000/windows/000000.npz` with SHA-256 `2125db6b5f554352ae3c61fc601e9b9d94d285bc0a3d7ea36eb16e59ce2ac430`.
-Its full mesh and actual exported asset are evaluated on all 100 reserved views.
+Its full mesh and actual exported asset were evaluated on all 100 reserved views.
+The full mesh contains 22,341,060 triangles and achieves only 8.86% median supported depth, despite 89.18% median coverage.
+The three-million-triangle GLB occupies 65,217,288 bytes and achieves 8.50% median supported depth with 0.2405 median RGB error.
+It fails the minimum-view depth check in 92 of 100 reserved views.
+The exported GLB SHA-256 is `bf4e421ccb457b10ab9e639e380731891ba399b740f7b01b9addb5422a853cd5`.
+Fusion and export took 231.87 seconds, excluding subsequent validation.
+Resuming through the complete `run --camera-source native --window 1000` CLI reused the saved computation and returned exit status 2 with `status: needs_review`.
+This result shows that removing external registration and window joins alone does not resolve full-scene inconsistency in this capture.
+It does not isolate the remaining causes between model predictions and global fusion conflicts.
+The [native comparison image](evidence/native-stream-app-comparison.jpg) preserves the observed failure.
 
 ### Exact adaptive sampling
 

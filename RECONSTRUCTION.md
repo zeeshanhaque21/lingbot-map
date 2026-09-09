@@ -4,6 +4,10 @@ This pipeline converts a walkthrough video into an observed-surface triangle mes
 It runs inference on Apple Silicon through PyTorch MPS and fuses depth on CPU through Open3D.
 It does not certify dimensions from an uncalibrated monocular video.
 
+Current status is a research prototype.
+The short integration capture passes internal screening, but every tested full-walkthrough variant still fails fidelity checks.
+The [implementation report](artifacts/research/mac-reconstruction-results.md) identifies the current review asset and its remaining failures.
+
 ## Setup
 
 Use Python 3.12 and install the reconstruction dependencies in a dedicated environment.
@@ -88,6 +92,8 @@ For an uninterrupted native-checkpoint comparison, `run --camera-source native -
 Choose a window that covers the extracted sequence when testing an uninterrupted stream.
 Long windows retain more input images and CPU predictions and only save when the window completes.
 This comparison is experimental and must pass the same exported-mesh checks.
+On the available 1,000-frame store walkthrough, the uninterrupted native export failed 92 of 100 reserved viewpoints.
+The hybrid with `--camera-source learned --motion-weight 10` reduced that count to seven, but also failed the fidelity gate.
 
 ## Artifacts and evidence
 

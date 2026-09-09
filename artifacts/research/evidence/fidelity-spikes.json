@@ -777,6 +777,36 @@
       "interpretation": "Two local runs failed. Logs initially reported missing LearnedMVS asset, then successful asset access. The failing internal messages are private; root cause remains undetermined."
     }
   },
+  "native_stream_memory_and_prefix": {
+    "source": "indoor-travel-native-stream1000/native-stream-comparison.json",
+    "result": {
+      "peak_live_bytes": 14769476096,
+      "peak_driver_bytes": 23760601088,
+      "last_live_bytes": 14769476096,
+      "first_96_comparison": {
+        "depth": {
+          "equal": true,
+          "max_absolute_difference": 0.0
+        },
+        "confidence": {
+          "equal": true,
+          "max_absolute_difference": 0.0
+        },
+        "extrinsics": {
+          "equal": true,
+          "max_absolute_difference": 0.0
+        },
+        "intrinsics": {
+          "equal": true,
+          "max_absolute_difference": 0.0
+        },
+        "rgb": {
+          "equal": true,
+          "max_absolute_difference": 0.0
+        }
+      }
+    }
+  },
   "indoor-travel-learned-cameras-v1": {
     "validation.json": {
       "status": "reconstructed_unverified_metric_accuracy",
@@ -2955,6 +2985,1700 @@
       "minimum_supported_depth_fraction": 0.27436766212276414,
       "mesh": "property.glb",
       "median_absolute_rgb_error_visible": 0.1052574402919983,
+      "metric_accuracy_verified": false,
+      "visual_completeness_gate": true,
+      "view_consistency_gate": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+      "thresholds": {
+        "median_coverage_minimum": 0.7,
+        "median_depth_support_minimum": 0.6,
+        "relative_depth_tolerance": 0.05,
+        "per_view_depth_support_minimum": 0.4,
+        "median_rgb_error_maximum": 0.12,
+        "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+      },
+      "required_external_checks": [
+        "Measured scale and independent held-out lengths",
+        "Room connectivity and loop drift",
+        "Missing wall, doorway, glass and ceiling review"
+      ]
+    }
+  },
+  "indoor-travel-native-stream1000": {
+    "validation.json": {
+      "status": "reconstructed_unverified_metric_accuracy",
+      "source_sha256": "ca590d8af33c465953d6ed6c305557e4b4d7cc6ba3710b4c65872bbf06b684e0",
+      "input_signature": {
+        "inference": "62aa0e7397b4ec03d43d6841cbb1ca97395e4e546c350d40e3db7f6b5f91aae0",
+        "windows": {
+          "000000.npz": "2125db6b5f554352ae3c61fc601e9b9d94d285bc0a3d7ea36eb16e59ce2ac430"
+        }
+      },
+      "frames_expected": 1000,
+      "frames_processed": 1000,
+      "frames_fused": 900,
+      "frames_held_out": 100,
+      "temporal_coverage": 1.0,
+      "vertices": 13824781,
+      "triangles": 22341060,
+      "web_triangles": 3000000,
+      "voxel_size_model_units": 0.003919797949492931,
+      "units": "uncalibrated model units",
+      "accepted_pixel_fraction": 0.23073850891708034,
+      "observed_points": 13398508,
+      "fusion_seconds": 231.86720208299812,
+      "loop_closure": false,
+      "pose_source": "Lingbot sequential Sim3 windows",
+      "absolute_dimensions_verified": false,
+      "unseen_surfaces_completed": false,
+      "limitations": [
+        "Monocular scale lacks measured anchors",
+        "Sequential window alignment can drift",
+        "Glass, mirrors, motion and unobserved surfaces remain uncertain",
+        "Depth consistency is an internal check, not independent ground truth"
+      ],
+      "files": {
+        "property.glb": "bf4e421ccb457b10ab9e639e380731891ba399b740f7b01b9addb5422a853cd5",
+        "observed-surfaces.ply": "2ed68e9e490f42de0ea583d0f142a6d764f46d68bce8f27c9cf5a76332ae25b5",
+        "observed-points.ply": "c85919c701764c429f0d2dd98d2c805558c2823a8764e92424a2d7ece14fc44f"
+      }
+    },
+    "render-validation.json": {
+      "views": [
+        {
+          "frame": 5,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8431237359808789,
+          "mean_absolute_rgb_error_visible": 0.08252128633168362,
+          "supported_depth_fraction": 0.8381967973804708,
+          "median_relative_depth_error_visible": 0.006726273258863998
+        },
+        {
+          "frame": 15,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8112441887952092,
+          "mean_absolute_rgb_error_visible": 0.07796186945901126,
+          "supported_depth_fraction": 0.9095159299240931,
+          "median_relative_depth_error_visible": 0.009520629117340345
+        },
+        {
+          "frame": 25,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7231305649672997,
+          "mean_absolute_rgb_error_visible": 0.06836392279359463,
+          "supported_depth_fraction": 0.6355860233411254,
+          "median_relative_depth_error_visible": 0.028981632468347777
+        },
+        {
+          "frame": 35,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7062485225750532,
+          "mean_absolute_rgb_error_visible": 0.11917925958983641,
+          "supported_depth_fraction": 0.6422486626568259,
+          "median_relative_depth_error_visible": 0.02252729282828356
+        },
+        {
+          "frame": 45,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8994169096209913,
+          "mean_absolute_rgb_error_visible": 0.07875311673576522,
+          "supported_depth_fraction": 0.7282676262268098,
+          "median_relative_depth_error_visible": 0.03997253319167835
+        },
+        {
+          "frame": 55,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8605442176870748,
+          "mean_absolute_rgb_error_visible": 0.2197325534921443,
+          "supported_depth_fraction": 0.07786795541897583,
+          "median_relative_depth_error_visible": 0.8075279794744228
+        },
+        {
+          "frame": 65,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7295458724030153,
+          "mean_absolute_rgb_error_visible": 0.17856478108716606,
+          "supported_depth_fraction": 0.4267328553042839,
+          "median_relative_depth_error_visible": 0.044310889489726966
+        },
+        {
+          "frame": 75,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9153534000472776,
+          "mean_absolute_rgb_error_visible": 0.25505482772157795,
+          "supported_depth_fraction": 0.1106558453497229,
+          "median_relative_depth_error_visible": 0.6437811750516744
+        },
+        {
+          "frame": 85,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.4238174034092401,
+          "mean_absolute_rgb_error_visible": 0.20353865104131225,
+          "supported_depth_fraction": 0.07905865048722191,
+          "median_relative_depth_error_visible": 0.1686577400319026
+        },
+        {
+          "frame": 95,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7048433272923069,
+          "mean_absolute_rgb_error_visible": 0.0910579014263006,
+          "supported_depth_fraction": 0.691023384900936,
+          "median_relative_depth_error_visible": 0.017517366349026432
+        },
+        {
+          "frame": 105,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6942715310062249,
+          "mean_absolute_rgb_error_visible": 0.16067170938287925,
+          "supported_depth_fraction": 0.2030747949115296,
+          "median_relative_depth_error_visible": 0.11895795240361981
+        },
+        {
+          "frame": 115,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7669280067239251,
+          "mean_absolute_rgb_error_visible": 0.23722297684138968,
+          "supported_depth_fraction": 0.15220760118719304,
+          "median_relative_depth_error_visible": 0.19068499669514996
+        },
+        {
+          "frame": 125,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7264925275129357,
+          "mean_absolute_rgb_error_visible": 0.13995282425614675,
+          "supported_depth_fraction": 0.597431250492475,
+          "median_relative_depth_error_visible": 0.02097609610510641
+        },
+        {
+          "frame": 135,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.4516455230740945,
+          "mean_absolute_rgb_error_visible": 0.257268593033251,
+          "supported_depth_fraction": 0.05567374955130057,
+          "median_relative_depth_error_visible": 0.2048630179783326
+        },
+        {
+          "frame": 145,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5803784834397079,
+          "mean_absolute_rgb_error_visible": 0.21961109680237928,
+          "supported_depth_fraction": 0.128183577163169,
+          "median_relative_depth_error_visible": 0.3333445001822745
+        },
+        {
+          "frame": 155,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.4583760144984635,
+          "mean_absolute_rgb_error_visible": 0.2713628827792332,
+          "supported_depth_fraction": 0.08177273483395932,
+          "median_relative_depth_error_visible": 0.45390485635988614
+        },
+        {
+          "frame": 165,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.563910120032569,
+          "mean_absolute_rgb_error_visible": 0.33816472439144696,
+          "supported_depth_fraction": 0.09055411096227423,
+          "median_relative_depth_error_visible": 0.17187234038867158
+        },
+        {
+          "frame": 175,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7710779292411946,
+          "mean_absolute_rgb_error_visible": 0.26130049825128654,
+          "supported_depth_fraction": 0.026633047041210306,
+          "median_relative_depth_error_visible": 0.3541418811338941
+        },
+        {
+          "frame": 185,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8298400441257584,
+          "mean_absolute_rgb_error_visible": 0.22147144002167168,
+          "supported_depth_fraction": 0.15242514445806338,
+          "median_relative_depth_error_visible": 0.2905179563235563
+        },
+        {
+          "frame": 195,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6249573188348698,
+          "mean_absolute_rgb_error_visible": 0.24609719262449312,
+          "supported_depth_fraction": 0.14707710626077972,
+          "median_relative_depth_error_visible": 0.15938242152495424
+        },
+        {
+          "frame": 205,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.437048564599585,
+          "mean_absolute_rgb_error_visible": 0.2598458078424105,
+          "supported_depth_fraction": 0.05302970609093058,
+          "median_relative_depth_error_visible": 0.3328363440862182
+        },
+        {
+          "frame": 215,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7131300396606519,
+          "mean_absolute_rgb_error_visible": 0.24868241110054326,
+          "supported_depth_fraction": 0.13351543963788862,
+          "median_relative_depth_error_visible": 0.3055688162443842
+        },
+        {
+          "frame": 225,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9236335460825257,
+          "mean_absolute_rgb_error_visible": 0.20138192485337542,
+          "supported_depth_fraction": 0.04060620387151,
+          "median_relative_depth_error_visible": 0.9133176118461727
+        },
+        {
+          "frame": 235,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9995469230163108,
+          "mean_absolute_rgb_error_visible": 0.18171602300529252,
+          "supported_depth_fraction": 0.0007354293068578783,
+          "median_relative_depth_error_visible": 0.9954751062355591
+        },
+        {
+          "frame": 245,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6180758017492711,
+          "mean_absolute_rgb_error_visible": 0.22783868774434812,
+          "supported_depth_fraction": 0.0959997898773409,
+          "median_relative_depth_error_visible": 0.19790568834692185
+        },
+        {
+          "frame": 255,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.787480629317364,
+          "mean_absolute_rgb_error_visible": 0.24298192075560562,
+          "supported_depth_fraction": 0.02920704961521288,
+          "median_relative_depth_error_visible": 0.5541595539420922
+        },
+        {
+          "frame": 265,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.747833110078008,
+          "mean_absolute_rgb_error_visible": 0.2515458550198258,
+          "supported_depth_fraction": 0.1207592432082228,
+          "median_relative_depth_error_visible": 1.5829334061929934
+        },
+        {
+          "frame": 275,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6851049300028892,
+          "mean_absolute_rgb_error_visible": 0.29622333777348797,
+          "supported_depth_fraction": 0.031238235319867972,
+          "median_relative_depth_error_visible": 0.6011119353111857
+        },
+        {
+          "frame": 285,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7123420796890184,
+          "mean_absolute_rgb_error_visible": 0.28484370334542874,
+          "supported_depth_fraction": 0.07056619301517261,
+          "median_relative_depth_error_visible": 0.4073581485489446
+        },
+        {
+          "frame": 295,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6185026134005726,
+          "mean_absolute_rgb_error_visible": 0.2533184924375478,
+          "supported_depth_fraction": 0.1953965627435015,
+          "median_relative_depth_error_visible": 0.15314316322271207
+        },
+        {
+          "frame": 305,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8679510414204292,
+          "mean_absolute_rgb_error_visible": 0.21910416050438675,
+          "supported_depth_fraction": 0.14323361262136772,
+          "median_relative_depth_error_visible": 0.19533198007896516
+        },
+        {
+          "frame": 315,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9441533370104799,
+          "mean_absolute_rgb_error_visible": 0.19623547194058968,
+          "supported_depth_fraction": 0.2784125233104825,
+          "median_relative_depth_error_visible": 0.26570046436900296
+        },
+        {
+          "frame": 325,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9484477188558821,
+          "mean_absolute_rgb_error_visible": 0.24620280311661732,
+          "supported_depth_fraction": 0.043512900655757795,
+          "median_relative_depth_error_visible": 1.2281015353506453
+        },
+        {
+          "frame": 335,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9528208966984477,
+          "mean_absolute_rgb_error_visible": 0.2852050172937518,
+          "supported_depth_fraction": 0.10896610896610896,
+          "median_relative_depth_error_visible": 0.5328292096290766
+        },
+        {
+          "frame": 345,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9559924355842723,
+          "mean_absolute_rgb_error_visible": 0.23187190997011484,
+          "supported_depth_fraction": 0.06448139101200326,
+          "median_relative_depth_error_visible": 0.42303046987143256
+        },
+        {
+          "frame": 355,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7009297927665274,
+          "mean_absolute_rgb_error_visible": 0.25745143716027874,
+          "supported_depth_fraction": 0.05037690751976466,
+          "median_relative_depth_error_visible": 0.6913577267848168
+        },
+        {
+          "frame": 365,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6993144748246789,
+          "mean_absolute_rgb_error_visible": 0.18172823959004572,
+          "supported_depth_fraction": 0.25812693159631933,
+          "median_relative_depth_error_visible": 0.38234442171049793
+        },
+        {
+          "frame": 375,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7191448007774538,
+          "mean_absolute_rgb_error_visible": 0.24147687830915174,
+          "supported_depth_fraction": 0.2000367714653429,
+          "median_relative_depth_error_visible": 0.22990693190198552
+        },
+        {
+          "frame": 385,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8485475271189556,
+          "mean_absolute_rgb_error_visible": 0.29297021085306085,
+          "supported_depth_fraction": 0.15780211698579044,
+          "median_relative_depth_error_visible": 0.3316533427310969
+        },
+        {
+          "frame": 395,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9656055472382002,
+          "mean_absolute_rgb_error_visible": 0.2881552114909369,
+          "supported_depth_fraction": 0.12913788423992506,
+          "median_relative_depth_error_visible": 0.30455135424485
+        },
+        {
+          "frame": 405,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8574711737977044,
+          "mean_absolute_rgb_error_visible": 0.2582188944375324,
+          "supported_depth_fraction": 0.056838179287158876,
+          "median_relative_depth_error_visible": 0.45387188553098057
+        },
+        {
+          "frame": 415,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8920232185538308,
+          "mean_absolute_rgb_error_visible": 0.2435567452743224,
+          "supported_depth_fraction": 0.31057880037471874,
+          "median_relative_depth_error_visible": 0.3034284939367456
+        },
+        {
+          "frame": 425,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5952315289049983,
+          "mean_absolute_rgb_error_visible": 0.2925100818015506,
+          "supported_depth_fraction": 0.13812062791654628,
+          "median_relative_depth_error_visible": 0.8225829038339418
+        },
+        {
+          "frame": 435,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5351298820686575,
+          "mean_absolute_rgb_error_visible": 0.2988799321960386,
+          "supported_depth_fraction": 0.0340223605529728,
+          "median_relative_depth_error_visible": 0.7105809603181992
+        },
+        {
+          "frame": 445,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5464436739946944,
+          "mean_absolute_rgb_error_visible": 0.2702808959775164,
+          "supported_depth_fraction": 0.08669310710127037,
+          "median_relative_depth_error_visible": 0.645423644595022
+        },
+        {
+          "frame": 455,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7172668295117275,
+          "mean_absolute_rgb_error_visible": 0.23960068455307496,
+          "supported_depth_fraction": 0.07614319859217819,
+          "median_relative_depth_error_visible": 0.38811114406152536
+        },
+        {
+          "frame": 465,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9819097523179156,
+          "mean_absolute_rgb_error_visible": 0.33392533056609897,
+          "supported_depth_fraction": 0.0754690550608918,
+          "median_relative_depth_error_visible": 0.8581250292772187
+        },
+        {
+          "frame": 475,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8914913455729783,
+          "mean_absolute_rgb_error_visible": 0.2383545897139905,
+          "supported_depth_fraction": 0.09784711825528151,
+          "median_relative_depth_error_visible": 0.4394003307509423
+        },
+        {
+          "frame": 485,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.988233131090274,
+          "mean_absolute_rgb_error_visible": 0.3641687881354092,
+          "supported_depth_fraction": 0.008343620588518548,
+          "median_relative_depth_error_visible": 0.8090451070130005
+        },
+        {
+          "frame": 495,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8830536075434035,
+          "mean_absolute_rgb_error_visible": 0.21614902322375093,
+          "supported_depth_fraction": 0.19621078804752273,
+          "median_relative_depth_error_visible": 0.30453285275045994
+        },
+        {
+          "frame": 505,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9783639324455651,
+          "mean_absolute_rgb_error_visible": 0.23981097834096848,
+          "supported_depth_fraction": 0.2144651940570308,
+          "median_relative_depth_error_visible": 0.3166311735620274
+        },
+        {
+          "frame": 515,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9539174743256376,
+          "mean_absolute_rgb_error_visible": 0.26969042317240327,
+          "supported_depth_fraction": 0.05797634369062941,
+          "median_relative_depth_error_visible": 0.5892124820532798
+        },
+        {
+          "frame": 525,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.954830194626113,
+          "mean_absolute_rgb_error_visible": 0.23431639312305375,
+          "supported_depth_fraction": 0.011040194713664101,
+          "median_relative_depth_error_visible": 1.084168541300844
+        },
+        {
+          "frame": 535,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8457305702203661,
+          "mean_absolute_rgb_error_visible": 0.23579348601503677,
+          "supported_depth_fraction": 0.04027315706531256,
+          "median_relative_depth_error_visible": 0.5401397397207276
+        },
+        {
+          "frame": 545,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.4249993433666903,
+          "mean_absolute_rgb_error_visible": 0.2161407937090746,
+          "supported_depth_fraction": 0.21092812929547625,
+          "median_relative_depth_error_visible": 0.07968462214598149
+        },
+        {
+          "frame": 555,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7999369632022694,
+          "mean_absolute_rgb_error_visible": 0.2238125052577725,
+          "supported_depth_fraction": 0.19617576760433902,
+          "median_relative_depth_error_visible": 0.1422847365970541
+        },
+        {
+          "frame": 565,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9634911879809839,
+          "mean_absolute_rgb_error_visible": 0.22932552861033917,
+          "supported_depth_fraction": 0.12894527180241466,
+          "median_relative_depth_error_visible": 0.31680719399618984
+        },
+        {
+          "frame": 575,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9995403566832138,
+          "mean_absolute_rgb_error_visible": 0.2256021241078669,
+          "supported_depth_fraction": 0.00014883688353076107,
+          "median_relative_depth_error_visible": 0.9763510127175022
+        },
+        {
+          "frame": 585,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9867688388096552,
+          "mean_absolute_rgb_error_visible": 0.25659133780011734,
+          "supported_depth_fraction": 0.058738038329875064,
+          "median_relative_depth_error_visible": 0.5814801552615309
+        },
+        {
+          "frame": 595,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8483242717936595,
+          "mean_absolute_rgb_error_visible": 0.2096623134997551,
+          "supported_depth_fraction": 0.0729826035948485,
+          "median_relative_depth_error_visible": 0.3217198197309822
+        },
+        {
+          "frame": 605,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9014853045465291,
+          "mean_absolute_rgb_error_visible": 0.2272644933875237,
+          "supported_depth_fraction": 0.13169437659233577,
+          "median_relative_depth_error_visible": 0.2823170931220432
+        },
+        {
+          "frame": 615,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8954508444304363,
+          "mean_absolute_rgb_error_visible": 0.25566862740305235,
+          "supported_depth_fraction": 0.0980659960251797,
+          "median_relative_depth_error_visible": 0.46846536268904915
+        },
+        {
+          "frame": 625,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9680022588185854,
+          "mean_absolute_rgb_error_visible": 0.23960362502381388,
+          "supported_depth_fraction": 0.2391020758367697,
+          "median_relative_depth_error_visible": 0.2849708993194473
+        },
+        {
+          "frame": 635,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9861253381661544,
+          "mean_absolute_rgb_error_visible": 0.24726609688038068,
+          "supported_depth_fraction": 0.0020486959262469464,
+          "median_relative_depth_error_visible": 0.9941043423371861
+        },
+        {
+          "frame": 645,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8813726262705854,
+          "mean_absolute_rgb_error_visible": 0.2689850373319255,
+          "supported_depth_fraction": 0.06102312224761204,
+          "median_relative_depth_error_visible": 0.4729251467753117
+        },
+        {
+          "frame": 655,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7284755601082131,
+          "mean_absolute_rgb_error_visible": 0.25502063659462637,
+          "supported_depth_fraction": 0.17321986709741813,
+          "median_relative_depth_error_visible": 0.43871498548767984
+        },
+        {
+          "frame": 665,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9397276285031387,
+          "mean_absolute_rgb_error_visible": 0.2896177247203853,
+          "supported_depth_fraction": 0.008404906364090038,
+          "median_relative_depth_error_visible": 0.8713855393391592
+        },
+        {
+          "frame": 675,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9740104536022903,
+          "mean_absolute_rgb_error_visible": 0.218856614964762,
+          "supported_depth_fraction": 0.05539358600583091,
+          "median_relative_depth_error_visible": 0.5267395747804765
+        },
+        {
+          "frame": 685,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9325703254274683,
+          "mean_absolute_rgb_error_visible": 0.2766178027226465,
+          "supported_depth_fraction": 0.0687889055235994,
+          "median_relative_depth_error_visible": 0.5124442133105195
+        },
+        {
+          "frame": 695,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9909975573240879,
+          "mean_absolute_rgb_error_visible": 0.26346231524063163,
+          "supported_depth_fraction": 0.003353207434840088,
+          "median_relative_depth_error_visible": 0.9290627042670621
+        },
+        {
+          "frame": 705,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9968547264465631,
+          "mean_absolute_rgb_error_visible": 0.3036230460513663,
+          "supported_depth_fraction": 0.003983575412146841,
+          "median_relative_depth_error_visible": 0.8838878433238238
+        },
+        {
+          "frame": 715,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9937751162240959,
+          "mean_absolute_rgb_error_visible": 0.2145747781792352,
+          "supported_depth_fraction": 0.012703665764890255,
+          "median_relative_depth_error_visible": 0.7817212534481367
+        },
+        {
+          "frame": 725,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9959814041446694,
+          "mean_absolute_rgb_error_visible": 0.22764248262596173,
+          "supported_depth_fraction": 0.021248653901715125,
+          "median_relative_depth_error_visible": 0.4590348823688878
+        },
+        {
+          "frame": 735,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.903291046148189,
+          "mean_absolute_rgb_error_visible": 0.21471429198587638,
+          "supported_depth_fraction": 0.17659058475385006,
+          "median_relative_depth_error_visible": 0.19629031342602649
+        },
+        {
+          "frame": 745,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9850024952065768,
+          "mean_absolute_rgb_error_visible": 0.22524404798628606,
+          "supported_depth_fraction": 0.03777731085079932,
+          "median_relative_depth_error_visible": 0.489799878768921
+        },
+        {
+          "frame": 755,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9785543561053766,
+          "mean_absolute_rgb_error_visible": 0.26147140705981997,
+          "supported_depth_fraction": 0.09446764548805366,
+          "median_relative_depth_error_visible": 0.5047651142781779
+        },
+        {
+          "frame": 765,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9779765187928453,
+          "mean_absolute_rgb_error_visible": 0.25428830893971144,
+          "supported_depth_fraction": 0.04901111023560003,
+          "median_relative_depth_error_visible": 0.6296816671523129
+        },
+        {
+          "frame": 775,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9946747038583773,
+          "mean_absolute_rgb_error_visible": 0.2681503963934647,
+          "supported_depth_fraction": 0.08659680088251517,
+          "median_relative_depth_error_visible": 0.6214169195652907
+        },
+        {
+          "frame": 785,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9326162897591469,
+          "mean_absolute_rgb_error_visible": 0.3321587494863232,
+          "supported_depth_fraction": 0.06411367635857432,
+          "median_relative_depth_error_visible": 0.49860998733084205
+        },
+        {
+          "frame": 795,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9875502324481916,
+          "mean_absolute_rgb_error_visible": 0.276133021894095,
+          "supported_depth_fraction": 0.07720256699848536,
+          "median_relative_depth_error_visible": 0.3774965820577423
+        },
+        {
+          "frame": 805,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.978856407427836,
+          "mean_absolute_rgb_error_visible": 0.2143843462754498,
+          "supported_depth_fraction": 0.0332168903597475,
+          "median_relative_depth_error_visible": 0.15969377313121755
+        },
+        {
+          "frame": 815,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9268247839676411,
+          "mean_absolute_rgb_error_visible": 0.2844194505151131,
+          "supported_depth_fraction": 0.05616403575587249,
+          "median_relative_depth_error_visible": 0.7386312375541613
+        },
+        {
+          "frame": 825,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8788774196937462,
+          "mean_absolute_rgb_error_visible": 0.28576278132150507,
+          "supported_depth_fraction": 0.11189031597194862,
+          "median_relative_depth_error_visible": 0.3532174791914835
+        },
+        {
+          "frame": 835,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9704055367320673,
+          "mean_absolute_rgb_error_visible": 0.26144004903785106,
+          "supported_depth_fraction": 0.028637967413477617,
+          "median_relative_depth_error_visible": 0.8847455396098278
+        },
+        {
+          "frame": 845,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9833149476006618,
+          "mean_absolute_rgb_error_visible": 0.22386105597601386,
+          "supported_depth_fraction": 0.04471235083479982,
+          "median_relative_depth_error_visible": 0.6290956963693982
+        },
+        {
+          "frame": 855,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9789220707588054,
+          "mean_absolute_rgb_error_visible": 0.25709940040016577,
+          "supported_depth_fraction": 0.09808350624677155,
+          "median_relative_depth_error_visible": 0.5292249316589184
+        },
+        {
+          "frame": 865,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9526042077062485,
+          "mean_absolute_rgb_error_visible": 0.2395059686014647,
+          "supported_depth_fraction": 0.17637170698395188,
+          "median_relative_depth_error_visible": 0.4105783501355466
+        },
+        {
+          "frame": 875,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9472329472329473,
+          "mean_absolute_rgb_error_visible": 0.2674830892501928,
+          "supported_depth_fraction": 0.07024225391572331,
+          "median_relative_depth_error_visible": 0.33048441642484055
+        },
+        {
+          "frame": 885,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8993972106217004,
+          "mean_absolute_rgb_error_visible": 0.23772336141188802,
+          "supported_depth_fraction": 0.14989625193706826,
+          "median_relative_depth_error_visible": 0.3349830371714111
+        },
+        {
+          "frame": 895,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9715086806923542,
+          "mean_absolute_rgb_error_visible": 0.3126754393695684,
+          "supported_depth_fraction": 0.09893275199397648,
+          "median_relative_depth_error_visible": 0.6905731883461907
+        },
+        {
+          "frame": 905,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9494720668190056,
+          "mean_absolute_rgb_error_visible": 0.24179941899372248,
+          "supported_depth_fraction": 0.027753701223088977,
+          "median_relative_depth_error_visible": 0.5309308964291342
+        },
+        {
+          "frame": 915,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9074081369999737,
+          "mean_absolute_rgb_error_visible": 0.25590938524367834,
+          "supported_depth_fraction": 0.07458478887050315,
+          "median_relative_depth_error_visible": 0.3369178383380555
+        },
+        {
+          "frame": 925,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9536416883355658,
+          "mean_absolute_rgb_error_visible": 0.24234230415018637,
+          "supported_depth_fraction": 0.14388149082026633,
+          "median_relative_depth_error_visible": 0.33733278594030003
+        },
+        {
+          "frame": 935,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9638326373020251,
+          "mean_absolute_rgb_error_visible": 0.2404633957717961,
+          "supported_depth_fraction": 0.06149589823059211,
+          "median_relative_depth_error_visible": 0.42440623522153365
+        },
+        {
+          "frame": 945,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9629396160008404,
+          "mean_absolute_rgb_error_visible": 0.2604434325509521,
+          "supported_depth_fraction": 0.10809935299731219,
+          "median_relative_depth_error_visible": 0.4595295084457328
+        },
+        {
+          "frame": 955,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8648189005331862,
+          "mean_absolute_rgb_error_visible": 0.2631064820294315,
+          "supported_depth_fraction": 0.08581759602167766,
+          "median_relative_depth_error_visible": 0.6181465768967611
+        },
+        {
+          "frame": 965,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7471108134373441,
+          "mean_absolute_rgb_error_visible": 0.2461505037830763,
+          "supported_depth_fraction": 0.04296132867561439,
+          "median_relative_depth_error_visible": 0.7233448720229603
+        },
+        {
+          "frame": 975,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8365442702177396,
+          "mean_absolute_rgb_error_visible": 0.23412629776646857,
+          "supported_depth_fraction": 0.2349346430979084,
+          "median_relative_depth_error_visible": 0.2956213573365891
+        },
+        {
+          "frame": 985,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7139705302970609,
+          "mean_absolute_rgb_error_visible": 0.21576648611841456,
+          "supported_depth_fraction": 0.24827743195090135,
+          "median_relative_depth_error_visible": 0.14253279599842936
+        },
+        {
+          "frame": 995,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7660612507551283,
+          "mean_absolute_rgb_error_visible": 0.24761043925277365,
+          "supported_depth_fraction": 0.13145798860084573,
+          "median_relative_depth_error_visible": 0.2824949963906308
+        }
+      ],
+      "median_rendered_coverage": 0.8917572820634045,
+      "median_supported_depth_fraction": 0.0886236090317723,
+      "minimum_supported_depth_fraction": 0.00014883688353076107,
+      "mesh": "observed-surfaces.ply",
+      "median_absolute_rgb_error_visible": 0.243269333014964,
+      "metric_accuracy_verified": false,
+      "visual_completeness_gate": true,
+      "view_consistency_gate": false,
+      "ready_for_verified_property_listing": false,
+      "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+      "thresholds": {
+        "median_coverage_minimum": 0.7,
+        "median_depth_support_minimum": 0.6,
+        "relative_depth_tolerance": 0.05,
+        "per_view_depth_support_minimum": 0.4,
+        "median_rgb_error_maximum": 0.12,
+        "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+      },
+      "required_external_checks": [
+        "Measured scale and independent held-out lengths",
+        "Room connectivity and loop drift",
+        "Missing wall, doorway, glass and ceiling review"
+      ]
+    },
+    "web-render-validation.json": {
+      "views": [
+        {
+          "frame": 5,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8321119953773015,
+          "mean_absolute_rgb_error_visible": 0.08288622920523281,
+          "supported_depth_fraction": 0.8244512734308652,
+          "median_relative_depth_error_visible": 0.006547079427064474
+        },
+        {
+          "frame": 15,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7986630945814619,
+          "mean_absolute_rgb_error_visible": 0.0768007333931956,
+          "supported_depth_fraction": 0.8977227956819793,
+          "median_relative_depth_error_visible": 0.009413165350428071
+        },
+        {
+          "frame": 25,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6980471725369685,
+          "mean_absolute_rgb_error_visible": 0.06652193846518385,
+          "supported_depth_fraction": 0.6100648753709979,
+          "median_relative_depth_error_visible": 0.029188588316681894
+        },
+        {
+          "frame": 35,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6662595540146561,
+          "mean_absolute_rgb_error_visible": 0.1162315101140161,
+          "supported_depth_fraction": 0.6236528073262767,
+          "median_relative_depth_error_visible": 0.021791334361372316
+        },
+        {
+          "frame": 45,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8895477109762824,
+          "mean_absolute_rgb_error_visible": 0.07765385766425277,
+          "supported_depth_fraction": 0.7335206927043662,
+          "median_relative_depth_error_visible": 0.039558087060718505
+        },
+        {
+          "frame": 55,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8514170146823208,
+          "mean_absolute_rgb_error_visible": 0.21820721954461286,
+          "supported_depth_fraction": 0.07625701503252523,
+          "median_relative_depth_error_visible": 0.8052172677623929
+        },
+        {
+          "frame": 65,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7028011976991568,
+          "mean_absolute_rgb_error_visible": 0.17525860047999042,
+          "supported_depth_fraction": 0.42675912063667165,
+          "median_relative_depth_error_visible": 0.04287395366493915
+        },
+        {
+          "frame": 75,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8978409896777244,
+          "mean_absolute_rgb_error_visible": 0.25194054082010864,
+          "supported_depth_fraction": 0.13762158660117843,
+          "median_relative_depth_error_visible": 0.6137723140228148
+        },
+        {
+          "frame": 85,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.3888385470018123,
+          "mean_absolute_rgb_error_visible": 0.2031590910621078,
+          "supported_depth_fraction": 0.06780833311445557,
+          "median_relative_depth_error_visible": 0.1746147620946582
+        },
+        {
+          "frame": 95,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6823142384366874,
+          "mean_absolute_rgb_error_visible": 0.08869478109817835,
+          "supported_depth_fraction": 0.6751853894711037,
+          "median_relative_depth_error_visible": 0.016639405414425545
+        },
+        {
+          "frame": 105,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6663449163449163,
+          "mean_absolute_rgb_error_visible": 0.15784849268856102,
+          "supported_depth_fraction": 0.18981080205570003,
+          "median_relative_depth_error_visible": 0.12113904197265503
+        },
+        {
+          "frame": 115,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7327239776219368,
+          "mean_absolute_rgb_error_visible": 0.23388420428930792,
+          "supported_depth_fraction": 0.14396028681742967,
+          "median_relative_depth_error_visible": 0.1911305009901011
+        },
+        {
+          "frame": 125,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6963858902634413,
+          "mean_absolute_rgb_error_visible": 0.13749630074998173,
+          "supported_depth_fraction": 0.5802099475568864,
+          "median_relative_depth_error_visible": 0.02033437050014213
+        },
+        {
+          "frame": 135,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.42691671263099834,
+          "mean_absolute_rgb_error_visible": 0.2589629420530773,
+          "supported_depth_fraction": 0.05008798886349907,
+          "median_relative_depth_error_visible": 0.21160944500518725
+        },
+        {
+          "frame": 145,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5520644551256796,
+          "mean_absolute_rgb_error_visible": 0.216752222863573,
+          "supported_depth_fraction": 0.11834283262854692,
+          "median_relative_depth_error_visible": 0.3382655946772374
+        },
+        {
+          "frame": 155,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.42203792713996796,
+          "mean_absolute_rgb_error_visible": 0.26860399100283927,
+          "supported_depth_fraction": 0.07630954569730079,
+          "median_relative_depth_error_visible": 0.46117512475684896
+        },
+        {
+          "frame": 165,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5219052872114096,
+          "mean_absolute_rgb_error_visible": 0.33993345474035885,
+          "supported_depth_fraction": 0.08404030853010445,
+          "median_relative_depth_error_visible": 0.16891752298009796
+        },
+        {
+          "frame": 175,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7379048144354267,
+          "mean_absolute_rgb_error_visible": 0.2601001146874831,
+          "supported_depth_fraction": 0.024820739106453393,
+          "median_relative_depth_error_visible": 0.3581591067898632
+        },
+        {
+          "frame": 185,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7677290993617524,
+          "mean_absolute_rgb_error_visible": 0.2258328443349446,
+          "supported_depth_fraction": 0.14111364034319734,
+          "median_relative_depth_error_visible": 0.3180696961627075
+        },
+        {
+          "frame": 195,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5851259422687994,
+          "mean_absolute_rgb_error_visible": 0.24259002789384937,
+          "supported_depth_fraction": 0.14276959174918358,
+          "median_relative_depth_error_visible": 0.15926517915370095
+        },
+        {
+          "frame": 205,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.3947219814566753,
+          "mean_absolute_rgb_error_visible": 0.2549112026380817,
+          "supported_depth_fraction": 0.050639560843642475,
+          "median_relative_depth_error_visible": 0.2782607451722706
+        },
+        {
+          "frame": 215,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6750650066976598,
+          "mean_absolute_rgb_error_visible": 0.24364201440722322,
+          "supported_depth_fraction": 0.13060874285364082,
+          "median_relative_depth_error_visible": 0.3030391557919792
+        },
+        {
+          "frame": 225,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8953786147663698,
+          "mean_absolute_rgb_error_visible": 0.2074029018075939,
+          "supported_depth_fraction": 0.04037857099081589,
+          "median_relative_depth_error_visible": 0.9119508507589755
+        },
+        {
+          "frame": 235,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9997045150106375,
+          "mean_absolute_rgb_error_visible": 0.2045857112738755,
+          "supported_depth_fraction": 0.001076878627899036,
+          "median_relative_depth_error_visible": 0.9954039303481652
+        },
+        {
+          "frame": 245,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5543626717096105,
+          "mean_absolute_rgb_error_visible": 0.22206295954370298,
+          "supported_depth_fraction": 0.08625535156147401,
+          "median_relative_depth_error_visible": 0.18414796761389912
+        },
+        {
+          "frame": 255,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7400585716912248,
+          "mean_absolute_rgb_error_visible": 0.24040269394361413,
+          "supported_depth_fraction": 0.030905541109622743,
+          "median_relative_depth_error_visible": 0.5532022601756608
+        },
+        {
+          "frame": 265,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7238791269403514,
+          "mean_absolute_rgb_error_visible": 0.24587450204907574,
+          "supported_depth_fraction": 0.11716964778189268,
+          "median_relative_depth_error_visible": 1.7007159822192073
+        },
+        {
+          "frame": 275,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6651892417198539,
+          "mean_absolute_rgb_error_visible": 0.29349208570496366,
+          "supported_depth_fraction": 0.025573678634903126,
+          "median_relative_depth_error_visible": 0.6156261815314003
+        },
+        {
+          "frame": 285,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6921309064166207,
+          "mean_absolute_rgb_error_visible": 0.28096711390094625,
+          "supported_depth_fraction": 0.06619739272800497,
+          "median_relative_depth_error_visible": 0.4285282964027142
+        },
+        {
+          "frame": 295,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5918498673600714,
+          "mean_absolute_rgb_error_visible": 0.2538672921406342,
+          "supported_depth_fraction": 0.18552955287649164,
+          "median_relative_depth_error_visible": 0.16477460056442073
+        },
+        {
+          "frame": 305,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8390723084600635,
+          "mean_absolute_rgb_error_visible": 0.2195759163032061,
+          "supported_depth_fraction": 0.13016223220304854,
+          "median_relative_depth_error_visible": 0.22218309855009907
+        },
+        {
+          "frame": 315,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9206655635227063,
+          "mean_absolute_rgb_error_visible": 0.19513970873754727,
+          "supported_depth_fraction": 0.25638466454792985,
+          "median_relative_depth_error_visible": 0.3165773075726434
+        },
+        {
+          "frame": 325,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9327410500879889,
+          "mean_absolute_rgb_error_visible": 0.2452744535313392,
+          "supported_depth_fraction": 0.04132412295677602,
+          "median_relative_depth_error_visible": 1.3194431300739962
+        },
+        {
+          "frame": 335,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9364181966222782,
+          "mean_absolute_rgb_error_visible": 0.2841891882539841,
+          "supported_depth_fraction": 0.09939677286616062,
+          "median_relative_depth_error_visible": 0.5786407769936979
+        },
+        {
+          "frame": 345,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9434376067029129,
+          "mean_absolute_rgb_error_visible": 0.2270893420263376,
+          "supported_depth_fraction": 0.0646214727847381,
+          "median_relative_depth_error_visible": 0.40821483020174043
+        },
+        {
+          "frame": 355,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6596209912536443,
+          "mean_absolute_rgb_error_visible": 0.25579454007143315,
+          "supported_depth_fraction": 0.03978322345669284,
+          "median_relative_depth_error_visible": 0.7167013384814886
+        },
+        {
+          "frame": 365,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6645326084101594,
+          "mean_absolute_rgb_error_visible": 0.18359533504748335,
+          "supported_depth_fraction": 0.23876062651572855,
+          "median_relative_depth_error_visible": 0.4487316128579352
+        },
+        {
+          "frame": 375,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6962151656029207,
+          "mean_absolute_rgb_error_visible": 0.23975315683044385,
+          "supported_depth_fraction": 0.196298339155482,
+          "median_relative_depth_error_visible": 0.23315287730138867
+        },
+        {
+          "frame": 385,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8113623827909542,
+          "mean_absolute_rgb_error_visible": 0.2888476834951822,
+          "supported_depth_fraction": 0.17141631427345713,
+          "median_relative_depth_error_visible": 0.2920037297650106
+        },
+        {
+          "frame": 395,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9546463372993985,
+          "mean_absolute_rgb_error_visible": 0.280963832564471,
+          "supported_depth_fraction": 0.12339453155779687,
+          "median_relative_depth_error_visible": 0.3092825909258
+        },
+        {
+          "frame": 405,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8413245607123158,
+          "mean_absolute_rgb_error_visible": 0.25645626013119843,
+          "supported_depth_fraction": 0.060427774713489,
+          "median_relative_depth_error_visible": 0.4549447759257983
+        },
+        {
+          "frame": 415,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8770585454258923,
+          "mean_absolute_rgb_error_visible": 0.24112290350335194,
+          "supported_depth_fraction": 0.2940403960812124,
+          "median_relative_depth_error_visible": 0.37627361589361563
+        },
+        {
+          "frame": 425,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5722559293987866,
+          "mean_absolute_rgb_error_visible": 0.2912849080730016,
+          "supported_depth_fraction": 0.13281503077421444,
+          "median_relative_depth_error_visible": 0.8628919811698129
+        },
+        {
+          "frame": 435,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.51201638956741,
+          "mean_absolute_rgb_error_visible": 0.2988623447737564,
+          "supported_depth_fraction": 0.031623460194888764,
+          "median_relative_depth_error_visible": 0.728187210663302
+        },
+        {
+          "frame": 445,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.5283731253119008,
+          "mean_absolute_rgb_error_visible": 0.2709488914019964,
+          "supported_depth_fraction": 0.0818953063851023,
+          "median_relative_depth_error_visible": 0.6494124532604417
+        },
+        {
+          "frame": 455,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.699426102487327,
+          "mean_absolute_rgb_error_visible": 0.2354993811476041,
+          "supported_depth_fraction": 0.07573170838476961,
+          "median_relative_depth_error_visible": 0.39161246589325055
+        },
+        {
+          "frame": 465,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9711737977044099,
+          "mean_absolute_rgb_error_visible": 0.33408281388939487,
+          "supported_depth_fraction": 0.075565361279647,
+          "median_relative_depth_error_visible": 0.8703303743657299
+        },
+        {
+          "frame": 475,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8711619783048354,
+          "mean_absolute_rgb_error_visible": 0.234321935390523,
+          "supported_depth_fraction": 0.09758446493140371,
+          "median_relative_depth_error_visible": 0.4375691626832135
+        },
+        {
+          "frame": 485,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9771557271557272,
+          "mean_absolute_rgb_error_visible": 0.357022800339541,
+          "supported_depth_fraction": 0.010348540960785859,
+          "median_relative_depth_error_visible": 0.7993350348681229
+        },
+        {
+          "frame": 495,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.854752711895569,
+          "mean_absolute_rgb_error_visible": 0.21056412240095004,
+          "supported_depth_fraction": 0.20137630341711973,
+          "median_relative_depth_error_visible": 0.3023453915218102
+        },
+        {
+          "frame": 505,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9695059490977859,
+          "mean_absolute_rgb_error_visible": 0.23432573957917224,
+          "supported_depth_fraction": 0.22142550713979287,
+          "median_relative_depth_error_visible": 0.28193729662948985
+        },
+        {
+          "frame": 515,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9336209387229796,
+          "mean_absolute_rgb_error_visible": 0.2692799057313554,
+          "supported_depth_fraction": 0.050516989292499495,
+          "median_relative_depth_error_visible": 0.6321503854463546
+        },
+        {
+          "frame": 525,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.939215454521577,
+          "mean_absolute_rgb_error_visible": 0.22970135514617634,
+          "supported_depth_fraction": 0.009621866764723907,
+          "median_relative_depth_error_visible": 1.1809671006403184
+        },
+        {
+          "frame": 535,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8171867202479447,
+          "mean_absolute_rgb_error_visible": 0.23487273228201264,
+          "supported_depth_fraction": 0.03671861320259149,
+          "median_relative_depth_error_visible": 0.5462847913483949
+        },
+        {
+          "frame": 545,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.40251621884274946,
+          "mean_absolute_rgb_error_visible": 0.21279518920129226,
+          "supported_depth_fraction": 0.19878479062152532,
+          "median_relative_depth_error_visible": 0.08015405258818813
+        },
+        {
+          "frame": 555,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7721088435374149,
+          "mean_absolute_rgb_error_visible": 0.21928141816713984,
+          "supported_depth_fraction": 0.18518810355545048,
+          "median_relative_depth_error_visible": 0.14032257382530308
+        },
+        {
+          "frame": 565,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.939806424500302,
+          "mean_absolute_rgb_error_visible": 0.2283109078973656,
+          "supported_depth_fraction": 0.12862133270296536,
+          "median_relative_depth_error_visible": 0.3155553038890044
+        },
+        {
+          "frame": 575,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 1.0,
+          "mean_absolute_rgb_error_visible": 0.22908379138871335,
+          "supported_depth_fraction": 0.0001575919943266882,
+          "median_relative_depth_error_visible": 0.9754767231856893
+        },
+        {
+          "frame": 585,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9786791164342185,
+          "mean_absolute_rgb_error_visible": 0.2537184870034207,
+          "supported_depth_fraction": 0.05924583475603884,
+          "median_relative_depth_error_visible": 0.5844945356535793
+        },
+        {
+          "frame": 595,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8145667533422636,
+          "mean_absolute_rgb_error_visible": 0.20647083691869467,
+          "supported_depth_fraction": 0.06914786506623241,
+          "median_relative_depth_error_visible": 0.32186381444680073
+        },
+        {
+          "frame": 605,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8747471961757676,
+          "mean_absolute_rgb_error_visible": 0.22551576250278368,
+          "supported_depth_fraction": 0.13833950568644446,
+          "median_relative_depth_error_visible": 0.2759747462165335
+        },
+        {
+          "frame": 615,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8716347542878156,
+          "mean_absolute_rgb_error_visible": 0.2546085144920311,
+          "supported_depth_fraction": 0.09553576900515676,
+          "median_relative_depth_error_visible": 0.48146324782014766
+        },
+        {
+          "frame": 625,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9539568723242192,
+          "mean_absolute_rgb_error_visible": 0.23564802517923472,
+          "supported_depth_fraction": 0.24325199835403918,
+          "median_relative_depth_error_visible": 0.2758178944680693
+        },
+        {
+          "frame": 635,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9808328736900166,
+          "mean_absolute_rgb_error_visible": 0.2291304975057177,
+          "supported_depth_fraction": 0.004937882488902897,
+          "median_relative_depth_error_visible": 0.994249420374941
+        },
+        {
+          "frame": 645,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8591061907388438,
+          "mean_absolute_rgb_error_visible": 0.27453124488735126,
+          "supported_depth_fraction": 0.06048906048906049,
+          "median_relative_depth_error_visible": 0.4428305671235953
+        },
+        {
+          "frame": 655,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6803574711737977,
+          "mean_absolute_rgb_error_visible": 0.2481161264431136,
+          "supported_depth_fraction": 0.17061084408023183,
+          "median_relative_depth_error_visible": 0.40985523797423706
+        },
+        {
+          "frame": 665,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.925275129356762,
+          "mean_absolute_rgb_error_visible": 0.28653552655307607,
+          "supported_depth_fraction": 0.00876386590672305,
+          "median_relative_depth_error_visible": 0.8722642688021577
+        },
+        {
+          "frame": 675,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9629396160008404,
+          "mean_absolute_rgb_error_visible": 0.2181682124962072,
+          "supported_depth_fraction": 0.06398234969663541,
+          "median_relative_depth_error_visible": 0.5242290889612494
+        },
+        {
+          "frame": 685,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9093583379297665,
+          "mean_absolute_rgb_error_visible": 0.27081737668783645,
+          "supported_depth_fraction": 0.07796426163773103,
+          "median_relative_depth_error_visible": 0.45305527087348546
+        },
+        {
+          "frame": 695,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9814829406666141,
+          "mean_absolute_rgb_error_visible": 0.27083808207504795,
+          "supported_depth_fraction": 0.004001085633738695,
+          "median_relative_depth_error_visible": 0.9242780666393131
+        },
+        {
+          "frame": 705,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.993991805216295,
+          "mean_absolute_rgb_error_visible": 0.30128227231315,
+          "supported_depth_fraction": 0.004158677628065383,
+          "median_relative_depth_error_visible": 0.8483799032500383
+        },
+        {
+          "frame": 715,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9875830641136764,
+          "mean_absolute_rgb_error_visible": 0.21112403951214861,
+          "supported_depth_fraction": 0.01134662359152155,
+          "median_relative_depth_error_visible": 0.782281366996789
+        },
+        {
+          "frame": 725,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9908793633283429,
+          "mean_absolute_rgb_error_visible": 0.22341900018966432,
+          "supported_depth_fraction": 0.01889352909761073,
+          "median_relative_depth_error_visible": 0.46551168982936264
+        },
+        {
+          "frame": 735,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8769140860977596,
+          "mean_absolute_rgb_error_visible": 0.21074056275798428,
+          "supported_depth_fraction": 0.1839623880440207,
+          "median_relative_depth_error_visible": 0.18010308023481975
+        },
+        {
+          "frame": 745,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9750479342316077,
+          "mean_absolute_rgb_error_visible": 0.22354185054136408,
+          "supported_depth_fraction": 0.03916058202447865,
+          "median_relative_depth_error_visible": 0.4767305459030065
+        },
+        {
+          "frame": 755,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9646008982743677,
+          "mean_absolute_rgb_error_visible": 0.2582140664472223,
+          "supported_depth_fraction": 0.09516805435172782,
+          "median_relative_depth_error_visible": 0.4926250311503005
+        },
+        {
+          "frame": 765,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9664460378746093,
+          "mean_absolute_rgb_error_visible": 0.2536917300291498,
+          "supported_depth_fraction": 0.050937234610704,
+          "median_relative_depth_error_visible": 0.5942235489903045
+        },
+        {
+          "frame": 775,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.989664591705408,
+          "mean_absolute_rgb_error_visible": 0.2674293167684409,
+          "supported_depth_fraction": 0.08594892268361656,
+          "median_relative_depth_error_visible": 0.6131719217993475
+        },
+        {
+          "frame": 785,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.911223176529299,
+          "mean_absolute_rgb_error_visible": 0.3338598847142697,
+          "supported_depth_fraction": 0.05625158686383176,
+          "median_relative_depth_error_visible": 0.5100836853791764
+        },
+        {
+          "frame": 795,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9789286370919024,
+          "mean_absolute_rgb_error_visible": 0.2707234497044437,
+          "supported_depth_fraction": 0.08317355256130766,
+          "median_relative_depth_error_visible": 0.35535355639937083
+        },
+        {
+          "frame": 805,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9638654689675098,
+          "mean_absolute_rgb_error_visible": 0.2096048318343385,
+          "supported_depth_fraction": 0.03199992995911363,
+          "median_relative_depth_error_visible": 0.1550945059868107
+        },
+        {
+          "frame": 815,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9035011688072913,
+          "mean_absolute_rgb_error_visible": 0.2776489645636833,
+          "supported_depth_fraction": 0.07707124033654646,
+          "median_relative_depth_error_visible": 0.5955825704502195
+        },
+        {
+          "frame": 825,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.836012397236887,
+          "mean_absolute_rgb_error_visible": 0.2824736106709082,
+          "supported_depth_fraction": 0.11949850725360929,
+          "median_relative_depth_error_visible": 0.3318579754142546
+        },
+        {
+          "frame": 835,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.94666824258661,
+          "mean_absolute_rgb_error_visible": 0.2555520012911409,
+          "supported_depth_fraction": 0.03387352366944204,
+          "median_relative_depth_error_visible": 0.7734302080624403
+        },
+        {
+          "frame": 845,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9713182570325427,
+          "mean_absolute_rgb_error_visible": 0.22032129906666434,
+          "supported_depth_fraction": 0.04850331380943626,
+          "median_relative_depth_error_visible": 0.6244298655258046
+        },
+        {
+          "frame": 855,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9664526042077063,
+          "mean_absolute_rgb_error_visible": 0.2600709383219032,
+          "supported_depth_fraction": 0.10809059788651626,
+          "median_relative_depth_error_visible": 0.4679971765248391
+        },
+        {
+          "frame": 865,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9367136816116408,
+          "mean_absolute_rgb_error_visible": 0.24056090374892178,
+          "supported_depth_fraction": 0.17608278832768628,
+          "median_relative_depth_error_visible": 0.39677011218136765
+        },
+        {
+          "frame": 875,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9297993328605574,
+          "mean_absolute_rgb_error_visible": 0.2672400997131173,
+          "supported_depth_fraction": 0.06786086377923113,
+          "median_relative_depth_error_visible": 0.3271623463128262
+        },
+        {
+          "frame": 885,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8790153126887821,
+          "mean_absolute_rgb_error_visible": 0.23233129985468456,
+          "supported_depth_fraction": 0.15036902792004833,
+          "median_relative_depth_error_visible": 0.3290688177444351
+        },
+        {
+          "frame": 895,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9527421007012844,
+          "mean_absolute_rgb_error_visible": 0.3089070198992907,
+          "supported_depth_fraction": 0.09160472425778549,
+          "median_relative_depth_error_visible": 0.7447171265050364
+        },
+        {
+          "frame": 905,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9283941375778111,
+          "mean_absolute_rgb_error_visible": 0.2361450986216804,
+          "supported_depth_fraction": 0.031203214876684263,
+          "median_relative_depth_error_visible": 0.4857027082961032
+        },
+        {
+          "frame": 915,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8817337745909174,
+          "mean_absolute_rgb_error_visible": 0.2529997552201648,
+          "supported_depth_fraction": 0.07517138129383028,
+          "median_relative_depth_error_visible": 0.32839108448774246
+        },
+        {
+          "frame": 925,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9389790665300869,
+          "mean_absolute_rgb_error_visible": 0.23888628134745857,
+          "supported_depth_fraction": 0.14521226766124726,
+          "median_relative_depth_error_visible": 0.3287041285702631
+        },
+        {
+          "frame": 935,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9445276179970058,
+          "mean_absolute_rgb_error_visible": 0.23334870946793665,
+          "supported_depth_fraction": 0.06673145448655653,
+          "median_relative_depth_error_visible": 0.4022657800879095
+        },
+        {
+          "frame": 945,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.9414086097759568,
+          "mean_absolute_rgb_error_visible": 0.2532043895871419,
+          "supported_depth_fraction": 0.12532065593290084,
+          "median_relative_depth_error_visible": 0.42352279801211734
+        },
+        {
+          "frame": 955,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8272003782207864,
+          "mean_absolute_rgb_error_visible": 0.263772796644324,
+          "supported_depth_fraction": 0.08237683747887829,
+          "median_relative_depth_error_visible": 0.6314106280807713
+        },
+        {
+          "frame": 965,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7164329052084154,
+          "mean_absolute_rgb_error_visible": 0.24662281812343353,
+          "supported_depth_fraction": 0.049081151121967447,
+          "median_relative_depth_error_visible": 0.646485399762404
+        },
+        {
+          "frame": 975,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.8124589604181441,
+          "mean_absolute_rgb_error_visible": 0.23165021230169197,
+          "supported_depth_fraction": 0.22184575245799737,
+          "median_relative_depth_error_visible": 0.299128100638504
+        },
+        {
+          "frame": 985,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.6826228560922438,
+          "mean_absolute_rgb_error_visible": 0.2126088502055946,
+          "supported_depth_fraction": 0.23043451614880187,
+          "median_relative_depth_error_visible": 0.14764526658444535
+        },
+        {
+          "frame": 995,
+          "held_out_from_fusion": true,
+          "visible_mesh_fraction": 0.7401570666876789,
+          "mean_absolute_rgb_error_visible": 0.24407959800906406,
+          "supported_depth_fraction": 0.1338656440697257,
+          "median_relative_depth_error_visible": 0.2674198106083607
+        }
+      ],
+      "median_rendered_coverage": 0.8713983662963255,
+      "median_supported_depth_fraction": 0.0849946156068605,
+      "minimum_supported_depth_fraction": 0.0001575919943266882,
+      "mesh": "property.glb",
+      "median_absolute_rgb_error_visible": 0.24048179884626797,
       "metric_accuracy_verified": false,
       "visual_completeness_gate": true,
       "view_consistency_gate": false,
