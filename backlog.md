@@ -16,17 +16,23 @@
   The 3.1 MB navigation mesh is cleaned and simplified to 150,000 triangles.
   The return audit verifies 160 pairs; median pair error improves from 9.98 to 3.02 pixels.
   A 61-frame anchored spherical sweep and calibrated stitching baseline cover every direction.
-  All 55 tests pass, including MPS precision, spherical projection and shared-surface reprojection checks.
+  Tests cover MPS precision, spherical projection, shared-surface reprojection and rejection of unsuitable spherical inputs.
   FixAnything and pinned DiffSynth source are installed in .venv-fixanything.
   The 82.86 GB model download completed with Motrix checksums.
   A five-frame, two-step smoke run completed in 104 seconds; its actual pairs are visible at http://127.0.0.1:8083/fixanything-smoke-v1/review.html.
-  The full 61-frame, 10-step run is active with durable latent checkpoints.
+  The full 61-frame, 10-step run was stopped at the user request after nine saved checkpoints; no full generated image set exists.
+  Input inspection found 18 entirely empty renders and only one unique clean anchor image.
+  The downward smoke output incorrectly repeats the forward corridor, so the smoke result cannot validate panorama stitching.
   The unchanged panorama was compared with all 24 source photos excluded from mesh fusion, covering 1,197,452 shared pixels.
   These photos still contributed to camera estimation and learned reconstruction context.
-  Next: finish the full Mac run, stitch it, inspect structural changes and seams, and run compare_panorama_sources.py against the generated panorama.
+  Next: repair the input conditioning using the author-method research in fixanything-panorama-debugging.md.
+  ALWAYS complete one representative 360 station end to end before any batch or higher-cost run.
+  The pilot must generate every required view, stitch a complete panorama, work in the viewer and preserve observed layout in source-photo checks.
+  A five-frame runtime smoke test does not count.
+  The runner rejects the current unsupported sweep before model loading and respects all clean anchor indices in its manifest.
   Expose a refined candidate only with the raw panorama retained and review status explicit.
-  Ego space 30 is handed to the user for the smoke gallery; fresh PR image rendering verification is pending browser availability.
-  PR body is verified and image links remain unchanged and pinned to their previously verified commit.
+  Ego space 30 contains the raw tour, smoke gallery and sampled 61-view input inspection.
+  The draft PR tracks the rough tour, failed conditioning evidence and the required complete single-station pilot.
   The native full indoor mesh and native TSDF comparisons remain research evidence rather than PoC acceptance requirements.
 
   Draft PR: https://github.com/zeeshanhaque21/lingbot-map/pull/2

@@ -138,6 +138,19 @@ The first and last frame use the same captured station photograph as FixAnything
 `tour-stitch --source <sweep> --images <frame-directory> --output <new-directory>` reprojects those images with their saved rotations.
 Add `--generated` when stitching model-generated frames.
 The raw-render stitch is the do-nothing baseline for overlap and wrap-seam comparisons.
+Before loading FixAnything weights, inspect the proposed input with:
+
+```sh
+.venv-fixanything/bin/python artifacts/research/experiments/run_fixanything_mac.py \
+  --sweep <sweep> --check-input
+```
+
+This rejects incomplete spherical clips and renders with no observed surfaces.
+The current station-000 sweep fails this check and needs conditioning repairs.
+The previous generation was stopped; no completed generated panorama is available.
+Validate one complete generated, stitched and visually inspected 360 station against source photos before processing more stations or increasing run cost.
+A partial runtime smoke test does not meet this gate.
+The [conditioning investigation](artifacts/research/fixanything-panorama-debugging.md) records the evidence and next corrections.
 Model downloads and the isolated MPS adapter are described in the [FixAnything assessment](artifacts/research/fixanything-assessment.md).
 
 ## Reconstruction artifacts

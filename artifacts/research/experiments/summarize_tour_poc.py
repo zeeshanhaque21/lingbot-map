@@ -41,6 +41,8 @@ def main():
         )
         entry = {"name": root.name, "started": started, "completion": completion}
         for name, filename in (
+            ("stopped", "stopped-by-user.json"),
+            ("input_inspection", "input-inspection.json"),
             ("stitch", "stitch/stitch.json"),
             ("comparison", "evaluation/comparison.json"),
             ("source_comparison", "source-comparison/comparison.json"),
@@ -84,9 +86,13 @@ def main():
             "refinements": refinements,
             "source_view_baseline": (
                 json.loads(
-                    (args.tour / "source-comparison-baseline-v1/comparison.json").read_text()
+                    (
+                        args.tour / "source-comparison-baseline-v1/comparison.json"
+                    ).read_text()
                 )
-                if (args.tour / "source-comparison-baseline-v1/comparison.json").exists()
+                if (
+                    args.tour / "source-comparison-baseline-v1/comparison.json"
+                ).exists()
                 else None
             ),
             "full_spherical_inference_completed": full_completed,

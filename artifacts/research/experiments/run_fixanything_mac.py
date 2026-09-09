@@ -17,10 +17,74 @@ from lingbot_map.reconstruction.fixanything_mps import install_mps_compatibility
 from lingbot_map.reconstruction.io import digest, write_json
 
 
+def inspect_sweep(sweep, num_frames):
+    """Reject missing camera-control renders before loading model weights.
+
+    Passing this input check does not establish generated panorama quality.
+    """
+    sweep = Path(sweep)
+    config = json.loads((sweep / "sweep.json").read_text())
+    frames = config["frames"]
+    clean = config["clean_frame_indices"]
+    errors = []
+    if num_frames != 61 or len(frames) != 61:
+        errors.append("A spherical pilot must use the complete 61-view sweep")
+    if any(not isinstance(i, int) or i < 0 or i >= len(frames) for i in clean):
+        errors.append("Clean anchor indices fall outside the sweep")
+    marked = [i for i, frame in enumerate(frames) if frame["captured_anchor"]]
+    if sorted(set(clean)) != marked:
+        errors.append("Clean anchor indices disagree with captured-anchor metadata")
+    empty = [
+        i
+        for i, frame in enumerate(frames)
+        if i not in clean and frame["observed_fraction"] == 0
+    ]
+    if empty:
+        errors.append(
+            f"{len(empty)} rendered views have no observed surfaces and therefore "
+            "provide no scene-based camera control; repair conditioning first"
+        )
+    anchor_hashes = set()
+    for i in range(len(frames)):
+        path = sweep / "frames" / f"{i:03d}.png"
+        if not path.exists():
+            errors.append(f"Missing input image: {path}")
+            continue
+        try:
+            with Image.open(path) as image:
+                if image.size != (config["width"], config["height"]):
+                    errors.append(f"Input image dimensions changed: {path}")
+                image.verify()
+        except (OSError, ValueError) as error:
+            errors.append(f"Unreadable input image {path}: {error}")
+        if i in clean:
+            anchor_hashes.add(digest(path))
+    return {
+        "ready_for_pilot": not errors,
+        "errors": errors,
+        "frames": len(frames),
+        "requested_frames": num_frames,
+        "clean_frame_indices": clean,
+        "unique_clean_images": len(anchor_hashes),
+        "empty_render_indices": empty,
+        "under_ten_percent_observed_frames": sum(
+            frame["observed_fraction"] < 0.1 for frame in frames
+        ),
+        "sweep_sha256": digest(sweep / "sweep.json"),
+        "panorama_quality_verified": False,
+        "interpretation": "Input checks only. Repeated anchors do not add new views. A complete single-station generation, stitch and source-photo review must pass before processing further stations.",
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--sweep", type=Path, required=True)
-    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--output", type=Path)
+    parser.add_argument(
+        "--check-input",
+        action="store_true",
+        help="Inspect a complete spherical pilot without loading model weights",
+    )
     parser.add_argument(
         "--repository", type=Path, default=Path.home() / "Projects/fix-anything"
     )
@@ -31,6 +95,14 @@ def main():
     parser.add_argument("--steps", type=int, default=10)
     parser.add_argument("--seed", type=int, default=1)
     args = parser.parse_args()
+    inspection = inspect_sweep(args.sweep, args.frames)
+    if args.check_input:
+        print(json.dumps(inspection, indent=2))
+        return 0 if inspection["ready_for_pilot"] else 2
+    if not inspection["ready_for_pilot"]:
+        parser.error("; ".join(inspection["errors"]))
+    if args.output is None:
+        parser.error("--output is required for generation")
     if args.output.exists():
         parser.error("Preserve existing inference outputs; choose a new directory")
     if args.frames < 1 or args.frames > 61 or args.frames % 4 != 1 or args.steps < 1:
@@ -52,7 +124,9 @@ def main():
     if incomplete:
         parser.error(f"Model downloads are incomplete: {incomplete}")
     if not (args.models / "download-completion.json").exists():
-        parser.error("Run fetch_fixanything_models.py --status to verify Motrix completion")
+        parser.error(
+            "Run fetch_fixanything_models.py --status to verify Motrix completion"
+        )
     args.output.mkdir(parents=True)
     started = time.time()
     source = args.repository / "scripts/run_inference.py"
@@ -77,6 +151,7 @@ def main():
         "model_manifest_sha256": digest(args.models / "download-manifest.json"),
         "download_receipt_sha256": digest(args.models / "download-completion.json"),
         "generated": True,
+        "input_inspection": inspection,
     }
     write_json(args.output / "started.json", config)
     log = args.output / "events.jsonl"
@@ -129,7 +204,7 @@ def main():
         pipe.scheduler.step = saved_step
         paths = sorted((args.sweep / "frames").glob("*.png"))
         frames = [Image.open(path).convert("RGB") for path in paths[: args.frames]]
-        clean = [0, 60] if args.frames == 61 else [0]
+        clean = inspection["clean_frame_indices"]
         event(
             "inference",
             frames=args.frames,
@@ -178,4 +253,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

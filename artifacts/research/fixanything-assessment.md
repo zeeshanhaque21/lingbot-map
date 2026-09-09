@@ -55,7 +55,8 @@ The first and last image use the same captured photograph, resized with matching
 Known camera rotations allow refined images to be stitched back into a spherical panorama without estimating replacement geometry.
 The raw-render baseline covers every spherical direction, with mean overlap RGB standard deviation 0.00075 and wrap-edge RGB difference 0.00195 on a 0-to-1 scale.
 These small numerical values validate the rendering and stitching path; they do not predict FixAnything's generated-image consistency.
-Only 36% to 41% of panorama pixels currently hit observed surfaces, because the forward-facing capture does not see much of the ceiling and floor.
+Only 36% to 41% of panorama pixels currently hit observed surfaces.
+The station-000 sweep includes 18 entirely empty renders, including the views opposite to and above the reference camera.
 Generated fill must remain distinguishable from observed building evidence.
 
 ## Mac feasibility and local status
@@ -66,8 +67,11 @@ The actual selected Hugging Face files total 82,856,630,348 bytes, including the
 All 18 selected files are downloaded and verified through Motrix, including 13 files with published SHA-256 checksums.
 A real five-frame, two-step inference run at 448 by 256 completed in 104.17 seconds, including model loading.
 The denoising stage used approximately 34.37 GB of MPS driver allocation.
-The generated smoke-test frames contain plausible gap filling but visible artifacts; this verifies execution rather than final tour quality.
-A full 61-frame, 10-step run at the published 832-by-480 resolution is in progress.
+The generated smoke-test frames contain artifacts and fail an orientation check: the downward input becomes a forward-looking corridor.
+This verifies execution only, and cannot serve as a panorama acceptance test.
+The full 61-frame, 10-step run at the published 832-by-480 resolution was stopped at the user's request after nine saved checkpoints.
+It produced no completed generated image set or stitched panorama.
+The [follow-up investigation](fixanything-panorama-debugging.md) compares the inputs with the authors' training assumptions and defines the required single-station pilot.
 A device parameter alone does not verify DiffSynth, attention, offloading hooks or runtime memory behavior on MPS.
 
 The repository identifies its code and FixAnything weights as Apache 2.0.
@@ -80,6 +84,7 @@ The reconstruction geometry and raw panoramas remain unchanged.
 ## Decision
 
 Use FixAnything as the candidate appearance stage for fixed spherical tour stations.
+Repair conditioning before another generation run, and validate one complete 360 station end to end before scaling.
 The mesh provides rough spatial navigation and room connectivity; the panoramas provide the viewing experience.
 Do not claim accurate dimensions or faithful unobserved details from this PoC.
 Local reconstruction findings are recorded in [the implementation report](mac-reconstruction-results.md).

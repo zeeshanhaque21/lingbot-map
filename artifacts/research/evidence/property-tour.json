@@ -150,7 +150,53 @@
         "download_receipt_sha256": "0281ca1fdf1decb213a6fae54bb0aae88e6ea572b61a7c8a46ce0440ea9e20d5",
         "generated": true
       },
-      "completion": null
+      "completion": null,
+      "stopped": {
+        "pid": 90701,
+        "stopped_unix": 1788982151.301376,
+        "signal": "SIGTERM",
+        "reason": "User requested generation stop to fix conditioning before another run.",
+        "process_absent_verified": true,
+        "saved_latent_checkpoints": 9,
+        "saved_generated_frames": 0
+      },
+      "input_inspection": {
+        "ready_for_pilot": false,
+        "errors": [
+          "18 rendered views have no observed surfaces and therefore provide no scene-based camera control; repair conditioning first"
+        ],
+        "frames": 61,
+        "requested_frames": 61,
+        "clean_frame_indices": [
+          0,
+          60
+        ],
+        "unique_clean_images": 1,
+        "empty_render_indices": [
+          31,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58
+        ],
+        "under_ten_percent_observed_frames": 24,
+        "sweep_sha256": "38c3267f1b823649e1a09c4d199dfec10020f10af55d0ae143585c2dee0638f7",
+        "panorama_quality_verified": false,
+        "interpretation": "Input checks only. Repeated anchors do not add new views. A complete single-station generation, stitch and source-photo review must pass before processing further stations."
+      }
     },
     {
       "name": "fixanything-smoke-v1",

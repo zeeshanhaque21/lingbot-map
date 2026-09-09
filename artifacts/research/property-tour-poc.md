@@ -45,8 +45,12 @@ Coverage of rendering directions must not be confused with coverage of the actua
 All model downloads completed through Motrix with checksum verification.
 A real five-frame, two-step FixAnything smoke run completed on MPS in 104.17 seconds, including loading.
 It produces plausible gap filling with visible artifacts and is not a final panorama.
-The full 61-frame, 10-step run at 832 by 480 is in progress.
-Next acceptance work is spherical stitching, overlap and seam comparison against the raw baseline, and visual inspection of preserved structural details.
+The full 61-frame, 10-step run at 832 by 480 was stopped at the user's request after nine saved denoising checkpoints.
+It produced no completed generated image set or stitched panorama.
+Input inspection found 18 entirely empty renders; the downward smoke output also repeats the forward corridor instead of preserving its intended orientation.
+Conditioning must be corrected before restarting generation.
+One complete 360 station must pass generation, stitching, viewer inspection and source-photo comparison before additional stations or higher-cost runs.
+The [conditioning investigation](fixanything-panorama-debugging.md) records the sampled evidence, author-method comparison and correction sequence.
 
 The five actual smoke-test input/output pairs are visible at `http://127.0.0.1:8083/fixanything-smoke-v1/review.html`.
 The gallery uses FixAnything's exact input crop and the unchanged generated PNGs.
@@ -56,7 +60,7 @@ A separate source-photo comparison is ready for all 24 images excluded from mesh
 It projects shared surfaces through the fixed station using the saved mesh and cameras, rejects occluded surfaces, and compares both candidate and unchanged panorama against the same photo pixels.
 The unchanged baseline has 1,197,452 shared pixels across those 24 views.
 These photos still contributed to camera estimation and learned reconstruction context; color error is a diagnostic and does not certify building structure.
-Synthetic translated-camera, occlusion, wraparound and pole tests pass; the full suite has 55 passing tests.
+Synthetic translated-camera, occlusion, wraparound, pole and inference-input tests pass; the full suite has 57 passing tests.
 
 ## Reproduce
 
