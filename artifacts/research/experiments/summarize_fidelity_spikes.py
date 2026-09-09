@@ -49,6 +49,11 @@ def main():
         "openmvs_refined_captured_comparison": "openmvs-chair-760/evaluation-generic-refined-final/results.json",
         "openmvs_full_capture_comparison": "openmvs-full/evaluation-final/results.json",
         "camera_turn_correspondence_audit": "camera-turn-correspondence-audit-v1/results.json",
+        "cached_pose_mapper_completion": "colmap-cached-pose-spike-v1/completion.json",
+        "cached_pose_mapper_run": "colmap-cached-pose-spike-v1/run.json",
+        "cached_pose_mapper_timing": "colmap-cached-pose-spike-v1/mapper-completion.json",
+        "cached_pose_audit_component_0": "colmap-cached-pose-spike-v1/audit-model-0/results.json",
+        "cached_pose_audit_component_1": "colmap-cached-pose-spike-v1/audit-model-1/results.json",
     }.items():
         path = captures / relative
         if not path.exists():

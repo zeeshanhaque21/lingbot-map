@@ -8087,6 +8087,354 @@
       "interpretation": "Read-only reprojection audit using retained verified COLMAP correspondences, with fresh essential matrices fitted using final camera calibration and 20% of pair correspondences reserved from this new fit. Camera estimation previously used the same images and database, so this is a development consistency test, not independent truth. Rotation magnitudes and differences also compare the unchanged learned baseline. High planar support or low triangulation angle may make two-view pose ambiguous. No camera path or mesh is modified."
     }
   },
+  "cached_pose_mapper_completion": {
+    "source": "colmap-cached-pose-spike-v1/completion.json",
+    "result": {
+      "complete": true,
+      "models": [
+        {
+          "name": "0",
+          "text_sha256": {
+            "cameras.txt": "16bc8eb6f64efebc632ab5140858c220325f8449237a63763a2cf1280eca3858",
+            "images.txt": "d0765e09250473fae29b5f400fa0bfd8da5c2fab6f4593359268129bc79f899e",
+            "points3D.txt": "d9249d899b4648b3a70ea8ec686c7cac4f0375b2061ee712ab568d53e81c32aa"
+          }
+        },
+        {
+          "name": "1",
+          "text_sha256": {
+            "cameras.txt": "6315ef69575d36391d7d8e4d21ba607aa22ffc692006742328575cd053f81bc1",
+            "images.txt": "d60e33d94c717a8cc771fc16a40fa7beca8f254e8c3bc67b51f2dfb524dafd00",
+            "points3D.txt": "df4a40f47477cd8a52e200f18278bd7634f0d4a141443a57bc474a099b0b4886"
+          }
+        }
+      ],
+      "original_database_unchanged": true,
+      "metric_accuracy_verified": false
+    }
+  },
+  "cached_pose_mapper_run": {
+    "source": "colmap-cached-pose-spike-v1/run.json",
+    "result": {
+      "source_database_sha256": "cb348b60bc798e6471da58f7b5d07cd79e70f75fea69a6b81e1c004af898c3b5",
+      "snapshot_database_sha256": "cb348b60bc798e6471da58f7b5d07cd79e70f75fea69a6b81e1c004af898c3b5",
+      "source_project_sha256": "3bf6e3a0eb117c13ed8b3cae984a3ab180bfa7b497889b8fb69d365543c61bf9",
+      "experiment_project_sha256": "9ef52c19bf233d95f951493bdbfaed14d1835263795b71960ade49240567e5ef",
+      "binary_sha256": "717eadf4a9a377dc5199819dfcd10266c84d8e37e56610e42fc16cc0e4143367",
+      "producer_sha256": "499a09a635a1b8134ae2042c95e33e8c1be64f87546a3202dc9e68268dfb2a33",
+      "changed_algorithm_option": {
+        "GlobalMapper.decompose_relative_pose": false
+      },
+      "interpretation": "Separate, byte-verified database copy and otherwise unchanged native global-mapper project. Tests whether adding decomposed poses to the cached calibrated pair graph explains the disputed turns. No original cameras, database or mesh are modified. This is a hypothesis test, not a fidelity claim."
+    }
+  },
+  "cached_pose_mapper_timing": {
+    "source": "colmap-cached-pose-spike-v1/mapper-completion.json",
+    "result": {
+      "command": [
+        "/opt/homebrew/bin/colmap",
+        "global_mapper",
+        "--project_path",
+        "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/colmap-cached-pose-spike-v1/experiment.ini"
+      ],
+      "start_utc": "2026-09-09T16:14:34.020378+00:00",
+      "pid": 34033,
+      "returncode": 0,
+      "seconds": 396.7537060409959,
+      "end_utc": "2026-09-09T16:21:10.775523+00:00"
+    }
+  },
+  "cached_pose_audit_component_0": {
+    "source": "colmap-cached-pose-spike-v1/audit-model-0/results.json",
+    "result": {
+      "pairs": [
+        {
+          "first_frame": 954,
+          "second_frame": 955,
+          "verified_matches": 95,
+          "database_config": 2,
+          "status": "evaluated",
+          "fit_correspondences": 76,
+          "reserved_correspondences": 19,
+          "fit_essential_inliers": 68,
+          "fit_positive_depth_inliers": 68,
+          "homography_fit_inlier_fraction": 0.42105263157894735,
+          "median_positive_depth_parallax_degrees": 7.569939313686551,
+          "fresh_pair_turn_degrees": 12.780168950017119,
+          "global_colmap_turn_degrees": 64.76461242590344,
+          "learned_baseline_turn_degrees": 11.876239024654472,
+          "pair_to_global_rotation_difference_degrees": 77.32022699275359,
+          "pair_to_learned_rotation_difference_degrees": 0.9144829984745545,
+          "reserved_sampson_error_pixels_p50_p95": {
+            "fresh_pair_essential": [
+              0.5815101685925063,
+              1.5830287745675156
+            ],
+            "unchanged_global_colmap": [
+              140.277845051312,
+              366.0129448791442
+            ]
+          },
+          "fresh_pair_rotation": [
+            [
+              0.9752781062189072,
+              -0.06016039197271694,
+              0.21263429348943477
+            ],
+            [
+              0.05797256865447557,
+              0.9981815676293193,
+              0.016514821484865074
+            ],
+            [
+              -0.21324117054092567,
+              -0.0037795876446903623,
+              0.976992281394061
+            ]
+          ],
+          "fresh_pair_translation_direction": [
+            0.9137344820007319,
+            0.1331224160638478,
+            -0.38388503323804896
+          ]
+        },
+        {
+          "first_frame": 764,
+          "second_frame": 765,
+          "verified_matches": 827,
+          "database_config": 6,
+          "status": "evaluated",
+          "fit_correspondences": 661,
+          "reserved_correspondences": 166,
+          "fit_essential_inliers": 627,
+          "fit_positive_depth_inliers": 50,
+          "homography_fit_inlier_fraction": 0.5809379727685325,
+          "median_positive_depth_parallax_degrees": 1.129346077448631,
+          "fresh_pair_turn_degrees": 11.39001561430805,
+          "global_colmap_turn_degrees": 11.32099150134359,
+          "learned_baseline_turn_degrees": 11.25633778408329,
+          "pair_to_global_rotation_difference_degrees": 0.13131106077234603,
+          "pair_to_learned_rotation_difference_degrees": 0.5573549749720236,
+          "reserved_sampson_error_pixels_p50_p95": {
+            "fresh_pair_essential": [
+              0.38187605598968444,
+              1.126622735250221
+            ],
+            "unchanged_global_colmap": [
+              0.14179878981888766,
+              0.8179051113565137
+            ]
+          },
+          "fresh_pair_rotation": [
+            [
+              0.9811152852120445,
+              0.014880743443882755,
+              -0.19285061731258688
+            ],
+            [
+              -0.007072710966360029,
+              0.999129474966561,
+              0.04111288134672924
+            ],
+            [
+              0.19329452626206142,
+              -0.03897249963245063,
+              0.9803664469929211
+            ]
+          ],
+          "fresh_pair_translation_direction": [
+            -0.9865973920598082,
+            0.1324095864725704,
+            -0.09535873001958335
+          ]
+        }
+      ],
+      "source_sha256": {
+        "database": "cb348b60bc798e6471da58f7b5d07cd79e70f75fea69a6b81e1c004af898c3b5",
+        "baseline_cameras": "e1f0cdc540f3ca3cb5a9d5b77616da8d1ed90a6ca27b0a67f6d026c254c08b6c",
+        "producer": "379d7cfe398aad5d2310833c85179570664e39c87743a35f4fa3718acc7a6985",
+        "cameras.txt": "16bc8eb6f64efebc632ab5140858c220325f8449237a63763a2cf1280eca3858",
+        "images.txt": "d0765e09250473fae29b5f400fa0bfd8da5c2fab6f4593359268129bc79f899e",
+        "points3D.txt": "d9249d899b4648b3a70ea8ec686c7cac4f0375b2061ee712ab568d53e81c32aa"
+      },
+      "metric_accuracy_verified": false,
+      "interpretation": "Read-only reprojection audit using retained verified COLMAP correspondences, with fresh essential matrices fitted using final camera calibration and 20% of pair correspondences reserved from this new fit. Camera estimation previously used the same images and database, so this is a development consistency test, not independent truth. Rotation magnitudes and differences also compare the unchanged learned baseline. High planar support or low triangulation angle may make two-view pose ambiguous. No camera path or mesh is modified."
+    }
+  },
+  "cached_pose_audit_component_1": {
+    "source": "colmap-cached-pose-spike-v1/audit-model-1/results.json",
+    "result": {
+      "pairs": [
+        {
+          "first_frame": 388,
+          "second_frame": 389,
+          "verified_matches": 0,
+          "database_config": 0,
+          "status": "insufficient_verified_correspondences"
+        },
+        {
+          "first_frame": 389,
+          "second_frame": 390,
+          "verified_matches": 130,
+          "database_config": 2,
+          "status": "evaluated",
+          "fit_correspondences": 104,
+          "reserved_correspondences": 26,
+          "fit_essential_inliers": 87,
+          "fit_positive_depth_inliers": 87,
+          "homography_fit_inlier_fraction": 0.5865384615384616,
+          "median_positive_depth_parallax_degrees": 1.2400072860316855,
+          "fresh_pair_turn_degrees": 27.421481377095294,
+          "global_colmap_turn_degrees": 35.45814141441435,
+          "learned_baseline_turn_degrees": 62.74714729845852,
+          "pair_to_global_rotation_difference_degrees": 8.046385824139996,
+          "pair_to_learned_rotation_difference_degrees": 90.10075451331365,
+          "reserved_sampson_error_pixels_p50_p95": {
+            "fresh_pair_essential": [
+              0.45301825822776237,
+              1.531645543783645
+            ],
+            "unchanged_global_colmap": [
+              0.4468838020729488,
+              13.594007270843932
+            ]
+          },
+          "fresh_pair_rotation": [
+            [
+              0.8880805456920582,
+              0.10050001831829124,
+              -0.44856737585486467
+            ],
+            [
+              -0.11411231780992635,
+              0.9934622424544554,
+              -0.0033394223170306455
+            ],
+            [
+              0.44529913910465013,
+              0.05415273894631975,
+              0.8937427804336486
+            ]
+          ],
+          "fresh_pair_translation_direction": [
+            -0.6980706726501774,
+            0.09294162927802593,
+            -0.7099712596527233
+          ]
+        },
+        {
+          "first_frame": 493,
+          "second_frame": 494,
+          "verified_matches": 252,
+          "database_config": 2,
+          "status": "evaluated",
+          "fit_correspondences": 201,
+          "reserved_correspondences": 51,
+          "fit_essential_inliers": 189,
+          "fit_positive_depth_inliers": 189,
+          "homography_fit_inlier_fraction": 0.5024875621890548,
+          "median_positive_depth_parallax_degrees": 3.042598245186686,
+          "fresh_pair_turn_degrees": 19.509448871498243,
+          "global_colmap_turn_degrees": 19.409803397129423,
+          "learned_baseline_turn_degrees": 19.029431314350315,
+          "pair_to_global_rotation_difference_degrees": 0.1317908225983544,
+          "pair_to_learned_rotation_difference_degrees": 0.54266698043018,
+          "reserved_sampson_error_pixels_p50_p95": {
+            "fresh_pair_essential": [
+              0.35723388440985987,
+              0.9182752421037462
+            ],
+            "unchanged_global_colmap": [
+              0.23329682043897382,
+              0.6350070161437735
+            ]
+          },
+          "fresh_pair_rotation": [
+            [
+              0.9429780546057446,
+              -0.09800515262127388,
+              0.3180996362645623
+            ],
+            [
+              0.0889343285086904,
+              0.9951109721112347,
+              0.04295158200278048
+            ],
+            [
+              -0.32075391462096636,
+              -0.01221242168917419,
+              0.947083831037048
+            ]
+          ],
+          "fresh_pair_translation_direction": [
+            0.3912324323413424,
+            0.18835345390726385,
+            -0.9008108349067973
+          ]
+        },
+        {
+          "first_frame": 300,
+          "second_frame": 301,
+          "verified_matches": 1149,
+          "database_config": 2,
+          "status": "evaluated",
+          "fit_correspondences": 919,
+          "reserved_correspondences": 230,
+          "fit_essential_inliers": 820,
+          "fit_positive_depth_inliers": 818,
+          "homography_fit_inlier_fraction": 0.49510337323177367,
+          "median_positive_depth_parallax_degrees": 0.7721258672765414,
+          "fresh_pair_turn_degrees": 7.994091039704806,
+          "global_colmap_turn_degrees": 8.023945885586373,
+          "learned_baseline_turn_degrees": 8.062771302522721,
+          "pair_to_global_rotation_difference_degrees": 0.11561119739412823,
+          "pair_to_learned_rotation_difference_degrees": 0.11848648410214854,
+          "reserved_sampson_error_pixels_p50_p95": {
+            "fresh_pair_essential": [
+              0.3144314312474564,
+              1.4473741765761656
+            ],
+            "unchanged_global_colmap": [
+              0.25776037744359986,
+              0.8012725973700991
+            ]
+          },
+          "fresh_pair_rotation": [
+            [
+              0.9920879029093772,
+              0.03662216984093686,
+              -0.12008500979312765
+            ],
+            [
+              -0.043782897960135236,
+              0.9973824460678847,
+              -0.057544018992900306
+            ],
+            [
+              0.11766329396666808,
+              0.06234639485795909,
+              0.9910944840433377
+            ]
+          ],
+          "fresh_pair_translation_direction": [
+            0.24798399024648315,
+            0.1879964032954264,
+            -0.9503479851767013
+          ]
+        }
+      ],
+      "source_sha256": {
+        "database": "cb348b60bc798e6471da58f7b5d07cd79e70f75fea69a6b81e1c004af898c3b5",
+        "baseline_cameras": "e1f0cdc540f3ca3cb5a9d5b77616da8d1ed90a6ca27b0a67f6d026c254c08b6c",
+        "producer": "379d7cfe398aad5d2310833c85179570664e39c87743a35f4fa3718acc7a6985",
+        "cameras.txt": "6315ef69575d36391d7d8e4d21ba607aa22ffc692006742328575cd053f81bc1",
+        "images.txt": "d60e33d94c717a8cc771fc16a40fa7beca8f254e8c3bc67b51f2dfb524dafd00",
+        "points3D.txt": "df4a40f47477cd8a52e200f18278bd7634f0d4a141443a57bc474a099b0b4886"
+      },
+      "metric_accuracy_verified": false,
+      "interpretation": "Read-only reprojection audit using retained verified COLMAP correspondences, with fresh essential matrices fitted using final camera calibration and 20% of pair correspondences reserved from this new fit. Camera estimation previously used the same images and database, so this is a development consistency test, not independent truth. Rotation magnitudes and differences also compare the unchanged learned baseline. High planar support or low triangulation angle may make two-view pose ambiguous. No camera path or mesh is modified."
+    }
+  },
   "joint-pose-graph-v1_camera_comparison": {
     "baseline": {
       "reserved_observations": 122264,

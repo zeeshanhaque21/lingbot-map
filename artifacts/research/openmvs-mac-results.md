@@ -191,9 +191,19 @@ This localizes errors upstream of mesh generation without establishing complete 
 The 764-765 control has only 42 positive-depth correspondences after pose recovery, so its translation direction remains weakly constrained despite small image residuals.
 
 The native global-mapper log shows that its default configuration decomposes 1,604 additional relative poses and loads 6,197 graph edges.
-A separate database copy now tests `GlobalMapper.decompose_relative_pose=false` with every other native project option retained.
-It loads 4,593 edges and initially reports two connected components, compared with one in the original run.
-That experiment is still running and has not established an improved camera solution.
+A separate database copy tests `GlobalMapper.decompose_relative_pose=false` with every other native project option retained.
+It loads 4,593 edges and completes in 396.75 seconds in this single run, with the original database hash unchanged.
+The result contains two models and 997 of 1,000 base capture images; frames 1, 279 and 532 are absent.
+Model 0 covers 467 base images in frames 533-999, and model 1 covers 530 base images in frames 0-531.
+Their coordinate systems remain separate.
+
+The follow-up audit uses each model's final estimated intrinsics and the same reserved correspondence indices.
+Pair 493-494 improves from 89.91 to 0.23 approximate pixels median Sampson error, with rotation disagreement against the fresh pair fit falling from 92.13 to 0.13 degrees.
+Pair 954-955 still has 140.28 pixels median error and 77.32 degrees rotation disagreement.
+Pair 389-390 worsens from 0.49 to 8.05 degrees rotation disagreement, with its 95th-percentile Sampson error increasing from 0.65 to 13.59 pixels.
+The controls remain below one pixel median error.
+This configuration repairs one localized failure but does not resolve the camera problem or establish a complete connected building.
+The original global solution and the two-component candidate both remain unverified.
 
 ## Reproduction
 
