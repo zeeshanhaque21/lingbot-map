@@ -27,6 +27,10 @@ def main():
             "fuse",
             "validate",
             "view",
+            "tour",
+            "tour-view",
+            "tour-sweep",
+            "tour-stitch",
         ],
         nargs="?",
     )
@@ -34,6 +38,12 @@ def main():
     inputs.add_argument("--video", type=Path)
     inputs.add_argument("--images", type=Path, help="Ordered RGB PNG/JPEG directory; preserves pixels, timing unknown")
     parser.add_argument("--source", type=Path)
+    parser.add_argument("--stations", type=int, default=6)
+    parser.add_argument("--station", default="000")
+    parser.add_argument("--panorama-width", type=int, default=2048)
+    parser.add_argument("--triangle-budget", type=int, default=150000)
+    parser.add_argument("--port", type=int)
+    parser.add_argument("--generated", action="store_true", help="Mark stitched images as generated")
     parser.add_argument("--colmap-model", type=Path)
     parser.add_argument("--bridges", type=Path)
     parser.add_argument("--camera-source", choices=["sfm", "learned", "native"], default="sfm")
@@ -189,7 +199,29 @@ def main():
         if args.stage == "view":
             from .viewer import view
 
-            view(args.output)
+            view(args.output, port=args.port or 8081)
+        if args.stage == "tour":
+            if args.source is None:
+                raise ValueError("tour requires --source and a new --output")
+            from .tour import export_tour
+
+            export_tour(args.source, args.output, args.stations, args.panorama_width, args.triangle_budget)
+        if args.stage == "tour-view":
+            from .tour_viewer import view_tour
+
+            view_tour(args.output, port=args.port or 8083)
+        if args.stage == "tour-sweep":
+            if args.source is None:
+                raise ValueError("tour-sweep requires --source tour and a new --output")
+            from .panorama import export_sweep
+
+            export_sweep(args.source, args.station, args.output)
+        if args.stage == "tour-stitch":
+            if args.source is None or args.images is None:
+                raise ValueError("tour-stitch requires --source sweep, --images and a new --output")
+            from .panorama import stitch_sweep
+
+            stitch_sweep(args.source, args.images, args.output, args.panorama_width, args.generated)
         passed = quality is None or quality["view_consistency_gate"]
         print("status: complete" if passed else "status: needs_review")
         print("output: " + json.dumps(str(artifact_output.resolve())))

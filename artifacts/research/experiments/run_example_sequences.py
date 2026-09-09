@@ -16,6 +16,7 @@ def main():
     parser.add_argument("--examples", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--records", type=Path, required=True)
+    parser.add_argument("--mapper", choices=("global", "incremental"), default="global")
     args = parser.parse_args()
     if args.records.exists():
         parser.error("Preserve existing run records; choose a new --records")
@@ -35,7 +36,7 @@ def main():
             "--motion-weight",
             "10",
             "--mapper",
-            "incremental",
+            args.mapper,
         ]
         record = {
             "sequence": name,

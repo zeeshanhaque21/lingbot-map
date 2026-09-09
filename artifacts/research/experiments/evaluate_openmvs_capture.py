@@ -9,7 +9,7 @@ import numpy as np
 import open3d as o3d
 from PIL import Image, ImageDraw, ImageFont
 
-from lingbot_map.reconstruction.colmap_io import read_model
+from lingbot_map.reconstruction.colmap_io import captured_image, read_model
 from lingbot_map.reconstruction.glb import native_resources, package_scene
 from lingbot_map.reconstruction.io import digest
 from lingbot_map.reconstruction.rendering import SurfaceRenderer
@@ -138,7 +138,7 @@ def write_viewer_metadata(model, dataset, images, reserved_ids, triangles):
     cameras = []
     for frame in sorted(frames, key=frame_number):
         number = frame_number(frame)
-        image = images[f"{number:06d}.jpg"]
+        image = captured_image(images, number)
         path = (dataset / frame["file_path"]).resolve()
         if not path.is_relative_to(dataset.resolve()) or not path.is_file():
             raise ValueError("Viewer image is missing or escapes the capture dataset")
@@ -179,6 +179,7 @@ def main():
     parser.add_argument("--baseline-trial", type=Path)
     parser.add_argument("--baseline-dataset", type=Path)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--frame-range", type=int, nargs=2, metavar=("FIRST", "LAST"))
     args = parser.parse_args()
     if args.output.exists():
         parser.error("Preserve existing results; choose a new output directory")
@@ -204,6 +205,13 @@ def main():
         or set(frame_ids) != {int(x) for x in provenance["reserved_images_excluded"]}
     ):
         raise ValueError("Reserved image split differs from dense reconstruction")
+    available_reserved_views = len(frame_ids)
+    if args.frame_range:
+        first, last = args.frame_range
+        frames = [frame for frame in frames if first <= frame_number(frame) <= last]
+        frame_ids = [frame_number(frame) for frame in frames]
+        if not frame_ids:
+            parser.error("The selected range has no reserved views")
     resources = native_resources(args.trial)
     baseline, baseline_ids, baseline_resources = None, set(), None
     if args.baseline_trial:
@@ -241,7 +249,7 @@ def main():
     with (args.output / "views.jsonl").open("x") as trace:
         for frame in frames:
             number = frame_number(frame)
-            image = images[f"{number:06d}.jpg"]
+            image = captured_image(images, number)
             path = (args.captured_dataset / frame["file_path"]).resolve()
             if not path.is_relative_to(args.captured_dataset.resolve()):
                 raise ValueError("Captured image escapes its dataset")
@@ -341,6 +349,8 @@ def main():
         "baseline_resources_sha256": baseline_resources,
         "paired_baseline_frames": sorted(baseline_ids),
         "reserved_views": len(rows),
+        "available_reserved_views": available_reserved_views,
+        "evaluated_frame_range": args.frame_range,
         "median_rendered_coverage": float(
             np.median([row["rendered_coverage"] for row in rows])
         ),
@@ -354,7 +364,7 @@ def main():
         "views": rows,
         "metric_accuracy_verified": False,
         "ready_for_verified_property_listing": False,
-        "interpretation": "All reserved captured RGB views, with unchanged COLMAP cameras and no per-view alignment. Reserved images were excluded from dense stereo and texturing but participated in camera estimation. Sparse tracks measure consistency with that same calibration, not independent geometry accuracy. No generated or model-derived depth is treated as truth. The unchanged local mesh baseline is compared only on its common reserved frames. All native materials are embedded and geometry, texture pixels, UVs and node transforms pass a complete export round trip. Scale and building connectivity remain unverified.",
+        "interpretation": "Reserved captured RGB views in the recorded evaluation range, with unchanged COLMAP cameras and no per-view alignment. Without a requested range every reserved view is evaluated. Reserved images were excluded from dense stereo and texturing but participated in camera estimation. Sparse tracks measure consistency with that same calibration, not independent geometry accuracy. No generated or model-derived depth is treated as truth. The baseline is compared only on common reserved frames. Materials, geometry, appearance and node transforms pass an export round trip. Scale and building connectivity remain unverified.",
     }
     result["viewer_metadata_available"] = write_viewer_metadata(
         model, args.captured_dataset, images, set(frame_ids), result["triangles"]

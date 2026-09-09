@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Property tour</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #171c21; color: #f1f4f6; font: 14px system-ui, sans-serif; overflow: hidden; }
+  canvas { display: block; width: 100vw; height: 100dvh; touch-action: none; cursor: grab; }
+  canvas:active { cursor: grabbing; }
+  button { font: inherit; color: inherit; cursor: pointer; border: 1px solid #ffffff30; background: #202830e8; border-radius: 10px; padding: 10px 16px; }
+  button:hover { background: #33434f; }
+  button:focus-visible, canvas:focus-visible { outline: 3px solid #8cdecf; outline-offset: 3px; }
+  button[aria-pressed="true"] { border-color: #9be9d7; background: #294f49; }
+  header { position: absolute; top: 24px; left: 28px; right: 28px; display: flex; justify-content: space-between; gap: 16px; pointer-events: none; }
+  header > * { pointer-events: auto; }
+  .title { padding: 16px 20px; background: #172027ec; border: 1px solid #ffffff19; border-radius: 14px; box-shadow: 0 4px 24px #0003; }
+  h1 { font-size: 20px; font-weight: 600; letter-spacing: -.4px; margin: 0 0 6px; }
+  #status { color: #b6c5cb; font-size: 12px; }
+  .actions { display: flex; align-items: flex-start; gap: 8px; }
+  #hint { position: absolute; bottom: 134px; width: 100%; text-align: center; color: #d6dfe3; font-size: 12px; pointer-events: none; text-shadow: 0 1px 4px #000; }
+  footer { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); max-width: calc(100% - 32px); padding: 10px; display: flex; gap: 8px; background: #152027eb; border: 1px solid #ffffff20; border-radius: 16px; overflow-x: auto; }
+  .station { padding: 5px; min-width: 98px; text-align: left; border-radius: 10px; }
+  .station img { width: 86px; height: 48px; object-fit: cover; display: block; border-radius: 5px; }
+  .station span { display: block; padding: 5px 3px 1px; font-size: 12px; }
+  .marker { position: absolute; width: 34px; height: 34px; padding: 0; border-radius: 50%; border: 2px solid #d3fff4; background: #1a6559; box-shadow: 0 2px 10px #0009; transform: translate(-50%, -50%); }
+  #error { position: absolute; inset: 40% 15% auto; background: #4b2525; padding: 20px; border-radius: 12px; display: none; }
+  @media(max-width:600px) { header { top: 12px; left: 12px; right: 12px; } .title { padding: 12px; } h1 { font-size: 17px; } .actions { flex-direction: column; } button { padding: 8px 12px; } }
+</style>
+<canvas id="scene" tabindex="0" aria-label="Interactive property model. Drag to rotate, scroll to zoom. Select a station for a 360 view."></canvas>
+<header>
+  <div class="title"><h1 id="heading">Property tour</h1><div id="status" aria-live="polite">Loading reconstruction...</div></div>
+  <div class="actions"><button id="overview" aria-pressed="true">3D overview</button><button id="fullscreen">Full screen</button></div>
+</header>
+<div id="markers"></div>
+<div id="hint">Drag to rotate · Scroll to zoom · Choose a station to look around</div>
+<footer id="stations" aria-label="Tour stations"></footer>
+<div id="error" role="alert"></div>
+<script type="module">
+const canvas = document.querySelector('#scene');
+const gl = canvas.getContext('webgl2', {antialias:true, preserveDrawingBuffer:true});
+const fail = error => { const box = document.querySelector('#error'); box.textContent = error.message || String(error); box.style.display = 'block'; console.error(error); };
+window.addEventListener('unhandledrejection', event => fail(event.reason));
+window.addEventListener('error', event => fail(event.error || event.message));
+if (!gl) throw new Error('This viewer requires WebGL 2.');
+const program = (vertex, fragment) => {
+  const result = gl.createProgram();
+  for (const [kind, source] of [[gl.VERTEX_SHADER,vertex],[gl.FRAGMENT_SHADER,fragment]]) {
+    const shader = gl.createShader(kind); gl.shaderSource(shader, '#version 300 es\n' + source); gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) throw Error(gl.getShaderInfoLog(shader));
+    gl.attachShader(result,shader);
+  }
+  gl.linkProgram(result); if (!gl.getProgramParameter(result,gl.LINK_STATUS)) throw Error(gl.getProgramInfoLog(result));
+  return result;
+};
+const meshProgram = program(`in vec3 position; in vec4 color; uniform vec3 eye; uniform mat3 basis; uniform vec2 lens; out vec4 shade;
+void main(){ vec3 p=transpose(basis)*(position-eye); gl_Position=vec4(p.x*lens.x/lens.y,p.y*lens.x,p.z*1.0002-.002,p.z); shade=color; }`,
+`precision highp float; in vec4 shade; out vec4 pixel; void main(){pixel=vec4(shade.rgb,1.);}`);
+const panoProgram = program(`in vec2 position; out vec2 screen; void main(){screen=position;gl_Position=vec4(position,0.,1.);}`,
+`precision highp float; in vec2 screen; uniform sampler2D panorama; uniform vec4 view; out vec4 pixel;
+void main(){vec3 p=normalize(vec3(screen.x*view.z*view.w,-screen.y*view.z,1.));
+float c=cos(view.y),s=sin(view.y); p=vec3(p.x,c*p.y-s*p.z,s*p.y+c*p.z);
+c=cos(view.x);s=sin(view.x);p=vec3(c*p.x+s*p.z,p.y,-s*p.x+c*p.z);
+vec2 uv=vec2(atan(p.x,p.z)/6.28318530718+.5,asin(clamp(p.y,-1.,1.))/3.14159265359+.5); pixel=texture(panorama,uv);}`);
+const buffer = (target,data) => {const b=gl.createBuffer();gl.bindBuffer(target,b);gl.bufferData(target,data,gl.STATIC_DRAW);return b;};
+const attr = (p,name,b,size,type=gl.FLOAT,normalized=false) => {gl.bindBuffer(gl.ARRAY_BUFFER,b);const i=gl.getAttribLocation(p,name);gl.enableVertexAttribArray(i);gl.vertexAttribPointer(i,size,type,normalized,0,0);};
+const quad=buffer(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]));
+const norm = a => {const d=Math.hypot(...a);return a.map(x=>x/d);};
+const cross = (a,b) => [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+const dot = (a,b) => a.reduce((s,v,i)=>s+v*b[i],0);
+const subtract=(a,b)=>a.map((v,i)=>v-b[i]);
+const tour=await fetch('tour.json').then(r=>r.json());
+const stations=await fetch('stations.json').then(r=>r.json());
+const bytes=await fetch('property.glb').then(r=>r.arrayBuffer());
+const data=new DataView(bytes), jsonLength=data.getUint32(12,true);
+const asset=JSON.parse(new TextDecoder().decode(new Uint8Array(bytes,20,jsonLength)));
+const binary=20+jsonLength+8;
+const accessor=index=>{
+  const a=asset.accessors[index],v=asset.bufferViews[a.bufferView];
+  const size={SCALAR:1,VEC2:2,VEC3:3,VEC4:4}[a.type];
+  const Type={5121:Uint8Array,5123:Uint16Array,5125:Uint32Array,5126:Float32Array}[a.componentType];
+  if (!Type || v.byteStride) throw Error('Unsupported navigation mesh encoding');
+  return {array:new Type(bytes,binary+(v.byteOffset||0)+(a.byteOffset||0),a.count*size),size,type:a.componentType,normalized:!!a.normalized};
+};
+const primitive=asset.meshes[0].primitives[0];
+const positions=accessor(primitive.attributes.POSITION),colors=accessor(primitive.attributes.COLOR_0),indices=accessor(primitive.indices);
+const positionBuffer=buffer(gl.ARRAY_BUFFER,positions.array),colorBuffer=buffer(gl.ARRAY_BUFFER,colors.array),indexBuffer=buffer(gl.ELEMENT_ARRAY_BUFFER,indices.array);
+const points=stations.map(s=>{const p=s.camera_to_world;return [p[0][3],-p[1][3],-p[2][3]];});
+const low=[Infinity,Infinity,Infinity],high=[-Infinity,-Infinity,-Infinity];
+for(const p of points)for(let j=0;j<3;j++){low[j]=Math.min(low[j],p[j]);high[j]=Math.max(high[j],p[j]);}
+const center=low.map((v,j)=>(v+high[j])/2),extent=Math.max(...high.map((v,j)=>v-low[j]),1);
+let mode='overview', selected=-1,yaw=.5,pitch=.65,distance=extent*1.4,fov=65,texture=null,loadVersion=0;
+const buttons=[],markers=[];
+function overview(){loadVersion++;mode='overview';selected=-1;yaw=.5;pitch=.65;fov=65;updateLabels();}
+function updateLabels(){
+ document.querySelector('#overview').setAttribute('aria-pressed',String(mode==='overview'));
+ document.querySelector('#heading').textContent=mode==='overview'?'Property tour':`Station ${selected+1} · 360°`;
+ document.querySelector('#status').textContent=mode==='overview'?`${stations.length} stations · Rough reconstruction`:(stations[selected].generated?'AI-refined view · Generated details need review':'Captured surfaces · Unseen areas remain dark');
+ document.querySelector('#hint').textContent=mode==='overview'?'Drag to rotate · Scroll to zoom · Choose a station to look around':'Drag to look around · Scroll to zoom · Arrow keys to turn';
+ buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===selected)));
+}
+async function enter(index){
+ const version=++loadVersion, img=new Image(); img.src=stations[index].panorama;await img.decode();if(version!==loadVersion)return;
+ if(texture)gl.deleteTexture(texture);texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,texture);
+ gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,img);
+ gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+ gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.REPEAT);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+ mode='panorama';selected=index;yaw=0;pitch=0;fov=65;updateLabels();canvas.focus({preventScroll:true});
+}
+stations.forEach((s,i)=>{
+ const button=document.createElement('button');button.className='station';button.setAttribute('aria-label',`Open station ${i+1} panorama`);button.setAttribute('aria-pressed','false');
+ const img=document.createElement('img');img.src=`stations/${s.id}/reference.png`;img.alt='';const label=document.createElement('span');label.textContent=`Station ${i+1}`;button.append(img,label);button.onclick=()=>enter(i).catch(fail);document.querySelector('#stations').append(button);buttons.push(button);
+ const marker=document.createElement('button');marker.className='marker';marker.textContent=i+1;marker.setAttribute('aria-label',`Enter station ${i+1}`);marker.onclick=()=>enter(i).catch(fail);document.querySelector('#markers').append(marker);markers.push(marker);
+});
+document.querySelector('#overview').onclick=overview;
+document.querySelector('#fullscreen').onclick=()=>{const action=document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();action.catch(fail);};
+let pointer=null;
+canvas.onpointerdown=e=>{pointer=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId);};
+canvas.onpointerup=canvas.onpointercancel=()=>pointer=null;
+canvas.onpointermove=e=>{if(!pointer)return;const direction=mode==='overview'?1:-1;yaw+=(e.clientX-pointer[0])*.004*direction;pitch=Math.max(-1.5,Math.min(1.5,pitch+(e.clientY-pointer[1])*.004));pointer=[e.clientX,e.clientY];};
+canvas.addEventListener('wheel',e=>{e.preventDefault();if(mode==='overview')distance=Math.max(extent*.15,Math.min(extent*5,distance*Math.exp(e.deltaY*.001)));else fov=Math.max(30,Math.min(100,fov+e.deltaY*.03));},{passive:false});
+canvas.onkeydown=e=>{if(e.key.startsWith('Arrow')){e.preventDefault();yaw+=e.key==='ArrowLeft'?-.12:e.key==='ArrowRight'?.12:0;pitch=Math.max(-1.5,Math.min(1.5,pitch+(e.key==='ArrowUp'?.12:e.key==='ArrowDown'?-.12:0)));}if(e.key==='Escape')overview();};
+function draw(){
+ const scale=Math.min(devicePixelRatio,2),w=Math.round(innerWidth*scale),h=Math.round(innerHeight*scale);if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}gl.viewport(0,0,w,h);gl.clearColor(.09,.115,.135,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+ const aspect=w/h,tan=Math.tan(fov*Math.PI/360);
+ if(mode==='panorama'){
+  gl.disable(gl.DEPTH_TEST);gl.useProgram(panoProgram);attr(panoProgram,'position',quad,2);gl.bindTexture(gl.TEXTURE_2D,texture);gl.uniform4f(gl.getUniformLocation(panoProgram,'view'),yaw,pitch,tan,aspect);gl.drawArrays(gl.TRIANGLES,0,6);markers.forEach(m=>m.hidden=true);
+ }else{
+  const eye=center.map((v,i)=>v+distance*[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)][i]);
+  const forward=norm(subtract(center,eye)),right=norm(cross(forward,[0,1,0])),up=cross(right,forward);
+  gl.enable(gl.DEPTH_TEST);gl.useProgram(meshProgram);attr(meshProgram,'position',positionBuffer,positions.size,positions.type);attr(meshProgram,'color',colorBuffer,colors.size,colors.type,colors.normalized);
+  gl.uniform3fv(gl.getUniformLocation(meshProgram,'eye'),eye);gl.uniformMatrix3fv(gl.getUniformLocation(meshProgram,'basis'),false,new Float32Array([...right,...up,...forward]));gl.uniform2f(gl.getUniformLocation(meshProgram,'lens'),1/tan,aspect);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,indexBuffer);gl.drawElements(gl.TRIANGLES,indices.array.length,indices.type,0);
+  markers.forEach((m,i)=>{const p=subtract(points[i],eye),z=dot(p,forward),x=(.5+dot(p,right)/z/tan/aspect/2)*innerWidth,y=(.5-dot(p,up)/z/tan/2)*innerHeight;m.hidden=z<=0||x<0||x>innerWidth||y<0||y>innerHeight;m.style.left=`${x}px`;m.style.top=`${y}px`;});
+ }
+ requestAnimationFrame(draw);
+}
+updateLabels();draw();
+</script>
+</html>

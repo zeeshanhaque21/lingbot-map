@@ -49,3 +49,12 @@ def read_model(path):
             "track_length": len(fields[8:]) // 2,
         }
     return images, points
+
+
+def captured_image(images, frame):
+    """Resolve a numbered capture without silently choosing between duplicate names."""
+    names = [f"{int(frame):06d}{suffix}" for suffix in (".jpg", ".jpeg", ".png")]
+    matches = [images[name] for name in names if name in images]
+    if len(matches) != 1:
+        raise ValueError(f"Expected one calibrated photograph for frame {frame}; found {len(matches)}")
+    return matches[0]

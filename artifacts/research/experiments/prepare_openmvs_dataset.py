@@ -11,7 +11,7 @@ from PIL import Image
 from scipy.spatial.transform import Rotation
 
 from artifacts.research.experiments.gaussian_depth_renderer import digest
-from lingbot_map.reconstruction.colmap_io import read_model
+from lingbot_map.reconstruction.colmap_io import captured_image, read_model
 
 
 def main():
@@ -42,7 +42,7 @@ def main():
         path = args.dataset / frame["file_path"]
         if digest(path) != provenance["image_sha256"][frame["file_path"]]:
             raise ValueError("Captured image changed")
-        image = source_images[f"{name}.jpg"]
+        image = captured_image(source_images, int(name))
         camera = image["camera"]
         expected_pose = np.linalg.inv(
             np.asarray(frame["transform_matrix"]) @ np.diag([1, -1, -1, 1])

@@ -72,11 +72,18 @@ class SurfaceRenderer:
 
     def render(self, intrinsics, extrinsic, width, height):
         rays = self.scene.create_rays_pinhole(intrinsics, extrinsic, width, height)
+        rendered, distance, visible = self.render_rays(rays)
+        ray_z = rays.numpy()[..., 3:] @ extrinsic[2, :3]
+        return rendered, distance * ray_z, visible
+
+    def render_rays(self, rays):
+        """Shade arbitrary world-space rays; unit directions give radial depth."""
+        if not isinstance(rays, o3d.core.Tensor):
+            rays = o3d.core.Tensor(np.asarray(rays, dtype=np.float32))
+        height, width = rays.shape[:2]
         hit = self.scene.cast_rays(rays)
         visible = np.isfinite(hit["t_hit"].numpy())
-        # Convert ray distance to camera Z instead of assuming normalized rays.
-        ray_z = rays.numpy()[..., 3:] @ extrinsic[2, :3]
-        rendered_depth = hit["t_hit"].numpy() * ray_z
+        rendered_depth = hit["t_hit"].numpy()
         rendered = np.full((height, width, 3), 24, np.uint8)
         geometry_ids = hit["geometry_ids"].numpy()
         for identifier, part in self.parts.items():
