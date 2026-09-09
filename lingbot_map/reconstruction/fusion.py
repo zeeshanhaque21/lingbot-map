@@ -27,11 +27,16 @@ def fuse(output):
     if [int(p.stem) for p in files] != [start for start, _ in ranges]:
         raise ValueError("Incomplete inference; resume infer before final fusion")
     artifact = output / "model"
+    input_signature = {
+        "inference": digest(output / "inference.json"),
+        "windows": {p.name: digest(p) for p in files},
+    }
     if (artifact / "validation.json").exists():
         saved = json.loads((artifact / "validation.json").read_text())
         if (
             saved["source_sha256"] != manifest["configuration"]["source_sha256"]
             or saved["frames_expected"] != expected
+            or saved.get("input_signature") != input_signature
         ):
             raise ValueError(
                 "Existing model belongs to different input; use a new output directory"
@@ -190,6 +195,7 @@ def fuse(output):
     report = {
         "status": "reconstructed_unverified_metric_accuracy",
         "source_sha256": manifest["configuration"]["source_sha256"],
+        "input_signature": input_signature,
         "frames_expected": expected,
         "frames_processed": len(cameras),
         "frames_fused": sum(not c["held_out_from_fusion"] for c in cameras),

@@ -51,6 +51,7 @@ def main():
     )
     args = parser.parse_args()
     artifact_output = args.output
+    quality = None
     if not args.stage:
         print("description: Reconstruct observed property surfaces on this Mac")
         print('status: "Choose an input video to begin"')
@@ -99,7 +100,7 @@ def main():
         if args.stage in ("validate", "run"):
             from .validation import validate
 
-            validate(artifact_output)
+            quality = validate(artifact_output)
         if args.stage == "sfm":
             from .sfm import reconstruct_cameras
 
@@ -136,8 +137,13 @@ def main():
             from .viewer import view
 
             view(args.output)
-        print("status: complete")
+        passed = quality is None or quality["view_consistency_gate"]
+        print("status: complete" if passed else "status: needs_review")
         print("output: " + json.dumps(str(artifact_output.resolve())))
+        if quality is not None:
+            print("metric_accuracy_verified: false")
+        if not passed:
+            sys.exit(2)
     except (ValueError, FileNotFoundError, RuntimeError) as error:
         print("error: " + json.dumps(str(error)))
         print(

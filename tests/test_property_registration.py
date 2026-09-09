@@ -1,7 +1,12 @@
 import numpy as np
 import pytest
+from scipy.spatial.transform import Rotation
 
-from lingbot_map.reconstruction.registration import solve_centers, track_edges
+from lingbot_map.reconstruction.registration import (
+    solve_centers,
+    stabilize_rotations,
+    track_edges,
+)
 
 
 def test_depth_tracks_recover_translation_with_outlier_observations():
@@ -32,3 +37,25 @@ def test_disconnected_rooms_fail_instead_of_being_stacked_at_origin():
     ]
     with pytest.raises(ValueError, match="connects only"):
         solve_centers([0, 1, 2, 3], edges)
+
+
+def test_rotation_groups_remove_an_arbitrary_sfm_gauge_jump():
+    learned, images = {}, {}
+    for frame in range(6):
+        rotation = Rotation.from_euler("y", frame * 2, degrees=True).as_matrix()
+        learned[frame] = rotation
+        gauge = (
+            np.eye(3)
+            if frame < 3
+            else Rotation.from_euler("z", 85, degrees=True).as_matrix()
+        )
+        images[frame] = {
+            "extrinsics": np.column_stack([rotation @ gauge.T, np.zeros(3)]),
+            "observations": np.column_stack([np.zeros((30, 2)), np.arange(30)]),
+        }
+    groups = stabilize_rotations(images, learned)
+    assert len(groups) == 2
+    for frame in images:
+        np.testing.assert_allclose(
+            images[frame]["extrinsics"][:, :3], learned[frame], atol=1e-7
+        )
