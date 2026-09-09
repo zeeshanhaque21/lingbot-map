@@ -7,7 +7,7 @@ import sys
 
 def main():
     parser = argparse.ArgumentParser(description="Reconstruct observed property surfaces on this Mac")
-    parser.add_argument("stage", choices=["prepare", "infer", "run", "fuse", "view"], nargs="?")
+    parser.add_argument("stage", choices=["prepare", "infer", "run", "fuse", "validate", "view"], nargs="?")
     parser.add_argument("--video", type=Path)
     parser.add_argument("--output", type=Path, default=Path("reconstructions/property"))
     parser.add_argument("--checkpoint", type=Path, default=Path("checkpoints/lingbot-map-long.pt"))
@@ -37,6 +37,9 @@ def main():
         if args.stage in ("fuse", "run"):
             from .fusion import fuse
             fuse(args.output)
+        if args.stage in ("validate", "run"):
+            from .validation import validate
+            validate(args.output)
         if args.stage == "view":
             from .viewer import view
             view(args.output)

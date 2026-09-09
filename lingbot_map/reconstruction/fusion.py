@@ -73,9 +73,13 @@ def fuse(output):
                 o3d.geometry.Image(np.ascontiguousarray(data["rgb"][i])),
                 o3d.geometry.Image(filtered),depth_scale=1.,depth_trunc=float(filtered.max()+1),
                 convert_rgb_to_intensity=False)
-            volume.integrate(rgbd,intrinsic,np.linalg.inv(global_c2w))
+            held_out = int(frame_id)%10 == 5
+            if not held_out:
+                volume.integrate(rgbd,intrinsic,np.linalg.inv(global_c2w))
+            stats["held_out_from_fusion"] = held_out
             cameras.append({"frame": int(frame_id),"timestamp_seconds": manifest["frames"][int(frame_id)]["timestamp_seconds"],
-                            "camera_to_world":global_c2w.tolist(),"intrinsics":k.tolist(),"window":chunk})
+                            "camera_to_world":global_c2w.tolist(),"intrinsics":k.tolist(),"window":chunk,
+                            "held_out_from_fusion":held_out})
             diagnostics.append(stats)
         write_json(artifact/"progress.json",{"windows_fused":chunk+1,"frames_fused":len(cameras)})
         print(f"Fused {len(cameras)}/{expected} frames",file=sys.stderr,flush=True)
@@ -99,7 +103,10 @@ def fuse(output):
     write_json(artifact/"cameras.json",cameras)
     write_json(artifact/"frame-validation.json",diagnostics)
     report = {"status":"reconstructed_unverified_metric_accuracy", "source_sha256":manifest["configuration"]["source_sha256"],
-              "frames_expected":expected,"frames_fused":len(cameras),"temporal_coverage":len(cameras)/expected,
+              "frames_expected":expected,"frames_processed":len(cameras),
+              "frames_fused":sum(not c["held_out_from_fusion"] for c in cameras),
+              "frames_held_out":sum(c["held_out_from_fusion"] for c in cameras),
+              "temporal_coverage":len(cameras)/expected,
               "vertices":len(mesh.vertices),"triangles":len(mesh.triangles),"web_triangles":len(web_mesh.triangles),
               "voxel_size_model_units":voxel,"units":"uncalibrated model units",
               "accepted_pixel_fraction":sum(x["accepted_pixels"] for x in diagnostics)/sum(x["pixels"] for x in diagnostics),
