@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import shutil
 import subprocess
 import time
 from datetime import datetime, timezone
@@ -16,6 +17,11 @@ def main():
     parser.add_argument("--dataset", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--threads", type=int, default=8)
+    parser.add_argument(
+        "--reuse-dense",
+        type=Path,
+        help="Reuse verified import/dense artifacts from a previous trial",
+    )
     args = parser.parse_args()
     if args.output.exists():
         parser.error("Preserve existing runs; use a new output directory")
@@ -80,6 +86,8 @@ def main():
             [
                 "--input-file",
                 "dense.mvs",
+                "--pointcloud-file",
+                "dense.ply",
                 "--output-file",
                 "mesh.mvs",
                 "--close-holes",
@@ -110,7 +118,40 @@ def main():
         ),
     ]
     binaries = {name: digest(args.binaries / name) for _, name, _, _ in stages}
+    reuse = {}
+    if args.reuse_dense:
+        args.reuse_dense = args.reuse_dense.resolve()
+        previous = json.loads((args.reuse_dense / "run.json").read_text())
+        if previous["dataset_provenance_sha256"] != digest(
+            args.dataset / "provenance.json"
+        ):
+            raise ValueError(
+                "Reused dense reconstruction belongs to different input data"
+            )
+        for stage, binary, options, expected_outputs in stages[:2]:
+            record = json.loads(
+                (args.reuse_dense / f"{stage}-completion.json").read_text()
+            )
+            if (
+                not record["complete"]
+                or record["returncode"] != 0
+                or previous["binary_sha256"][binary] != binaries[binary]
+            ):
+                raise ValueError(
+                    "Reused stage is incomplete or uses a different binary"
+                )
+            expected_options = [*options, "--max-threads", str(args.threads)]
+            if record["command"][1:] not in [
+                expected_options,
+                [*expected_options, "--archive-type", "2"],
+            ]:
+                raise ValueError("Reused reconstruction parameters differ")
+            for name in expected_outputs:
+                if digest(args.reuse_dense / name) != record["outputs"][name]["sha256"]:
+                    raise ValueError("Reused output changed")
+            reuse[stage] = record
     args.output.mkdir(parents=True)
+    shutil.copy2(Path(__file__), args.output / "producer.py")
     (args.output / "run.json").write_text(
         json.dumps(
             {
@@ -119,6 +160,7 @@ def main():
                 "binary_sha256": binaries,
                 "implementation_sha256": digest(Path(__file__)),
                 "threads": args.threads,
+                "reuse_dense": str(args.reuse_dense) if args.reuse_dense else None,
                 "metric_accuracy_verified": False,
                 "interpretation": "Classical CPU multiview stereo on captured training RGB. Artificial tower points, automatic region cropping, hole filling, mesh smoothing and texture sharpening are disabled. The surface still requires reserved-view and independent property checks.",
             },
@@ -126,11 +168,30 @@ def main():
         )
     )
     for stage, binary, options, expected_outputs in stages:
+        if stage in reuse:
+            for name in expected_outputs:
+                shutil.copy2(args.reuse_dense / name, args.output / name)
+            record = {
+                "stage": stage,
+                "reused_from": str(args.reuse_dense),
+                "source_completion_sha256": digest(
+                    args.reuse_dense / f"{stage}-completion.json"
+                ),
+                "outputs": reuse[stage]["outputs"],
+                "complete": True,
+            }
+            (args.output / f"{stage}-reused.json").write_text(
+                json.dumps(record, indent=2)
+            )
+            print(json.dumps(record), flush=True)
+            continue
         command = [
             str(args.binaries / binary),
             *options,
             "--max-threads",
             str(args.threads),
+            "--archive-type",
+            "2",
         ]
         record = {
             "stage": stage,
