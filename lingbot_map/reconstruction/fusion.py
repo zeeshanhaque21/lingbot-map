@@ -36,16 +36,29 @@ def fuse(output):
     artifact.mkdir(exist_ok=True)
     transforms, registrations = [np.eye(4)], []
     previous = dict(np.load(files[0]))
-    voxel = float(np.median(previous["depth"])/180)
+    reference_depth=previous["depth"]
+    if "registered" in previous:
+        reference_depth=reference_depth[previous["registered"]]
+        if not reference_depth.size:
+            for path in files[1:]:
+                candidate=dict(np.load(path))
+                reference_depth=candidate["depth"][candidate["registered"]]
+                if reference_depth.size:break
+        if not reference_depth.size:
+            raise ValueError("No frames passed external depth calibration")
+    voxel = float(np.median(reference_depth)/180)
     for path in files[1:]:
         current = dict(np.load(path))
-        transform, stats = align_overlap(previous,current)
+        if inference.get("poses_global"):
+            transform,stats=np.eye(4),{"method":"shared external camera coordinates"}
+        else:
+            transform, stats = align_overlap(previous,current)
         transforms.append(transforms[-1]@transform)
         registrations.append(stats)
         previous = current
     del previous
     write_json(artifact/"alignment.json", {"transforms": [t.tolist() for t in transforms],
-        "overlaps": registrations, "method": "robust same-pixel Sim3 on shared frames",
+        "overlaps": registrations, "method": inference.get("pose_source","robust same-pixel Sim3 on shared frames"),
         "loop_closure": False})
     volume = o3d.pipelines.integration.ScalableTSDFVolume(
         voxel_length=voxel,sdf_trunc=voxel*4,
@@ -62,6 +75,8 @@ def fuse(output):
         high = end if chunk==len(files)-1 else (end+ranges[chunk+1][0])//2
         for i,frame_id in enumerate(data["frame_ids"]):
             if not low <= frame_id < high:
+                continue
+            if "registered" in data and not data["registered"][i]:
                 continue
             filtered,stats = supported_depth(i,data)
             filtered *= scale
@@ -92,6 +107,7 @@ def fuse(output):
     mesh = volume.extract_triangle_mesh()
     mesh.remove_degenerate_triangles().remove_duplicated_triangles().remove_unreferenced_vertices()
     mesh.compute_vertex_normals()
+    mesh.vertex_colors=o3d.utility.Vector3dVector(np.clip(np.asarray(mesh.vertex_colors),0,1))
     if len(mesh.triangles)==0:
         raise ValueError("No supported surfaces survived fusion; inspect depth/pose diagnostics")
     o3d.io.write_triangle_mesh(str(artifact/"observed-surfaces.ply"),mesh)
@@ -102,7 +118,7 @@ def fuse(output):
     # glTF is Y-up; rotate OpenCV world Y/Z to match. The source PLY stays OpenCV.
     vertices[:,1:] *= -1
     asset = trimesh.Trimesh(vertices=vertices,faces=np.asarray(web_mesh.triangles),
-                            vertex_colors=(np.asarray(web_mesh.vertex_colors)*255).round().astype(np.uint8),process=False)
+                            vertex_colors=(np.clip(np.asarray(web_mesh.vertex_colors),0,1)*255).round().astype(np.uint8),process=False)
     asset.metadata.update({"units":"uncalibrated model units", "evidence":"multi-view supported depth",
                            "metric_accuracy":"unverified", "unseen_surfaces":"not completed"})
     asset.export(artifact/"property.glb")
@@ -117,7 +133,8 @@ def fuse(output):
               "voxel_size_model_units":voxel,"units":"uncalibrated model units",
               "accepted_pixel_fraction":sum(x["accepted_pixels"] for x in diagnostics)/sum(x["pixels"] for x in diagnostics),
               "observed_points":len(cloud.points),"fusion_seconds":time.monotonic()-started,
-              "loop_closure":False,"absolute_dimensions_verified":False,"unseen_surfaces_completed":False,
+              "loop_closure":False,"pose_source":inference.get("pose_source","Lingbot sequential Sim3 windows"),
+              "absolute_dimensions_verified":False,"unseen_surfaces_completed":False,
               "limitations":["Monocular scale lacks measured anchors","Sequential window alignment can drift",
                              "Glass, mirrors, motion and unobserved surfaces remain uncertain",
                              "Depth consistency is an internal check, not independent ground truth"],

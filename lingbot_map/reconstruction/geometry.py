@@ -87,6 +87,8 @@ def supported_depth(index, data, relative_tolerance=.03):
     for neighbor in (index-3,index-1,index+1,index+3):
         if not 0 <= neighbor < len(data["depth"]):
             continue
+        if "registered" in data and not data["registered"][neighbor]:
+            continue
         extrinsic, intrinsic = data["extrinsics"][neighbor],data["intrinsics"][neighbor]
         camera = xyz @ extrinsic[:,:3].T + extrinsic[:,3]
         pixels = camera @ intrinsic.T

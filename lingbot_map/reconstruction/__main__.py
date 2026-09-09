@@ -8,8 +8,10 @@ import sys
 
 def main():
     parser = argparse.ArgumentParser(description="Reconstruct observed property surfaces on this Mac")
-    parser.add_argument("stage", choices=["prepare", "infer", "run", "sfm", "fuse", "validate", "view"], nargs="?")
+    parser.add_argument("stage", choices=["prepare", "infer", "run", "sfm", "refine", "fuse", "validate", "view"], nargs="?")
     parser.add_argument("--video", type=Path)
+    parser.add_argument("--source", type=Path)
+    parser.add_argument("--colmap-model", type=Path)
     parser.add_argument("--output", type=Path, default=Path("reconstructions/property"))
     parser.add_argument("--checkpoint", type=Path, default=Path("checkpoints/lingbot-map-long.pt"))
     parser.add_argument("--fps", type=float, default=2)
@@ -46,6 +48,11 @@ def main():
         if args.stage == "sfm":
             from .sfm import reconstruct_cameras
             reconstruct_cameras(args.output)
+        if args.stage == "refine":
+            if args.source is None or args.colmap_model is None:
+                raise ValueError("refine requires --source, --colmap-model and a new --output")
+            from .refinement import refine
+            refine(args.source,args.output,args.colmap_model)
         if args.stage == "view":
             from .viewer import view
             view(args.output)
