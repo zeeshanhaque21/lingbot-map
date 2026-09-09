@@ -95,6 +95,17 @@ Validation separately loads vertex colors and checks the actual GLB geometry aga
 The initial fixed 300,000-triangle target also removed substantial visible coverage from the full scene.
 The export now performs resolution-bounded vertex clustering and uses a scene-length-dependent triangle budget.
 A three-million-triangle detailed asset is retained beside the coarse comparison asset for the full walkthrough.
+The final detailed GLB is 60,202,580 bytes and contains 2,999,999 triangles.
+Across the 24 inspected views, it preserves 84.23% median coverage and 71.72% median supported depth, with 0.0965 median RGB error.
+Its minimum supported depth is 21.51%, so it still fails the fidelity gate.
+The final 80-frame app asset passes the same screening checks with 77.42% median coverage, 83.33% median supported depth and 68.55% minimum supported depth.
+
+The complete measurement snapshots are in [measurements.json](evidence/measurements.json).
+The image below includes the unresolved late-view failure rather than showing only successful viewpoints.
+
+![Full exported app mesh beside captured views and color-error maps](evidence/full-app-comparison.jpg)
+
+The shorter integration example is available as a [separate comparison](evidence/sample-app-comparison.jpg).
 
 ## Optional UV baking experiment
 
