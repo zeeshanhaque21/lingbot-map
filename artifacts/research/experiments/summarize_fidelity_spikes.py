@@ -33,6 +33,9 @@ def main():
         "mapanything_local_comparison": "mapanything-mac-760/local-comparison.jsonl",
         "photometric_synthetic_mps": "photometric-depth-synthetic-mps.json",
         "brush_chair_comparison": "brush-chair-760/evaluation-final/results.json",
+        "gaussian_sparse_depth_audit": "brush-depth-audit-760-v2/results.json",
+        "gaussian_reserved_depth_trace": "brush-depth-760-v2/trace.jsonl",
+        "gaussian_training_depth_trace": "brush-depth-train-760-v2/trace.jsonl",
     }.items():
         path = captures / relative
         if not path.exists():
@@ -112,6 +115,21 @@ def main():
             path = model / name
             if path.exists():
                 records[run][name] = json.loads(path.read_text())
+    for run in [
+        "brush-mesh-760-mean",
+        "brush-mesh-760-median",
+        "brush-mesh-760-conditional",
+    ]:
+        records[run] = {}
+        for name in [
+            "results.json",
+            "inference.json",
+            "model/validation.json",
+            "model/frame-validation.json",
+        ]:
+            path = captures / run / name
+            if path.exists():
+                records[run][name] = json.loads(path.read_text())
     (evidence / "fidelity-spikes.json").write_text(json.dumps(records, indent=2) + "\n")
     for arm in ["native-window", "registered-window"]:
         source = captures / "local-pose-falsifier-v1" / f"945-{arm}.jpg"
@@ -132,6 +150,7 @@ def main():
             "00",
             "photometric-spatial-chair-comparison.jpg",
         ),
+        ("brush-mesh-760-median", "00", "gaussian-median-mesh-comparison.jpg"),
     ]:
         source = captures / run / "model" / f"web-source-comparison-{page}.jpg"
         if source.exists():
@@ -140,6 +159,9 @@ def main():
         "*-comparison.jpg"
     ):
         shutil.copy2(source, evidence / f"brush-{source.name}")
+    source = captures / "brush-depth-audit-760-v2/depth-audit.jpg"
+    if source.exists():
+        shutil.copy2(source, evidence / "gaussian-depth-audit.jpg")
     print(f"Saved {len(records)} experiment groups to {evidence}")
 
 

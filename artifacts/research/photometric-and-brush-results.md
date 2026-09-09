@@ -129,6 +129,7 @@ The COLMAP initialization improves reserved-view appearance, but chair edges sti
 A Gaussian PLY is a volumetric appearance representation, not a verified building surface mesh.
 No dimension, floor-plan, wall thickness or unseen-surface claim follows from these image scores.
 The existing mesh fidelity failures remain open.
+Subsequent [Gaussian depth and surface experiments](gaussian-surface-results.md) reproduce native rendering and compare three surface extraction methods.
 
 ![Brush with COLMAP initialization beside the unchanged TSDF and captured views](evidence/brush-colmap-3000-comparison.jpg)
 
