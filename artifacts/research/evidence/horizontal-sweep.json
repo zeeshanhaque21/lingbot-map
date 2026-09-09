@@ -1,0 +1,55 @@
+{
+  "frames": 61,
+  "size": [
+    832,
+    480
+  ],
+  "empty_frames": 0,
+  "under_ten_percent_frames": 0,
+  "mean_observed_fraction": 0.5642727544398907,
+  "minimum_observed_fraction": 0.18366887019230768,
+  "elevation_range_degrees": [
+    -19.903623228838825,
+    -19.9036232288388
+  ],
+  "maximum_translation": 0.0,
+  "world_up_estimate": [
+    -0.000990950758682904,
+    -0.940829700957784,
+    -0.3388782846573102
+  ],
+  "world_up_method": "Normal of the best-fit plane through the 237 camera centers, signed toward average camera up; not measured gravity.",
+  "reference_frames": [
+    0,
+    60
+  ],
+  "generation_started": false,
+  "coverage_target": "horizontal ring, not full sphere",
+  "cardinal_views": [
+    {
+      "frame": 0,
+      "yaw_degrees": 0,
+      "observed_fraction": 0.902549078525641
+    },
+    {
+      "frame": 15,
+      "yaw_degrees": 90,
+      "observed_fraction": 0.6922551081730769
+    },
+    {
+      "frame": 30,
+      "yaw_degrees": 180,
+      "observed_fraction": 0.35108673878205127
+    },
+    {
+      "frame": 45,
+      "yaw_degrees": 270,
+      "observed_fraction": 0.29669971955128205
+    },
+    {
+      "frame": 60,
+      "yaw_degrees": 360,
+      "observed_fraction": 0.902549078525641
+    }
+  ]
+}

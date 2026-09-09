@@ -41,6 +41,9 @@ def main():
     parser.add_argument("--source", type=Path)
     parser.add_argument("--stations", type=int, default=6)
     parser.add_argument("--station", default="000")
+    parser.add_argument("--sweep-mode", choices=["spherical", "horizontal"], default="spherical")
+    parser.add_argument("--sweep-frames", type=int, default=61, help="Horizontal sweep frame count, including the repeated endpoint")
+    parser.add_argument("--sweep-up", type=float, nargs=3, metavar=("X", "Y", "Z"), help="Scene-up direction in reconstruction coordinates; required for horizontal sweeps")
     parser.add_argument("--panorama-width", type=int, default=2048)
     parser.add_argument("--triangle-budget", type=int, default=150000)
     parser.add_argument("--port", type=int)
@@ -216,7 +219,9 @@ def main():
                 raise ValueError("tour-sweep requires --source tour and a new --output")
             from .panorama import export_sweep
 
-            export_sweep(args.source, args.station, args.output)
+            export_sweep(args.source, args.station, args.output,
+                         mode=args.sweep_mode, frame_count=args.sweep_frames,
+                         world_up=args.sweep_up)
         if args.stage == "tour-stitch":
             if args.source is None or args.images is None:
                 raise ValueError("tour-stitch requires --source sweep, --images and a new --output")

@@ -31,7 +31,38 @@ def sweep_rotations():
     return rotations
 
 
-def export_sweep(tour, station_id, output, width=832, height=480):
+def horizontal_rotations(source_rotation, world_up, frame_count=61):
+    """Turn around scene vertical, keeping the captured camera tilt constant."""
+    up = np.asarray(world_up, dtype=float)
+    if up.shape != (3,) or not np.isfinite(up).all() or np.linalg.norm(up) < 1e-8:
+        raise ValueError("Horizontal sweeps require a finite, nonzero scene-up vector")
+    if not isinstance(frame_count, int) or frame_count < 5:
+        raise ValueError("Horizontal sweeps require at least five frames")
+    up = up / np.linalg.norm(up)
+    x, y, z = up
+    skew = np.array([[0, -z, y], [z, 0, -x], [-y, x, 0]])
+    inverse = np.linalg.inv(source_rotation)
+    rotations = []
+    # Negative rotation around up turns right in the OpenCV camera convention.
+    for angle in np.linspace(0, -2 * np.pi, frame_count):
+        world_rotation = (
+            np.eye(3) + np.sin(angle) * skew + (1 - np.cos(angle)) * (skew @ skew)
+        )
+        rotations.append(inverse @ world_rotation @ source_rotation)
+    rotations[0] = rotations[-1] = np.eye(3)
+    return rotations
+
+
+def export_sweep(
+    tour,
+    station_id,
+    output,
+    width=832,
+    height=480,
+    mode="spherical",
+    frame_count=61,
+    world_up=None,
+):
     tour, output = Path(tour).resolve(), Path(output).resolve()
     if output.exists():
         raise ValueError("Choose a new sweep output directory")
@@ -42,6 +73,17 @@ def export_sweep(tour, station_id, output, width=832, height=480):
     if station is None:
         raise ValueError(f"Unknown station: {station_id}")
     source_pose = np.asarray(station["camera_to_world"])
+    if mode == "horizontal":
+        rotations = horizontal_rotations(source_pose[:3, :3], world_up, frame_count)
+        world_up = np.asarray(world_up, dtype=float)
+        world_up = world_up / np.linalg.norm(world_up)
+    elif mode == "spherical" and frame_count == 61:
+        rotations = sweep_rotations()
+    else:
+        raise ValueError(
+            "Choose horizontal mode or the existing 61-frame spherical sweep"
+        )
+    clean_indices = [0, len(rotations) - 1]
     intrinsics = np.asarray(station["intrinsics"], dtype=float)
     sx, sy = np.array([width, height]) / station["reference_size"]
     intrinsics[0] *= sx
@@ -59,7 +101,7 @@ def export_sweep(tour, station_id, output, width=832, height=480):
         .resize((width, height), Image.Resampling.LANCZOS)
     )
     frames = []
-    for i, rotation in enumerate(sweep_rotations()):
+    for i, rotation in enumerate(rotations):
         pose = source_pose.copy()
         pose[:3, :3] = source_pose[:3, :3] @ rotation
         ray_intrinsics = intrinsics.copy()
@@ -71,14 +113,16 @@ def export_sweep(tour, station_id, output, width=832, height=480):
         )
         raw = Image.fromarray(rgb)
         raw.save(output / "raw-frames" / f"{i:03d}.png")
-        (reference if i in (0, 60) else raw).save(output / "frames" / f"{i:03d}.png")
+        (reference if i in clean_indices else raw).save(
+            output / "frames" / f"{i:03d}.png"
+        )
         frames.append(
             {
                 "index": i,
                 "rotation": rotation.tolist(),
                 "camera_to_world": pose.tolist(),
                 "observed_fraction": float(visible.mean()),
-                "captured_anchor": i in (0, 60),
+                "captured_anchor": i in clean_indices,
             }
         )
         write_json(output / "frames.json", frames)
@@ -89,7 +133,10 @@ def export_sweep(tour, station_id, output, width=832, height=480):
         "height": height,
         "intrinsics": intrinsics.tolist(),
         "frames": frames,
-        "clean_frame_indices": [0, 60],
+        "clean_frame_indices": clean_indices,
+        "sweep_mode": mode,
+        "rotation_axis_world": world_up.tolist() if mode == "horizontal" else None,
+        "coverage_target": "horizontal_ring" if mode == "horizontal" else "sphere",
         "mesh_sha256": digest(tour / "render-mesh.ply"),
         "reference_sha256": digest(reference_path),
         "generated": False,

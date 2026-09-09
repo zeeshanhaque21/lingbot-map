@@ -135,6 +135,22 @@ For arbitrary captures without this evidence, the exported tour remains an open 
 
 `tour-sweep --source <tour> --station 000 --output <new-sweep>` exports 61 calibrated camera orientations covering the full sphere.
 The first and last frame use the same captured station photograph as FixAnything clean anchors.
+For a horizontal pass, use `--sweep-mode horizontal --sweep-up X Y Z` with the scene-up direction in reconstruction coordinates.
+The camera turns around that axis while retaining its captured tilt and fixed position.
+`--sweep-frames` sets the horizontal frame count, including the repeated endpoint; 61 frames give six-degree steps.
+The horizontal ring does not cover the full sphere or its poles.
+For the supplied office loop, the camera-trajectory plane gives the estimated up direction used in this tested command:
+
+```sh
+.venv-reconstruction/bin/python -m lingbot_map.reconstruction tour-sweep \
+  --source reconstructions/tours/loop-v1 --station 000 \
+  --output reconstructions/tours/loop-v1/sweep-000-horizontal-v1 \
+  --sweep-mode horizontal --sweep-frames 61 \
+  --sweep-up -0.000990950758682904 -0.940829700957784 -0.3388782846573102
+```
+
+This up direction is an estimate for this capture, not a universal axis or measured gravity.
+The completed horizontal pass contains 61 images at 832 by 480, with zero entirely empty renders and minimum observed coverage of 18.37%.
 `tour-stitch --source <sweep> --images <frame-directory> --output <new-directory>` reprojects those images with their saved rotations.
 Add `--generated` when stitching model-generated frames.
 The raw-render stitch is the do-nothing baseline for overlap and wrap-seam comparisons.
@@ -146,7 +162,7 @@ Before loading FixAnything weights, inspect the proposed input with:
 ```
 
 This rejects incomplete spherical clips and renders with no observed surfaces.
-The current station-000 sweep fails this check and needs conditioning repairs.
+The original spherical station-000 sweep fails this check; the horizontal pass passes the input check but still requires output generation and visual validation.
 The previous generation was stopped; no completed generated panorama is available.
 Validate one complete generated, stitched and visually inspected 360 station against source photos before processing more stations or increasing run cost.
 A partial runtime smoke test does not meet this gate.
