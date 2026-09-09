@@ -73,3 +73,13 @@ def test_bundle_recovers_known_motion_and_finite_zero_rotation_gradient(tmp_path
     assert np.max(np.abs(poses - true)) < 0.025
     np.testing.assert_allclose(np.linalg.det(poses[:, :3, :3]), 1, atol=2e-6)
     assert np.max(np.abs(scales - 1)) < 0.025
+
+
+def test_cauchy_bundle_retains_geometry_with_gross_feature_outliers(tmp_path):
+    data, cameras, true = known_scene()
+    corrupt = (data["frame"] == 1) & np.isin(data["track"], [1, 2, 3])
+    data["pixel"][corrupt] += 5000
+    problem = BundleProblem(data, cameras, pixel_loss="cauchy")
+    poses, scales = fit_bundle(problem, tmp_path, steps=8)
+    assert np.max(np.abs(poses - true)) < 0.025
+    assert np.max(np.abs(scales - 1)) < 0.025

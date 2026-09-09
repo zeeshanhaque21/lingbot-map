@@ -19,8 +19,11 @@ from .joint_pose_graph import evaluate, publish
 
 
 class BundleProblem(torch.nn.Module):
-    def __init__(self, data, cameras, device="cpu"):
+    def __init__(self, data, cameras, device="cpu", pixel_loss="huber"):
         super().__init__()
+        if pixel_loss not in ("huber", "cauchy"):
+            raise ValueError("pixel_loss must be huber or cauchy")
+        self.pixel_loss = pixel_loss
         self.initial = np.asarray([c["camera_to_world"] for c in cameras])
         frame_index = {c["frame"]: i for i, c in enumerate(cameras)}
         ids, counts = np.unique(data["track"], return_counts=True)
@@ -102,7 +105,12 @@ class BundleProblem(torch.nn.Module):
             + self.principal[self.frame_index]
         )
         residual = pixels - self.target_pixels
-        pixel_loss = (torch.sqrt(1 + (residual / 2).square().sum(1)) - 1).mean()
+        squared = (residual / 2).square().sum(1)
+        pixel_loss = (
+            (0.5 * torch.log1p(squared)).mean()
+            if self.pixel_loss == "cauchy"
+            else (torch.sqrt(1 + squared) - 1).mean()
+        )
         log_error = torch.log(depth / self.reference_depth) - scales[self.frame_index]
         depth_loss = (torch.sqrt(1 + (log_error / 0.05).square()) - 1).mean()
         scale_prior = (scales / 0.05).square().mean()
@@ -207,6 +215,7 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--device", choices=["mps", "cpu"], default="mps")
     parser.add_argument("--steps", type=int, default=20)
+    parser.add_argument("--pixel-loss", choices=["huber", "cauchy"], default="huber")
     args = parser.parse_args()
     if args.steps < 1:
         parser.error("--steps must be positive")
@@ -241,6 +250,8 @@ def main():
         "center_sigma": 0.1,
         "center_weight": 0.01,
     }
+    if args.pixel_loss != "huber":
+        signature["pixel_loss"] = args.pixel_loss
     args.output.mkdir(parents=True, exist_ok=True)
     marker = args.output / "input.json"
     if marker.exists() and json.loads(marker.read_text()) != signature:
@@ -248,7 +259,7 @@ def main():
     write_json(marker, signature)
     data = dict(np.load(args.cache / "observations.npz"))
     cameras = json.loads((args.source / "model/cameras.json").read_text())
-    problem = BundleProblem(data, cameras, args.device)
+    problem = BundleProblem(data, cameras, args.device, args.pixel_loss)
     print(
         f"training_landmarks: {len(problem.landmarks)}\ntraining_observations: {len(problem.frame_index)}",
         flush=True,
