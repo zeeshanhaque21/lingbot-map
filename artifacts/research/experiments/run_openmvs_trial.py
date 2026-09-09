@@ -11,6 +11,16 @@ from pathlib import Path
 from artifacts.research.experiments.gaussian_depth_renderer import digest
 
 
+def dense_handoff(path):
+    """Check the native PLY metadata required by visibility-weighted meshing."""
+    with path.open("rb") as handle:
+        header = handle.read(4096).split(b"end_header", 1)[0].decode("ascii")
+    return {
+        "has_view_indices": "property list uint8 uint32 view_indices" in header,
+        "has_view_weights": "property list uint8 float32 view_weights" in header,
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--binaries", type=Path, required=True)
@@ -148,13 +158,17 @@ def main():
             expected_options = [*options, "--max-threads", str(args.threads)]
             if record["command"][1:] not in [
                 expected_options,
-                [*expected_options, "--archive-type", "2"],
+                [*expected_options, "--archive-type", "-1"],
             ]:
                 raise ValueError("Reused reconstruction parameters differ")
             for name in expected_outputs:
                 if digest(args.reuse_dense / name) != record["outputs"][name]["sha256"]:
                     raise ValueError("Reused output changed")
             reuse[stage] = record
+        if not all(dense_handoff(args.reuse_dense / "dense.ply").values()):
+            raise ValueError(
+                "Reused dense PLY lacks per-point view metadata required for meshing"
+            )
     args.output.mkdir(parents=True)
     shutil.copy2(Path(__file__), args.output / "producer.py")
     (args.output / "run.json").write_text(
@@ -197,7 +211,7 @@ def main():
             "--max-threads",
             str(args.threads),
             "--archive-type",
-            "2",
+            "-1" if stage in ("import", "dense") else "2",
         ]
         record = {
             "stage": stage,
@@ -235,6 +249,9 @@ def main():
         record["complete"] = returncode == 0 and len(record["outputs"]) == len(
             expected_outputs
         )
+        if stage == "dense" and record["complete"]:
+            record["dense_handoff"] = dense_handoff(args.output / "dense.ply")
+            record["complete"] = all(record["dense_handoff"].values())
         (args.output / f"{stage}-completion.json").write_text(
             json.dumps(record, indent=2)
         )

@@ -7,7 +7,7 @@ import cv2
 import numpy as np
 import open3d as o3d
 import trimesh
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 from .io import write_json
 
@@ -135,7 +135,10 @@ def validate(output, maximum_views=None, asset_name=None):
         heat[visible] = cv2.applyColorMap(
             (difference.mean(-1) * 255).astype(np.uint8), cv2.COLORMAP_INFERNO
         )[..., ::-1][visible]
-        row = Image.new("RGB", (w * 3, h + 32), (24, 24, 24))
+        label_size = max(14, round(w / 40))
+        header_height = max(32, label_size + 16)
+        label_font = ImageFont.load_default(size=label_size)
+        row = Image.new("RGB", (w * 3, h + header_height), (24, 24, 24))
         for j, (title, array) in enumerate(
             [
                 (f"Source {frame} · {camera['timestamp_seconds']:.1f}s", reference),
@@ -143,8 +146,10 @@ def validate(output, maximum_views=None, asset_name=None):
                 ("Color difference; black = unobserved", heat),
             ]
         ):
-            row.paste(Image.fromarray(array), (j * w, 32))
-            ImageDraw.Draw(row).text((j * w + 8, 8), title, fill="white")
+            row.paste(Image.fromarray(array), (j * w, header_height))
+            ImageDraw.Draw(row).text(
+                (j * w + 8, 8), title, fill="white", font=label_font
+            )
         rows.append(row)
         metrics.append(
             {
