@@ -1,4 +1,4 @@
-"""Compare generated spherical views with raw renders and the captured anchor."""
+"""Compare a complete generated sweep with raw renders and captured anchors."""
 
 import argparse
 import json
@@ -25,8 +25,10 @@ def main():
         parser.error("Preserve previous comparisons; choose a new output directory")
     config = json.loads((args.sweep / "sweep.json").read_text())
     completion = json.loads((args.refinement / "completion.json").read_text())
-    if not completion["success"] or not completion["full_spherical_sweep"]:
-        parser.error("Comparison requires a completed full spherical inference run")
+    if not completion["success"] or not completion.get(
+        "complete_sweep", completion.get("full_spherical_sweep", False)
+    ):
+        parser.error("Comparison requires a completed inference run of the whole sweep")
     paths = sorted((args.refinement / "frames").glob("*.png"))
     if len(paths) != len(config["frames"]):
         parser.error("Generated frame count differs from the rendered sweep")
@@ -73,7 +75,12 @@ def main():
                 }
             anchors.append({"frame": index, "comparison": errors})
         rows.append(record)
-        if index in (0, 4, 12, 24, 36, 48, 56, 60):
+        sample_indices = (
+            (0, 8, 15, 23, 30, 38, 45, 53, 60)
+            if config.get("sweep_mode") == "horizontal"
+            else (0, 4, 12, 24, 36, 48, 56, 60)
+        )
+        if index in sample_indices:
             sheet = Image.new("RGB", (width * 3, height + 32), (25, 30, 34))
             draw = ImageDraw.Draw(sheet)
             for column, (label, pixels) in enumerate(
@@ -97,11 +104,11 @@ def main():
         "RGB", (raw_panorama.width, raw_panorama.height * 2 + 64), (25, 30, 34)
     )
     draw = ImageDraw.Draw(sheet)
-    draw.text((12, 10), "Raw spherical render", fill="white")
+    draw.text((12, 10), "Unchanged input sweep stitch", fill="white")
     sheet.paste(raw_panorama, (0, 32))
     draw.text(
         (12, raw_panorama.height + 42),
-        "FixAnything spherical candidate - generated details need review",
+        "FixAnything candidate - generated details need review",
         fill="white",
     )
     sheet.paste(refined_panorama, (0, raw_panorama.height + 64))
@@ -115,6 +122,8 @@ def main():
         "mesh_unchanged": True,
         "mesh_sha256": config["mesh_sha256"],
         "generated_frames": len(rows),
+        "sweep_mode": config.get("sweep_mode", "spherical"),
+        "coverage_target": config.get("coverage_target", "sphere"),
         "interpretation": "Anchor comparison uses the photograph supplied to the model, not held-out ground truth. Changes from raw rendering measure edits, not architectural accuracy. Inspect doors, windows, walls and overlap ghosts before accepting a generated tour.",
         "architectural_fidelity_verified": False,
     }

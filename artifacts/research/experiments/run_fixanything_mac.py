@@ -28,7 +28,7 @@ def inspect_sweep(sweep, num_frames):
     clean = config["clean_frame_indices"]
     errors = []
     if num_frames != 61 or len(frames) != 61:
-        errors.append("A spherical pilot must use the complete 61-view sweep")
+        errors.append("A pilot must use the complete 61-view sweep")
     if any(not isinstance(i, int) or i < 0 or i >= len(frames) for i in clean):
         errors.append("Clean anchor indices fall outside the sweep")
     marked = [i for i, frame in enumerate(frames) if frame["captured_anchor"]]
@@ -66,6 +66,8 @@ def inspect_sweep(sweep, num_frames):
         "requested_frames": num_frames,
         "clean_frame_indices": clean,
         "unique_clean_images": len(anchor_hashes),
+        "sweep_mode": config.get("sweep_mode", "spherical"),
+        "coverage_target": config.get("coverage_target", "sphere"),
         "empty_render_indices": empty,
         "under_ten_percent_observed_frames": sum(
             frame["observed_fraction"] < 0.1 for frame in frames
@@ -83,7 +85,7 @@ def main():
     parser.add_argument(
         "--check-input",
         action="store_true",
-        help="Inspect a complete spherical pilot without loading model weights",
+        help="Inspect a complete 61-view pilot without loading model weights",
     )
     parser.add_argument(
         "--repository", type=Path, default=Path.home() / "Projects/fix-anything"
@@ -240,7 +242,11 @@ def main():
                 "seconds": time.time() - started,
                 "frames": len(generated),
                 "generated": True,
-                "full_spherical_sweep": args.frames == 61,
+                "complete_sweep": len(generated) == args.frames,
+                "sweep_mode": inspection["sweep_mode"],
+                "coverage_target": inspection["coverage_target"],
+                "full_spherical_sweep": len(generated) == 61
+                and inspection["coverage_target"] == "sphere",
             },
         )
     except BaseException as error:
