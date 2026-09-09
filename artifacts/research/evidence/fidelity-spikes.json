@@ -7932,6 +7932,286 @@
     ],
     "metric_accuracy_verified": false
   },
+  "global_camera_path_comparison": {
+    "source": "global-camera-path-comparison-v2/results.json",
+    "result": {
+      "source_sha256": {
+        "baseline_cameras": "e1f0cdc540f3ca3cb5a9d5b77616da8d1ed90a6ca27b0a67f6d026c254c08b6c",
+        "candidate_cameras": "1ec640efbac7b98e5d0b699358b07508f5721da0af8dd8358f8896d2d328a62f",
+        "producer": "d858f83f50d62ac166a1f8a535dfcc27f6415d8f4c315fd293400d835e8862ed",
+        "cameras.txt": "a1ce3ddb991b7f5d5858a1c5e8e5f773b6eec11cb3b4874c57d1ec90f19c5155",
+        "images.txt": "9ef8415b35e06fcbe5109dbb50569d9916c4f9921af38b905537758e9c7b3747",
+        "points3D.txt": "df47bc9371f58dc434ce5ed60fe53c010607c7e326aec3a5dbbcabd6f0c5100e"
+      },
+      "reference_robust_path_extent_colmap_units": 55.78629314887405,
+      "comparisons": {
+        "unchanged learned baseline": {
+          "source_to_colmap_similarity": [
+            [
+              0.178330590967983,
+              -0.06159339188024798,
+              0.2053960520862567,
+              -1.2106672632281665
+            ],
+            [
+              -0.06853882740551176,
+              0.2367570901472382,
+              0.1305051463116077,
+              -0.08102249892901195
+            ],
+            [
+              -0.20318393950755942,
+              -0.13392318004222747,
+              0.1362495959057849,
+              -1.7384718229634921
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "scale": 0.27889618823304874,
+          "training_camera_centers": 900,
+          "reserved_camera_centers": 100,
+          "reserved_position_error_fraction_of_reference_extent_p50_p95_max": [
+            0.03810268105236747,
+            0.7936487167218694,
+            2.597269364044884
+          ],
+          "reserved_orientation_difference_degrees_p50_p95_max": [
+            80.52388100382005,
+            89.39690989267137,
+            112.90204918874893
+          ],
+          "least_squares_control": {
+            "source_to_colmap_similarity": [
+              [
+                1.9907920300598263,
+                -0.2744212032410321,
+                0.9908195362513463,
+                -3.742803065159962
+              ],
+              [
+                -0.03261424523206448,
+                2.141366662943963,
+                0.6586109496474306,
+                4.365493482800602
+              ],
+              [
+                -1.027602384783887,
+                -0.5996040987178888,
+                1.8986288528152333,
+                -20.100972261637256
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "reserved_position_error_fraction_of_reference_extent_p50_p95_max": [
+              0.16943411767865194,
+              0.5432387533334555,
+              2.2727844267018478
+            ]
+          },
+          "adjacent_rotation_difference_degrees_p50_p95_max": [
+            0.5331228943842872,
+            1.7914051541631792,
+            91.70193514251001
+          ],
+          "adjacent_step_ratio_by_100_frames": [
+            {
+              "first_frame": 0,
+              "last_frame": 99,
+              "median_colmap_to_source_step_ratio": 19.481127218718225
+            },
+            {
+              "first_frame": 100,
+              "last_frame": 199,
+              "median_colmap_to_source_step_ratio": 1.2840230928782104
+            },
+            {
+              "first_frame": 200,
+              "last_frame": 299,
+              "median_colmap_to_source_step_ratio": 1.1922690985066553
+            },
+            {
+              "first_frame": 300,
+              "last_frame": 399,
+              "median_colmap_to_source_step_ratio": 1.212326107506215
+            },
+            {
+              "first_frame": 400,
+              "last_frame": 499,
+              "median_colmap_to_source_step_ratio": 1.0752352646205
+            },
+            {
+              "first_frame": 500,
+              "last_frame": 599,
+              "median_colmap_to_source_step_ratio": 0.8688169490134289
+            },
+            {
+              "first_frame": 600,
+              "last_frame": 699,
+              "median_colmap_to_source_step_ratio": 0.8163896612239967
+            },
+            {
+              "first_frame": 700,
+              "last_frame": 799,
+              "median_colmap_to_source_step_ratio": 0.7931884967917686
+            },
+            {
+              "first_frame": 800,
+              "last_frame": 899,
+              "median_colmap_to_source_step_ratio": 0.7223477751056696
+            },
+            {
+              "first_frame": 900,
+              "last_frame": 999,
+              "median_colmap_to_source_step_ratio": 0.0990577664224062
+            }
+          ]
+        },
+        "Cauchy camera candidate": {
+          "source_to_colmap_similarity": [
+            [
+              0.17845502481393513,
+              -0.06158501253659351,
+              0.20532895354972489,
+              -1.2099808597593324
+            ],
+            [
+              -0.06855903406161523,
+              0.23673714128441528,
+              0.13059124626605262,
+              -0.0814240473617905
+            ],
+            [
+              -0.20310674972411857,
+              -0.1340212706388435,
+              0.13632621189321525,
+              -1.7388271136456035
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "scale": 0.27892452171922727,
+          "training_camera_centers": 900,
+          "reserved_camera_centers": 100,
+          "reserved_position_error_fraction_of_reference_extent_p50_p95_max": [
+            0.03813699624531375,
+            0.7936337162511365,
+            2.597234779758139
+          ],
+          "reserved_orientation_difference_degrees_p50_p95_max": [
+            80.195122753654,
+            89.51626775413794,
+            112.9623919890232
+          ],
+          "least_squares_control": {
+            "source_to_colmap_similarity": [
+              [
+                1.9909726642896788,
+                -0.27463908432613593,
+                0.9914366221048487,
+                -3.7471115313261336
+              ],
+              [
+                -0.0328777799536842,
+                2.1416376565108433,
+                0.6592818456767712,
+                4.3636457219842875
+              ],
+              [
+                -1.0282471754765432,
+                -0.600255673704259,
+                1.89861692411852,
+                -20.102331772284593
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            ],
+            "reserved_position_error_fraction_of_reference_extent_p50_p95_max": [
+              0.16907282721333933,
+              0.5431103106397208,
+              2.2725759850924683
+            ]
+          },
+          "adjacent_rotation_difference_degrees_p50_p95_max": [
+            0.16838823170738143,
+            1.1739313354935834,
+            94.48558755352434
+          ],
+          "adjacent_step_ratio_by_100_frames": [
+            {
+              "first_frame": 0,
+              "last_frame": 99,
+              "median_colmap_to_source_step_ratio": 21.734406737891653
+            },
+            {
+              "first_frame": 100,
+              "last_frame": 199,
+              "median_colmap_to_source_step_ratio": 1.2642310102838994
+            },
+            {
+              "first_frame": 200,
+              "last_frame": 299,
+              "median_colmap_to_source_step_ratio": 1.208134132632353
+            },
+            {
+              "first_frame": 300,
+              "last_frame": 399,
+              "median_colmap_to_source_step_ratio": 1.1766172225625127
+            },
+            {
+              "first_frame": 400,
+              "last_frame": 499,
+              "median_colmap_to_source_step_ratio": 1.106010757872105
+            },
+            {
+              "first_frame": 500,
+              "last_frame": 599,
+              "median_colmap_to_source_step_ratio": 0.8607458964349414
+            },
+            {
+              "first_frame": 600,
+              "last_frame": 699,
+              "median_colmap_to_source_step_ratio": 0.8277916880813104
+            },
+            {
+              "first_frame": 700,
+              "last_frame": 799,
+              "median_colmap_to_source_step_ratio": 0.7854307560443958
+            },
+            {
+              "first_frame": 800,
+              "last_frame": 899,
+              "median_colmap_to_source_step_ratio": 0.7227238657449373
+            },
+            {
+              "first_frame": 900,
+              "last_frame": 999,
+              "median_colmap_to_source_step_ratio": 0.11070356954099278
+            }
+          ]
+        }
+      },
+      "metric_accuracy_verified": false,
+      "interpretation": "One robust similarity per entire estimated camera path, fitted only to frames not ending in 5. No local or per-view realignment and no mesh deformation. Both estimators used captured images, including reserved frames during camera estimation. This measures global cross-method consistency, not surveyed accuracy. The unchanged learned reconstruction is the do-nothing baseline for the Cauchy candidate. Differences cannot establish which camera path is correct."
+    }
+  },
   "mapanything-window-images-760": {
     "completed.json": {
       "pinhole_relative_error_p50_p95_p99": [

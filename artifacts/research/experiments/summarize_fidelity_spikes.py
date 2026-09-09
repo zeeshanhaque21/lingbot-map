@@ -66,6 +66,15 @@ def main():
                 if isinstance(value, dict):
                     value.pop("per_frame", None)
             records[f"{run}_camera_comparison"] = comparison
+    path = captures / "global-camera-path-comparison-v2/results.json"
+    if path.exists():
+        comparison = json.loads(path.read_text())
+        for value in comparison["comparisons"].values():
+            value.pop("per_frame", None)
+        records["global_camera_path_comparison"] = {
+            "source": str(path.relative_to(captures)),
+            "result": comparison,
+        }
     for run in [
         "mapanything-window-images-760",
         "mapanything-calibration-760",
@@ -221,6 +230,9 @@ def main():
     )
     if source.exists():
         shutil.copy2(source, evidence / "openmvs-refinement-comparison.jpg")
+    source = captures / "global-camera-path-comparison-v2/camera-path-comparison.png"
+    if source.exists():
+        shutil.copy2(source, evidence / "global-camera-path-comparison.png")
     print(f"Saved {len(records)} experiment groups to {evidence}")
 
 

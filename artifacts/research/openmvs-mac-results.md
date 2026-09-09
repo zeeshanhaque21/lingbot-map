@@ -150,6 +150,23 @@ It checks every reserved source-image hash and camera against the input model, r
 Each reserved image receives a comparison artifact at its original evaluation resolution.
 The unchanged local mesh supplies a paired baseline on its five common reserved views; that local comparison does not establish a full-building baseline.
 
+The complete estimated camera paths expose a separate unresolved global problem.
+A single robust similarity fitted on 900 camera centers cannot make the learned baseline or Cauchy candidate agree with the raw COLMAP path across the walkthrough.
+On the 100 remaining centers, the unchanged baseline's median position discrepancy is 3.81% of the reference path's robust extent, but its 95th-percentile discrepancy is 79.36%.
+A plain least-squares similarity gives 16.94% and 54.32%, respectively, showing that the conclusion depends on more than one robust-fitting choice.
+These normalized values use the norm of the COLMAP path's per-axis 5th-to-95th percentile span, not a measured building dimension.
+
+An alignment-free check compares adjacent camera step lengths.
+Median COLMAP-to-learned step ratios are 19.48 in frames 0-99, 1.28 in frames 100-199 and 0.099 in frames 900-999.
+Each block uses its 99 internal adjacent frame pairs.
+One unknown global monocular scale cannot explain that changing relationship.
+Adjacent relative rotations mostly agree locally, with a median difference of 0.53 degrees, but the maximum is 91.70 degrees.
+The Cauchy candidate improves the median adjacent rotation difference to 0.17 degrees while retaining the large global disagreement.
+These are comparisons of estimated paths, not evidence that either path is the correct building layout.
+They prevent treating successful full native meshing or low sparse reprojection error as proof of faithful room connectivity.
+
+![Complete camera paths and cross-method disagreement](evidence/global-camera-path-comparison.png)
+
 ## Reproduction
 
 Use the existing reconstruction environment and verified native binaries.
