@@ -1,0 +1,126 @@
+{
+  "tour": {
+    "source": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop-closure-v1/final",
+    "source_mesh_sha256": "d39811c69eaa4e265a7766dc0788a2337341932887b6b8e64764d03fd37c918b",
+    "source_cameras_sha256": "909e82f767f8b56c45a1667b3d1a887c5f906cd4a0296d3b6f06758978582a88",
+    "source_triangles": 3346621,
+    "cleaned_triangles": 3279602,
+    "removed_tiny_components": 8765,
+    "navigation_triangles": 150000,
+    "navigation_bytes": 3121596,
+    "navigation_sha256": "252a4d0225492ae4bbfafa6363e24b802b79b913f6d7aa4db38e8ad3c3f55a4f",
+    "station_count": 6,
+    "navigation_edges": [
+      [
+        "000",
+        "001"
+      ],
+      [
+        "001",
+        "002"
+      ],
+      [
+        "002",
+        "003"
+      ],
+      [
+        "003",
+        "004"
+      ],
+      [
+        "004",
+        "005"
+      ],
+      [
+        "005",
+        "000"
+      ]
+    ],
+    "loop_constraints_verified": true,
+    "closure_audit": "closure-audit.json",
+    "world_convention": "OpenCV world, camera-to-world station poses; app GLB flips world Y/Z",
+    "panorama_convention": "Equirectangular 2:1, center +Z, right +X, top -Y in station camera coordinates",
+    "metric_accuracy_verified": false,
+    "fixanything_refinement": "not_run"
+  },
+  "stations": [
+    {
+      "id": "000",
+      "frame": 0,
+      "observed_sphere_fraction": 0.37108421325683594,
+      "generated": false,
+      "panorama_sha256": "beda4379bbbafc5e41c386e1786addbe7c1880e128f41bcebeac6137e3b840c3"
+    },
+    {
+      "id": "001",
+      "frame": 45,
+      "observed_sphere_fraction": 0.40772533416748047,
+      "generated": false,
+      "panorama_sha256": "723fb97f9151368af6aee63a92b3cfef889c65b83d6afa8bffa92b8187bba489"
+    },
+    {
+      "id": "002",
+      "frame": 82,
+      "observed_sphere_fraction": 0.39694833755493164,
+      "generated": false,
+      "panorama_sha256": "9d26da2862b370b40bd5133c93af99a50cc0391357330be4ff72c9802c47f287"
+    },
+    {
+      "id": "003",
+      "frame": 129,
+      "observed_sphere_fraction": 0.36494874954223633,
+      "generated": false,
+      "panorama_sha256": "de161f4c6d00bd39b82e7851318919b16078334bf66264814400a59c372799dc"
+    },
+    {
+      "id": "004",
+      "frame": 163,
+      "observed_sphere_fraction": 0.40197229385375977,
+      "generated": false,
+      "panorama_sha256": "96d6bba4312cdbddb02497042ead4884cae6b1296961e7239465a25f2a52c4cc"
+    },
+    {
+      "id": "005",
+      "frame": 197,
+      "observed_sphere_fraction": 0.36222267150878906,
+      "generated": false,
+      "panorama_sha256": "106e27e0d6e560fa42e699342d82b0bcf8b764b6a727ca6041c7ef4c975f22d3"
+    }
+  ],
+  "closure_baseline": {
+    "status": "evaluated",
+    "database_sha256": "b6bdbb7afb776f53a510941682a7f000954f87ecd7dbb3379dc50e98b9936882",
+    "pairs_sha256": "0133ffc029022b50d1b1f79d6ff80483d576300e8bb336f8e173db6b9c3a43ec",
+    "verified_pairs": 153,
+    "pairs_with_median_under_3_pixels": 0,
+    "navigation_closure": false,
+    "median_pair_sampson_pixels": 10.0303469759645,
+    "interpretation": "Training-match consistency, not independent accuracy. Endpoints need not coincide. Navigation closure requires supported endpoint matches and at least three supported return pairs."
+  },
+  "baseline_cameras_sha256": "1d05a0f6ba8d2f3e11cb65c3627b62c90f3faa70596504ffae2868cf8089378b",
+  "closure_candidate": {
+    "status": "evaluated",
+    "database_sha256": "b6bdbb7afb776f53a510941682a7f000954f87ecd7dbb3379dc50e98b9936882",
+    "pairs_sha256": "0133ffc029022b50d1b1f79d6ff80483d576300e8bb336f8e173db6b9c3a43ec",
+    "verified_pairs": 153,
+    "pairs_with_median_under_3_pixels": 73,
+    "navigation_closure": true,
+    "median_pair_sampson_pixels": 3.056734951197976,
+    "interpretation": "Training-match consistency, not independent accuracy. Endpoints need not coincide. Navigation closure requires supported endpoint matches and at least three supported return pairs."
+  },
+  "raw_stitch": {
+    "camera_coverage_fraction": 1.0,
+    "mean_overlap_rgb_std": 0.0007477820036001503,
+    "wrap_seam_rgb_difference": 0.001953374594449997,
+    "generated": false,
+    "source_sweep": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tours/loop-v1/sweep-000-v1",
+    "source_images": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tours/loop-v1/sweep-000-v1/raw-frames",
+    "panorama_sha256": "97ff877f95b4c74d3ea0348259c40f707dfb0f292d299ef27463f0c55814a517",
+    "interpretation": "Coverage measures sweep directions, not observed building surfaces. Overlap disagreement and seam values require comparison with raw renders."
+  },
+  "limitations": [
+    "Training-match residuals are not independent accuracy.",
+    "Spherical directional coverage is not observed surface coverage.",
+    "FixAnything inference has not yet completed."
+  ]
+}

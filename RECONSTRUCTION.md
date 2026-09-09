@@ -5,6 +5,8 @@ It runs inference on Apple Silicon through PyTorch MPS and fuses depth on CPU th
 It does not certify dimensions from an uncalibrated monocular video.
 
 Current status is a research prototype.
+The current real-estate PoC target is a cleaned rough mesh with loop constraints and fixed 360 viewing stations.
+The [property tour report](artifacts/research/property-tour-poc.md) documents the working local tour and pending FixAnything refinement.
 The short integration capture passes internal screening, but every tested full-walkthrough variant still fails fidelity checks.
 The [implementation report](artifacts/research/mac-reconstruction-results.md) identifies the current review asset and its remaining failures.
 The [Brush experiment report](artifacts/research/photometric-and-brush-results.md) includes native Metal Gaussian training, calibrated dataset export and reserved-image comparisons.
@@ -50,7 +52,7 @@ Adaptive extraction of extra video frames is unavailable for this input type.
 ```sh
 .venv-reconstruction/bin/python -m lingbot_map.reconstruction run \
   --images example/loop --output reconstructions/examples/loop \
-  --camera-source learned --motion-weight 10 --mapper incremental
+  --camera-source learned --motion-weight 10 --mapper global
 ```
 
 The default sampling rate is 2 fps with 96-frame inference windows and 24 shared frames.
@@ -111,7 +113,34 @@ This comparison is experimental and must pass the same exported-mesh checks.
 On the available 1,000-frame store walkthrough, the uninterrupted native export failed 92 of 100 reserved viewpoints.
 The hybrid with `--camera-source learned --motion-weight 10` reduced that count to seven, but also failed the fidelity gate.
 
-## Artifacts and evidence
+## Fixed 360 tours
+
+An existing colored surface reconstruction can be exported as a lightweight navigation mesh and spherical stations.
+
+```sh
+.venv-reconstruction/bin/python -m lingbot_map.reconstruction tour \
+  --source reconstructions/examples/loop-closure-v1/final \
+  --output reconstructions/tours/loop-new --stations 6
+.venv-reconstruction/bin/python -m lingbot_map.reconstruction tour-view \
+  --output reconstructions/tours/loop-new --port 8083
+```
+
+The viewer serves the tour at `http://127.0.0.1:8083/` without external web dependencies.
+Click a mesh marker or station thumbnail to enter its panorama.
+Drag to look around, scroll to zoom, and use **3D overview** to return to the model.
+Each station preserves its original image, pose, raw panorama, radial depth and observed-surface mask.
+Cleanup removes tiny isolated components and simplifies the navigation mesh while retaining a detailed rendering mesh.
+A return-path edge requires an audit of successful matching, registered endpoint cameras and consistent feature matches.
+For arbitrary captures without this evidence, the exported tour remains an open path.
+
+`tour-sweep --source <tour> --station 000 --output <new-sweep>` exports 61 calibrated camera orientations covering the full sphere.
+The first and last frame use the same captured station photograph as FixAnything clean anchors.
+`tour-stitch --source <sweep> --images <frame-directory> --output <new-directory>` reprojects those images with their saved rotations.
+Add `--generated` when stitching model-generated frames.
+The raw-render stitch is the do-nothing baseline for overlap and wrap-seam comparisons.
+Model downloads and the isolated MPS adapter are described in the [FixAnything assessment](artifacts/research/fixanything-assessment.md).
+
+## Reconstruction artifacts
 
 | Artifact | Meaning |
 |---|---|
