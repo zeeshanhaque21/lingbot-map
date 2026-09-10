@@ -1,0 +1,46 @@
+{
+  "frames": 61,
+  "empty_render_count": 18,
+  "under_ten_percent_observed_count": 24,
+  "sampled_input_views": [
+    {
+      "frame": 25,
+      "direction": "front",
+      "observed_fraction": 0.902549078525641,
+      "image": "reconstructions/tours/loop-v1/sweep-000-v1/frames/025.png"
+    },
+    {
+      "frame": 28,
+      "direction": "right",
+      "observed_fraction": 0.31777093349358976,
+      "image": "reconstructions/tours/loop-v1/sweep-000-v1/frames/028.png"
+    },
+    {
+      "frame": 31,
+      "direction": "rear",
+      "observed_fraction": 0.0,
+      "image": "reconstructions/tours/loop-v1/sweep-000-v1/frames/031.png"
+    },
+    {
+      "frame": 34,
+      "direction": "left",
+      "observed_fraction": 0.06812650240384616,
+      "image": "reconstructions/tours/loop-v1/sweep-000-v1/frames/034.png"
+    },
+    {
+      "frame": 4,
+      "direction": "floor",
+      "observed_fraction": 0.9893404447115385,
+      "image": "reconstructions/tours/loop-v1/sweep-000-v1/frames/004.png"
+    },
+    {
+      "frame": 57,
+      "direction": "ceiling",
+      "observed_fraction": 0.0,
+      "image": "reconstructions/tours/loop-v1/sweep-000-v1/frames/057.png"
+    }
+  ],
+  "full_generated_output_sampled": false,
+  "smoke_frame_004_visual_finding": "The input points at the floor, but the generated image depicts the forward-looking corridor. This smoke output does not preserve the intended camera direction.",
+  "faithful_panorama_demonstrated": false
+}

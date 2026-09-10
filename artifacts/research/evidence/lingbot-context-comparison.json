@@ -1,0 +1,101 @@
+{
+  "frames": 237,
+  "checkpoint_sha256": "832bc82cbae0bc9bbe946ef5ee1f7226abd8c0e183ccf8beddbb3d133576f409",
+  "continuous_output_sha256": "c34db90da95e847adb6148069b4ad558eee703eb099f6c5e12de4008cdf79a81",
+  "continuous_inference_seconds": 259.5055303750123,
+  "first_96_match": {
+    "depth": {
+      "array_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "confidence": {
+      "array_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "extrinsics": {
+      "array_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "intrinsics": {
+      "array_equal": true,
+      "max_absolute_difference": 0.0
+    },
+    "rgb": {
+      "array_equal": true,
+      "max_absolute_difference": 0.0
+    }
+  },
+  "closure": {
+    "continuous_streaming": {
+      "status": "evaluated",
+      "database_sha256": "b6bdbb7afb776f53a510941682a7f000954f87ecd7dbb3379dc50e98b9936882",
+      "pairs_sha256": "0133ffc029022b50d1b1f79d6ff80483d576300e8bb336f8e173db6b9c3a43ec",
+      "verified_pairs": 153,
+      "pairs_with_median_under_3_pixels": 65,
+      "navigation_closure": true,
+      "median_pair_sampson_pixels": 3.2781868515842274,
+      "interpretation": "Training-match consistency, not independent accuracy. Endpoints need not coincide. Navigation closure requires supported endpoint matches and at least three supported return pairs.",
+      "endpoints": {
+        "frames": [
+          0,
+          236
+        ],
+        "inliers": 32,
+        "median_sampson_pixels": 2.9297774464675497
+      }
+    },
+    "current_loop_adjusted": {
+      "status": "evaluated",
+      "database_sha256": "b6bdbb7afb776f53a510941682a7f000954f87ecd7dbb3379dc50e98b9936882",
+      "pairs_sha256": "0133ffc029022b50d1b1f79d6ff80483d576300e8bb336f8e173db6b9c3a43ec",
+      "verified_pairs": 153,
+      "pairs_with_median_under_3_pixels": 73,
+      "navigation_closure": true,
+      "median_pair_sampson_pixels": 3.056734951197976,
+      "interpretation": "Training-match consistency, not independent accuracy. Endpoints need not coincide. Navigation closure requires supported endpoint matches and at least three supported return pairs.",
+      "endpoints": {
+        "frames": [
+          0,
+          236
+        ],
+        "inliers": 32,
+        "median_sampson_pixels": 2.250213315027647
+      }
+    },
+    "reset_windows_no_pose_graph": {
+      "status": "evaluated",
+      "database_sha256": "b6bdbb7afb776f53a510941682a7f000954f87ecd7dbb3379dc50e98b9936882",
+      "pairs_sha256": "0133ffc029022b50d1b1f79d6ff80483d576300e8bb336f8e173db6b9c3a43ec",
+      "verified_pairs": 153,
+      "pairs_with_median_under_3_pixels": 0,
+      "navigation_closure": false,
+      "median_pair_sampson_pixels": 8.36369573026517,
+      "interpretation": "Training-match consistency, not independent accuracy. Endpoints need not coincide. Navigation closure requires supported endpoint matches and at least three supported return pairs.",
+      "endpoints": {
+        "frames": [
+          0,
+          236
+        ],
+        "inliers": 32,
+        "median_sampson_pixels": 6.899838441400224
+      }
+    }
+  },
+  "interpretation": "One same-input loop; continuous streaming and reset windows share the identical first 96 predictions. Reset windows are aligned by the existing overlap Sim3 and use the same eight-frame ownership warmup. Pose-graph result is a third arm. Feature residuals are not independent geometry accuracy.",
+  "reset_window_alignment": [
+    {
+      "shared_frames": 24,
+      "correspondences": 26344,
+      "scale": 1.0538943031619172,
+      "median_relative_error": 0.0203735429323701,
+      "p95_relative_error": 0.04430961426783028
+    },
+    {
+      "shared_frames": 24,
+      "correspondences": 26376,
+      "scale": 1.0988660047001786,
+      "median_relative_error": 0.02904888372771162,
+      "p95_relative_error": 0.09215277230284685
+    }
+  ]
+}

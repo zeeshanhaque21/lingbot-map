@@ -1,0 +1,162 @@
+{
+  "station": "000",
+  "frames": 61,
+  "size": [
+    512,
+    288
+  ],
+  "source_photos": [
+    {
+      "frame": 0,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000000.png",
+      "sha256": "e514598e9f928277d8e12df9bbde24ae867fa847277abce198c5cdf2fccf2265",
+      "depth_archive_sha256": "ae63e60080b5c9eec47dcee9f458be86324554be1db2da92c88df557a146a3b2"
+    },
+    {
+      "frame": 10,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000010.png",
+      "sha256": "b9d50f344b2513c4f1bbb22d735ea28bd02ddec41e9c016f92e08396709a252b",
+      "depth_archive_sha256": "ae63e60080b5c9eec47dcee9f458be86324554be1db2da92c88df557a146a3b2"
+    },
+    {
+      "frame": 20,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000020.png",
+      "sha256": "01f7bcadd18125d2f6ce630259a552e91650f5b13ec79c336529c83925e41092",
+      "depth_archive_sha256": "ae63e60080b5c9eec47dcee9f458be86324554be1db2da92c88df557a146a3b2"
+    },
+    {
+      "frame": 30,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000030.png",
+      "sha256": "15617667689d5c47414b6312266f92a2dba3668a20cc4a83f28aeb63b401028c",
+      "depth_archive_sha256": "ae63e60080b5c9eec47dcee9f458be86324554be1db2da92c88df557a146a3b2"
+    },
+    {
+      "frame": 40,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000040.png",
+      "sha256": "e446d5180ce22baf2053d4f3896a4f80ef4bbc158f1317da8af5d84c2ed26e63",
+      "depth_archive_sha256": "ae63e60080b5c9eec47dcee9f458be86324554be1db2da92c88df557a146a3b2"
+    },
+    {
+      "frame": 51,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000051.png",
+      "sha256": "ace6200fb09f4193d9271ab76d111c6c489e8e5f87045be6d835b733bace15a3",
+      "depth_archive_sha256": "ae63e60080b5c9eec47dcee9f458be86324554be1db2da92c88df557a146a3b2"
+    },
+    {
+      "frame": 61,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000061.png",
+      "sha256": "caa5ed0aa62da006db241ee838438ffd95c343b55ec9f62194e9644ebc953752",
+      "depth_archive_sha256": "ae63e60080b5c9eec47dcee9f458be86324554be1db2da92c88df557a146a3b2"
+    },
+    {
+      "frame": 71,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000071.png",
+      "sha256": "24feb0ad8fc3c8e8f0d24443317bcb8eaafaf1c020a22f103da29c4be91cf567",
+      "depth_archive_sha256": "ae63e60080b5c9eec47dcee9f458be86324554be1db2da92c88df557a146a3b2"
+    },
+    {
+      "frame": 81,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000081.png",
+      "sha256": "2ce5ff692756be792c63f806385f72e9f8a9f1882b440676793f43c328043f7e",
+      "depth_archive_sha256": "a562e0231555bb3ca7b77be95bd9fba5e5bcddc7d06cf6cd6345c7e483a972d8"
+    },
+    {
+      "frame": 91,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000091.png",
+      "sha256": "9bd32d6e1c4265eb924438fb24db656c04addba3c673d2df64763322153fbbaa",
+      "depth_archive_sha256": "a562e0231555bb3ca7b77be95bd9fba5e5bcddc7d06cf6cd6345c7e483a972d8"
+    },
+    {
+      "frame": 102,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000102.png",
+      "sha256": "74e51989eeabc066cd11c88c6ff18261400aeacd43d0000e3447a490f3b32869",
+      "depth_archive_sha256": "a562e0231555bb3ca7b77be95bd9fba5e5bcddc7d06cf6cd6345c7e483a972d8"
+    },
+    {
+      "frame": 112,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000112.png",
+      "sha256": "cbbfb463e1853eded75841a0d39c356321b50bf7e2c0e6a216c403036bcf048f",
+      "depth_archive_sha256": "a562e0231555bb3ca7b77be95bd9fba5e5bcddc7d06cf6cd6345c7e483a972d8"
+    },
+    {
+      "frame": 122,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000122.png",
+      "sha256": "c3d499f18fa06906d55766a71a457f4ed07dfc611048d4303ee9fb0bce937ef8",
+      "depth_archive_sha256": "a562e0231555bb3ca7b77be95bd9fba5e5bcddc7d06cf6cd6345c7e483a972d8"
+    },
+    {
+      "frame": 132,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000132.png",
+      "sha256": "78d85b2565bc906bee94b7bdb97cef566303fd015b119932657b2ebaa31f047c",
+      "depth_archive_sha256": "a562e0231555bb3ca7b77be95bd9fba5e5bcddc7d06cf6cd6345c7e483a972d8"
+    },
+    {
+      "frame": 143,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000143.png",
+      "sha256": "086cbe6f0b7bce49ac101183d6bf9ebaa48fcb6521adcae66234ae4ed3189b31",
+      "depth_archive_sha256": "a562e0231555bb3ca7b77be95bd9fba5e5bcddc7d06cf6cd6345c7e483a972d8"
+    },
+    {
+      "frame": 153,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000153.png",
+      "sha256": "bae9373a94543f39335023339dbeaec05f252c14f7a0f0285b55c848632d4a65",
+      "depth_archive_sha256": "cf778ebf4517506b6dcf9dd7c5fa8691b1812edb573f0b74930c45e234b5f3cc"
+    },
+    {
+      "frame": 163,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000163.png",
+      "sha256": "6f8f55660c9267066ba875e0e4f9ed756018b439f4ffe7759e4469f5de0dbdd4",
+      "depth_archive_sha256": "cf778ebf4517506b6dcf9dd7c5fa8691b1812edb573f0b74930c45e234b5f3cc"
+    },
+    {
+      "frame": 173,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000173.png",
+      "sha256": "0e265ff5fd20a7f201213e237226aae4753151919e485ed2baa3c979bf26cf69",
+      "depth_archive_sha256": "cf778ebf4517506b6dcf9dd7c5fa8691b1812edb573f0b74930c45e234b5f3cc"
+    },
+    {
+      "frame": 183,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000183.png",
+      "sha256": "3d83ce50279aceaa23e8e1826a251e9b4e3203428e44157217ab7cd9d71fe7aa",
+      "depth_archive_sha256": "cf778ebf4517506b6dcf9dd7c5fa8691b1812edb573f0b74930c45e234b5f3cc"
+    },
+    {
+      "frame": 194,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000194.png",
+      "sha256": "c5b597ef26d44386cde188370ccb97653019b33219ff69e0fa0dc3b906fecc44",
+      "depth_archive_sha256": "cf778ebf4517506b6dcf9dd7c5fa8691b1812edb573f0b74930c45e234b5f3cc"
+    },
+    {
+      "frame": 204,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000204.png",
+      "sha256": "6fd56b583068d89c721b2055b425a057ecf3743a3dae5734b18f4405d4cd4847",
+      "depth_archive_sha256": "cf778ebf4517506b6dcf9dd7c5fa8691b1812edb573f0b74930c45e234b5f3cc"
+    },
+    {
+      "frame": 214,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000214.png",
+      "sha256": "19a4083f749ab8ff0661e2e501e42c389583a4b38cee6d00a6534012c4a6702e",
+      "depth_archive_sha256": "cf778ebf4517506b6dcf9dd7c5fa8691b1812edb573f0b74930c45e234b5f3cc"
+    },
+    {
+      "frame": 224,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000224.png",
+      "sha256": "6f8c3252b3eb75389cad7ee36bbda20b3e76bf403c2b90f1907017301bb13492",
+      "depth_archive_sha256": "cf778ebf4517506b6dcf9dd7c5fa8691b1812edb573f0b74930c45e234b5f3cc"
+    },
+    {
+      "frame": 236,
+      "path": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop/frames/000236.png",
+      "sha256": "7f54b3d900f3db6dbdb812a7a5704e5df23fa8cb776ab256333a14562c21eae5",
+      "depth_archive_sha256": "cf778ebf4517506b6dcf9dd7c5fa8691b1812edb573f0b74930c45e234b5f3cc"
+    }
+  ],
+  "reserved_source_frames_excluded": true,
+  "distinct_source_photos_used": 24,
+  "projected_photo_pixels": 2419826,
+  "fraction_of_observed_non_anchor_pixels_projected": 0.8043046020832323,
+  "empty_directions": 18,
+  "generation_started": false,
+  "panorama_quality_verified": false,
+  "conditioning_manifest_sha256": "55a5d9ca5d2912ad6ae640cdc039f89926fd8f3d9686656bc68ef70e45901751"
+}

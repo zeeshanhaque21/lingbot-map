@@ -1,0 +1,40 @@
+{
+  "source_frames": 213,
+  "points": 7183830,
+  "pixel_stride": 2,
+  "splat_radius_pixels": 1,
+  "confidence_threshold": 2.5,
+  "rows": [
+    {
+      "frame": 25,
+      "points_coverage": 0.9937269422743056,
+      "mesh_coverage": 0.9025132921006944
+    },
+    {
+      "frame": 28,
+      "points_coverage": 0.45220947265625,
+      "mesh_coverage": 0.3178032769097222
+    },
+    {
+      "frame": 31,
+      "points_coverage": 0.001980251736111111,
+      "mesh_coverage": 0.0
+    },
+    {
+      "frame": 34,
+      "points_coverage": 0.08985053168402778,
+      "mesh_coverage": 0.06810167100694445
+    },
+    {
+      "frame": 4,
+      "points_coverage": 0.9683770073784722,
+      "mesh_coverage": 0.9894273546006944
+    },
+    {
+      "frame": 57,
+      "points_coverage": 0.0,
+      "mesh_coverage": 0.0
+    }
+  ],
+  "interpretation": "Six directions at station 000, same global cameras and learned depths; approximate point rasterization, not a geometry truth test."
+}

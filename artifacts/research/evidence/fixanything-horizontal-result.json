@@ -1,0 +1,259 @@
+{
+  "completion": {
+    "success": true,
+    "seconds": 606.14790391922,
+    "frames": 61,
+    "generated": true,
+    "complete_sweep": true,
+    "sweep_mode": "horizontal",
+    "coverage_target": "horizontal_ring",
+    "full_spherical_sweep": false
+  },
+  "started": {
+    "pid": 28880,
+    "started_unix": 1788989676.4643562,
+    "torch": "2.14.0",
+    "device": "mps",
+    "dtype": "bfloat16",
+    "arguments": {
+      "sweep": "reconstructions/tours/loop-v1/sweep-000-horizontal-pilot-v1",
+      "output": "reconstructions/tours/loop-v1/fixanything-horizontal-v1",
+      "check_input": false,
+      "repository": "/Users/zeeshanhaque/Projects/fix-anything",
+      "models": "checkpoints/fixanything",
+      "width": 512,
+      "height": 288,
+      "frames": 61,
+      "steps": 5,
+      "seed": 1
+    },
+    "adaptations": {
+      "rotary": "float32 real multiplication on MPS",
+      "frequency": "original CPU float64 phases stored as complex64",
+      "timestep": "original CPU float64 calculation copied to MPS",
+      "offload": "explicit persistent parameter budget avoids CUDA memory queries"
+    },
+    "fixanything_commit": "744023e987920af352b880f60cc8841c96a0a105",
+    "script_sha256": "5c6864292864ff5ef90cd54e3227d2dadeb8d0c27dc5372aa93e0e11e24c7ff4",
+    "model_manifest_sha256": "0822bad75ea178666a77dfaa96fd68abd5a9365fdb8c9d197c82008930eb96c4",
+    "download_receipt_sha256": "0281ca1fdf1decb213a6fae54bb0aae88e6ea572b61a7c8a46ce0440ea9e20d5",
+    "generated": true,
+    "input_inspection": {
+      "ready_for_pilot": true,
+      "errors": [],
+      "frames": 61,
+      "requested_frames": 61,
+      "clean_frame_indices": [
+        0,
+        60
+      ],
+      "unique_clean_images": 1,
+      "sweep_mode": "horizontal",
+      "coverage_target": "horizontal_ring",
+      "empty_render_indices": [],
+      "under_ten_percent_observed_frames": 0,
+      "sweep_sha256": "da141753a70eacb6265ca48a3d20e396fef5f664e662ef00cd82319da0508aa1",
+      "panorama_quality_verified": false,
+      "interpretation": "Input checks only. Repeated anchors do not add new views. A complete single-station generation, stitch and source-photo review must pass before processing further stations."
+    }
+  },
+  "input_transform": {
+    "source_sweep": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tours/loop-v1/sweep-000-horizontal-v1",
+    "source_sweep_sha256": "7232387ef250364bf6f3dfd95fc6567222fb83a25df3bc6c300c77c0c9e15390",
+    "operation": "released fixanything.data.crop_and_resize",
+    "source_size": [
+      832,
+      480
+    ],
+    "resized_size": [
+      512,
+      295
+    ],
+    "crop_left_top": [
+      0,
+      3
+    ],
+    "intrinsics_transform": "pixel-centered bilinear resize then integer center crop",
+    "observed_fraction_note": "Retained from original mesh renders; not remeasured after resize and crop."
+  },
+  "calibration_check": {
+    "tested_camera_points": 5,
+    "maximum_projection_transform_error_pixels": 5.684341886080802e-14,
+    "all_61_camera_poses_unchanged": true,
+    "all_61_rotations_unchanged": true,
+    "sweep_sha256": "da141753a70eacb6265ca48a3d20e396fef5f664e662ef00cd82319da0508aa1"
+  },
+  "evaluation": {
+    "raw_stitch": {
+      "camera_coverage_fraction": 0.2148585319519043,
+      "mean_overlap_rgb_std": 0.007526208646595478,
+      "wrap_seam_rgb_difference": 0.0007103955722413957,
+      "generated": false,
+      "source_sweep": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tours/loop-v1/sweep-000-horizontal-pilot-v1",
+      "source_images": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tours/loop-v1/sweep-000-horizontal-pilot-v1/frames",
+      "panorama_sha256": "c87b84dfdf894117898954bba60b2f22efec81d6bff3c9c7c8b584e686b0e552",
+      "interpretation": "Coverage measures sweep directions, not observed building surfaces. Overlap disagreement and seam values require comparison with raw renders."
+    },
+    "generated_stitch": {
+      "camera_coverage_fraction": 0.2148585319519043,
+      "mean_overlap_rgb_std": 0.0889115184545517,
+      "wrap_seam_rgb_difference": 0.000818873755633831,
+      "generated": true,
+      "source_sweep": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tours/loop-v1/sweep-000-horizontal-pilot-v1",
+      "source_images": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tours/loop-v1/fixanything-horizontal-v1/frames",
+      "panorama_sha256": "60fb840cfeefafdb84dc645b99022c7793191e1f50b5faec9ff4588ab616ed4f",
+      "interpretation": "Coverage measures sweep directions, not observed building surfaces. Overlap disagreement and seam values require comparison with raw renders."
+    },
+    "captured_anchors": [
+      {
+        "frame": 0,
+        "comparison": {
+          "raw": {
+            "absolute_rgb_error_all_pixels": 0.10332369059324265,
+            "psnr_all_pixels": 14.763377400361229,
+            "absolute_rgb_error_observed_pixels": 0.06738255172967911
+          },
+          "generated": {
+            "absolute_rgb_error_all_pixels": 0.009764215908944607,
+            "psnr_all_pixels": 37.00430164463424,
+            "absolute_rgb_error_observed_pixels": 0.009792054072022438
+          }
+        }
+      },
+      {
+        "frame": 60,
+        "comparison": {
+          "raw": {
+            "absolute_rgb_error_all_pixels": 0.10332369059324265,
+            "psnr_all_pixels": 14.763377400361229,
+            "absolute_rgb_error_observed_pixels": 0.06738255172967911
+          },
+          "generated": {
+            "absolute_rgb_error_all_pixels": 0.02394050545990467,
+            "psnr_all_pixels": 30.091144456741624,
+            "absolute_rgb_error_observed_pixels": 0.024281034246087074
+          }
+        }
+      }
+    ],
+    "unique_captured_anchor_views": 1,
+    "independent_reference_views": 0,
+    "mesh_unchanged": true,
+    "mesh_sha256": "fb78ccabdca2e81678b89c8987e93f20a16732de80e99209a7ae55801c800e18",
+    "generated_frames": 61,
+    "sweep_mode": "horizontal",
+    "coverage_target": "horizontal_ring",
+    "interpretation": "Anchor comparison uses the photograph supplied to the model, not held-out ground truth. Changes from raw rendering measure edits, not architectural accuracy. Inspect doors, windows, walls and overlap ghosts before accepting a generated tour.",
+    "architectural_fidelity_verified": false
+  },
+  "source_comparison": {
+    "photos": 24,
+    "shared_visible_pixels": 1053257,
+    "mean_photo_l1": {
+      "input": 0.06622301988924544,
+      "generated": 0.13374176047121486
+    },
+    "pixel_weighted_l1": {
+      "input": 0.06032142862720937,
+      "generated": 0.11817734357532932
+    },
+    "photos_worse": 24,
+    "largest_regressions": [
+      {
+        "frame": 165,
+        "pixels": 40496,
+        "input": 0.07003797590732574,
+        "generated": 0.19740203022956848
+      },
+      {
+        "frame": 215,
+        "pixels": 33647,
+        "input": 0.04102411866188049,
+        "generated": 0.16773721575737
+      },
+      {
+        "frame": 55,
+        "pixels": 44676,
+        "input": 0.08646520227193832,
+        "generated": 0.19911693036556244
+      },
+      {
+        "frame": 135,
+        "pixels": 23402,
+        "input": 0.054957374930381775,
+        "generated": 0.157572939991951
+      },
+      {
+        "frame": 65,
+        "pixels": 26777,
+        "input": 0.049359843134880066,
+        "generated": 0.14713965356349945
+      }
+    ],
+    "coverage_masks_identical": true
+  },
+  "source_comparison_receipt_sha256": "72aba4a8e400d8c97287b48fa6aae0d95b0e865fcb138111c76d673414075b07",
+  "generated_frame_sha256": {
+    "000.png": "38426791d03d96954c9527d8b47ee660d6a363d6cf3368d67735953536d1c574",
+    "001.png": "72c78d0307eed6eef13027adc191bed10fa4ae1e482ac940948cc96a1c3f3557",
+    "002.png": "592cca36b26ec145fbde69735fc548c2e085e9e0b13fbae3a04bd3c5f5ba7552",
+    "003.png": "b64dc679ee79286cebd6a7f2006bf9f1db529181c08759cc15b0a01952771d39",
+    "004.png": "52722ec65ffe6b7a53f68d3cff339f5351e8ed1f323fae8340b25cbacba8434e",
+    "005.png": "c33b34b3823b92f327d90eac1fcff02752bb6950525efaa6b20d7285f7524fe5",
+    "006.png": "0e5d3a681970edca403b4cbe5a265fa868ad01475fc93529531da534018af404",
+    "007.png": "cb14a16367d9f5025c93f981f08986c0f6b166dc39e3c415ba8f1f86d392c78a",
+    "008.png": "b1aeffed304cf9c9f04717744962b1c263b81b5aaeed42183d4c40a657b9fb3c",
+    "009.png": "5f582a3e9574bf7d14842d48bfe9516935d9cfb5be6a18763ae618417c3a2cec",
+    "010.png": "0ef29fb003d52d04ad365e92c986cbdecaea5c17a27a5c1986a17f7f89ffd3eb",
+    "011.png": "21748207ee93d21ae60ef63e76ea2b0f2c1aca2b76fecbec88ee1a77c13aa58b",
+    "012.png": "49fdd690ba9c40fbaf961e5bd110d1f5850dd8d120049c956714b9da548972da",
+    "013.png": "8e1298a22eb92e19f60a205cb7e3f5c54ba1ac8fd78036e7206da9422d6fb4ad",
+    "014.png": "c439597cca7e0c447363c92893a1841be2d365b9ef7846132acda829077cb97f",
+    "015.png": "5bb91c04383d6521e42c97917a0b2fba74e80d9f4e99a438a1010bc4c88c6a6e",
+    "016.png": "09c713a801f4fcf00e84a527dbb2902d8582df79c8551a64cccb147aaddd0ff4",
+    "017.png": "13e671b839d4f4ef38dc19a38979205da167435b97d79e648ad847247d907220",
+    "018.png": "871930940cd2e356e7aad8558a61ea20a904063cce7bc5e03b2ae83388dbc784",
+    "019.png": "55e0459036ef8c80fb54e28a732eaed5fbb70ed8199c5d1bc32e3788e70d3896",
+    "020.png": "34d878a89810dd235a88a8c6e77aad4249821229bd273219358f0c34852eb197",
+    "021.png": "67db57e577061eaf87e95348fb03e7d16b995029769644d35c7e3abf914a6fe0",
+    "022.png": "3a9689aff9d917536b2befd797b8e348147fcfb0012156528f4d59b88585bd58",
+    "023.png": "d84a863d4c31695060405945366a8bca440f4306005bea45bd6c62b68561cd24",
+    "024.png": "d73d3ef4f82304c9112b6f7f82907babd46234db53c9dce1b0eca68470bbb194",
+    "025.png": "86d7b30f4acb3686aaf6b9ee2bd6cc089dc3143222e05d25f93988adcfdb3c7e",
+    "026.png": "aab77801068c73561c60d599cf0ab9e6eae030199f23c13bb6502339d2fe8227",
+    "027.png": "53401059e77a5d7aee79ef9b9854fb5df8aee5baca7b0253220792626f817c2b",
+    "028.png": "9d407f563d779ce56f7920c7f0816a7ca7457651c8f00de9678d4338eeb506cd",
+    "029.png": "2e30fc1383f9726d90047bb4a7ad173ff6e6bdd8df2e90566d8adcc91c42ccfe",
+    "030.png": "cfaaf89221499d524db38c7e62d28afa7defbaa06ffdc61ceb06af1b48a73a9a",
+    "031.png": "6e53c72c215233f8515adb79a3dacb764bdfd29ea0afdb6a86afb523a1380c22",
+    "032.png": "384f1ff4974ccd3aed94718b7205d28ff7f58951953996ae3321a44573e65ac3",
+    "033.png": "aa55fcdcf8df7edeb7fa7480ba9271bbbd5e9fcedcff0347fe871fb629ec4757",
+    "034.png": "d3fd5f8550e15df69f3e2286df7f9671424f82f86698767d71e8e926e091f786",
+    "035.png": "4685f8a40650321e34340846eae262a4272a2214cc9dd00714e3ac1937e12e3e",
+    "036.png": "414db73719ea41de94d6199aeb904d6c2d732a082b0ec261083348bfd70f7496",
+    "037.png": "ccb493da51d286ba421b0aaa256c61743068bf8a3f919e971dd4720a6a028d3b",
+    "038.png": "9928272b63bdb37df0786361508e58adb6f7be210bcfc4a95303b1f13edef07e",
+    "039.png": "9cc38b7842c7822668b5bfa384160da2ce3ca30d9191801d60841447c476715a",
+    "040.png": "12b311bd8f90f389f06764b01f7bbdf1fe8b694b820adefb8c5a91a32448d319",
+    "041.png": "6efe81a3720b03318b21d07182dac0d1796c1c60400576911e7904d74102ad9e",
+    "042.png": "98917923de44f459fac0a6c88762c5e495b5e22b9afbd8adc2007356e03605f9",
+    "043.png": "0f6fc798598d7c8f7185db9feec8ce9a6618c5de4b129022344d611088035b85",
+    "044.png": "cd704e5122f36f885679bf5552c2252205d313c1580492a05a77016cd4c0d03a",
+    "045.png": "2a791b565bfe14540a9fae561d558c005e8a02e8de4433864b1c26d4fb64acf1",
+    "046.png": "61ca01a553b5747d9692f9d4e5a230acccd05c61a0f89e3b06979748dd1ddaec",
+    "047.png": "5780e66a0b02810dc2917e8d77df693e51a976f57e59aceffa33947f3617aa39",
+    "048.png": "aa14597bd539d132d8bf9af018d11aa729a5868b67ffe1dac9e62e4a38012426",
+    "049.png": "d115c499aea141591f43f74dc9d9c4398cef3649cb936979a5481253972d1b50",
+    "050.png": "37a34c071a6c8d6a0c8e9ae7be53cad98f4c8fd4e61e1888478b58b777204023",
+    "051.png": "129e71725d9dd8ca5a7230aafc58bcc1cd107268acd9940b739887a8cde3409a",
+    "052.png": "f7055d04655cfdb125c3ba4412a94ef0b41bbf2998bfa39bd466f7985c76e8e6",
+    "053.png": "ae63ef450dbb41113b0d5a9280e06a99266e3e2384023ef56ed4c41c46c63694",
+    "054.png": "37eefae11631fae0feb1ae2529e4e6ae36be177ccdd2ca8fb472020614843652",
+    "055.png": "84efdfb67db3e7dac3906b2044cf0996414648cda83507d6dfbb3afd003faf73",
+    "056.png": "4e89a5a8acf579ef4ef8324139d589a2b9cba705f86ab6caa811e2221c21e041",
+    "057.png": "c3861c192e7fdc39c4e059c7b20457a7acca1149f0ee7bedcbf484c9695a1d7c",
+    "058.png": "70a7c1ed04300c3a3cad776bbfbe53e0ec30f4ab6033bc41562e42fecd546749",
+    "059.png": "cd9708167abbb11fa5e0d8199a87b201f1e8e155b132fb0b1e67a938d7b1bb9f",
+    "060.png": "ead85909b13016864a25ef7f5da363eb8b4a290b1e047fb8f97ef5f114bcf817"
+  }
+}

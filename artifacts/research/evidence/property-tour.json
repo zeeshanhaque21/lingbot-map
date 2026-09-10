@@ -1,0 +1,576 @@
+{
+  "tour": {
+    "source": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/examples/loop-closure-v1/final",
+    "source_mesh_sha256": "d39811c69eaa4e265a7766dc0788a2337341932887b6b8e64764d03fd37c918b",
+    "source_cameras_sha256": "909e82f767f8b56c45a1667b3d1a887c5f906cd4a0296d3b6f06758978582a88",
+    "source_triangles": 3346621,
+    "cleaned_triangles": 3279602,
+    "removed_tiny_components": 8765,
+    "navigation_triangles": 150000,
+    "navigation_bytes": 3121596,
+    "navigation_sha256": "252a4d0225492ae4bbfafa6363e24b802b79b913f6d7aa4db38e8ad3c3f55a4f",
+    "station_count": 6,
+    "navigation_edges": [
+      [
+        "000",
+        "001"
+      ],
+      [
+        "001",
+        "002"
+      ],
+      [
+        "002",
+        "003"
+      ],
+      [
+        "003",
+        "004"
+      ],
+      [
+        "004",
+        "005"
+      ],
+      [
+        "005",
+        "000"
+      ]
+    ],
+    "loop_constraints_verified": true,
+    "closure_audit": "closure-audit.json",
+    "world_convention": "OpenCV world, camera-to-world station poses; app GLB flips world Y/Z",
+    "panorama_convention": "Equirectangular 2:1, center +Z, right +X, top -Y in station camera coordinates",
+    "metric_accuracy_verified": false,
+    "fixanything_refinement": "not_run"
+  },
+  "stations": [
+    {
+      "id": "000",
+      "frame": 0,
+      "observed_sphere_fraction": 0.37108421325683594,
+      "generated": false,
+      "panorama_sha256": "beda4379bbbafc5e41c386e1786addbe7c1880e128f41bcebeac6137e3b840c3"
+    },
+    {
+      "id": "001",
+      "frame": 45,
+      "observed_sphere_fraction": 0.40772533416748047,
+      "generated": false,
+      "panorama_sha256": "723fb97f9151368af6aee63a92b3cfef889c65b83d6afa8bffa92b8187bba489"
+    },
+    {
+      "id": "002",
+      "frame": 82,
+      "observed_sphere_fraction": 0.39694833755493164,
+      "generated": false,
+      "panorama_sha256": "9d26da2862b370b40bd5133c93af99a50cc0391357330be4ff72c9802c47f287"
+    },
+    {
+      "id": "003",
+      "frame": 129,
+      "observed_sphere_fraction": 0.36494874954223633,
+      "generated": false,
+      "panorama_sha256": "de161f4c6d00bd39b82e7851318919b16078334bf66264814400a59c372799dc"
+    },
+    {
+      "id": "004",
+      "frame": 163,
+      "observed_sphere_fraction": 0.40197229385375977,
+      "generated": false,
+      "panorama_sha256": "96d6bba4312cdbddb02497042ead4884cae6b1296961e7239465a25f2a52c4cc"
+    },
+    {
+      "id": "005",
+      "frame": 197,
+      "observed_sphere_fraction": 0.36222267150878906,
+      "generated": false,
+      "panorama_sha256": "106e27e0d6e560fa42e699342d82b0bcf8b764b6a727ca6041c7ef4c975f22d3"
+    }
+  ],
+  "closure_baseline": {
+    "status": "evaluated",
+    "database_sha256": "b6bdbb7afb776f53a510941682a7f000954f87ecd7dbb3379dc50e98b9936882",
+    "pairs_sha256": "0133ffc029022b50d1b1f79d6ff80483d576300e8bb336f8e173db6b9c3a43ec",
+    "verified_pairs": 153,
+    "pairs_with_median_under_3_pixels": 0,
+    "navigation_closure": false,
+    "median_pair_sampson_pixels": 10.0303469759645,
+    "interpretation": "Training-match consistency, not independent accuracy. Endpoints need not coincide. Navigation closure requires supported endpoint matches and at least three supported return pairs."
+  },
+  "baseline_cameras_sha256": "1d05a0f6ba8d2f3e11cb65c3627b62c90f3faa70596504ffae2868cf8089378b",
+  "closure_candidate": {
+    "status": "evaluated",
+    "database_sha256": "b6bdbb7afb776f53a510941682a7f000954f87ecd7dbb3379dc50e98b9936882",
+    "pairs_sha256": "0133ffc029022b50d1b1f79d6ff80483d576300e8bb336f8e173db6b9c3a43ec",
+    "verified_pairs": 153,
+    "pairs_with_median_under_3_pixels": 73,
+    "navigation_closure": true,
+    "median_pair_sampson_pixels": 3.056734951197976,
+    "interpretation": "Training-match consistency, not independent accuracy. Endpoints need not coincide. Navigation closure requires supported endpoint matches and at least three supported return pairs."
+  },
+  "raw_stitch": {
+    "camera_coverage_fraction": 1.0,
+    "mean_overlap_rgb_std": 0.0007477820036001503,
+    "wrap_seam_rgb_difference": 0.001953374594449997,
+    "generated": false,
+    "source_sweep": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tours/loop-v1/sweep-000-v1",
+    "source_images": "/Users/zeeshanhaque/Projects/leka/lingbot-map/reconstructions/tours/loop-v1/sweep-000-v1/raw-frames",
+    "panorama_sha256": "97ff877f95b4c74d3ea0348259c40f707dfb0f292d299ef27463f0c55814a517",
+    "interpretation": "Coverage measures sweep directions, not observed building surfaces. Overlap disagreement and seam values require comparison with raw renders."
+  },
+  "refinements": [
+    {
+      "name": "fixanything-full-v1",
+      "started": {
+        "pid": 90701,
+        "started_unix": 1788978112.9208078,
+        "torch": "2.14.0",
+        "device": "mps",
+        "dtype": "bfloat16",
+        "arguments": {
+          "sweep": "reconstructions/tours/loop-v1/sweep-000-v1",
+          "output": "reconstructions/tours/loop-v1/fixanything-full-v1",
+          "repository": "/Users/zeeshanhaque/Projects/fix-anything",
+          "models": "checkpoints/fixanything",
+          "width": 832,
+          "height": 480,
+          "frames": 61,
+          "steps": 10,
+          "seed": 1
+        },
+        "adaptations": {
+          "rotary": "float32 real multiplication on MPS",
+          "frequency": "original CPU float64 phases stored as complex64",
+          "timestep": "original CPU float64 calculation copied to MPS",
+          "offload": "explicit persistent parameter budget avoids CUDA memory queries"
+        },
+        "fixanything_commit": "744023e987920af352b880f60cc8841c96a0a105",
+        "script_sha256": "5c6864292864ff5ef90cd54e3227d2dadeb8d0c27dc5372aa93e0e11e24c7ff4",
+        "model_manifest_sha256": "0822bad75ea178666a77dfaa96fd68abd5a9365fdb8c9d197c82008930eb96c4",
+        "download_receipt_sha256": "0281ca1fdf1decb213a6fae54bb0aae88e6ea572b61a7c8a46ce0440ea9e20d5",
+        "generated": true
+      },
+      "completion": null,
+      "stopped": {
+        "pid": 90701,
+        "stopped_unix": 1788982151.301376,
+        "signal": "SIGTERM",
+        "reason": "User requested generation stop to fix conditioning before another run.",
+        "process_absent_verified": true,
+        "saved_latent_checkpoints": 9,
+        "saved_generated_frames": 0
+      },
+      "input_inspection": {
+        "ready_for_pilot": false,
+        "errors": [
+          "18 rendered views have no observed surfaces and therefore provide no scene-based camera control; repair conditioning first"
+        ],
+        "frames": 61,
+        "requested_frames": 61,
+        "clean_frame_indices": [
+          0,
+          60
+        ],
+        "unique_clean_images": 1,
+        "empty_render_indices": [
+          31,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58
+        ],
+        "under_ten_percent_observed_frames": 24,
+        "sweep_sha256": "38c3267f1b823649e1a09c4d199dfec10020f10af55d0ae143585c2dee0638f7",
+        "panorama_quality_verified": false,
+        "interpretation": "Input checks only. Repeated anchors do not add new views. A complete single-station generation, stitch and source-photo review must pass before processing further stations."
+      }
+    },
+    {
+      "name": "fixanything-smoke-v1",
+      "started": {
+        "pid": 61159,
+        "started_unix": 1788977953.293204,
+        "torch": "2.14.0",
+        "device": "mps",
+        "dtype": "bfloat16",
+        "arguments": {
+          "sweep": "reconstructions/tours/loop-v1/sweep-000-v1",
+          "output": "reconstructions/tours/loop-v1/fixanything-smoke-v1",
+          "repository": "/Users/zeeshanhaque/Projects/fix-anything",
+          "models": "checkpoints/fixanything",
+          "width": 448,
+          "height": 256,
+          "frames": 5,
+          "steps": 2,
+          "seed": 1
+        },
+        "adaptations": {
+          "rotary": "float32 real multiplication on MPS",
+          "frequency": "original CPU float64 phases stored as complex64",
+          "timestep": "original CPU float64 calculation copied to MPS",
+          "offload": "explicit persistent parameter budget avoids CUDA memory queries"
+        },
+        "fixanything_commit": "744023e987920af352b880f60cc8841c96a0a105",
+        "script_sha256": "5c6864292864ff5ef90cd54e3227d2dadeb8d0c27dc5372aa93e0e11e24c7ff4",
+        "model_manifest_sha256": "0822bad75ea178666a77dfaa96fd68abd5a9365fdb8c9d197c82008930eb96c4",
+        "download_receipt_sha256": "0281ca1fdf1decb213a6fae54bb0aae88e6ea572b61a7c8a46ce0440ea9e20d5",
+        "generated": true
+      },
+      "completion": {
+        "success": true,
+        "seconds": 104.17145895957947,
+        "frames": 5,
+        "generated": true,
+        "full_spherical_sweep": false
+      }
+    }
+  ],
+  "source_view_baseline": {
+    "station": "000",
+    "source_photos": 24,
+    "photos_with_shared_surfaces": 24,
+    "candidate_sha256": "97ff877f95b4c74d3ea0348259c40f707dfb0f292d299ef27463f0c55814a517",
+    "baseline_sha256": "97ff877f95b4c74d3ea0348259c40f707dfb0f292d299ef27463f0c55814a517",
+    "mesh_sha256": "fb78ccabdca2e81678b89c8987e93f20a16732de80e99209a7ae55801c800e18",
+    "cameras_sha256": "909e82f767f8b56c45a1667b3d1a887c5f906cd4a0296d3b6f06758978582a88",
+    "visibility_tolerance_relative": 0.001,
+    "visibility_tolerance_absolute": 1e-05,
+    "visibility_boundary_erosion_pixels": 1,
+    "records": [
+      {
+        "frame": 5,
+        "shared_visible_pixels": 126793,
+        "shared_visible_fraction": 0.8325650723609908,
+        "baseline": {
+          "absolute_rgb_error": 0.05613269656896591,
+          "psnr": 20.969848760179012
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.05613269656896591,
+          "psnr": 20.969848760179012
+        }
+      },
+      {
+        "frame": 15,
+        "shared_visible_pixels": 81817,
+        "shared_visible_fraction": 0.5372376749927771,
+        "baseline": {
+          "absolute_rgb_error": 0.059277839958667755,
+          "psnr": 21.639789233126862
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.059277839958667755,
+          "psnr": 21.639789233126862
+        }
+      },
+      {
+        "frame": 25,
+        "shared_visible_pixels": 77880,
+        "shared_visible_fraction": 0.5113860215901033,
+        "baseline": {
+          "absolute_rgb_error": 0.047032490372657776,
+          "psnr": 23.82919422462654
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.047032490372657776,
+          "psnr": 23.82919422462654
+        }
+      },
+      {
+        "frame": 35,
+        "shared_visible_pixels": 71539,
+        "shared_visible_fraction": 0.4697489034223728,
+        "baseline": {
+          "absolute_rgb_error": 0.04490533098578453,
+          "psnr": 23.906680500813685
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.04490533098578453,
+          "psnr": 23.906680500813685
+        }
+      },
+      {
+        "frame": 45,
+        "shared_visible_pixels": 61502,
+        "shared_visible_fraction": 0.4038426181283324,
+        "baseline": {
+          "absolute_rgb_error": 0.05314118415117264,
+          "psnr": 22.798084232295544
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.05314118415117264,
+          "psnr": 22.798084232295544
+        }
+      },
+      {
+        "frame": 55,
+        "shared_visible_pixels": 48959,
+        "shared_visible_fraction": 0.321481102093347,
+        "baseline": {
+          "absolute_rgb_error": 0.06146829202771187,
+          "psnr": 21.42789936108155
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.06146829202771187,
+          "psnr": 21.42789936108155
+        }
+      },
+      {
+        "frame": 65,
+        "shared_visible_pixels": 32478,
+        "shared_visible_fraction": 0.21326136632259082,
+        "baseline": {
+          "absolute_rgb_error": 0.04406144842505455,
+          "psnr": 23.511302144787606
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.04406144842505455,
+          "psnr": 23.511302144787606
+        }
+      },
+      {
+        "frame": 75,
+        "shared_visible_pixels": 31659,
+        "shared_visible_fraction": 0.20788353951619257,
+        "baseline": {
+          "absolute_rgb_error": 0.05299120023846626,
+          "psnr": 22.97993663570687
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.05299120023846626,
+          "psnr": 22.97993663570687
+        }
+      },
+      {
+        "frame": 85,
+        "shared_visible_pixels": 31464,
+        "shared_visible_fraction": 0.20660310456228823,
+        "baseline": {
+          "absolute_rgb_error": 0.084726482629776,
+          "psnr": 19.035818982546104
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.084726482629776,
+          "psnr": 19.035818982546104
+        }
+      },
+      {
+        "frame": 95,
+        "shared_visible_pixels": 4463,
+        "shared_visible_fraction": 0.02930554461166706,
+        "baseline": {
+          "absolute_rgb_error": 0.13793443143367767,
+          "psnr": 15.537252871116733
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.13793443143367767,
+          "psnr": 15.537252871116733
+        }
+      },
+      {
+        "frame": 105,
+        "shared_visible_pixels": 23598,
+        "shared_visible_fraction": 0.1549523284217162,
+        "baseline": {
+          "absolute_rgb_error": 0.04974105954170227,
+          "psnr": 23.75877518703575
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.04974105954170227,
+          "psnr": 23.75877518703575
+        }
+      },
+      {
+        "frame": 115,
+        "shared_visible_pixels": 25375,
+        "shared_visible_fraction": 0.16662070233498805,
+        "baseline": {
+          "absolute_rgb_error": 0.08634209632873535,
+          "psnr": 18.93770877654672
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.08634209632873535,
+          "psnr": 18.93770877654672
+        }
+      },
+      {
+        "frame": 125,
+        "shared_visible_pixels": 18357,
+        "shared_visible_fraction": 0.12053817666062563,
+        "baseline": {
+          "absolute_rgb_error": 0.04925171658396721,
+          "psnr": 20.94810626469682
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.04925171658396721,
+          "psnr": 20.94810626469682
+        }
+      },
+      {
+        "frame": 135,
+        "shared_visible_pixels": 25974,
+        "shared_visible_fraction": 0.17055393586005832,
+        "baseline": {
+          "absolute_rgb_error": 0.05101964995265007,
+          "psnr": 21.819639468700224
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.05101964995265007,
+          "psnr": 21.819639468700224
+        }
+      },
+      {
+        "frame": 145,
+        "shared_visible_pixels": 17803,
+        "shared_visible_fraction": 0.11690042812491792,
+        "baseline": {
+          "absolute_rgb_error": 0.055329956114292145,
+          "psnr": 21.13033683407884
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.055329956114292145,
+          "psnr": 21.13033683407884
+        }
+      },
+      {
+        "frame": 155,
+        "shared_visible_pixels": 17539,
+        "shared_visible_fraction": 0.11516691618732434,
+        "baseline": {
+          "absolute_rgb_error": 0.11252451688051224,
+          "psnr": 16.249668998057352
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.11252451688051224,
+          "psnr": 16.249668998057352
+        }
+      },
+      {
+        "frame": 165,
+        "shared_visible_pixels": 40943,
+        "shared_visible_fraction": 0.2688453759882331,
+        "baseline": {
+          "absolute_rgb_error": 0.05423194169998169,
+          "psnr": 22.022649428128418
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.05423194169998169,
+          "psnr": 22.022649428128418
+        }
+      },
+      {
+        "frame": 175,
+        "shared_visible_pixels": 53158,
+        "shared_visible_fraction": 0.3490531347674205,
+        "baseline": {
+          "absolute_rgb_error": 0.05649425834417343,
+          "psnr": 21.761189150487024
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.05649425834417343,
+          "psnr": 21.761189150487024
+        }
+      },
+      {
+        "frame": 185,
+        "shared_visible_pixels": 36814,
+        "shared_visible_fraction": 0.2417329866309458,
+        "baseline": {
+          "absolute_rgb_error": 0.04607926681637764,
+          "psnr": 22.25186911727064
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.04607926681637764,
+          "psnr": 22.25186911727064
+        }
+      },
+      {
+        "frame": 195,
+        "shared_visible_pixels": 42825,
+        "shared_visible_fraction": 0.28120321487668426,
+        "baseline": {
+          "absolute_rgb_error": 0.034439507871866226,
+          "psnr": 24.915625199196988
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.034439507871866226,
+          "psnr": 24.915625199196988
+        }
+      },
+      {
+        "frame": 205,
+        "shared_visible_pixels": 64905,
+        "shared_visible_fraction": 0.42618784965723744,
+        "baseline": {
+          "absolute_rgb_error": 0.05073178932070732,
+          "psnr": 21.953018098340998
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.05073178932070732,
+          "psnr": 21.953018098340998
+        }
+      },
+      {
+        "frame": 215,
+        "shared_visible_pixels": 70802,
+        "shared_visible_fraction": 0.4649095159299241,
+        "baseline": {
+          "absolute_rgb_error": 0.0371352843940258,
+          "psnr": 23.351566448007105
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.0371352843940258,
+          "psnr": 23.351566448007105
+        }
+      },
+      {
+        "frame": 225,
+        "shared_visible_pixels": 91848,
+        "shared_visible_fraction": 0.6031045622882357,
+        "baseline": {
+          "absolute_rgb_error": 0.06687452644109726,
+          "psnr": 19.39589637416084
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.06687452644109726,
+          "psnr": 19.39589637416084
+        }
+      },
+      {
+        "frame": 235,
+        "shared_visible_pixels": 98957,
+        "shared_visible_fraction": 0.6497846242744202,
+        "baseline": {
+          "absolute_rgb_error": 0.07005559653043747,
+          "psnr": 19.672474949163522
+        },
+        "candidate": {
+          "absolute_rgb_error": 0.07005559653043747,
+          "psnr": 19.672474949163522
+        }
+      }
+    ],
+    "interpretation": "These photos were excluded from mesh fusion and are not FixAnything anchors. They still contributed to camera estimation and learned reconstruction context. Reprojection uses the estimated mesh and cameras. Color errors diagnose changed appearance on shared surfaces; they do not certify structural fidelity or unseen areas.",
+    "architectural_fidelity_verified": false
+  },
+  "full_spherical_inference_completed": false,
+  "limitations": [
+    "Training-match residuals are not independent accuracy.",
+    "Spherical directional coverage is not observed surface coverage.",
+    "Generated details require structural review against the capture.",
+    "An absent completion record does not establish process liveness."
+  ]
+}

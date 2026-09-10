@@ -362,7 +362,10 @@ class WanRotaryPosEmbed(nn.Module):
         """
 
         # 步骤1：将预计算的频率移到目标设备，并分割成三个维度
-        self.freqs = self.freqs.to(device)
+        # Metal cannot transfer the float64 components of complex128 tensors.
+        # Keep the original precision on CPU/CUDA, and cast before the MPS copy.
+        dtype = torch.complex64 if torch.device(device).type == "mps" else self.freqs.dtype
+        self.freqs = self.freqs.to(device=device, dtype=dtype)
         # 获取实际的维度分配
         if hasattr(self, 'fhw_dim') and self.fhw_dim is not None:
             t_dim, h_dim, w_dim = self.fhw_dim

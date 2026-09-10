@@ -1,0 +1,92 @@
+{
+  "model": {
+    "status": "reconstructed_unverified_metric_accuracy",
+    "source_sha256": "579f40e42c3a1820bbbbf08fb4374302fff181e12fe3696e6c6e6a9729723d9f",
+    "input_signature": {
+      "inference": "b2aeb305953ec6fdb2320cebe760251ab9ca976e921bd8de2b8c07ca64a78255",
+      "windows": {
+        "000000.npz": "c34db90da95e847adb6148069b4ad558eee703eb099f6c5e12de4008cdf79a81"
+      }
+    },
+    "frames_expected": 237,
+    "frames_processed": 237,
+    "frames_fused": 213,
+    "frames_held_out": 24,
+    "temporal_coverage": 1.0,
+    "vertices": 1965167,
+    "triangles": 3693602,
+    "web_triangles": 711000,
+    "voxel_size_model_units": 0.0037334796506911516,
+    "units": "uncalibrated model units",
+    "accepted_pixel_fraction": 0.645528476773633,
+    "observed_points": 1955007,
+    "fusion_seconds": 36.133280499998364,
+    "loop_closure": false,
+    "pose_source": "Lingbot sequential Sim3 windows",
+    "absolute_dimensions_verified": false,
+    "unseen_surfaces_completed": false,
+    "limitations": [
+      "Monocular scale lacks measured anchors",
+      "Sequential window alignment can drift",
+      "Glass, mirrors, motion and unobserved surfaces remain uncertain",
+      "Depth consistency is an internal check, not independent ground truth"
+    ],
+    "files": {
+      "property.glb": "b8ac44585ec040500cccabbb5a3164c284cf0e1fdd7c26425f5fe26c71b0e22c",
+      "observed-surfaces.ply": "a01a02f1f4359854598221e026c27d605ede19c29c93406e1086dbd33c22b276",
+      "observed-points.ply": "d6bb876dcf249025e5bffb80923da848c50eaa6556153339c440b626ace8ee87"
+    }
+  },
+  "three_view_check": {
+    "views": [
+      {
+        "frame": 5,
+        "held_out_from_fusion": true,
+        "visible_mesh_fraction": 0.9482572951960707,
+        "mean_absolute_rgb_error_visible": 0.06164904189339181,
+        "supported_depth_fraction": 0.351272555354188,
+        "median_relative_depth_error_visible": 0.0564876576865363
+      },
+      {
+        "frame": 115,
+        "held_out_from_fusion": true,
+        "visible_mesh_fraction": 0.735586898852205,
+        "mean_absolute_rgb_error_visible": 0.06669044775185895,
+        "supported_depth_fraction": 0.6822595189942129,
+        "median_relative_depth_error_visible": 0.017148548552514596
+      },
+      {
+        "frame": 235,
+        "held_out_from_fusion": true,
+        "visible_mesh_fraction": 0.9494917658182964,
+        "mean_absolute_rgb_error_visible": 0.05791995046058995,
+        "supported_depth_fraction": 0.9075460299950096,
+        "median_relative_depth_error_visible": 0.006505973650523227
+      }
+    ],
+    "median_rendered_coverage": 0.9482572951960707,
+    "median_supported_depth_fraction": 0.6822595189942129,
+    "minimum_supported_depth_fraction": 0.351272555354188,
+    "mesh": "observed-surfaces.ply",
+    "median_absolute_rgb_error_visible": 0.06164904189339181,
+    "metric_accuracy_verified": false,
+    "visual_completeness_gate": true,
+    "view_consistency_gate": false,
+    "ready_for_verified_property_listing": false,
+    "interpretation": "Frames withheld from TSDF fusion still participate in learned pose/depth inference. This tests view consistency, not ground-truth building dimensions.",
+    "thresholds": {
+      "median_coverage_minimum": 0.7,
+      "median_depth_support_minimum": 0.6,
+      "relative_depth_tolerance": 0.05,
+      "per_view_depth_support_minimum": 0.4,
+      "median_rgb_error_maximum": 0.12,
+      "status": "engineering screening defaults, not empirically calibrated accuracy guarantees"
+    },
+    "required_external_checks": [
+      "Measured scale and independent held-out lengths",
+      "Room connectivity and loop drift",
+      "Missing wall, doorway, glass and ceiling review"
+    ]
+  },
+  "promoted": false
+}

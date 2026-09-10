@@ -11,15 +11,21 @@ Subclasses implement mode-specific attention logic.
 """
 
 import logging
-import torch
-import torch.nn as nn
 from abc import ABC, abstractmethod
-from typing import Optional, Tuple, List
+from pickle import UnpicklingError
+
+import torch
+from torch import nn
 
 from lingbot_map.layers import PatchEmbed
 from lingbot_map.layers.block import Block
-from lingbot_map.layers.rope import RotaryPositionEmbedding2D, PositionGetter
-from lingbot_map.layers.vision_transformer import vit_small, vit_base, vit_large, vit_giant2
+from lingbot_map.layers.rope import PositionGetter, RotaryPositionEmbedding2D
+from lingbot_map.layers.vision_transformer import (
+    vit_base,
+    vit_giant2,
+    vit_large,
+    vit_small,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -93,7 +99,7 @@ class AggregatorBase(nn.Module, ABC):
         patch_embed="dinov2_vitl14_reg",
         pretrained_path=None,
         # Attention pattern
-        aa_order=["frame", "global"],
+        aa_order=None,
         aa_block_size=1,
         # RoPE
         rope_freq=100,
@@ -112,14 +118,15 @@ class AggregatorBase(nn.Module, ABC):
         self.num_heads = num_heads
         self.mlp_ratio = mlp_ratio
         self.num_register_tokens = num_register_tokens
-        self.aa_order = aa_order
+        self.aa_order = ["frame", "global"] if aa_order is None else aa_order
         self.aa_block_size = aa_block_size
         self.disable_global_rope = disable_global_rope
         self.use_reentrant = use_reentrant
         self.use_gradient_checkpoint = use_gradient_checkpoint
         self.pretrained_path = pretrained_path
 
-        print("pretrained_path:", self.pretrained_path)
+        if self.pretrained_path:
+            print("pretrained_path:", self.pretrained_path)
 
         # Validate depth
         if self.depth % self.aa_block_size != 0:
@@ -216,19 +223,20 @@ class AggregatorBase(nn.Module, ABC):
                 init_values=init_values,
             )
 
-            # Load pretrained weights
-            try:
-                ckpt = torch.load(pretrained_path)
-                del ckpt['pos_embed']
-                logger.info("Loading pretrained weights for DINOv2")
-                missing, unexpected = self.patch_embed.load_state_dict(ckpt, strict=False)
-                logger.info(f"Missing keys: {len(missing)}, Unexpected keys: {len(unexpected)}")
+            # A complete reconstruction checkpoint can supply the backbone later.
+            self._dino_checkpoint = None
+            if pretrained_path:
+                try:
+                    ckpt = torch.load(pretrained_path)
+                    del ckpt['pos_embed']
+                    logger.info("Loading pretrained weights for DINOv2")
+                    missing, unexpected = self.patch_embed.load_state_dict(ckpt, strict=False)
+                    logger.info(f"Missing keys: {len(missing)}, Unexpected keys: {len(unexpected)}")
 
-                # Store checkpoint for block initialization
-                self._dino_checkpoint = ckpt
-            except Exception as e:
-                logger.warning(f"Failed to load pretrained weights: {e}")
-                self._dino_checkpoint = None
+                    # Store checkpoint for block initialization
+                    self._dino_checkpoint = ckpt
+                except (OSError, RuntimeError, KeyError, ValueError, TypeError, EOFError, UnpicklingError) as e:
+                    logger.warning(f"Failed to load pretrained weights: {e}")
 
             # Disable gradients for mask token
             if hasattr(self.patch_embed, "mask_token"):
@@ -257,7 +265,6 @@ class AggregatorBase(nn.Module, ABC):
         - self.frame_blocks: nn.ModuleList of frame attention blocks
         - self.global_blocks: nn.ModuleList of global attention blocks
         """
-        pass
 
     @abstractmethod
     def _setup_special_tokens(self):
@@ -273,7 +280,6 @@ class AggregatorBase(nn.Module, ABC):
         - self.patch_start_idx
         - self.num_special_tokens
         """
-        pass
 
     def _init_blocks_from_dino(self, dino_ckpt: dict):
         """
@@ -285,7 +291,7 @@ class AggregatorBase(nn.Module, ABC):
         logger.info("Initializing blocks from DINOv2 pretrained weights")
 
         # Extract block keys
-        dino_block_keys = [k for k in dino_ckpt.keys() if k.startswith('blocks.')]
+        dino_block_keys = [k for k in dino_ckpt if k.startswith('blocks.')]
         if not dino_block_keys:
             logger.warning("No 'blocks' found in DINO checkpoint")
             return
@@ -335,8 +341,8 @@ class AggregatorBase(nn.Module, ABC):
     def _embed_images(
         self,
         images: torch.Tensor,
-        num_frame_for_scale: Optional[int] = None,
-    ) -> Tuple[torch.Tensor, int, int, int, int, int]:
+        num_frame_for_scale: int | None = None,
+    ) -> tuple[torch.Tensor, int, int, int, int, int]:
         """
         Embed images and prepare for attention processing.
 
@@ -379,7 +385,7 @@ class AggregatorBase(nn.Module, ABC):
         if isinstance(patch_tokens, dict):
             patch_tokens = patch_tokens["x_norm_patchtokens"]
 
-        _, P_patch, C = patch_tokens.shape
+        _, _P_patch, C = patch_tokens.shape
 
         # Prepare special tokens
         special_tokens = self._prepare_special_tokens(
@@ -411,9 +417,8 @@ class AggregatorBase(nn.Module, ABC):
         Returns:
             Special tokens [B*S, N_special, C]
         """
-        pass
 
-    def _get_positions(self, B: int, S: int, H: int, W: int, device) -> Optional[torch.Tensor]:
+    def _get_positions(self, B: int, S: int, H: int, W: int, device) -> torch.Tensor | None:
         """
         Get 2D position embeddings for RoPE.
 
@@ -449,8 +454,8 @@ class AggregatorBase(nn.Module, ABC):
         P: int,
         C: int,
         frame_idx: int,
-        pos: Optional[torch.Tensor] = None,
-    ) -> Tuple[torch.Tensor, int, List[torch.Tensor]]:
+        pos: torch.Tensor | None = None,
+    ) -> tuple[torch.Tensor, int, list[torch.Tensor]]:
         """
         Process frame attention blocks.
 
@@ -509,9 +514,9 @@ class AggregatorBase(nn.Module, ABC):
         P: int,
         C: int,
         global_idx: int,
-        pos: Optional[torch.Tensor] = None,
+        pos: torch.Tensor | None = None,
         **kwargs
-    ) -> Tuple[torch.Tensor, int, List[torch.Tensor]]:
+    ) -> tuple[torch.Tensor, int, list[torch.Tensor]]:
         """
         Process global (cross-frame) attention blocks.
 
@@ -534,17 +539,16 @@ class AggregatorBase(nn.Module, ABC):
                 global_idx: Updated global block index
                 intermediates: List of intermediate outputs
         """
-        pass
 
     def forward(
         self,
         images: torch.Tensor,
-        selected_idx: Optional[List[int]] = None,
+        selected_idx: list[int] | None = None,
         # Mode-specific parameters
-        num_frame_for_scale: Optional[int] = None,
-        sliding_window_size: Optional[int] = None,
+        num_frame_for_scale: int | None = None,
+        sliding_window_size: int | None = None,
         num_frame_per_block: int = 1,
-    ) -> Tuple[List[torch.Tensor], int]:
+    ) -> tuple[list[torch.Tensor], int]:
         """
         Forward pass.
 
@@ -560,7 +564,7 @@ class AggregatorBase(nn.Module, ABC):
                 output_list: List of block outputs [B, S, P, 2C]
                 patch_start_idx: Index where patch tokens start
         """
-        B, S_input, _, H, W = images.shape
+        B, _S_input, _, H, W = images.shape
 
         # Embed images
         tokens, B, S_local, S_global, P, C = self._embed_images(
