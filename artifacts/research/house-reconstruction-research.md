@@ -402,3 +402,10 @@ A checkpoint-specific camera convention mismatch was identified experimentally a
 The [implementation report](mac-reconstruction-results.md) records completed runs, failed alternatives, numerical checks and unresolved acceptance requirements.
 Measured building dimensions remain unverified without external references.
 The later [FixAnything assessment](fixanything-assessment.md) distinguishes rendered-video refinement from verified mesh reconstruction.
+
+## Omnidirectional reconstruction continuation - 2026-09-09
+
+The [indoor omnidirectional pilot](aist-indoor-omni-pilot.md) fails mesh fidelity screening despite greater coverage from four panorama directions.
+The [omnidirectional method comparison](omnidirectional-reconstruction-research.md) recommends calibrated COLMAP panorama reconstruction and OpenMVS, with captured panoramas as stations and stella_vslam as a trajectory alternative.
+It compares panoramic depth and Gaussian methods, verifies the upstream COLMAP 4.2.0 workflow, and defines the next complete small-sample experiment.
+This recommendation has not yet produced a validated replacement mesh on the Mac.
