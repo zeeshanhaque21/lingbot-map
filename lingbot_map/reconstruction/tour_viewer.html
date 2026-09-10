@@ -88,6 +88,7 @@ const positions=accessor(primitive.attributes.POSITION),colors=accessor(primitiv
 const positionBuffer=buffer(gl.ARRAY_BUFFER,positions.array),colorBuffer=buffer(gl.ARRAY_BUFFER,colors.array),indexBuffer=buffer(gl.ELEMENT_ARRAY_BUFFER,indices.array);
 const points=stations.map(s=>{const p=s.camera_to_world;return [p[0][3],-p[1][3],-p[2][3]];});
 const low=[Infinity,Infinity,Infinity],high=[-Infinity,-Infinity,-Infinity];
+for(let i=0;i<positions.array.length;i+=positions.size)for(let j=0;j<3;j++){low[j]=Math.min(low[j],positions.array[i+j]);high[j]=Math.max(high[j],positions.array[i+j]);}
 for(const p of points)for(let j=0;j<3;j++){low[j]=Math.min(low[j],p[j]);high[j]=Math.max(high[j],p[j]);}
 const center=low.map((v,j)=>(v+high[j])/2),extent=Math.max(...high.map((v,j)=>v-low[j]),1);
 let mode='overview', selected=-1,yaw=.5,pitch=.65,distance=extent*1.4,fov=65,texture=null,loadVersion=0,showRefined=true;
@@ -97,7 +98,8 @@ function updateLabels(){
  document.querySelector('#overview').setAttribute('aria-pressed',String(mode==='overview'));
  document.querySelector('#heading').textContent=mode==='overview'?'Property tour':`Station ${selected+1} · 360°`;
  const generated=mode==='panorama'&&showRefined&&stations[selected].refined_panorama;
- document.querySelector('#status').textContent=mode==='overview'?`${stations.length} stations · Rough reconstruction`:(generated?'AI-refined preview · Generated details need review':'Captured surfaces · Unseen areas remain dark');
+ const captured=mode==='panorama'&&stations[selected].appearance==='captured_360';
+ document.querySelector('#status').textContent=mode==='overview'?`${stations.length} ${stations.length===1?'station':'stations'} · ${tour.mesh_fidelity_passed===false?'Mesh needs review':'Rough reconstruction'}`:(generated?'AI-refined preview · Generated details need review':captured?'Captured 360 video · Masked regions remain dark':'Captured surfaces · Unseen areas remain dark');
  const appearance=document.querySelector('#appearance');appearance.hidden=mode!=='panorama'||!stations[selected]?.refined_panorama;appearance.textContent=showRefined?'Show raw':'Show refined';
  const touch=matchMedia('(pointer:coarse)').matches;
  document.querySelector('#hint').textContent=mode==='overview'?(touch?'Drag to rotate · Pinch to zoom · Tap a station':'Drag to rotate · Scroll to zoom · Choose a station to look around'):(touch?'Drag to look around · Pinch to zoom':'Drag to look around · Scroll to zoom · Arrow keys to turn');
